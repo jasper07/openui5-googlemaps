@@ -6,8 +6,7 @@
         </masterPages>
         <detailPages>
             <mvc:XMLView viewName="testapp.view.Empty" id="idViewEmpty" />
-            <!-- <mvc:XMLView viewName="testapp.view.Detail" id="idViewDetail" /> -->
-            <mvc:JSView viewName="testapp.view.Detail" id="idViewDetail" />
+            <mvc:XMLView viewName="testapp.view.Detail" id="idViewDetail" />  
         </detailPages>
     </SplitApp>
 
