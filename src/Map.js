@@ -1,0 +1,285 @@
+sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './MapUtils'],
+    function(jQuery, Control, gmaps, util) {
+        "use strict";
+        var Map = Control.extend('openui5.googlemaps.Map', {
+            metadata: {
+                properties: {
+                    'width': {
+                        type: 'sap.ui.core.CSSSize',
+                        group: 'Dimension',
+                        defaultValue: 'auto'
+                    },
+                    'height': {
+                        type: 'sap.ui.core.CSSSize',
+                        group: 'Dimension',
+                        defaultValue: '10rem'
+                    },
+                    'zoom': {
+                        type: 'int',
+                        bindable: 'bindable',
+                        defaultValue: 8
+                    },
+                    'center': {
+                        type: 'object', //LatLng
+                        bindable: 'bindable',
+                        defaultValue: {
+                            lat: 48,
+                            lng: -121
+                        }
+                    },
+                    'mapTypeId': {
+                        type: 'string',
+                        bindable: 'bindable',
+                        defaultValue: gmaps.MapTypeId.ROADMAP
+                    },
+                    'bounds': {
+                        type: 'object', //LatLngBounds
+                        bindable: 'bindable',
+                    },
+                    'panControl': {
+                        type: 'boolean',
+                        bindable: 'bindable',
+                        defaultValue: false
+                    },
+                    'zoomControl': {
+                        type: 'boolean',
+                        bindable: 'bindable',
+                        defaultValue: true
+                    },
+                    'mapTypeControl': {
+                        type: 'boolean',
+                        bindable: 'bindable',
+                        defaultValue: true
+                    }
+                },
+                defaultAggregation: "markers",
+                aggregations: {
+                    'markers': {
+                        type: 'openui5.googlemaps.Marker',
+                        multiple: true,
+                        bindable: 'bindable'
+                    },
+                    'polylines': {
+                        type: 'openui5.googlemaps.Polyline',
+                        multiple: true,
+                        bindable: 'bindable'
+                    },
+                    'polygons': {
+                        type: 'openui5.googlemaps.Polygon',
+                        multiple: true,
+                        bindable: 'bindable'
+                    }
+                },
+                events: {
+                    'change': {},
+                    'ready': {}
+                }
+            },
+            renderer: function(oRm, oControl) {
+                oRm.write('<div ');
+                oRm.writeControlData(oControl);
+                oRm.addStyle("width", oControl.getWidth());
+                oRm.addStyle("height", oControl.getHeight());
+                oRm.writeClasses();
+                oRm.writeStyles();
+                oRm.write('>');
+
+                oRm.write("<div");
+                oRm.writeAttribute("id", oControl.getId() + "-map");
+                oRm.addStyle("width", "100%");
+                oRm.addStyle("height", "100%");
+                oRm.writeStyles();
+                oRm.write(">");
+                oRm.write('</div>');
+            }
+        });
+
+        Map.prototype.init = function() {
+            this._dragging = false;
+            this.aListeners = [];
+            this.mapId = this.getId() + "-map";
+        };
+
+        Map.prototype.setZoom = function(iValue) {
+            this.setProperty('zoom', iValue, true);
+            if (this._map && iValue !== this._map.getZoom()) {
+                this._map.setZoom(iValue);
+            }
+        };
+
+        Map.prototype.setCenter = function(oValue) {
+            if (util.latLngEqual(this.getCenter(), oValue)) {
+                return true;
+            }
+
+            this.setProperty('center', oValue, true);
+            if (this._map && !util.latLngEqual(util.latLngToObj(this._map.getCenter()), oValue)) {
+                this._map.panTo(util.objToLatLng(oValue));
+            }
+        };
+
+        Map.prototype.setMapTypeId = function(sValue) {
+            this.setProperty('mapTypeId', sValue, true);
+            if (this._map && sValue !== this._map.getMapTypeId()) {
+                this._map.setMapTypeId(sValue);
+            }
+        };
+
+        Map.prototype.setBounds = function(oValue) {
+            this.setProperty('bounds', oValue, true);
+            if (this._map && !util.latLngEqual(this._map.getBounds(), oValue)) {
+                // this._map.setBounds(oValue);
+            }
+        };
+
+        Map.prototype.setPanControl = function(bValue) {
+            this.setProperty('panControl', bValue, true);
+            if (this._map && bValue !== this._map.getPanControl()) {
+                this._map.setPanControl(bValue);
+            }
+        };
+
+        Map.prototype.setZoomControl = function(bValue) {
+            this.setProperty('zoomControl', bValue, true);
+            if (this._map && bValue !== this._map.getZoomControl()) {
+                this._map.setZoomControl(bValue);
+            }
+        };
+
+        Map.prototype.setMapTypeControl = function(bValue) {
+            this.setProperty('mapTypeControl', bValue, true);
+            if (this._map && bValue !== this._map.getMapTypeControl()) {
+                this._map.setMapTypeControl(bValue);
+            }
+        };
+
+        Map.prototype._getMapOptions = function() {
+            var mapOptions = {};
+            mapOptions.zoom = this.getZoom();
+            mapOptions.center = util.objToLatLng(this.getCenter());
+            mapOptions.mapTypeId = this.getMapTypeId();
+            mapOptions.panControl = this.getPanControl();
+            mapOptions.zoomControl = this.getZoomControl();
+            mapOptions.mapTypeControl = this.getMapTypeControl();
+            return mapOptions;
+        };
+
+        Map.prototype.onAfterRendering = function() {
+            if (this._map) {
+                this.resetMap();
+                // this._map = undefined;
+
+                //TODO map is attached to DOM, on render dom gets rewritten, find a way to reattach 
+                // this.trigger('resize');
+                // this._map.setOptions(this._getMapOptions());
+                // return false;
+            }
+
+            // if (!this._map) {
+            this.createMap();
+            // }
+        };
+
+        Map.prototype.createMap = function() {
+            //if map not loaded yet subscribe to its event    
+            if (gmaps.loaded === undefined) {
+                sap.ui.getCore().getEventBus().subscribe("google.maps.loaded", this.createMap, this);
+                return false;
+            }
+
+            this._map = new gmaps.Map(jQuery.sap.byId(this.mapId)[0], this._getMapOptions());
+
+            this.addListener('drag', jQuery.proxy(this.updateValues, this));
+            this.addListener('zoom_changed', jQuery.proxy(this.updateValues, this));
+            this.addListener('center_changed', jQuery.proxy(this.updateValues, this));
+            this.addListener('bounds_changed', jQuery.proxy(this.updateValues, this));
+            this.addListener('maptypeid_changed', jQuery.proxy(this.updateValues, this));
+            this.addListener('resize', jQuery.proxy(this.updateValues, this));
+
+            this._notifyMarkers('MapRendered', this._map);
+            this._notifyPolylines('MapRendered', this._map);
+            this._notifyPolygons('MapRendered', this._map);
+        };
+
+        Map.prototype.addListener = function(event, callback) {
+            this.aListeners.push(gmaps.event.addListener(this._map, event, callback));
+        };
+
+        Map.prototype.removeListeners = function() {
+            this.aListeners.forEach(function(oListener) {
+                oListener.remove();
+            });
+            this.aListeners = [];
+        };
+
+        Map.prototype.trigger = function(event) {
+
+            gmaps.event.trigger(this._map, event);
+        };
+
+        Map.prototype.isDragging = function() {
+            this._dragging = true;
+        };
+
+        Map.prototype.isNotDragging = function() {
+            this._dragging = false;
+        };
+
+        Map.prototype.updateValues = function() {
+            //sync maps values with control
+            if (util.latLngToObj(this._map.getCenter()) !== this.getCenter()) {
+                this.setCenter(util.latLngToObj(this._map.getCenter()));
+            }
+
+            if (this._map.getZoom() !== this.getZoom()) {
+                this.setZoom(this._map.getZoom());
+            }
+
+            if (this._map.getMapTypeId() !== this.getMapTypeId()) {
+                this.setMapTypeId(this._map.getMapTypeId());
+            }
+
+            if (this._map.getBounds() !== this.getBounds()) {
+                this.setBounds(this._map.getBounds());
+            }
+        };
+
+        Map.prototype.getMarkers = function() {
+            return this.getAggregation("markers", []);
+        };
+
+        Map.prototype._notifyMarkers = function(action, param) {
+            this.getMarkers().forEach(function(oMarker) {
+                oMarker["on" + action](param);
+            });
+        };
+
+        Map.prototype.getPolylines = function() {
+            return this.getAggregation("polylines", []);
+        };
+
+        Map.prototype._notifyPolylines = function(action, param) {
+            this.getPolylines().forEach(function(oPolyline) {
+                oPolyline["on" + action](param);
+            });
+        };
+
+        Map.prototype._notifyPolygons = function(action, param) {
+            this.getPolygons().forEach(function(oPolygons) {
+                oPolygons["on" + action](param);
+            });
+        };
+
+        Map.prototype.resetMap = function() {
+            this.removeListeners();
+            this._map.set(null);
+        };
+
+        Map.prototype.exit = function() {
+            this.resetMap();
+            this.init();
+        };
+
+        return Map;
+
+    }, /* bExport= */ true);

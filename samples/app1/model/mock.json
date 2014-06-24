@@ -1,0 +1,45 @@
+{
+    "beers": [{
+        "brewName": "Rare Bourbon County Brand Stout",
+        "brewerName": "Goose Island Beer Co.",
+        "brewType": "American Imperial / Double Stout",
+        "ABV": 13,
+        "lat": 41.913535,
+        "lng": -87.654229
+    }, {
+        "brewName": "Heady Topper",
+        "brewerName": "The Alchemist",
+        "brewType": "Imperial / Double IPA",
+        "ABV": 8,
+        "lat": 44.352905,
+        "lng": -72.718074
+    }, {
+        "brewName": "Pliny the Younger",
+        "brewerName": "Russian River Brewing Company",
+        "brewType": "Imperial / Double IPA",
+        "ABV": 10.25,
+        "lat": 38.441789,
+        "lng": -122.711169
+    }, {
+        "brewName": "Double Barrel Hunahpu's",
+        "brewerName": "Cigar City Brewing",
+        "brewType": "American Imperial / Double Stout",
+        "ABV": 11.5,
+        "lat": 27.959292,
+        "lng": -82.509028
+    }, {
+        "brewName": "King Henry",
+        "brewerName": "Goose Island Beer Co.",
+        "brewType": "American Amber / Red Ale",
+        "ABV": 13.4,
+        "lat": 41.913535,
+        "lng": -87.654229
+    }, {
+        "brewName": "Bourbon County Brand Vanilla Stout",
+        "brewerName": "Goose Island Beer Co.",
+        "brewType": "Imperial / Double IPA",
+        "ABV": 13,
+        "lat": 41.913535,
+        "lng": -87.654229
+    }]
+}

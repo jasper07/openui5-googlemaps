@@ -1,0 +1,27 @@
+{
+    "node": true,
+    "boss": true,
+    "browser": true,
+    "curly": true,
+    "devel": true,
+    "eqeqeq": true,
+    "eqnull": true,
+    "trailing": true,
+    "globals": {
+        "$": true,
+        "jQuery": true,
+        "model": true,
+        "sap": true,
+        "util": true,
+        "view": true,
+        "google": true
+    },
+    "immed": true,
+    "latedef": true,
+    "newcap": true,
+    "noarg": true,
+    "sub": true,
+    "undef": true,
+    "unused": true,
+    "smarttabs": true
+}
