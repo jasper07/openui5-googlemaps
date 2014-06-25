@@ -27,5 +27,18 @@
             return this.floatEqual(oValue1.lat, oValue2.lat) && this.floatEqual(oValue1.lng, oValue2.lng);
         };
 
-        return MapUtils;
-    }, true);
+    // MapUitls.search = function(oRequest, fCallback) {
+    //     return new gmaps.Geocoder().geocode(oRequest, fCallback);
+    // };
+
+    // MapUitls.currentPosition = function() {
+    //     if (navigator.geolocation) {
+    //         navigator.geolocation.getCurrentPosition(function(pos) {
+    //                 geocoder = new google.maps.Geocoder();
+    //                 var latlng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
+
+    //             }
+    //         }
+
+    return MapUtils;
+}, true);

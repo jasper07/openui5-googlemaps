@@ -1,5 +1,5 @@
-sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './MapUtils'],
-    function(jQuery, Control, gmaps, util) {
+sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './MapUtils', './MapTypeId'],
+    function(jQuery, Control, Gmaps, MapUtils, MapTypeId) {
         "use strict";
         var Map = Control.extend('openui5.googlemaps.Map', {
             metadata: {
@@ -30,7 +30,7 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './Map
                     'mapTypeId': {
                         type: 'string',
                         bindable: 'bindable',
-                        defaultValue: gmaps.MapTypeId.ROADMAP
+                        defaultValue: MapTypeId.ROADMAP
                     },
                     'bounds': {
                         type: 'object', //LatLngBounds
@@ -108,13 +108,13 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './Map
         };
 
         Map.prototype.setCenter = function(oValue) {
-            if (util.latLngEqual(this.getCenter(), oValue)) {
+            if (oValue === null || MapUtils.latLngEqual(this.getCenter(), oValue)) {
                 return true;
             }
 
             this.setProperty('center', oValue, true);
-            if (this._map && !util.latLngEqual(util.latLngToObj(this._map.getCenter()), oValue)) {
-                this._map.panTo(util.objToLatLng(oValue));
+            if (this._map && !MapUtils.latLngEqual(MapUtils.latLngToObj(this._map.getCenter()), oValue)) {
+                this._map.panTo(MapUtils.objToLatLng(oValue));
             }
         };
 
@@ -127,7 +127,7 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './Map
 
         Map.prototype.setBounds = function(oValue) {
             this.setProperty('bounds', oValue, true);
-            if (this._map && !util.latLngEqual(this._map.getBounds(), oValue)) {
+            if (this._map && !MapUtils.latLngEqual(this._map.getBounds(), oValue)) {
                 // this._map.setBounds(oValue);
             }
         };
@@ -156,7 +156,7 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './Map
         Map.prototype._getMapOptions = function() {
             var mapOptions = {};
             mapOptions.zoom = this.getZoom();
-            mapOptions.center = util.objToLatLng(this.getCenter());
+            mapOptions.center = MapUtils.objToLatLng(this.getCenter());
             mapOptions.mapTypeId = this.getMapTypeId();
             mapOptions.panControl = this.getPanControl();
             mapOptions.zoomControl = this.getZoomControl();
@@ -182,12 +182,15 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './Map
 
         Map.prototype.createMap = function() {
             //if map not loaded yet subscribe to its event    
-            if (gmaps.loaded === undefined) {
-                sap.ui.getCore().getEventBus().subscribe("google.maps.loaded", this.createMap, this);
+            if (Gmaps.loaded === undefined) {
+                if (this.subscribed === undefined) {
+                    sap.ui.getCore().getEventBus().subscribe("google.maps.loaded", this.createMap, this);
+                    this.subscribed = true;
+                }
                 return false;
             }
 
-            this._map = new gmaps.Map(jQuery.sap.byId(this.mapId)[0], this._getMapOptions());
+            this._map = new Gmaps.Map(jQuery.sap.byId(this.mapId)[0], this._getMapOptions());
 
             this.addListener('drag', jQuery.proxy(this.updateValues, this));
             this.addListener('zoom_changed', jQuery.proxy(this.updateValues, this));
@@ -202,7 +205,7 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './Map
         };
 
         Map.prototype.addListener = function(event, callback) {
-            this.aListeners.push(gmaps.event.addListener(this._map, event, callback));
+            this.aListeners.push(Gmaps.event.addListener(this._map, event, callback));
         };
 
         Map.prototype.removeListeners = function() {
@@ -214,7 +217,7 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './Map
 
         Map.prototype.trigger = function(event) {
 
-            gmaps.event.trigger(this._map, event);
+            Gmaps.event.trigger(this._map, event);
         };
 
         Map.prototype.isDragging = function() {
@@ -227,8 +230,8 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './Map
 
         Map.prototype.updateValues = function() {
             //sync maps values with control
-            if (util.latLngToObj(this._map.getCenter()) !== this.getCenter()) {
-                this.setCenter(util.latLngToObj(this._map.getCenter()));
+            if (MapUtils.latLngToObj(this._map.getCenter()) !== this.getCenter()) {
+                this.setCenter(MapUtils.latLngToObj(this._map.getCenter()));
             }
 
             if (this._map.getZoom() !== this.getZoom()) {

@@ -6,8 +6,9 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './Map
             metadata: {
                 properties: {
                     'strokeColor': {
-                        type: 'string',
-                        bindable: 'bindable'
+                        type: "sap.ui.core.CSSColor",
+                        group: "Appearance",
+                        defaultValue: null
                     },
                     'strokeOpacity': {
                         type: 'float',

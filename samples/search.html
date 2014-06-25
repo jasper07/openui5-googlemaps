@@ -1,0 +1,193 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="UTF-8">
+
+    <title>Simple OpenUi5 GmMap application</title>
+    <LINK href="css/app.css" rel="stylesheet" type="text/css">
+    <script id="sap-ui-bootstrap" type="text/javascript" src="/sapui5/latest/resources/sap-ui-core.js" data-sap-ui-theme="sap_bluecrystal" data-sap-ui-libs="sap.ui.commons">
+    </script>
+
+    <script>
+    //load googlemaps library
+    sap.ui.getCore().loadLibrary("openui5.googlemaps", "../openui5/googlemaps/");
+
+    var formatCenter = function(oV1, oV2) {
+        return {
+            lat: oV1,
+            lng: oV2
+        };
+    };
+
+    var oModel = new sap.ui.model.json.JSONModel();
+
+
+    var beaches = [{
+        name: 'Manly Beach',
+        lat: -33.80010128657071,
+        lng: 151.28747820854187
+    }];
+
+    oModel.setData({
+        beaches: beaches
+    });
+    sap.ui.getCore().setModel(oModel);
+
+    var oContext = oModel.getContext('/beaches/0/');
+
+
+    var oMarkers = new openui5.googlemaps.Marker({
+        lat: '{lat}',
+        lng: '{lng}',
+        // info: '{name}',
+        icon: '{http://www.w3schools.com/googleapi/pinkball.png}',
+        draggable: true
+    });
+
+    var oMap = new openui5.googlemaps.Map("map1", {
+        center: {
+            parts: ["lat", "lng"],
+            formatter: formatCenter
+        },
+        width: '600px',
+        height: '400px'
+    });
+
+    oMap.bindMarkers({
+        path: "/beaches",
+        template: oMarkers
+    });
+
+    oMap.setBindingContext();
+
+    var oLatInput = new sap.ui.commons.TextField('lat1', {
+        value: "{lat}"
+    });
+
+    var oLngInput = new sap.ui.commons.TextField('lng1', {
+        value: "{lng}"
+    });
+
+    var oML = new sap.ui.commons.layout.MatrixLayout();
+    oML.setLayoutFixed(false);
+
+    var oCell = new sap.ui.commons.layout.MatrixLayoutCell({
+    colSpan: 3 });
+
+
+    var oAuto = new sap.ui.commons.AutoComplete("TextField-1", {
+        // tooltip: "This is an Auto Complete TextField",
+        // change: onChange,
+        // value: aData[5].name,
+        // maxPopupItems: 2,
+        // ariaDescribedBy: "MyDesc",
+        // ariaLabelledBy: "MyLbl"
+        suggest: function(oEvent){
+            var sValue = oEvent.getParameter("suggestValue");
+            setTimeout(function(){
+                if(sValue == oAuto5.getLiveValue()){
+                    for(var i=0; i<aData.length; i++){
+                        if(jQuery.inArray(aData[i].userid, aAlreadyAddedUsers2) < 0 && jQuery.sap.startsWithIgnoreCase(aData[i].name, sValue)){
+                            oAuto5.addItem(new sap.ui.core.ListItem({text: aData[i].name}));
+                            aAlreadyAddedUsers2.push(aData[i].userid);
+                        }
+                    }
+                }
+            }, 500);
+        }
+    });
+
+ oML.createRow(oAuto);
+    oCell.addContent(oMap);
+    oML.createRow(oCell);
+    oML.createRow(oLatInput, oLngInput);
+    
+    oML.placeAt('content');
+    oML.setBindingContext(oContext);
+
+    </script>
+
+</head>
+
+<body class="sapUiBody" role="application">
+    <div id="content"></div>
+</body>
+
+</html>
+<!-- http://tech.cibul.net/wp-content/uploads/2010/05/geocode/index.html?PHPSESSID=ep83gmb4r419d7qoj4r9e206r0 -->
+<!-- //Useful links:
+// http://code.google.com/apis/maps/documentation/javascript/reference.html#Marker
+// http://code.google.com/apis/maps/documentation/javascript/services.html#Geocoding
+// http://jqueryui.com/demos/autocomplete/#remote-with-cache
+      
+var geocoder;
+var map;
+var marker;
+    
+function initialize(){
+//MAP
+  var latlng = new google.maps.LatLng(41.659,-4.714);
+  var options = {
+    zoom: 16,
+    center: latlng,
+    mapTypeId: google.maps.MapTypeId.SATELLITE
+  };
+        
+  map = new google.maps.Map(document.getElementById("map_canvas"), options);
+        
+  //GEOCODER
+  geocoder = new google.maps.Geocoder();
+        
+  marker = new google.maps.Marker({
+    map: map,
+    draggable: true
+  });
+                
+}
+        
+$(document).ready(function() { 
+         
+  initialize();
+                  
+  $(function() {
+    $("#address").autocomplete({
+      //This bit uses the geocoder to fetch address values
+      source: function(request, response) {
+        geocoder.geocode( {'address': request.term }, function(results, status) {
+          response($.map(results, function(item) {
+            return {
+              label:  item.formatted_address,
+              value: item.formatted_address,
+              latitude: item.geometry.location.lat(),
+              longitude: item.geometry.location.lng()
+            }
+          }));
+        })
+      },
+      //This bit is executed upon selection of an address
+      select: function(event, ui) {
+        $("#latitude").val(ui.item.latitude);
+        $("#longitude").val(ui.item.longitude);
+        var location = new google.maps.LatLng(ui.item.latitude, ui.item.longitude);
+        marker.setPosition(location);
+        map.setCenter(location);
+      }
+    });
+  });
+    
+  //Add listener to marker for reverse geocoding
+  google.maps.event.addListener(marker, 'drag', function() {
+    geocoder.geocode({'latLng': marker.getPosition()}, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        if (results[0]) {
+          $('#address').val(results[0].formatted_address);
+          $('#latitude').val(marker.getPosition().lat());
+          $('#longitude').val(marker.getPosition().lng());
+        }
+      }
+    });
+  });
+  
+}); -->

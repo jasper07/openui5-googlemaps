@@ -3,39 +3,34 @@
  * @version v0.0.0
  * @link http://jasper07.github.io/openui5-googlemaps/
  * @license MIT
- */(function(window, jQuery) {
-    "use strict";
-    window.google = window.google || {};
-    google.maps = google.maps || {};
+ */sap.ui.define(['jquery.sap.global', 'openui5/googlemaps/ScriptsUtil'],
+    function(jQuery, ScriptsUtil) {
+        "use strict";
 
-    if (!google.maps.callback) {
-        google.maps.callback = function() {
-            google.maps.loaded = true;
-            sap.ui.getCore().getEventBus().publish("google.maps.loaded");
-        };
+        var LoaderScripts = (function() {
+            var Loader = {};
 
-        google.maps.Animation = {
-            BOUNCE: 1,
-            DROP: 2,
-            k: 3,
-            j: 4
-        };
+            Loader.DEFAULT_BASE_URL = 'http://maps.google.com/maps/api/js?sensor=true&callback=google.maps.callBack';
 
-        google.maps.MapTypeId = {
-            ROADMAP: "roadmap",
-            SATELLITE: "satellite",
-            HYBRID: "hybrid",
-            TERRAIN: "terrain"
-        };
+            Loader.callBack = function() {
+                this.loaded = true;
+                sap.ui.getCore().getEventBus().publish("google.maps.loaded");
+            };
 
-        var sScriptUrl = 'http://maps.google.com/maps/api/js?sensor=true&callback=google.maps.callback';
+            Loader.load = function(Util) {
+                var sScriptUrl = Util.getUrl() ? Util.getUrl() : this.DEFAULT_BASE_URL;
 
-        if (window.GMAPS_API_KEY) {
-            sScriptUrl = sScriptUrl + '&key=' + window.GMAPS_API_KEY;
-        }
+                if (Util.getApiKey()) {
+                    sScriptUrl = sScriptUrl + '&key=' + Util.getApiKey();
+                }
 
-        //async load the scripts
-        jQuery.sap.includeScript(sScriptUrl, "google.maps", null, null);
-    }
+                //async load the scripts
+                jQuery.sap.includeScript(sScriptUrl, "google.maps", null, null);
 
-}(window, jQuery));
+            };
+            return Loader;
+        })();
+
+        LoaderScripts.load(ScriptsUtil);
+        return LoaderScripts;
+    }, true);

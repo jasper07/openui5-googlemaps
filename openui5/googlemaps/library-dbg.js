@@ -11,12 +11,16 @@
 
             var sPath = jQuery.sap.getResourcePath("openui5/googlemaps/loadScripts");
             jQuery.sap.registerResourcePath('google.maps', sPath);
+            jQuery.sap.require('openui5.googlemaps.ScriptsUtil');
 
             // delegate further initialization of this library to the Core
             sap.ui.getCore().initLibrary({
                 name: "openui5.googlemaps",
                 dependencies: ["sap.ui.core"],
-                types: [],
+                types: [
+                    "openui5.googlemaps.MapTypeId",
+                    "openui5.googlemaps.Animation"
+                ],
                 interfaces: [],
                 controls: [
                     "openui5.googlemaps.Map",

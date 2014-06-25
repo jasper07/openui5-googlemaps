@@ -3,8 +3,8 @@
  * @version v0.0.0
  * @link http://jasper07.github.io/openui5-googlemaps/
  * @license MIT
- */sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps'],
-    function(jQuery, Control, gmaps) {
+ */sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './Animation'],
+    function(jQuery, Control, Gmaps, Animation) {
         "use strict";
 
         var Marker = Control.extend('openui5.googlemaps.Marker', {
@@ -34,7 +34,7 @@
                     'animation': {
                         type: 'int',
                         bindable: 'bindable',
-                        defaultValue: gmaps.Animation.DROP
+                        defaultValue: Animation.DROP
                     }
                 },
                 events: {
@@ -52,16 +52,51 @@
             this.iwMaxWidth = 360;
         };
 
-        Marker.prototype.onMapRendered = function(map) {
-            this.map = map;
+        Marker.prototype.setLat = function(oValue) {
+            // if (oValue === null) {
+            //     return true;
+            // }
 
+            this.setProperty('lat', parseFloat(oValue), true);
+
+            // if (this._map && !util.latLngEqual(util.latLngToObj(this._map.getCenter()), oValue)) {
+            //     this._map.panTo(util.objToLatLng(oValue));
+            // }
+            if (this.marker) {
+                this.marker.setPosition(new Gmaps.LatLng(this.getLat(), this.getLng()));
+            }
+        };
+
+        Marker.prototype.setLng = function(oValue) {
+            // if (oValue === null) {
+            //     return true;
+            // }
+
+            this.setProperty('lng', parseFloat(oValue), true);
+            // if (this._map && !util.latLngEqual(util.latLngToObj(this._map.getCenter()), oValue)) {
+            //     this._map.panTo(util.objToLatLng(oValue));
+            // }
+            if (this.marker) {
+                this.marker.setPosition(new Gmaps.LatLng(this.getLat(), this.getLng()));
+            }
+
+        };
+
+
+
+        Marker.prototype.getOptions = function() {
             var options = {};
-            options.position = new gmaps.LatLng(this.getLat(), this.getLng());
+            options.position = new Gmaps.LatLng(this.getLat(), this.getLng());
             options.draggable = this.getDraggable();
             options.animation = this.getAnimation();
             options.icon = this.getIcon();
+            return options;
+        };
 
-            this.marker = new gmaps.Marker(options);
+        Marker.prototype.onMapRendered = function(map) {
+            this.map = map;
+
+            this.marker = new Gmaps.Marker(this.getOptions());
             this.marker.setMap(this.map);
 
             this.addListener('click', jQuery.proxy(this.onClick, this));
@@ -71,16 +106,16 @@
 
             if (this.getInfo()) {
                 //http://stackoverflow.com/questions/1554893/google-maps-api-v3-infowindow-not-sizing-correctly
-                this.infoWindow = new gmaps.InfoWindow({
+                this.infoWindow = new Gmaps.InfoWindow({
                     content: this.getInfo(),
                     maxWidth: this.iwMaxWidth
                 });
-                gmaps.event.addListener(this.infoWindow, 'closeclick', jQuery.proxy(this.onInfoWindowClose, this));
+                Gmaps.event.addListener(this.infoWindow, 'closeclick', jQuery.proxy(this.onInfoWindowClose, this));
             }
         };
 
         Marker.prototype.addListener = function(event, callback) {
-            this.aListeners.push(gmaps.event.addListener(this.marker, event, callback));
+            this.aListeners.push(Gmaps.event.addListener(this.marker, event, callback));
         };
 
         Marker.prototype.removeListeners = function() {

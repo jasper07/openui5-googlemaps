@@ -22,6 +22,6 @@
     "noarg": true,
     "sub": true,
     "undef": true,
-    "unused": true,
+    "unused": false,
     "smarttabs": true
 }

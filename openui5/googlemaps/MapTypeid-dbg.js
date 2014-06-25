@@ -1,0 +1,17 @@
+/**
+ * openui5-googlemaps - OpenUI5 Google Maps library
+ * @version v0.0.0
+ * @link http://jasper07.github.io/openui5-googlemaps/
+ * @license MIT
+ */sap.ui.define(['jquery.sap.global'],
+    function(jQuery) {
+        "use strict";
+        var MapTypeId = {
+            ROADMAP: "roadmap",
+            SATELLITE: "satellite",
+            HYBRID: "hybrid",
+            TERRAIN: "terrain"
+        };
+        return MapTypeId;
+
+    }, /* bExport= */ true);

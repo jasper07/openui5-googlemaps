@@ -11,8 +11,9 @@
             metadata: {
                 properties: {
                     'strokeColor': {
-                        type: 'string',
-                        bindable: 'bindable'
+                        type: "sap.ui.core.CSSColor",
+                        group: "Appearance",
+                        defaultValue: null
                     },
                     'strokeOpacity': {
                         type: 'float',

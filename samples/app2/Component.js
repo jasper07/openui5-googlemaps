@@ -4,10 +4,12 @@ sap.ui.core.UIComponent.extend("testapp.Component", {
 
     init: function() {
         // W3C googlemaps key test
-        window.GMAPS_API_KEY = 'AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM';
+        // window.GMAPS_API_KEY = 'AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM';
 
         //load googlemaps library
         sap.ui.getCore().loadLibrary("openui5.googlemaps", "../../openui5/googlemaps/");
+
+        openui5.googlemaps.ScriptsUtil.setApiKey('AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM');
 
         //register controls library
         jQuery.sap.registerResourcePath('controls', '../controls');
