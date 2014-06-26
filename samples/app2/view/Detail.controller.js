@@ -6,6 +6,12 @@ sap.ui.controller("testapp.view.Detail", {
         this.oChart = this.byId("chart1")
     },
 
+    onMapReady: function(oEvent) {
+        var obj = this.getView().getModel().getData().beaches[4];
+        this.markerWindowOpen(obj);
+        this.setChartData(obj.columns);
+    },
+
     markerWindowOpen: function(oData) {
         var that = this;
         this.oMap.getMarkers().forEach(function(oMarker) {

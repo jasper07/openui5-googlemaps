@@ -47,50 +47,30 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './Ani
             this.iwMaxWidth = 360;
         };
 
-        Marker.prototype.setLat = function(oValue) {
-            // if (oValue === null) {
-            //     return true;
-            // }
-
-            this.setProperty('lat', parseFloat(oValue), true);
-
-            // if (this._map && !util.latLngEqual(util.latLngToObj(this._map.getCenter()), oValue)) {
-            //     this._map.panTo(util.objToLatLng(oValue));
-            // }
-            if (this.marker) {
+        Marker.prototype.updatePosition = function() {
+            if (this.marker && this.getLat() != null && this.getLng() != null) {
                 this.marker.setPosition(new Gmaps.LatLng(this.getLat(), this.getLng()));
             }
+        };
+
+        Marker.prototype.setLat = function(oValue) {
+            this.setProperty('lat', parseFloat(oValue), true);
+            this.updatePosition();
         };
 
         Marker.prototype.setLng = function(oValue) {
-            // if (oValue === null) {
-            //     return true;
-            // }
-
             this.setProperty('lng', parseFloat(oValue), true);
-            // if (this._map && !util.latLngEqual(util.latLngToObj(this._map.getCenter()), oValue)) {
-            //     this._map.panTo(util.objToLatLng(oValue));
-            // }
+            this.updatePosition();
+
+        };
+
+        Marker.prototype.setICon = function() {
             if (this.marker) {
-                this.marker.setPosition(new Gmaps.LatLng(this.getLat(), this.getLng()));
+                this.marker.setIcon(this.getIcon());
             }
-
         };
 
-
-
-        Marker.prototype.getOptions = function() {
-            var options = {};
-            options.position = new Gmaps.LatLng(this.getLat(), this.getLng());
-            options.draggable = this.getDraggable();
-            options.animation = this.getAnimation();
-            options.icon = this.getIcon();
-            return options;
-        };
-
-        Marker.prototype.onMapRendered = function(map) {
-            this.map = map;
-
+        Marker.prototype.mapReady = function() {
             this.marker = new Gmaps.Marker(this.getOptions());
             this.marker.setMap(this.map);
 
@@ -107,6 +87,20 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './Ani
                 });
                 Gmaps.event.addListener(this.infoWindow, 'closeclick', jQuery.proxy(this.onInfoWindowClose, this));
             }
+        };
+
+        Marker.prototype.getOptions = function() {
+            var options = {};
+            options.position = new Gmaps.LatLng(this.getLat(), this.getLng());
+            options.draggable = this.getDraggable();
+            options.animation = this.getAnimation();
+            options.icon = this.getIcon();
+            return options;
+        };
+
+        Marker.prototype.onMapRendered = function(map) {
+            this.map = map;
+            this.mapReady();
         };
 
         Marker.prototype.addListener = function(event, callback) {

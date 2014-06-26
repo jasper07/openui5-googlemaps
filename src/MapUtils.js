@@ -22,18 +22,19 @@ sap.ui.define(['jquery.sap.global', 'google.maps'],
             return this.floatEqual(oValue1.lat, oValue2.lat) && this.floatEqual(oValue1.lng, oValue2.lng);
         };
 
-        // MapUitls.search = function(oRequest, fCallback) {
-        //     return new gmaps.Geocoder().geocode(oRequest, fCallback);
-        // };
+        MapUtils.search = function(oRequest, fnCallback) {
+            return new gmaps.Geocoder().geocode(oRequest, fnCallback);
+        };
 
-        // MapUitls.currentPosition = function() {
-        //     if (navigator.geolocation) {
-        //         navigator.geolocation.getCurrentPosition(function(pos) {
-        //                 geocoder = new google.maps.Geocoder();
-        //                 var latlng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
-
-        //             }
-        //         }
-
+        MapUtils.currentPosition = function(fnCallback) {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(oPosition) {
+                    var position = {};
+                    position.lat = oPosition.coords.latitude;
+                    position.lng = oPosition.coords.longitude;
+                    fnCallback(position);
+                });
+            }
+        };
         return MapUtils;
     }, true);

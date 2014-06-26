@@ -21,7 +21,6 @@
                     },
                     'zoom': {
                         type: 'int',
-                        bindable: 'bindable',
                         defaultValue: 8
                     },
                     'center': {
@@ -32,29 +31,30 @@
                             lng: -121
                         }
                     },
+                    'disableDefaultUI': {
+                        type: 'boolean',
+                        defaultValue: true
+                    },
                     'mapTypeId': {
                         type: 'string',
-                        bindable: 'bindable',
+
                         defaultValue: MapTypeId.ROADMAP
-                    },
-                    'bounds': {
-                        type: 'object', //LatLngBounds
-                        bindable: 'bindable',
                     },
                     'panControl': {
                         type: 'boolean',
-                        bindable: 'bindable',
                         defaultValue: false
                     },
                     'zoomControl': {
                         type: 'boolean',
-                        bindable: 'bindable',
-                        defaultValue: true
+                        defaultValue: false
                     },
                     'mapTypeControl': {
                         type: 'boolean',
-                        bindable: 'bindable',
-                        defaultValue: true
+                        defaultValue: false
+                    },
+                    'streetViewControl': {
+                        type: 'boolean',
+                        defaultValue: false
                     }
                 },
                 defaultAggregation: "markers",
@@ -83,16 +83,16 @@
             renderer: function(oRm, oControl) {
                 oRm.write('<div ');
                 oRm.writeControlData(oControl);
-                oRm.addStyle("width", oControl.getWidth());
-                oRm.addStyle("height", oControl.getHeight());
+                oRm.addStyle("width", 'auto');
+                oRm.addStyle("height", 'auto');
                 oRm.writeClasses();
                 oRm.writeStyles();
                 oRm.write('>');
 
                 oRm.write("<div");
                 oRm.writeAttribute("id", oControl.getId() + "-map");
-                oRm.addStyle("width", "100%");
-                oRm.addStyle("height", "100%");
+                oRm.addStyle("width", oControl.getWidth());
+                oRm.addStyle("height", oControl.getHeight());
                 oRm.writeStyles();
                 oRm.write(">");
                 oRm.write('</div>');
@@ -130,20 +130,6 @@
             }
         };
 
-        Map.prototype.setBounds = function(oValue) {
-            this.setProperty('bounds', oValue, true);
-            if (this._map && !MapUtils.latLngEqual(this._map.getBounds(), oValue)) {
-                // this._map.setBounds(oValue);
-            }
-        };
-
-        Map.prototype.setPanControl = function(bValue) {
-            this.setProperty('panControl', bValue, true);
-            if (this._map && bValue !== this._map.getPanControl()) {
-                this._map.setPanControl(bValue);
-            }
-        };
-
         Map.prototype.setZoomControl = function(bValue) {
             this.setProperty('zoomControl', bValue, true);
             if (this._map && bValue !== this._map.getZoomControl()) {
@@ -151,21 +137,16 @@
             }
         };
 
-        Map.prototype.setMapTypeControl = function(bValue) {
-            this.setProperty('mapTypeControl', bValue, true);
-            if (this._map && bValue !== this._map.getMapTypeControl()) {
-                this._map.setMapTypeControl(bValue);
-            }
-        };
-
         Map.prototype._getMapOptions = function() {
             var mapOptions = {};
             mapOptions.zoom = this.getZoom();
             mapOptions.center = MapUtils.objToLatLng(this.getCenter());
+            mapOptions.disableDefaultUi = this.getDisableDefaultUI();
             mapOptions.mapTypeId = this.getMapTypeId();
             mapOptions.panControl = this.getPanControl();
             mapOptions.zoomControl = this.getZoomControl();
             mapOptions.mapTypeControl = this.getMapTypeControl();
+            mapOptions.streetViewControl = this.getStreetViewControl();
             return mapOptions;
         };
 
@@ -189,7 +170,7 @@
             //if map not loaded yet subscribe to its event    
             if (Gmaps.loaded === undefined) {
                 if (this.subscribed === undefined) {
-                    sap.ui.getCore().getEventBus().subscribe("google.maps.loaded", this.createMap, this);
+                    sap.ui.getCore().getEventBus().subscribe(Gmaps.notifyEvent, this.createMap, this);
                     this.subscribed = true;
                 }
                 return false;
@@ -207,6 +188,12 @@
             this._notifyMarkers('MapRendered', this._map);
             this._notifyPolylines('MapRendered', this._map);
             this._notifyPolygons('MapRendered', this._map);
+
+            this.fireReady({
+                map: this.map,
+                context: this.getBindingContext(),
+                center: this.getCenter()
+            });
         };
 
         Map.prototype.addListener = function(event, callback) {
@@ -245,10 +232,6 @@
 
             if (this._map.getMapTypeId() !== this.getMapTypeId()) {
                 this.setMapTypeId(this._map.getMapTypeId());
-            }
-
-            if (this._map.getBounds() !== this.getBounds()) {
-                this.setBounds(this._map.getBounds());
             }
         };
 

@@ -7,30 +7,33 @@
     function(jQuery, ScriptsUtil) {
         "use strict";
 
-        var LoaderScripts = (function() {
+        var LoadScripts = (function() {
             var Loader = {};
 
-            Loader.DEFAULT_BASE_URL = 'http://maps.google.com/maps/api/js?sensor=true&callback=google.maps.callBack';
+            Loader.defaultUrl = 'http://maps.google.com/maps/api/js?sensor=true&callback=google.maps.callBack';
+
+            // Loader.defaultUrl = 'https://maps.googleapis.com/maps/api/js?libraries=places&callback=%callback%',
+            Loader.notifyEvent = "google.maps.loaded";
 
             Loader.callBack = function() {
                 this.loaded = true;
-                sap.ui.getCore().getEventBus().publish("google.maps.loaded");
+                sap.ui.getCore().getEventBus().publish(this.notifyEvent);
             };
 
             Loader.load = function(Util) {
-                var sScriptUrl = Util.getUrl() ? Util.getUrl() : this.DEFAULT_BASE_URL;
+                var sScriptUrl = Util.getUrl() ? Util.getUrl() : this.defaultUrl;
 
                 if (Util.getApiKey()) {
                     sScriptUrl = sScriptUrl + '&key=' + Util.getApiKey();
                 }
 
-                //async load the scripts
+                //async load the scripts, provides namespace
                 jQuery.sap.includeScript(sScriptUrl, "google.maps", null, null);
 
             };
             return Loader;
         })();
 
-        LoaderScripts.load(ScriptsUtil);
-        return LoaderScripts;
+        LoadScripts.load(ScriptsUtil);
+        return LoadScripts;
     }, true);
