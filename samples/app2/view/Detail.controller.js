@@ -14,9 +14,12 @@ sap.ui.controller("testapp.view.Detail", {
         this.setLocation();
     },
 
-    setLocation: function() {
+    setLocation: function(bPublish) {
         this.markerWindowOpen(this.selectedLocation);
         this.setChartData(this.selectedLocation.columns);
+        sap.ui.getCore().getEventBus().publish("placeSelected", {
+            location: this.selectedLocation
+        });
     },
 
     markerWindowOpen: function(oData) {
@@ -42,7 +45,7 @@ sap.ui.controller("testapp.view.Detail", {
     },
 
     onMarkerClick: function(oEvent) {
-        this.selectedLocation = oEvent.getParameter('location');
+        this.selectedLocation = oEvent.getParameter('context').getObject();
         this.setLocation();
     },
 
