@@ -1,20 +1,43 @@
 {
-    "folders": [{
-        "follow_symlinks": true,
-        "path": "../../",
-        "folder_exclude_patterns": ["node_modules", "projects"]
-    }],
-    "settings": {
-        "tab_size": 4,
-        "translate_tabs_to_spaces": true
-    },
-    "build_systems": [{
-        "name": "Gulp Build",
-        "cmd": ["gulp.cmd", "cleanbuild"],
-        "working_dir": "$file_path",
-        // "selector": "source.js, source.less, source.json, source.html, source.htm",
-        "windows": {
-            "cmd": ["gulp.cmd", "cleanbuild"]
-        }
-    }]
+	"build_systems":
+	[
+		{
+			"cmd":
+			[
+				"gulp.cmd",
+				"cleanbuild"
+			],
+			"name": "Gulp Build",
+			"windows":
+			{
+				"cmd":
+				[
+					"gulp.cmd",
+					"cleanbuild"
+				]
+			},
+			"working_dir": "$file_path"
+		}
+	],
+	"folders":
+	[
+		{
+			"folder_exclude_patterns":
+			[
+				"node_modules",
+				"projects"
+			],
+			"follow_symlinks": true,
+			"path": "C:\\sapui5\\sdk\\openui5-googlemaps"
+		},
+		{
+			"follow_symlinks": true,
+			"path": "C:\\hana\\metric\\lilabs\\metric2"
+		}
+	],
+	"settings":
+	{
+		"tab_size": 4,
+		"translate_tabs_to_spaces": true
+	}
 }
