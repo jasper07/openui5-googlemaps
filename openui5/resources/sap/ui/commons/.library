@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<library xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+  <name>sap.ui.commons</name>
+  <vendor>sap.com</vendor>
+  <copyright>SAP UI development toolkit for HTML5 (SAPUI5)
+
+(c) Copyright 2009-2014 SAP AG. All rights reserved</copyright>
+  <version>1.20.7</version>
+
+  <documentation>SAPUI5 library with most common controls.</documentation>
+  
+  <dependencies>
+    <dependency>
+      <libraryName>sap.ui.core</libraryName>
+    </dependency>
+    <dependency>
+      <libraryName>sap.ui.layout</libraryName>
+    </dependency>
+  </dependencies>
+  
+  <appData>
+    <selenium xmlns="http://www.sap.com/ui5/buildext/selenium" package="com.sap.ui5.selenium.commons" />
+    <!-- excludes for the JSCoverage -->
+    <jscoverage xmlns="http://www.sap.com/ui5/buildext/jscoverage" >
+        <exclude name="sap.ui.commons.js." />
+        <exclude name="sap.ui.commons.DatePicker*" />
+    </jscoverage>
+  </appData>
+  
+</library>

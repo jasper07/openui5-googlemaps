@@ -1,0 +1,45 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>Image</name>
+	<author>SAP AG</author>
+	<documentation>A wrapper around the IMG tag. The image can be loaded from a remote or local server.
+	There are various size setting options available, and the images can be combined with actions.</documentation>
+	<baseType>sap.ui.core/Control</baseType>
+	<interfaces>
+		<interface>ToolbarItem</interface>
+		<interface>FormattedTextViewControl</interface>
+	</interfaces>
+	<properties>
+		<property group="Data" name="src" type="sap.ui.core/URI">
+			<documentation>Relative or absolute path to URL where the image file is stored.</documentation>
+		</property>
+		<property group="Appearance" name="visible" type="boolean" defaultValue="true">
+			<documentation>Invisible images are not rendered.</documentation>
+		</property>
+		<property group="Appearance" name="width" type="sap.ui.core/CSSSize">
+			<documentation>When the empty value is kept, the original size is not changed. It is also possible to make settings for width or height only, the overall size is maintained then, considering the aspect ratio.</documentation>
+		</property>
+		<property group="Appearance" name="height" type="sap.ui.core/CSSSize">
+			<documentation>When the empty value is kept, the original size is not changed. It is also possible to make settings for width or height only, the overall size is maintained then, considering the aspect ratio.</documentation>
+		</property>
+		<property group="Accessibility" name="decorative" type="boolean" defaultValue="true">
+			<documentation>A decorative image is included for design reasons. Accessibility tools will ignore decorative images.
+			Note: If the Image has an image map (useMap is set), this property will be overridden (the image will not be rendered as decorative).
+A decorative image has no ALT attribute, so the Alt property is ignored if the image is decorative. </documentation>
+		</property>
+		<property group="Accessibility" name="alt" type="string">
+			<documentation>The alternative text that is displayed in case the Image is not available, or cannot be displayed.
+If the image is set to decorative this property is ignored.</documentation>
+		</property>
+		<property group="Misc" name="useMap" type="string">
+			<documentation>The name of the image map that defines the clickable areas</documentation>
+		</property>
+	</properties>
+	<events>
+		<event name="press">
+			<documentation>Event is fired when the user clicks on the control.</documentation>
+		</event>
+	</events>
+
+</control>

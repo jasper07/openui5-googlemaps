@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd">
+
+	<name>LocalBusyIndicator</name>
+	<author>SAP AG</author>
+	<since>1.11.0</since>
+	<deprecation since="1.14.2">The LocalBusyIndicator Control is not needed anymore by the new implementation of the LBI. Hence, it is not used anymore.</deprecation>
+
+	<documentation>The LocalBusyIndicator is a special version of the
+		BusyIndicator. This one doesn't block the whole screen - it just
+		blocks the corresponding control and puts a local animation over the
+		control. To use the functionality of this control the corresponding
+		control needs to be enabled via the 'LocalBusyIndicatorSupport'
+		accordingly to the ListBox control (see the init-function of the
+		ListBox).
+	</documentation>
+
+	<baseType>sap.ui.core/Control</baseType>
+	<properties>
+		<property group="Misc" name="width" type="sap.ui.core/CSSSize"
+			defaultValue="100px">
+			<documentation>This property is the width of the control that has to
+				be covered. With this width the position of the animation can be
+				properly set.
+			</documentation>
+		</property>
+		<property group="Misc" name="height" type="sap.ui.core/CSSSize"
+			defaultValue="100px">
+			<documentation>This property is the height of the control that has to
+				be covered. With this height the position of the animation can be
+				properly set.
+			</documentation>
+		</property>
+	</properties>
+</control>

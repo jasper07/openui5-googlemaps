@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<simple-type xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>FollowActionState</name>
+	<author></author>
+	<documentation>Defines the states of the follow action</documentation>
+	<baseType>sap.ui.core/string</baseType>
+	
+	<enumeration>
+		<value name="Follow">
+			<documentation>follow state</documentation>
+		</value>
+		<value name="Hold">
+			<documentation>hold state</documentation>
+		</value>
+		<value name="Default">
+			<documentation>default state</documentation>
+		</value>
+	</enumeration>
+
+</simple-type>

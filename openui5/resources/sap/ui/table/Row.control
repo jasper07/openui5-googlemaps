@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd">
+
+	<name>Row</name>
+	<documentation>The row.</documentation>
+
+	<baseType>sap.ui.core/Element</baseType>
+	
+	<aggregations default="cells">
+		<aggregation cardinality="0..n" name="cells" type="sap.ui.core/Control">
+			<documentation>The controls for the cells.</documentation>
+		</aggregation>
+	</aggregations>
+	<methods>
+		<method name="getIndex" type="sap.ui.core/int">
+			<documentation>Returns the index of the row in the table or -1 if not added to a table.</documentation>
+		</method>
+	</methods>
+	
+</control>

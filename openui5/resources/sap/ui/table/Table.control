@@ -1,0 +1,286 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>Table</name>
+	<documentation>The Table control provides a set of sophisticated and comfort functions for table design. For example, you can make settings for the number of visible rows. The first visible row can be explicitly set. For the selection of rows, a Multi, a Single, and a None mode are available.</documentation>
+
+	<baseType>sap.ui.core/Control</baseType>
+	<properties>		
+		<property group="Dimension" name="width" type="sap.ui.core/CSSSize" defaultValue="auto">
+			<documentation>Width of the Table.</documentation>
+		</property>
+		<!-- property group="Dimension" name="height" type="sap.ui.core/CSSSize" defaultValue="auto">
+			<documentation>Height of the Table (will overwrite the visible row count property).</documentation>
+		</property -->
+		<property group="Appearance" name="rowHeight" type="sap.ui.core/int">
+			<documentation>Height of a row of the Table in pixel.</documentation>
+		</property>
+		<property group="Appearance" name="columnHeaderHeight" type="sap.ui.core/int">
+			<documentation>Height of the column header of the Table in pixel.</documentation>
+		</property>
+		<property group="Appearance" name="columnHeaderVisible" type="sap.ui.core/boolean" defaultValue="true">
+			<documentation>Flag whether the column header is visible or not.</documentation>
+		</property>
+		<property group="Appearance" name="visibleRowCount" type="sap.ui.core/int" defaultValue="10">
+			<documentation>Count of visible rows (will overwrite the height property).</documentation>
+		</property>
+		<property group="Appearance" name="firstVisibleRow" type="sap.ui.core/int" defaultValue="0">
+			<documentation>First visible row.</documentation>
+		</property>
+		<property group="Behavior" name="selectionMode" type="sap.ui.table/SelectionMode" defaultValue="Multi">
+			<documentation>Selection mode of the Table.</documentation>
+		</property>
+		<property group="Behavior" name="selectionBehavior" type="sap.ui.table/SelectionBehavior" defaultValue="RowSelector">
+			<documentation>Selection behavior of the Table.</documentation>
+		</property>
+		<property group="Appearance" name="selectedIndex" type="sap.ui.core/int" defaultValue="-1">
+			<documentation>Zero-based index of selected item. Index value for no selection is -1. When multi-selection is enabled and multiple items are selected, the method returns the lead selected item. Sets the zero-based index of the currently selected item. This method removes any previous selections. When the given index is invalid, the call is ignored.</documentation>
+		</property>
+		<property group="Behavior" name="allowColumnReordering" type="sap.ui.core/boolean" defaultValue="true">
+			<documentation>Flag to enable or disable column reordering</documentation>
+			<deprecation since="1.5.2">Use the property enableColumnReordering instead.</deprecation>
+		</property>
+		<property group="Behavior" name="editable" type="sap.ui.core/boolean" defaultValue="true">
+			<documentation>Flag whether the controls of the Table are editable or not (currently this only controls the background color!)</documentation>
+		</property>
+		<property group="Appearance" name="visible" type="sap.ui.core/boolean" defaultValue="true">
+			<documentation>Invisible controls are not rendered.</documentation>
+		</property>
+		<property group="Behavior" name="navigationMode" type="sap.ui.table/NavigationMode" defaultValue="Scrollbar">
+			<documentation>Flag whether to use the scroll mode or paging mode.</documentation>
+		</property>
+		<property group="Appearance" name="threshold" type="sap.ui.core/int" defaultValue="100">
+			<documentation>Threshold to fetch the next chunk of data. The minimal threshold can be the visible row count of the Table. If the value is 0 then the thresholding is disabled.</documentation>
+		</property>
+		<property group="Behavior" name="enableColumnReordering" type="sap.ui.core/boolean" defaultValue="true">
+			<documentation>Flag to enable or disable column reordering</documentation>
+		</property>
+		<property group="Behavior" name="enableGrouping" type="sap.ui.core/boolean" defaultValue="false">
+			<documentation>Flag to enable or disable column grouping. (experimental!)</documentation>
+		</property>
+		<property group="Appearance" name="showColumnVisibilityMenu" type="sap.ui.core/boolean" defaultValue="false">
+			<documentation>Flag to show or hide the column visibility menu.</documentation>
+		</property>
+		<property group="Appearance" name="showNoData" type="sap.ui.core/boolean" defaultValue="true">
+			<documentation>Flag whether to show the no data overlay or not once the table is empty.</documentation>
+		</property>
+		<property group="Appearance" name="visibleRowCountMode" type="sap.ui.table/VisibleRowCountMode" defaultValue="Fixed" since="1.9.2">
+			<documentation>This defines how the table handles the visible rows in the table. The default behavior is, that a fixed row count is defined. If you change it to auto the visibleRowCount property is changed by the table automatically. It will then adjust its maximum row count to the space it is allowed to cover (limited by the surrounding container) and its minimum row count to the value of the property minAutoRowCount (default value : 5)  In manual mode the user can change the visibleRowCount interactively.</documentation>
+		</property>
+		<property group="Appearance" name="fixedColumnCount" type="sap.ui.core/int" defaultValue="0">
+			<documentation>Number of columns that are fix on the left. When you use a horizontal scroll bar, only the columns which are not fixed, will scroll. Fixed columns need a defined width for the feature to work.</documentation>
+		</property>
+		<property group="Appearance" name="fixedRowCount" type="sap.ui.core/int" defaultValue="0">
+			<documentation>Number of rows that are fix on the top. When you use a vertical scroll bar, only the rows which are not fixed, will scroll.</documentation>
+		</property>
+		<property group="Appearance" name="minAutoRowCount" type="sap.ui.core/int" defaultValue="5">
+			<documentation>This property is used to set the minimum count of visible rows when the property visibleRowCountMode is set to Auto.
+For any other visibleRowCountMode, it is ignored.</documentation>
+		</property>
+		<property group="Appearance" name="fixedBottomRowCount" type="sap.ui.core/int" defaultValue="0" since="1.18.7">
+			<documentation>Number of rows that are fix on the bottom. When you use a vertical scroll bar, only the rows which are not fixed, will scroll. (experimental!)</documentation>
+		</property>
+	</properties>
+	<events>
+		<event name="rowSelectionChange">
+			<documentation>fired when the row selection of the table has been changed (the event parameters can be used to determine selection changes - to find out the selected rows you should better use the table selection API)</documentation>
+			<parameters>
+				<parameter name="rowIndex" type="sap.ui.core/int">
+					<documentation>row index which has been clicked so that the selection has been changed (either selected or deselected)</documentation>
+				</parameter>
+				<parameter name="rowContext" type="sap.ui.core/object">
+					<documentation>binding context of the row which has been clicked so that selection has been changed</documentation>
+				</parameter>
+				<parameter name="rowIndices" type="sap.ui.core/int[]">
+					<documentation>array of row indices which selection has been changed (either selected or deselected)</documentation>
+				</parameter>
+			</parameters>
+		</event>
+		<event name="columnSelect" allowPreventDefault="true">
+			<documentation>fired when a column of the table has been selected</documentation>
+			<parameters>
+				<parameter name="column" type="sap.ui.table/Column">
+					<documentation>reference to the selected column</documentation>
+				</parameter>
+			</parameters>
+		</event>
+		<event name="columnResize" allowPreventDefault="true">
+			<documentation>fired when a table column is resized.</documentation>
+			<parameters>
+				<parameter name="column" type="sap.ui.table/Column">
+					<documentation>resized column.</documentation>
+				</parameter>
+				<parameter name="width" type="sap.ui.core/int">
+					<documentation>new width of the table in pixel.</documentation>
+				</parameter>
+			</parameters>
+		</event>
+		<event name="columnMove" allowPreventDefault="true">
+			<documentation>fired when a table column is moved.</documentation>
+			<parameters>
+				<parameter name="column" type="sap.ui.table/Column">
+					<documentation>moved column.</documentation>
+				</parameter>
+				<parameter name="newPos" type="sap.ui.core/int">
+					<documentation>new position of the column.</documentation>
+				</parameter>
+			</parameters>
+		</event>
+		<event name="sort" allowPreventDefault="true">
+			<documentation>fired when the table is sorted.</documentation>
+			<parameters>
+				<parameter name="column" type="sap.ui.table/Column">
+					<documentation>sorted column.</documentation>
+				</parameter>
+				<parameter name="sortOrder" type="sap.ui.table/SortOrder">
+					<documentation>Sort Order</documentation>
+				</parameter>
+				<parameter name="columnAdded" type="sap.ui.core/boolean">
+					<documentation>If column was added to sorter this is true. If new sort is started this is set to false</documentation>
+				</parameter>
+			</parameters>
+		</event>
+		<event name="filter" allowPreventDefault="true">
+			<documentation>fired when the table is filtered.</documentation>
+			<parameters>
+				<parameter name="column" type="sap.ui.table/Column">
+					<documentation>filtered column.</documentation>
+				</parameter>
+				<parameter name="value" type="sap.ui.core/string">
+					<documentation>filter value.</documentation>
+				</parameter>
+			</parameters>
+		</event>
+		<event name="group" allowPreventDefault="true">
+			<documentation>fired when the table is grouped (experimental!).</documentation>
+			<parameters>
+				<parameter name="column" type="sap.ui.table/Column">
+					<documentation>grouped column.</documentation>
+				</parameter>
+			</parameters>
+		</event>
+		<event name="columnVisibility" allowPreventDefault="true">
+			<documentation>fired when the visibility of a table column is changed.</documentation>
+			<parameters>
+				<parameter name="column" type="sap.ui.table/Column">
+					<documentation>affected column.</documentation>
+				</parameter>
+				<parameter name="visible" type="sap.ui.core/boolean">
+					<documentation>new value of the visible property.</documentation>
+				</parameter>
+			</parameters>
+		</event>
+	</events>
+	<aggregations default="columns">
+		<aggregation cardinality="0..1" name="title" type="sap.ui.core/Control">
+			<documentation>Control or text of title section of the Table (if not set it will be hidden)</documentation>
+			<altType type="sap.ui.core/string" />
+		</aggregation>
+		<aggregation cardinality="0..1" name="footer" type="sap.ui.core/Control">
+			<documentation>Control or text of footer section of the Table (if not set it will be hidden)</documentation>
+			<altType type="sap.ui.core/string" />
+		</aggregation>
+		<aggregation cardinality="0..1" name="toolbar" type="sap.ui.commons/Toolbar">
+			<documentation>Toolbar of the Table (if not set it will be hidden)</documentation>
+		</aggregation>
+		<aggregation cardinality="0..n" name="extension" type="sap.ui.core/Control">
+			<documentation>Extension section of the Table (if not set it will be hidden)</documentation>
+		</aggregation>
+		<aggregation cardinality="0..n" name="columns" type="sap.ui.table/Column" bindable="bindable">
+			<documentation>Columns of the Table</documentation>
+		</aggregation>
+		<aggregation cardinality="0..n" name="rows" type="sap.ui.table/Row" bindable="bindable">
+			<documentation>Rows of the Table</documentation>
+		</aggregation>
+		<aggregation cardinality="0..1" name="noData" type="sap.ui.core/Control">
+			<documentation>This control is shown, in case there is no data available to be displayed in the Table.</documentation>
+		</aggregation>
+	</aggregations>
+	<associations>
+		<association cardinality="0..1" name="groupBy" type="sap.ui.table/Column">
+			<documentation>Group By Column (experimental!)</documentation>
+		</association>
+	</associations>
+	<methods>
+		<method name="getSelectedIndices" type="sap.ui.core/int[]">
+			<documentation>Zero-based indices of selected items, wrapped in an array. An empty array means "no selection".</documentation>
+		</method>
+		<method name="addSelectionInterval" type="sap.ui.table/Table">
+			<documentation>Adds the given selection interval to the selection. In case of single selection the "indexTo" value will be used for as selected index.</documentation>
+			<parameters>
+				<parameter name="indexFrom" type="sap.ui.core/int">
+					<documentation>Index from which .</documentation>
+				</parameter>
+				<parameter name="indexTo" type="sap.ui.core/int">
+					<documentation>Indices of the items that shall additionally be selected.</documentation>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="setSelectionInterval" type="sap.ui.table/Table">
+			<documentation>Sets the given selection interval as selection. In case of single selection the "indexTo" value will be used for as selected index.</documentation>
+			<parameters>
+				<parameter name="indexFrom" type="sap.ui.core/int">
+					<documentation>Index from which .</documentation>
+				</parameter>
+				<parameter name="indexTo" type="sap.ui.core/int">
+					<documentation>Indices of the items that shall additionally be selected.</documentation>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="removeSelectionInterval" type="sap.ui.table/Table">
+			<documentation>Removes the given selection interval from the selection. In case of single selection this call removeSelectedIndex with the "indexTo" value.</documentation>
+			<parameters>
+				<parameter name="indexFrom" type="sap.ui.core/int">
+					<documentation>Index from which .</documentation>
+				</parameter>
+				<parameter name="indexTo" type="sap.ui.core/int">
+					<documentation>Indices of the items that shall additionally be selected.</documentation>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="isIndexSelected" type="sap.ui.core/boolean">
+			<documentation>Returns whether the given index is selected.</documentation>
+			<parameters>
+				<parameter name="index" type="sap.ui.core/int">
+					<documentation>Index which is checked for selection state.</documentation>
+				</parameter>
+			</parameters> 
+		</method>
+		<method name="clearSelection" type="sap.ui.table/Table">
+			<documentation>Removes complete selection.</documentation>
+		</method>
+		<method name="selectAll" type="sap.ui.table/Table">
+			<documentation>Add all rows to the selection.</documentation>
+		</method>
+		<method name="getContextByIndex" type="sap.ui.core/object">
+			<documentation>Returns the context of a row by its index.</documentation>
+			<parameters>
+				<parameter name="index" type="sap.ui.core/int">
+					<documentation>Index of the row to return the context from.</documentation>
+				</parameter>
+			</parameters> 
+		</method>
+		<method name="sort" type="sap.ui.table/Table">
+			<documentation>sorts the given column ascending or descending</documentation>
+			<parameters>
+				<parameter name="column" type="sap.ui.table/Column">
+					<documentation>column to be sorted</documentation>
+				</parameter>
+				<parameter name="sortOrder" type="sap.ui.table/SortOrder">
+					<documentation>sort order of the column (if undefined the default will be ascending)</documentation>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="filter" type="sap.ui.table/Table">
+			<documentation>filter the given column by the given value</documentation>
+			<parameters>
+				<parameter name="column" type="sap.ui.table/Column">
+					<documentation>column to be filtered</documentation>
+				</parameter>
+				<parameter name="value" type="sap.ui.core/string">
+					<documentation>filter value as string (will be converted)</documentation>
+				</parameter>
+			</parameters>
+		</method>
+	</methods>
+</control>

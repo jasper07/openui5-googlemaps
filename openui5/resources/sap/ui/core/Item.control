@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd">
+
+  <name>Item</name>
+  <author>SAP AG</author>
+  <documentation>A control base type.
+  </documentation>
+
+  <baseType>sap.ui.core/Element</baseType>
+  <properties>
+    <property group="Misc" name="text" type="string" defaultValue='""'>
+	<documentation>The text to be displayed for the item.</documentation></property>
+    <property group="Misc" name="enabled" type="boolean" defaultValue="true">
+	<documentation>Enabled items can be selected.</documentation></property>
+    <property group="Misc" name="textDirection" type="sap.ui.core/TextDirection" defaultValue="Inherit">
+	<documentation>Options are RTL and LTR. Alternatively, an item can inherit its text direction from its parent control.</documentation></property>
+    <property group="Data" name="key" type="sap.ui.core/string">
+    	<documentation>Can be used as input for subsequent actions.</documentation>
+    </property>
+  </properties>
+
+</control>

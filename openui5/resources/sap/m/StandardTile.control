@@ -1,0 +1,42 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>StandardTile</name>
+	<author>SAP AG</author>
+	
+	<since>1.12</since>
+	<documentation>The StandardTile</documentation>
+
+	<baseType>sap.m/Tile</baseType>
+	<properties>	
+		<property group="Misc" name="title" type="sap.ui.core/string">
+			<documentation>Tile title</documentation>
+		</property>
+		<property group="Misc" name="info" type="sap.ui.core/string">
+			<documentation>Tile description</documentation>
+		</property>
+		<property group="Misc" type="sap.ui.core/URI" name="icon">
+			<documentation>Tile icon</documentation>
+		</property>
+		<property group="Misc" name="activeIcon" type="sap.ui.core/URI">
+			<documentation>Tile active icon</documentation>
+		</property>
+		<property group="Misc" name="number" type="sap.ui.core/string">
+			<documentation>Number field</documentation>
+		</property>
+		<property group="Misc" name="numberUnit" type="sap.ui.core/string">
+			<documentation>Number units qualifier</documentation>
+		</property>
+		<property group="Misc" name="infoState" type="sap.ui.core/ValueState" defaultValue="None">
+			<documentation>Info state defines the color of the info text. E.g. Error, Warning, Success...</documentation>
+		</property>
+		<property group="Misc" name="type" type="sap.m/StandardTileType" defaultValue="None">
+			<documentation>Tile type.</documentation>
+		</property>
+		<property group="Appearance" name="iconDensityAware" type="sap.ui.core/boolean" defaultValue="true">
+			<documentation>By default, this is set to true but then one or more requests are sent trying to get the density perfect version of image if this version of image doesn't exist on the server.
+
+If bandwidth is the key for the application, set this value to false.</documentation>
+		</property>
+	</properties>
+</control>

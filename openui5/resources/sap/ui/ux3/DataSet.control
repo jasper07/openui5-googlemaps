@@ -1,0 +1,93 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd">
+
+	<name>DataSet</name>
+	<documentation>DataSet</documentation>
+
+	<baseType>sap.ui.core/Control</baseType>
+	<properties>
+		<property group="Misc" name="showToolbar" type="sap.ui.core/boolean" defaultValue="true">
+			<documentation>show Toolbar</documentation>
+		</property>
+		<property group="Misc" name="showFilter" type="sap.ui.core/boolean" defaultValue="true">
+			<documentation>show filter</documentation>
+		</property>
+		<property group="Misc" name="showSearchField" type="sap.ui.core/boolean" defaultValue="true">
+			<documentation>Show/hide SearchField in Toolbar</documentation>
+		</property>
+		<property group="Behavior" type="sap.ui.core/boolean" name="multiSelect" defaultValue="false">
+			<documentation>Selection mode of the DataSet</documentation>
+		</property>
+	</properties>
+	<events>
+		<event name="selectionChanged">
+			<documentation>selection Changed</documentation>
+			<parameters>
+				<parameter name="oldLeadSelectedIndex" type="sap.ui.core/int">
+					<documentation>Old lead selected index</documentation>
+				</parameter>
+				<parameter type="sap.ui.core/int" name="newLeadSelectedIndex">
+					<documentation>New lead selected index</documentation>
+				</parameter>
+			</parameters>
+		</event>
+		<event name="search">
+			<documentation>Event which is fired when the user triggers a search</documentation>
+			<parameters>
+				<parameter name="query" type="sap.ui.core/string">
+					<documentation>The search query</documentation>
+				</parameter>
+			</parameters>
+		</event>
+	</events>
+	<aggregations>
+		<aggregation cardinality="0..n" type="sap.ui.ux3/DataSetItem" name="items"
+			bindable="bindable">
+			<documentation>Aggregation of DataSetItems</documentation>
+		</aggregation>
+		<aggregation cardinality="0..n" name="views" type="DataSetView">
+			<documentation>views</documentation>
+		</aggregation>
+		<aggregation cardinality="0..n" name="filter" type="sap.ui.core/Control">
+			<documentation>Filter control (e.g. a FacetFilter) for the DataSet</documentation>
+		</aggregation>
+		<aggregation cardinality="0..n" name="_viewSwitches" type="sap.ui.core/Control" visibility="hidden">
+			<documentation>Internally managed by Dataset</documentation>
+		</aggregation>
+		<aggregation cardinality="0..1" name="_toolbar" type="sap.ui.commons/Toolbar" visibility="hidden">
+			<documentation>A Toolbar, internally managed by Dataset</documentation>
+		</aggregation>
+	</aggregations>
+	<associations>
+		<association cardinality="0..1" name="selectedView" type="DataSetView">
+			<documentation>Selected view of the Dataset</documentation>
+		</association>
+	</associations>
+	<methods>
+		<method name="setLeadSelection" type="sap.ui.core/void">
+			<documentation>Set LeadSelection index</documentation>
+			<parameters>
+				<parameter name="iIndex" type="sap.ui.core/int">
+				</parameter> 
+			</parameters>
+		</method>
+		<method name="getLeadSelection" type="sap.ui.core/int">
+			<documentation>Get LeadSelection index</documentation>
+		</method>
+		<method name="addToolbarItem" type="sap.ui.core/void">
+			<documentation>add a toolbarItem to the toolbar</documentation>
+			<parameters>
+				<parameter name="oToolbarItem" type="sap.ui.commons/ToolbarItem">
+					<documentation>ToolbarItem</documentation>
+				</parameter>
+			</parameters>
+		</method>
+		<method type="sap.ui.core/void" name="removeToolbarItem">
+			<documentation>remove a toolbarItem to the toolbar</documentation>
+			<parameters>
+				<parameter name="oToolbarItem" type="sap.ui.commons/ToolbarItem">
+				</parameter>
+			</parameters>
+		</method>
+	</methods>
+</control>

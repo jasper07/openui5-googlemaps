@@ -1,0 +1,42 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>PullToRefresh</name>
+	<author>SAP AG</author>
+
+	<documentation>PullToRefresh control. Put it as the first control in contents of a scroll container or a scrollable page. Do not place it into a page with disabled scrolling.
+On touch devices it gets hidden by default and when the user pulls down the page far enough, it gets visible and triggers the &quot;refresh&quot; event.
+In non-touch browsers where scrollbars are used for scrolling, it is always visible and triggers the &quot;refresh&quot; event when clicked.</documentation>
+	<since>1.9.2</since>
+
+	<baseType>sap.ui.core/Control</baseType>
+	<properties>
+		<property group="Appearance" name="visible" type="sap.ui.core/boolean" defaultValue="true" since="1.16.0">
+			<documentation>Set to false to remove PullToRefresh from the scroll container.</documentation>
+		</property>
+		<property group="Misc" name="description" type="sap.ui.core/string">
+			<documentation>Optional description. May be used to inform a user, for example, when the list has been updated last time.</documentation>
+		</property>
+		<property group="Appearance" name="showIcon" type="sap.ui.core/boolean" defaultValue="false">
+			<documentation>Set to true to display an icon/logo. Icon must be set either in the customIcon property or in the CSS theme for the PullToRefresh control.</documentation>
+		</property>
+		<property name="customIcon" type="sap.ui.core/URI" group="Appearance">
+			<documentation>Provide a URI to a custom icon image to replace the SAP logo. Large  images are scaled down to max 50px height.</documentation>
+		</property>
+		<property group="Appearance" name="iconDensityAware" type="sap.ui.core/boolean" defaultValue="true">
+			<documentation>By default, this is set to true but then one or more requests are sent trying to get the density perfect version of image if this version of image doesn't exist on the server.
+
+If bandwidth is the key for the application, set this value to false.</documentation>
+		</property>
+	</properties>
+	<events>
+		<event name="refresh">
+			<documentation>Event indicates that the user has requested new data</documentation>
+		</event>
+	</events>
+	<methods>
+		<method name="hide" type="sap.ui.core/void">
+			<documentation>Hides the control and resets it to the normal state. In non-touch environments the control is not hidden.</documentation>
+		</method>
+	</methods>
+</control>

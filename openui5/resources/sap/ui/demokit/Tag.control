@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>Tag</name>
+
+	<documentation>A Tag in a TagCloud</documentation>
+
+	<baseType>sap.ui.core/Element</baseType>
+	<properties>
+		<property group="Misc" name="text" type="sap.ui.core/string">
+			<documentation>The text to be disaplyed for this tag.</documentation>
+		</property>
+		<property group="Misc" type="sap.ui.core/int" name="weight" defaultValue="1">
+			<documentation>The weight for this tag. Can be any integer value.</documentation>
+		</property>
+	</properties>
+</control>

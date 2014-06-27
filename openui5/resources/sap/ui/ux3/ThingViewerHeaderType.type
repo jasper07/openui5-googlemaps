@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<simple-type xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+  <name>ThingViewerHeaderType</name>
+  <author>SAP AG</author>
+  <documentation>Available ThingViewer header display types.</documentation>
+  <since>1.16.3</since>
+  
+  <enumeration>
+    <value name="Standard" >
+      <documentation>The standard ThingViewer header.</documentation>
+    </value>
+    <value name="Horizontal" >
+      <documentation>The header content is displayed horizontally above the facet content</documentation>
+    </value>
+  </enumeration>
+  
+</simple-type>

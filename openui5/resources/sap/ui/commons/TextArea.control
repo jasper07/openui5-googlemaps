@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>TextArea</name>
+	<documentation>Control to enter or display multible row text.</documentation>
+
+	<baseType>sap.ui.commons/TextField</baseType>
+	<properties>
+		<property group="Dimension" name="height" type="sap.ui.core/CSSSize">
+			<documentation>Height of text field. When it is set (CSS-size such as % or px), this is the exact size. </documentation>
+		</property>
+		<property group="Dimension" name="cols" type="sap.ui.core/int">
+			<documentation>Number of Columns. Cols means number of characters per row. This proprty is only used if Width is not used.</documentation>
+		</property>
+		<property group="Dimension" name="rows" type="sap.ui.core/int">
+			<documentation>Number of Rows. This proprty is only used if Height is not used.</documentation>
+		</property>
+		<property group="Appearance" name="wrapping" type="sap.ui.core/Wrapping">
+			<documentation>Text wrapping. Possible values are: Soft, Hard, Off.</documentation>
+		</property>
+		<property group="Appearance" name="cursorPos" type="sap.ui.core/int">
+			<documentation>Position of cursor, e.g., to let the user re-start typing at the same position as before the server roundtrip</documentation>
+		</property>
+		<property group="Misc" name="explanation" type="sap.ui.core/string">
+			<documentation>text which appears, in case quick-help is switched on</documentation>
+		</property>
+		<property group="Identification" name="labeledBy" type="sap.ui.core/string">
+			<documentation>ID of label control</documentation>
+			<deprecation since="1.5.2">Please use association AriaLabelledBy instead.</deprecation>
+		</property>
+	</properties>
+</control>

@@ -1,0 +1,217 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>Shell</name>
+
+	<documentation>The Ux3 GoldReflection Shell, which is an application frame with navigation capabilities.
+It is supposed to be added to a direct child of the BODY tag of a page and there should be no other parts of the page consuming space outside the Shell.</documentation>
+
+	<baseType>sap.ui.core/Control</baseType>
+	<properties>
+		<property group="Misc" name="appTitle" type="string">
+			<documentation>The application title to appear in the left part of the header, usually a company and/or product name. appIcon and appTitle are both optional and can both be set; in this case the icon appears first.</documentation>
+		</property>
+		<property group="Misc" name="appIcon" type="sap.ui.core/URI">
+			<documentation>The URL of the image to appear in the left part of the header, usually a branding image containing a logo and/or product name. appIcon and appTitle are both optional and can both be set; in this case the icon appears first.
+If the appIcon is set, for accessibility reasons the appIconTooltip must also be set.</documentation>
+		</property>
+		<property group="Misc" name="appIconTooltip" type="sap.ui.core/string">
+			<documentation>The tooltip of the application icon in the header</documentation>
+		</property>
+		<property group="Misc" name="showLogoutButton" type="boolean" defaultValue="true">
+			<documentation>Whether the Logoff button in the header should be displayed or not.</documentation>
+		</property>
+		<property group="Accessibility" name="logoutButtonTooltip" type="sap.ui.core/string" since="1.9.0">
+			<documentation>The tooltip to be displayed for the Logout Button of the Shell. If not set, a text meaning &quot;Logout&quot; in the current language will be displayed.</documentation>
+		</property>
+		<property group="Misc" name="showSearchTool" type="boolean" defaultValue="true">
+			<documentation>Whether the &quot;Global Search&quot; tool should be displayed or not.</documentation>
+		</property>
+		<property group="Misc" name="showInspectorTool" type="boolean" defaultValue="false">
+			<documentation>Whether the &quot;Inspector&quot; tool should be displayed or not.</documentation>
+			<deprecation since="1.7.2">According to the current Ux designs, the ThingInspector should NOT be opened like this from the Tool Pane. And technically, the ThingInspector is not a ToolPopup.
+Instead trigger it from the respective elements in the Shell content.</deprecation>
+		</property>
+		<property group="Misc" name="showFeederTool" type="boolean" defaultValue="true">
+			<documentation>Whether the &quot;Feeder&quot; tool should be displayed or not.</documentation>
+		</property>
+		<property group="Misc" name="showTools" type="boolean" defaultValue="true">
+			<documentation>Whether the tool area should be displayed at all or not.</documentation>
+		</property>
+		<property group="Misc" name="showPane" type="boolean" defaultValue="true">
+			<documentation>Whether the pane bar should be displayed at all or not.</documentation>
+		</property>
+        <property group="Misc" name="headerType" type="sap.ui.ux3/ShellHeaderType" defaultValue="Standard">
+            <documentation>Defines which header type to be used. Depending on the header type some other functionality might be obsolete.</documentation>
+        </property>
+        <property group="Misc" name="designType" type="sap.ui.ux3/ShellDesignType" defaultValue="Standard" since="1.12.0">
+            <documentation>Defines which design type is to be used.</documentation>
+        </property>
+		<property group="Misc" name="paneWidth" type="sap.ui.core/int" defaultValue="250">
+			<documentation>The width of the right-hand side pane in pixels. The value must be a non-negative integer. The Shell reserves the right to define a minimum width (currently 50px).</documentation>
+		</property>
+		<property group="Appearance" name="applyContentPadding" type="boolean" defaultValue="true" since="1.9.0">
+			<documentation>Whether the Shell content area should have a theme-dependent padding or not.</documentation>
+		</property>
+		<property group="Appearance" name="fullHeightContent" type="boolean" defaultValue="false" since="1.9.0">
+			<documentation>If set to true, the content area has a defined height. This means that any content put inside can use &quot;100%&quot; height in CSS and will then consume all available space. 
+However, if content is larger, scrollbars will appear at the content area of the Shell and not on window level.</documentation>
+		</property>
+		<property group="Appearance" name="allowOverlayHeaderAccess" type="boolean" defaultValue="false" since="1.14.0">
+			<documentation>Whether the Shell header (Title Area + Header Items) can be accessed when an Overlay, OverlayContainer or ThingInspector is open.</documentation>
+		</property>
+	</properties>
+	<events>
+		<event name="worksetItemSelected" allowPreventDefault="true">
+			<documentation>Fired when a workset item was selected by the user. The application may populate the sub-items of the given workset item in the event handler, but this must happen synchronously. If this is done, the application is responsible for displaying the correct content for the selected one of the newly created sub-items. The Shell will currently always mark the first sub-item as selected.</documentation>
+			<parameters>
+				<parameter name="id" type="string">
+					<documentation>The id of the workset item that has been newly selected by the user. If a top-level item has been clicked which has sub-items, the ID of the currently active sub-item (/leaf) is given.</documentation>
+				</parameter>
+				<parameter name="item" type="NavigationItem">
+					<documentation>The selected NavigationItem</documentation>
+				</parameter>
+				<parameter name="key" type="string">
+					<documentation>The key of the selected NavigationItem (or null if there is no key)</documentation>
+				</parameter>
+			</parameters>
+		</event>
+		
+		<event name="paneBarItemSelected">
+			<documentation>An item in the right-hand-side pane bar has been selected, the pane is now visible and can be  filled with UI elements.</documentation>
+			<parameters>
+				<parameter name="id" type="string">
+					<documentation>The ID of the selected PaneBarItem.</documentation>
+				</parameter>
+				<parameter name="item" type="sap.ui.core/Item">
+					<documentation>The selected Item</documentation>
+				</parameter>
+				<parameter name="key" type="string">
+					<documentation>The key of the selected Item (or null if there is no key)</documentation>
+				</parameter>
+			</parameters>
+		</event>
+		<event name="logout">
+			<documentation>Fired when the user clicks the &quot;Log-off&quot; button</documentation>
+		</event>
+		<event name="search">
+			<documentation>Fired when  search has been triggered.</documentation>
+		</event>
+		<event name="feedSubmit">
+			<documentation>Fired when a new feed entry is submitted.</documentation>
+		</event>
+		<event name="paneClosed" since="1.12.0">
+			<documentation>Fired after a side pane of the shell is closed. It is also fired, when an open pane is closed by calling setShowPane(false), if and only if the pane was opened before.</documentation>
+			<parameters>
+				<parameter name="id" type="sap.ui.core/string">
+					<documentation>The id of the PaneBarItem to which the closed pane belonged.</documentation>
+				</parameter>
+			</parameters>
+		</event>
+	</events>
+	
+	<aggregations default="content">
+		<aggregation cardinality="0..n" name="worksetItems" type="NavigationItem">
+			<documentation>The workset items.</documentation>
+		</aggregation>
+		<aggregation cardinality="0..n" name="paneBarItems" type="sap.ui.core/Item">
+			<documentation>The items to appear in the PaneBar.</documentation>
+		</aggregation>
+		<aggregation cardinality="0..n" name="paneContent" type="sap.ui.core/Control">
+			<documentation>The content to appear in the pane area.</documentation>
+		</aggregation>
+		<aggregation cardinality="0..n" name="content" type="sap.ui.core/Control">
+			<documentation>The content to appear in the main canvas. Each modification of this aggregation leads to a re-rendering of the content area - but not to a re-rendering of the complete Shell.</documentation>
+		</aggregation>
+		<aggregation cardinality="0..n" name="toolPopups" type="ToolPopup">
+			<documentation>The items which appear in the ToolPalette and are opened as popup when clicked.</documentation>
+		</aggregation>
+		<aggregation cardinality="0..n" name="headerItems" type="sap.ui.core/Control">
+			<documentation>Controls to appear in the header next to the logout button. It is recommended to only use controls of type Button, MenuButton and TextView. 
+The respective UI guidelines need to be enforced on a higher level.</documentation>
+		</aggregation>
+		<aggregation cardinality="0..1" name="notificationBar" type="sap.ui.ux3/NotificationBar" since="1.7.0">
+			<documentation>The NotificationBar which should be integrated into the Shell.</documentation>
+		</aggregation>
+        <aggregation cardinality="0..1" name="_paneOverflowMenu" type="sap.ui.commons/Menu" visibility="hidden" since="1.14.0">
+            <documentation>
+              The menu that is shown when there are too many pane-bar entries to fit onto the screen. 
+              It is shown after a click on the overflow button that appears in that case.
+            </documentation>
+        </aggregation>
+	</aggregations>
+	
+	<associations>
+		<association cardinality="0..1" name="selectedWorksetItem" type="NavigationItem">
+			<documentation>The ID of the Item that is currently selected.
+When setting, the NavigationItem itself can be given instead of its ID. There will not be a worksetItemSelected event, the application is responsible to show the proper content according to the newly selected WorksetItem. If the set WorksetItem does not exist in this Shell, the first item (and first sub-item) will be selected after the call.
+When getting, always the ID is returned, by which the NavigationItem instance can be retrieved.</documentation>
+		</association>
+	</associations>
+	<methods>
+		<method name="setContent" type="sap.ui.core/Control[]">
+			<documentation>Replaces the existing Shell content with the given Control(-Tree). Only leads to a re-rendering of the content area (not the complete Shell). 
+This method may be more convenient than a series of calls to &quot;removeContent&quot; and &quot;addContent&quot;, which each lead to a re-rendering of the content area (but again not of the complete Shell).
+
+By default the old content is not destroyed and is returned by this method in an array for further usage. To avoid memory leaks, the old content should be destroyed (if not needed later), by setting the &quot;destroyOldContent&quot; flag or by destroying it manually later on. If &quot;destroyOldContent&quot; is set, an empty array is returned.</documentation>
+			<parameters>
+				<parameter name="content" type="sap.ui.core/Control">
+					<documentation>The new Content. In this method it must be exactly one control (-tree). Use addContent() to add more control (-trees) to the main content area of the Shell.</documentation>
+				</parameter>
+				<parameter name="destroyOldContent" type="boolean">
+					<documentation>If set, the controls previously contained in the Shell will be destroyed, to avoid memory leaks.</documentation>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="setPaneContent" type="sap.ui.core/Control[]">
+			<documentation>Replaces the existing side pane content with the given Control(-Tree). This method is optimized to only re-render the pane content (and not the shell) which is faster and smoother than any other way of changing the &quot;paneContent&quot; aggregation.
+
+By default, the old pane content is not destroyed and is returned by this method in an array for further usage. To avoid memory leaks, the old content should be destroyed (if not needed later), by setting the &quot;destroyOldContent&quot; flag or by destroying it manually later on. If &quot;destroyOldContent&quot; is set, an empty array is returned.</documentation>
+			<parameters>
+				<parameter name="content" type="sap.ui.core/Control">
+					<documentation>The new Pane content. In this method it must be exactly one control (-tree). This could likely be a layout or a specific ux3 Pane control. Use addPaneContent() to add more control (-trees) to the Pane.</documentation>
+				</parameter>
+				<parameter name="destroyOldContent" type="boolean">
+					<documentation>If set, the controls previously contained in the pane will be destroyed, to avoid memory leaks.</documentation>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="openPersonalizationDialog" type="sap.ui.core/void">
+			<documentation>Experimental method! Do not use!</documentation>
+		</method>
+		<method name="initializePersonalization" type="sap.ui.core/void">
+			<documentation>Experimental method! Do not use!
+
+Makes Shell personalization available and injects the given personalization settings. This should be called before the user can do any adaptations per drag&amp;drop or using the personalization dialog. Otherwise it may override the user's new settings.</documentation>
+			<parameters>
+				<parameter type="sap.ui.core/object" name="settings">
+					<documentation>Personalization settings object</documentation>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="getSearchField" type="sap.ui.commons/SearchField">
+			<documentation>Returns the SearchField control which is used in the Search Tool.</documentation>
+		</method>
+		<method name="openPane" type="sap.ui.ux3/Shell">
+			<documentation>Opens the side Pane. 
+
+A valid ID of a paneBarItem must be given, so this item can be marked as selected. A &quot;paneBarItemSelected&quot; event is then fired as if the opening was triggered by the user by a click on the respective PaneBarItem.
+This method can be called (with different IDs) even when the Pane is already open. It has then the same effect as if the user switches between PaneBarItems.
+
+Returns 'this' to allow method chaining.</documentation>
+			<parameters>
+				<parameter name="paneBarItemId" type="sap.ui.core/string">
+					<documentation>The ID of the PaneBarItem which should be marked as selected.</documentation>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="closePane" type="sap.ui.ux3/Shell">
+			<documentation>Closes the side Pane (if open).
+
+Returns 'this' to allow method chaining.</documentation>
+		</method>
+		<method name="isPaneOpen" type="boolean">
+			<documentation>Returns 'true' if the side Pane is currently open.</documentation>
+		</method>
+	</methods>
+</control>

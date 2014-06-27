@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd">
+
+	<name>Control</name>
+
+	<documentation>Base class for controls.</documentation>
+	
+	<abstract/>
+	
+	<baseType>sap.ui.core/Element</baseType>
+	
+	<targetConfigurations>
+		<targetConfiguration name="JavaScriptAPI">
+			<property name="sap.ui.generate">false</property>
+		</targetConfiguration>
+		<targetConfiguration name="JavaAPI">
+			<property name="sap.ui.generate">false</property>
+		</targetConfiguration>
+	</targetConfigurations>
+
+</control>

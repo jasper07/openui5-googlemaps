@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd">
+
+  <name>LayoutData</name>
+  <author>SAP AG</author>
+  <documentation>A layout data base type.</documentation>
+  <abstract/>
+
+  <baseType>sap.ui.core/Element</baseType>
+  <properties>
+  </properties>
+
+</control>

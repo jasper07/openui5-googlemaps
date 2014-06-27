@@ -1,0 +1,47 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd">
+
+	<name>Button</name>
+	<author>SAP AG</author>
+	<documentation>Enables users to trigger actions. For the button UI, you can define some text or an icon, or both.</documentation>
+	<baseType>sap.ui.core/Control</baseType>
+	<properties>
+		<property group="Misc" name="text" type="sap.ui.core/string">
+			<documentation>Button text</documentation>
+		</property>
+		<property group="Appearance" name="type" type="sap.m/ButtonType" defaultValue="Default">
+			<documentation>Type of a button (e.g. Default, Accept, Reject, Back,  etc.)</documentation>
+		</property>
+		<property group="Misc" name="width" type="sap.ui.core/CSSSize">
+			<documentation>Defines the width of the button.</documentation>
+		</property>
+		<property group="Behavior" name="enabled" type="sap.ui.core/boolean" defaultValue="true">
+			<documentation>Boolean property to enable the control (default is true). Buttons that are disabled have other colors than enabled ones, depending on custom settings</documentation>
+		</property>
+		<property group="Appearance" name="visible" type="sap.ui.core/boolean" defaultValue="true">
+			<documentation>Invisible buttons are not rendered</documentation>
+		</property>
+		<property group="Appearance" name="icon" type="sap.ui.core/URI">
+			<documentation>Icon to be displayed as graphical element within the button. This can be an image  or an icon from the icon font.</documentation>
+		</property>
+		<property group="Appearance" name="iconFirst" type="sap.ui.core/boolean" defaultValue="true">
+			<documentation>If set to true (default), the display sequence is 1. icon 2. control text </documentation>
+		</property>
+		<property group="Misc" name="activeIcon" type="sap.ui.core/URI">
+			<documentation>The source property when this icon is tapped. Graphical element is changed to the new source as long as the icon is tapped.</documentation>
+		</property>
+		<property group="Misc" name="iconDensityAware" type="sap.ui.core/boolean" defaultValue="true">
+			<documentation>By default, this is set to true but then one or more requests are sent trying to get the density perfect version of image if this version of image doesn't exist on the server.
+
+If only one version of image is provided, set this value to false to avoid the attempt of fetching density perfect image.</documentation>
+		</property>
+	</properties>
+	<events>
+		<event name="tap">
+			<documentation>Event is fired when the user taps the control. (This event is deprecated, use the press event instead)</documentation>
+		</event>
+		<event name="press">
+			<documentation>Event is fired when the user clicks on the control.</documentation>
+		</event>
+	</events>
+</control>

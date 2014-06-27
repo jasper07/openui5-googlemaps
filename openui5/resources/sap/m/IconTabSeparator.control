@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>IconTabSeparator</name>
+	<author>SAP AG</author>
+	<documentation>A tab separator item class</documentation>
+
+	<baseType>sap.ui.core/Element</baseType>
+	<interfaces>
+		<interface>IconTab</interface>
+	</interfaces>
+	<properties>
+		<property group="Misc" name="icon" type="URI" defaultValue="">
+			<documentation>The icon to display for this separator. If no icon is given, a separator line will be used instead.</documentation>
+		</property>
+		<property group="Appearance" name="iconDensityAware" type="sap.ui.core/boolean" defaultValue="true">
+			<documentation>By default, this is set to true but then one or more requests are sent trying to get the density perfect version of image if this version of image doesn't exist on the server.
+
+If bandwidth is the key for the application, set this value to false.</documentation>
+		</property>
+	</properties>
+</control>

@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>form/FormElement</name>
+	<author>SAP AG</author>
+	<since>1.16.0</since>
+	<documentation>A form element is a combination of one label and different controls associated to this label.</documentation>
+
+	<baseType>sap.ui.core/Element</baseType>
+	<properties>
+		<property group="Misc" name="visible" type="sap.ui.core/boolean" defaultValue="true">
+			<documentation>Invisible FormElements are not rendered.</documentation>
+		</property>
+	</properties>
+	<aggregations default="fields">
+		<aggregation cardinality="0..1" name="label" type="sap.ui.core/Label">
+			<documentation>Label of the fields. Can either be a Label object, or a simple string.</documentation>
+			<altType type="sap.ui.core/string" />
+		</aggregation>
+		<aggregation name="fields" type="sap.ui.core/Control" cardinality="0..n">
+			<documentation>Formular controls.</documentation>
+		</aggregation>
+	</aggregations>
+	<methods>
+		<method name="getLabelControl" type="sap.ui.core/Label">
+			<documentation>Returns the Label Control, even if the Label is entered as Text.</documentation>
+		</method>
+	</methods>
+</control>

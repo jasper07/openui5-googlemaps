@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd">
+	<name>TooltipBase</name>
+	<documentation>Abstract class that can be extended in order to implement any extended tooltip. For example, RichTooltip Control is based on it. It provides the opening/closing behavior and the main &quot;text&quot; property.</documentation>
+	<abstract/>
+
+	<baseType>sap.ui.core/Control</baseType>
+	<properties>
+		<property group="Misc" name="text" type="string" defaultValue='""'>
+			<documentation>The text that is shown in the tooltip that extends the TooltipBase class, for example in RichTooltip. </documentation>
+		</property>
+		<property group="Behavior" name="openDuration" type="int" defaultValue="200">
+			<documentation>Optional. Open Duration in milliseconds.</documentation>
+		</property>
+		<property group="Behavior" name="closeDuration" type="int" defaultValue="200">
+			<documentation>Optional. Close Duration in milliseconds.</documentation>
+		</property>
+		<property group="Behavior" name="myPosition" type="sap.ui.core/Dock" defaultValue="begin top">
+			<documentation>Optional. My position defines which position on the extended tooltip being positioned to align with the target control.</documentation>
+		</property>
+		<property group="Behavior" name="atPosition" type="sap.ui.core/Dock" defaultValue="begin bottom">
+			<documentation>Optional. At position defines which position on the target control to align the positioned tooltip.</documentation>
+		</property>
+		<property group="Behavior" name="offset" type="string" defaultValue="10 3">
+			<documentation>Optional. Offset adds these left-top values to the calculated position.
+Example: &quot;10 3&quot;.</documentation>
+		</property>
+		<property group="Behavior" name="collision" type="sap.ui.core/Collision" defaultValue="flip">
+			<documentation>Optional. Collision - when the positioned element overflows the window in some direction, move it to an alternative position.</documentation>
+		</property>
+		<property group="Misc" name="openDelay" type="sap.ui.core/int" defaultValue="500">
+			<documentation>Opening delay of the tooltip in milliseconds</documentation>
+		</property>
+		<property group="Misc" name="closeDelay" type="sap.ui.core/int" defaultValue="100">
+			<documentation>Closing delay of the tooltip in milliseconds</documentation>
+		</property>
+	</properties>
+</control>

@@ -1,0 +1,81 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>ColorPicker</name>
+	<author>SAP AG</author>
+	<documentation>This control gives the user the opportunity to choose a color. The color can be  defined using HEX-, RGB- or HSV-values or a CSS colorname.</documentation>
+
+	<baseType>sap.ui.core/Control</baseType>
+	<properties>
+		<property group="Misc" type="sap.ui.core/string" name="colorString">
+			<documentation>This is the import-parameter of the ColorPicker.
+As input-parameter, it can be a Hexadecimal string (#FFFFFF), a RGB-string rgb(255,255,255), a HSV-string hsv(360,100,100) or a CSS-colorname 'red'.
+As output-parameter it is a RGB-string containing the current color.</documentation>
+		</property>
+	</properties>
+	<events>
+		<event name="change">
+			<documentation>Value was changed. This event is fired if the value has changed by an user action.</documentation>
+			<parameters>
+				<parameter name="r" type="sap.ui.core/int">
+					<documentation>Parameter containing the RED value (0-255)</documentation>
+				</parameter>
+				<parameter name="g" type="sap.ui.core/int">
+					<documentation>Parameter containing the GREEN value (0-255)</documentation>
+				</parameter>
+				<parameter name="b" type="sap.ui.core/int">
+					<documentation>Parameter containing the BLUE value (0-255)</documentation>
+				</parameter>
+				<parameter name="h" type="sap.ui.core/int">
+					<documentation>Parameter containing the HUE value (0-360)</documentation>
+				</parameter>
+				<parameter name="s" type="sap.ui.core/int">
+					<documentation>Parameter containing the SATURATION value (0-100)</documentation>
+				</parameter>
+				<parameter name="v" type="sap.ui.core/int">
+					<documentation>Parameter containing the VALUE value (0-100)</documentation>
+				</parameter>
+				<parameter name="hex" type="sap.ui.core/string">
+					<documentation>Parameter containing the Hexadecimal string (#FFFFFF)</documentation>
+				</parameter>
+				<parameter name="alpha" type="sap.ui.core/string">
+					<documentation>Parameter containing the alpha value (transparency)</documentation>
+				</parameter>
+			</parameters>
+		</event>
+		<event name="liveChange">
+			<documentation>Value was changed. This event is fired during the mouse move. The normal change event ist only fired by mouseup.</documentation>
+			<parameters>
+				<parameter name="r" type="sap.ui.core/int">
+					<documentation>Parameter containing the RED value (0-255)</documentation>
+				</parameter>
+				<parameter name="g" type="sap.ui.core/int">
+					<documentation>Parameter containing the GREEN value (0-255)</documentation>
+				</parameter>
+				<parameter name="b" type="sap.ui.core/int">
+					<documentation>Parameter containing the BLUE value (0-255)</documentation>
+				</parameter>
+				<parameter name="h" type="sap.ui.core/int">
+					<documentation>Parameter containing the HUE value (0-360)</documentation>
+				</parameter>
+				<parameter name="s" type="sap.ui.core/int">
+					<documentation>Parameter containing the SATURATION value (0-100)</documentation>
+				</parameter>
+				<parameter name="v" type="sap.ui.core/int">
+					<documentation>Parameter containing the VALUE value (0-100)</documentation>
+				</parameter>
+				<parameter name="hex" type="sap.ui.core/string">
+					<documentation>Parameter containing the Hexadecimal string (#FFFFFF)</documentation>
+				</parameter>
+				<parameter name="alpha" type="sap.ui.core/string">
+					<documentation>Parameter containing the alpha value (transparency)</documentation>
+				</parameter>
+			</parameters>
+		</event>
+	</events>
+	<methods>
+		<method name="getRGB" type="object">
+			<documentation>This method delivers the current RGB-values</documentation>
+		</method>
+	</methods>
+</control>

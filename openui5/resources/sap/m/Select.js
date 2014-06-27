@@ -18,7 +18,7 @@ sap.m.Select.prototype._removeFocusableParentPopup=function(d){sap.m.Select._pub
 sap.m.Select._publishEventToPopup=function(o){var p,e;if(!o.parent||!o.child){return}p=o.parent.attr("data-sap-ui-popup");e="sap.ui.core.Popup."+o.action+"FocusableContent"+"-"+p;sap.ui.getCore().getEventBus().publish("sap.ui",e,{id:o.child.getId()})};
 sap.m.Select.prototype._focusItem=function(l){if(!l){return}l.focus();jQuery.sap.delayedCall(0,this,"focus")};
 sap.m.Select.prototype._setValue=function(v){if(this._$Label&&this._$Label.length){this._$Label.text(v)}};
-sap.m.Select.prototype._mapItemToListItem=function(i){var l=new sap.m.StandardListItem({title:i.getText(),type:i.getEnabled()?sap.m.ListType.Active:sap.m.ListType.Inactive});i._oListItem=l;return l};
+sap.m.Select.prototype._mapItemToListItem=function(i){var l=new sap.m.StandardListItem();l.setTitle(i.getText());l.setType(i.getEnabled()?sap.m.ListType.Active:sap.m.ListType.Inactive);l.setTooltip(i.getTooltip());i._oListItem=l;return l};
 sap.m.Select.prototype._findMappedItem=function(l,I){for(var i=0,I=I||this.getItems(),a=I.length;i<a;i++){if(I[i]._oListItem===l){return I[i]}}return null};
 sap.m.Select.prototype._updateSelectedItem=function(n){this._setSelectedItem({item:n,id:n.getId(),key:n.getKey(),fireChangeEvent:true,suppressInvalidate:true,listItemUpdated:true})};
 sap.m.Select.prototype._fillList=function(I){if(!I){return}for(var i=0,l,s=this.getSelectedItem(),a=I.length;i<a;i++){l=this._mapItemToListItem(I[i]);this._oList.addAggregation("items",l,true);if(I[i]===s){this._oList.setSelectedItem(l)}}};

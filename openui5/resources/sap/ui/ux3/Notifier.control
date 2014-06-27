@@ -1,0 +1,45 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>Notifier</name>
+	<author>SAP AG</author>
+	<documentation>This element can be docked to a notification bar to show notification items</documentation>
+
+	<baseType>sap.ui.core/Element</baseType>
+	
+	<properties>
+		<property group="Misc" name="icon" type="sap.ui.core/URI">
+			<documentation>Icon of the control that should be displayed within the corresponding bar</documentation>
+		</property>
+		<property group="Misc" name="title" type="sap.ui.core/string">
+			<documentation>Defines the title that should be displayed within the opening popup</documentation>
+		</property>
+	</properties>
+	<events>
+		<event name="messageSelected">
+			<documentation>Event is fired when a message of the notifiers was selected.</documentation>
+			<parameters>
+				<parameter name="message" type="sap.ui.core/Message">
+					<documentation>The message that was selected</documentation>
+				</parameter>
+				<parameter name="notifier" type="sap.ui.ux3/Notifier">
+					<documentation>The notifier that contains the selected message</documentation>
+				</parameter>
+			</parameters>
+		</event>
+	</events>
+	<aggregations>
+		<aggregation cardinality="0..n" name="messages"
+			type="sap.ui.core/Message">
+			<documentation>Messages of this notifier.</documentation>
+		</aggregation>
+		<aggregation cardinality="0..n" name="views" type="sap.ui.core/Control" visibility="hidden" >
+			<documentation>Views aggregated with this Notifier and managed by the parent NotificationBar.</documentation>
+		</aggregation>
+	</aggregations>
+	<methods>
+		<method name="hasItems" type="sap.ui.core/boolean">
+			<documentation>This method checks if the notifier has any items.</documentation>
+		</method>
+	</methods>
+</control>

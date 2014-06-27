@@ -1,0 +1,117 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>ObjectHeader</name>
+	<since>1.12</since>
+	<documentation>ObjectHeader is a display control that enables the user to easily identify a specific object. The object header title is the key identifier of the object and additional text and icons can be used to further distinguish it from other objects.</documentation>
+
+	<baseType>sap.ui.core/Control</baseType>
+	<properties>
+		<property group="Misc" name="title" type="sap.ui.core/string">
+			<documentation>Object header title</documentation>
+		</property>
+		<property group="Misc" name="number" type="sap.ui.core/string">
+			<documentation>Object header number field</documentation>
+		</property>
+		<property group="Misc" name="numberUnit" type="sap.ui.core/string">
+			<documentation>Object header number units qualifier.</documentation>
+		</property>
+		<property group="Misc" name="intro" type="sap.ui.core/string">
+			<documentation>Introductory text for the object header.</documentation>
+		</property>
+		<property group="Misc" name="introActive" type="sap.ui.core/boolean">
+			<documentation>Indicates that the intro is clickable</documentation>
+		</property>
+		<property group="Misc" name="titleActive" type="sap.ui.core/boolean">
+			<documentation>Indicates that the title is clickable</documentation>
+		</property>
+		<property group="Misc" name="icon" type="sap.ui.core/URI">
+			<documentation>Object header icon</documentation>
+		</property>
+		<property group="Misc" name="iconActive" type="sap.ui.core/boolean">
+			<documentation>Indicates that the object header  icon is clickable</documentation>
+		</property>
+		<property group="Appearance" name="visible" type="sap.ui.core/boolean" defaultValue="true">
+			<documentation>Indicateds if object header is visible. Invisible object headers are not rendered.</documentation>
+		</property>
+		<property group="Misc" name="iconDensityAware" type="sap.ui.core/boolean" defaultValue="true">
+			<documentation>By default, this is set to true but then one or more requests are sent trying to get the density perfect version of image if this version of image doesn't exist on the server.
+
+If bandwidth is the key for the application, set this value to false.</documentation>
+		</property>
+		<property group="Misc" name="markFavorite" type="sap.ui.core/boolean" defaultValue="false" since="1.16.0">
+			<documentation>Set the favorite state to true or false. The showMarkers property must be true for this property to take effect.</documentation>
+		</property>
+		<property group="Misc" name="markFlagged" type="sap.ui.core/boolean" defaultValue="false" since="1.16.0">
+			<documentation>Set the flagged state to true or false. The showMarkers property must be true for this property to take effect.</documentation>
+		</property>
+		<property group="Misc" name="showMarkers" type="sap.ui.core/boolean" defaultValue="false" since="1.16.0">
+			<documentation>Indicates if object header supports showing markers such as flagged and favorite.</documentation>
+		</property>
+		<property group="Misc" name="showTitleSelector" type="sap.ui.core/boolean" defaultValue="false" since="1.16.0">
+			<documentation>When it is true, the selector arrow icon/image is shown and can be pressed.</documentation>
+		</property>
+		<property group="Misc" name="numberState" type="sap.ui.core/ValueState" defaultValue="None" since="1.16.0">
+			<documentation>Object header number and numberUnit value state.</documentation>
+		</property>
+		<property group="Appearance" name="condensed" type="sap.ui.core/boolean" defaultValue="false">
+			<documentation>Displays the condensed object header with title, one attribute, number and number unit.</documentation>
+		</property>
+		<property group="Appearance" name="backgroundDesign" type="BackgroundDesign" defaultValue="Transparent">
+			<documentation>Note: only applied when &quot;condensed&quot; is true.
+This property is used to set the background color of the ObjectHeader in condensed mode. Depending on the theme you can change the state of the background from &quot;Solid&quot; to &quot;Transparent&quot;.</documentation>
+		</property>
+	</properties>
+	<events>
+		<event name="titlePress">
+			<documentation>Event is fired when the title is active and the user tap/click on it</documentation>
+			<parameters>
+				<parameter name="domRef" type="sap.ui.core/object">
+					<documentation>Dom reference of the object header' title to be used for positioning.</documentation>
+				</parameter>
+			</parameters>
+		</event>
+		<event name="introPress">
+			<documentation>Event is fired when the title is active and the user tap/click on it</documentation>
+			<parameters>
+				<parameter name="domRef" type="sap.ui.core/object">
+					<documentation>Dom reference of the object header' intro to be used for positioning.</documentation>
+				</parameter>
+			</parameters>
+		</event>
+		<event name="iconPress">
+			<documentation>Event is fired when the title icon is active and the user tap/click on it</documentation>
+			<parameters>
+				<parameter name="domRef" type="sap.ui.core/object">
+					<documentation>Dom reference of the object header' icon to be used for positioning.</documentation>
+				</parameter>
+			</parameters>
+		</event>
+		<event name="titleSelectorPress" since="1.16.0">
+			<documentation>Event is fired when the object header title selector (down-arrow)  is pressed</documentation>
+			<parameters>
+				<parameter name="domRef" type="sap.ui.core/object">
+					<documentation>Dom reference of the object header' titleArrow to be used for positioning.</documentation>
+				</parameter>
+			</parameters>
+		</event>
+	</events>
+	<aggregations default="attributes">
+		<aggregation cardinality="0..n" name="attributes" type="sap.m/ObjectAttribute">
+			<documentation>The list of Object Attributes</documentation>
+		</aggregation>
+				<aggregation cardinality="0..1" type="sap.m/ObjectStatus" name="firstStatus">
+			<documentation>First status shown on the right side of the attributes above the second status.
+If it is not set the first attibute will expand to take the entire row.</documentation>
+			<deprecation since="1.16.0">Use the statuses aggregation instead.</deprecation>
+		</aggregation>
+		<aggregation cardinality="0..1" name="secondStatus" type="sap.m/ObjectStatus">
+			<documentation>Second status shown on the right side of the attributes below the first status.
+If it is not set the second attibute will expand to take the entire row.</documentation>
+			<deprecation since="1.16.0">Use the statuses aggregation instead.</deprecation>
+		</aggregation>
+		<aggregation cardinality="0..n" name="statuses" type="sap.ui.core/Control" since="1.16.0">
+			<documentation>The list of Object sap.ui.core.Control. It will only allow sap.m.ObjectStatus and sap.m.ProgressIndicator controls.</documentation>
+		</aggregation>
+	</aggregations>
+</control>

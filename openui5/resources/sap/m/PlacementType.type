@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<simple-type xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>PlacementType</name>
+	<author>SAP AG</author>
+	<documentation>Types for the placement of popover control.</documentation>
+	<baseType>sap.ui.core/string</baseType>
+	<enumeration>
+		<value name="Left">
+			<documentation>Popover will be placed at the left side of the reference control. </documentation>
+		</value>
+		<value name="Right">
+			<documentation>Popover will be placed at the right side of the reference control. </documentation>
+		</value>
+		<value name="Top">
+			<documentation>Popover will be placed at the top of the reference control.</documentation>
+		</value>
+		<value name="Bottom">
+			<documentation>Popover will be placed at the bottom of the reference control.</documentation>
+		</value>
+		<value name="Vertical">
+			<documentation>Popover will be placed at the top or bottom of the reference control.</documentation>
+		</value>
+		<value name="Horizontal">
+			<documentation>Popover will be placed at the right or left side of the reference control.</documentation>
+		</value>
+		<value name="Auto">
+			<documentation>Popover will be placed automatically at the reference control.</documentation>
+		</value>
+	</enumeration>
+</simple-type>

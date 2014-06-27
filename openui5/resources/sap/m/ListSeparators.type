@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<simple-type xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>ListSeparators</name>
+	<author></author>
+	<documentation>Defines which separator style will be taken.</documentation>
+	<baseType>sap.ui.core/string</baseType>
+	<enumeration>
+		<value name="All">
+			<documentation>Separators around all items.</documentation>
+		</value>
+		<value name="Inner">
+			<documentation>Separators only between the items.</documentation>
+		</value>
+		<value name="None">
+			<documentation>No Separators are used.</documentation>
+		</value>
+	</enumeration>
+</simple-type>

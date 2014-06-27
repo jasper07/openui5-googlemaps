@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>search/OpenSearchProvider</name>
+
+	<documentation>A SearchProvider which uses the OpenSearch protocol (either JSON or XML).</documentation>
+
+	<baseType>sap.ui.core/search/SearchProvider</baseType>
+	<properties>
+		<property group="Misc" name="suggestUrl" type="sap.ui.core/URI">
+			<documentation>The URL for suggestions of the search provider. As placeholder for the concrete search queries '{searchTerms}' must be used. For cross domain requests maybe a proxy must be used.</documentation>
+		</property>
+		<property group="Misc" name="suggestType" type="sap.ui.core/string" defaultValue="json">
+			<documentation>The type of data which is provided by the given suggestUrl: either 'json' or 'xml'.</documentation>
+		</property>
+	</properties>
+</control>

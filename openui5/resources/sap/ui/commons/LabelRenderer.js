@@ -1,0 +1,9 @@
+/*!
+ * SAP UI development toolkit for HTML5 (SAPUI5/OpenUI5)
+ * (c) Copyright 2009-2014 SAP AG or an SAP affiliate company. 
+ * Licensed under the Apache License, Version 2.0 - see LICENSE.txt.
+ */
+jQuery.sap.declare("sap.ui.commons.LabelRenderer");jQuery.sap.require("sap.ui.core.Renderer");sap.ui.commons.LabelRenderer={};
+sap.ui.commons.LabelRenderer.render=function(R,l){var a=R;var r=sap.ui.commons.LabelRenderer;if(!l.getVisible()){return}a.write("<label");a.writeControlData(l);var t=l.getTooltip_AsString();if(l.getLabelForRendering()){var f=sap.ui.getCore().byId(l.getLabelForRendering());a.write(" for=\"");if(f&&f.getIdForLabel){a.write(f.getIdForLabel())}else{a.write(l.getLabelForRendering())}a.write("\"");if((!t||t=="")&&f&&f.getTooltip_AsString()&&f.getTooltip_AsString()!=""){t=f.getTooltip_AsString()}}if(l.isRequired()){a.addClass('sapUiLblReq');if(l.getRequiredAtBegin()){a.addClass('sapUiLblReqBeg')}else{a.addClass('sapUiLblReqEnd')}}if(t){a.writeAttributeEscaped('title',t)}a.addClass("sapUiLbl");if(l.getDesign()==sap.ui.commons.LabelDesign.Bold){a.addClass("sapUiLblEmph")}var T=l.getTextDirection();if(T){a.addStyle("direction",T.toLowerCase())}var o=l.getTextAlign();if(o){a.addStyle("text-align",r.getTextAlign(o,T))}var w=l.getWidth();if(w){a.addStyle("width",w)}if(!l.getWrapping()){a.addClass("sapUiLblNowrap")}a.writeStyles();a.writeClasses();a.write(">");if(l.getIcon()){this.writeImgHtml(a,l)}if(l.getText()){a.writeEscaped(l.getText())}a.write("</label>")};
+sap.ui.commons.LabelRenderer.writeImgHtml=function(r,l){var a=r;var i=l.getIcon();var c=r.getConfiguration();var C=[];var A={};C.push("sapUiLblIco");if((l.getTextDirection()==sap.ui.core.TextDirection.RTL&&!c.getRTL())||(l.getTextDirection()==sap.ui.core.TextDirection.LTR&&c.getRTL())){C.push("sapUiLblIcoR")}else{C.push("sapUiLblIcoL")}a.writeIcon(i,C,A)};
+sap.ui.commons.LabelRenderer.getTextAlign=sap.ui.core.Renderer.getTextAlign;

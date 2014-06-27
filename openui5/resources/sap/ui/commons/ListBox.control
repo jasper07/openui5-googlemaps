@@ -1,0 +1,207 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd" xmlns:qtp="http://www.sap.com/sap.ui.library.qtp">
+
+	<name>ListBox</name>
+	<author>SAP AG</author>
+	<documentation>Provides a list of items from which users can choose an item. For the design of the list box, features such as defining the list box height, 
+	fixing the number of visible items, choosing one item to be the item that is marked by default when the list box is shown, or a scroll bar for large list boxes 
+	are available.</documentation>
+
+	<baseType>sap.ui.core/Control</baseType>
+	<properties>
+		<property group="Behavior" name="editable" type="boolean" defaultValue="true">
+			<documentation>Value "true" makes the list box interactive.</documentation>
+		</property>
+		<property group="Behavior" name="enabled" type="boolean" defaultValue="true">
+			<documentation>Disabled controls have another color display depending on custom settings.</documentation>
+		</property>
+		<property group="Behavior" name="allowMultiSelect" type="boolean" defaultValue="false">
+			<documentation>Specifies whether multiple selection is allowed.</documentation>
+		</property>
+		<property group="Appearance" name="visible" type="boolean" defaultValue="true">
+			<documentation>Invisible controls are not rendered.</documentation>
+		</property>
+		<property group="Dimension" name="width" type="sap.ui.core/CSSSize">
+			<documentation>Control width as common CSS-size (px or % as unit, for example).</documentation>
+		</property>
+		<property group="Dimension" name="height" type="sap.ui.core/CSSSize">
+			<documentation>Control height as common CSS-size (px or % as unit, for example). 
+		The setting overrides any definitions made for the setVisibleItems() method.</documentation>
+		</property> 
+		<property group="Behavior" name="scrollTop" type="int" defaultValue="-1">
+			<documentation>Scroll bar position from the top. Setting the scrollTop property and calling scrollToIndex are two operations influencing the same &quot;physical&quot; property, so the last call &quot;wins&quot;.</documentation>
+		</property>
+		<property group="Behavior" type="boolean" name="displayIcons" defaultValue="false">
+			<documentation>Defines whether the icons of the list items shall also be displayed. Enabling icons requires some space to be reserved for them. Displaying icons can also 
+			influence the width and height of a single item, which affects the overall height of the ListBox when defined in number of items. 
+			Note that the number of icons that can be displayed in the ListBox depends on the size of the icons themselves and of the total ListBox height.
+			</documentation>
+		</property>
+		<property group="Misc" name="displaySecondaryValues" type="boolean" defaultValue="false">
+			<documentation>Specifies whether the text values from the additionalText property (see sap.ui.core.ListItems) shall be displayed.</documentation>
+		</property>
+		<property group="Appearance" name="valueTextAlign" type="sap.ui.core/TextAlign" defaultValue="Begin">
+			<documentation>The text alignment in the primary ListBox column.</documentation>
+		</property>
+		<property group="Appearance" name="secondaryValueTextAlign" type="sap.ui.core/TextAlign" defaultValue="Begin">
+			<documentation>The text alignment in the secondary ListBox text column (if available).</documentation>
+		</property>
+		<property group="Dimension" name="minWidth" type="sap.ui.core/CSSSize">
+			<documentation>The minimum width of the ListBox. If not set, there is no minimum width.</documentation>
+		</property>
+		<property group="Dimension" name="maxWidth" type="sap.ui.core/CSSSize">
+			<documentation>The maximum width of the ListBox. If not set, there is no maximum width.</documentation>
+		</property>
+		<property group="Dimension" name="visibleItems" type="int">
+			<documentation>The ListBox height in number of items that are initially displayed without scrolling. This setting overwrites height 
+			settings in terms of CSS size that have been made. When the items have different heights, the height of the first item is used for all 
+			other item height calculations. Note that if there are one or more separators between the visible ListBox items, the displayed items 
+			might not relate 1:1 to the initially specified number of items. When the value is retrieved, it equals the previously set value if it was set; 
+			otherwise, it will be the number of items completely fitting into the ListBox without scrolling in the case the control was already rendered. 
+			Note that if the control was not rendered, the behavior will be undefined, it may return -1 or any other number.</documentation>
+		</property>
+	</properties>
+	<events>
+		<event name="select">
+			<documentation>Event is fired when selection is changed by user interaction.</documentation>
+			<parameters>
+				<parameter name="id" type="string">
+					<documentation>ID of the ListBox which triggered the event.</documentation>
+				</parameter>
+				<parameter name="selectedIndex" type="int">
+					<documentation>The currently selected index of the ListBox. In the case of multiple selection, this is exactly one of the selected indices - the one whose selection has triggered the selection change; to get all currently selected indices, use selectedIndices.</documentation>
+				</parameter>
+				<parameter name="selectedItem" type="sap.ui.core/Item">
+					<documentation>The currently selected item of the ListBox. In the case of multiple selection, this is exactly one of the selected items - the one whose selection has triggered the selection change.</documentation>
+				</parameter>
+				<parameter name="selectedIndices" type="int[]">
+					<documentation>Array containing the indices which are selected.</documentation>
+				</parameter>
+			</parameters>
+		</event>
+	</events>
+	<aggregations default="items">
+		<aggregation cardinality="0..n" name="items" type="sap.ui.core/Item">
+			<documentation>Aggregation of items to be displayed. Must be either of type sap.ui.core.ListItem or sap.ui.core.SeparatorItem.</documentation>
+		</aggregation>
+	</aggregations>
+	<associations>
+		<association cardinality="0..n" name="ariaDescribedBy" type="sap.ui.core/Control">
+			<documentation>Association to controls / ids which describe this control (see WAI-ARIA attribute aria-describedby).</documentation>
+		</association>
+		<association cardinality="0..n" name="ariaLabelledBy" type="sap.ui.core/Control">
+			<documentation>Association to controls / ids which label this control (see WAI-ARIA attribute aria-labelledby).</documentation>
+		</association>
+	</associations>
+	<methods>
+	
+		
+		<method name="getSelectedIndex" type="int">
+			<documentation>Zero-based index of selected item. Index value for no selection is -1. When multiple selection is enabled and multiple items are selected, the method returns the first selected item.</documentation>
+		</method>
+		<method name="setSelectedIndex" type="sap.ui.commons/ListBox">
+			<documentation>Sets the zero-based index of the currently selected item. This method removes any previous selections. When the given index is invalid, the call is ignored.</documentation>
+			<parameters>
+				<parameter name="index" type="int">
+					<documentation>Index to be selected</documentation>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="addSelectedIndex" type="sap.ui.commons/ListBox">
+			<documentation>Adds the given index to current selection. When multiple selection is disabled, this replaces the current selection. When the given index is invalid, the call is ignored.</documentation>
+			<parameters>
+				<parameter name="index" type="int">
+					<documentation>Index to add to selection.</documentation>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="removeSelectedIndex" type="sap.ui.commons/ListBox">
+			<documentation>Removes the given index from this selection. When the index is invalid or not selected, the call is ignored.</documentation>
+			<parameters>
+				<parameter type="int" name="index">
+					<documentation>Index that shall be removed from selection.</documentation>
+				</parameter>
+			</parameters>
+		</method>
+		
+		<method name="getSelectedIndices" type="int[]">
+			<documentation>Zero-based indices of selected items, wrapped in an array. An empty array means "no selection".</documentation>
+		</method>
+		<method name="setSelectedIndices" type="sap.ui.commons/ListBox">
+			<documentation>Zero-based indices of selected items, wrapped in an array. An empty array means &quot;no selection&quot;.
+When multiple selection is disabled and multiple items are given, the selection is set to the index of the first valid index in the given array.
+Any invalid indices are ignored.
+The previous selection is in any case replaced.</documentation>
+			<parameters>
+				<parameter name="indices" type="int[]">
+					<documentation>Indices of the items to be selected.</documentation>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="addSelectedIndices" type="sap.ui.commons/ListBox">
+			<documentation>Adds the given indices to selection. Any invalid indices are ignored.</documentation>
+			<parameters>
+				<parameter name="indices" type="int[]">
+					<documentation>Indices of the items that shall additionally be selected.</documentation>
+				</parameter>
+			</parameters>
+		</method>
+		
+		<method name="isIndexSelected" type="boolean">
+			<documentation>Returns whether the given index is selected.</documentation>
+			<parameters>
+				<parameter name="index" type="int">
+					<documentation>Index which is checked for selection state.</documentation>
+				</parameter>
+			</parameters> 
+		</method>
+		
+		<method name="getSelectedItem" type="sap.ui.core/Item">
+			<documentation>Returns selected item. When no item is selected, "null" is returned. When multi-selection is enabled and multiple items are selected, only the first selected item is returned.</documentation>
+		</method>
+		<method name="getSelectedItems" type="sap.ui.core/Item[]">
+			<documentation>Returns an array containing the selected items. In the case of no selection, an empty array is returned.</documentation>
+		</method>
+		
+		
+		<method name="clearSelection" type="sap.ui.commons/ListBox">
+			<documentation>Removes complete selection.</documentation>
+		</method>
+		<method name="scrollToIndex" type="sap.ui.commons/ListBox">
+			<documentation>If the ListBox has a scroll bar because the number of items is larger than the number of visible items, this method scrolls to the item with the given index. If there are enough items, this item will then appear at the topmost visible position in the ListBox. If bLazy is true, it only scrolls as far as required to make the item visible.
+			Setting the scrollTop property and calling scrollToIndex are two operations influencing the same &quot;physical&quot; property, so the last call &quot;wins&quot;.</documentation>
+			<parameters>
+				<parameter name="index" type="int">
+					<documentation>The index to which the ListBox should scroll.</documentation>
+				</parameter>
+				<parameter name="lazy" type="boolean">
+					<documentation>If set to true, the ListBox only scrolls if the item is not completely visible, and it scrolls for exactly the space to make it fully visible. If set to false, the item is scrolled to the top position (if possible).</documentation>
+				</parameter>
+			</parameters>
+		</method>
+		<method type="sap.ui.commons/ListBox" name="setItems">
+			<documentation>Allows setting the list items as array for this instance of ListBox.</documentation>
+			<parameters>
+				<parameter name="items" type="sap.ui.core/ListItem[]">
+					<documentation>The items to set for this ListBox.</documentation>
+				</parameter>
+				<parameter name="destroyItems" type="sap.ui.core/boolean">
+					<documentation>Optional boolean parameter to indicate that the formerly set items should be destroyed, instead of just removed.</documentation>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="setSelectedKeys" type="sap.ui.commons/ListBox">
+			<documentation>Keys of the items to be selected, wrapped in an array. An empty array means no selection. When multiple selection is disabled,
+			and multiple keys are given, the selection is set to the item with the first valid key in the given array. Any invalid keys are ignored. 
+			The previous selection is replaced in any case.</documentation>
+			<parameters>
+				<parameter name="keys" type="string[]">
+					<documentation>The keys of the items to be selected</documentation>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="getSelectedKeys" type="string[]">
+			<documentation>Returns the keys of the selected items in an array. If a selected item does not have a key, the respective array entry will be undefined.</documentation>
+		</method>
+	</methods>
+</control>

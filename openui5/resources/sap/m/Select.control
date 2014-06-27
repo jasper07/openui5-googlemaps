@@ -1,0 +1,98 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>Select</name>
+	<author>SAP AG</author>
+	<documentation>The select control provides a menu of predefined items that allows end users to choose options.</documentation>
+
+	<baseType>sap.ui.core/Control</baseType>
+	<properties>
+		<property group="Misc" name="name" type="sap.ui.core/string">
+			<documentation>The name to be used in the HTML code (e.g. for HTML forms that send data to the server via submit).</documentation>
+		</property>
+		<property group="Appearance" name="visible" type="sap.ui.core/boolean" defaultValue="true">
+			<documentation>Determines whether the control is visible or not.</documentation>
+		</property>
+		<property group="Behavior" name="enabled" type="sap.ui.core/boolean" defaultValue="true">
+			<documentation>Determines whether the user can change the selected value.</documentation>
+		</property>
+		<property group="Dimension" name="width" type="sap.ui.core/CSSSize" defaultValue="auto">
+			<documentation>Defines the width of the select input. The default width of a select control depends on the width of the widest option/item in the list. This value can be provided in %, em, px… and all possible CSS measures.
+Note: The width will be ignored if the &quot;autoAdjustWidth&quot; property is set to true.</documentation>
+		</property>
+		<property group="Dimension" name="maxWidth" type="sap.ui.core/CSSSize" defaultValue="100%">
+			<documentation>Defines the maximum width of the select input. This value can be provided in %, em, px… and all valid CSS measures.</documentation>
+		</property>
+		<property group="Data" name="selectedKey" type="sap.ui.core/string" since="1.11">
+			<documentation>Key of the selected item. If the key has no corresponding aggregated item, no changes will apply. If duplicate keys exists the first item matching the key is used.</documentation>
+		</property>
+		<property group="Misc" name="selectedItemId" type="sap.ui.core/string" since="1.12">
+			<documentation>Id of the selected item. If the id has no corresponding aggregated item, no changes will apply.</documentation>
+		</property>
+		<property group="Appearance" name="icon" type="sap.ui.core/URI" since="1.16">
+			<documentation>The URI to the icon that will be displayed only when using the “IconOnly” type.</documentation>
+		</property>
+		<property group="Appearance" name="type" type="sap.m/SelectType" defaultValue="Default" since="1.16">
+			<documentation>Type of a select. Possibles values &quot;Default&quot;, &quot;IconOnly&quot;.</documentation>
+		</property>
+		<property group="Appearance" name="autoAdjustWidth" type="sap.ui.core/boolean" defaultValue="false" since="1.16">
+			<documentation>If set to true, the width of the select input is determined by the selected item’s content.</documentation>
+		</property>
+<!-- 		<property group="Appearance" name="arrowVisible" type="sap.ui.core/boolean" since="1.16" defaultValue="true"> -->
+<!-- 			<documentation>Determines whether the arrow is visible or not.</documentation> -->
+<!-- 		</property> -->
+	</properties>
+	<events>
+		<event name="change">
+			<documentation>This event will be triggered when the user changes the selected item.</documentation>
+			<parameters>
+				<parameter name="selectedItem" type="sap.ui.core/Item">
+					<documentation>The selected item.</documentation>
+				</parameter>
+			</parameters>
+		</event>
+	</events>
+	<aggregations default="items">
+		<aggregation cardinality="0..n" name="items" type="sap.ui.core/Item" bindable="bindable">
+			<documentation>Items of the  Item control.</documentation>
+		</aggregation>
+	</aggregations>
+	<associations>
+		<association cardinality="0..1" name="selectedItem" type="sap.ui.core/Item">
+			<documentation>Retrieves the selected item from the aggregation named &lt;code&gt;items&lt;/code&gt;.</documentation>
+		</association>
+	</associations>
+	<methods>
+		<method name="isOpen" type="sap.ui.core/boolean" since="1.16">
+			<documentation>Checks if the select is open. It returns true when the select is currently open, this includes opening and closing animations, otherwise it returns false.</documentation>
+		</method>
+		<method name="open" type="sap.m/Select" since="1.16">
+			<documentation>Open the select.</documentation>
+		</method>
+		<method name="close" type="sap.m/Select" since="1.16">
+			<documentation>Closes the select.</documentation>
+		</method>
+		<method name="getItemByKey" type="sap.ui.core/Item" since="1.16">
+			<documentation>Retrieves the first item object from the aggregation named &lt;code&gt;items&lt;/code&gt;, based on it's key.</documentation>
+			<parameters>
+				<parameter name="sKey" type="sap.ui.core/string">
+					<documentation>An item key that identifies the item to retrieve.</documentation>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="getFirstItem" type="sap.ui.core/Item" since="1.16">
+			<documentation>Retrieves the first item from the aggregation named &lt;code&gt;items&lt;/code&gt;.</documentation>
+		</method>
+		<method name="getLastItem" type="sap.ui.core/Item" since="1.16">
+			<documentation>Retrieves the last item from the aggregation named &lt;code&gt;items&lt;/code&gt;.</documentation>
+		</method>
+		<method name="getItemAt" type="sap.ui.core/Item" since="1.16">
+			<documentation>Retrieves the item from the aggregation named &lt;code&gt;items&lt;/code&gt; at the given 0-based index.</documentation>
+			<parameters>
+				<parameter name="iIndex" type="sap.ui.core/int">
+					<documentation>iIndex Index of the item to return</documentation>
+				</parameter>
+			</parameters>
+		</method>
+	</methods>
+</control>

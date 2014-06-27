@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
+	<name>List</name>
+	<author>SAP AG</author>
+	<documentation>The List control provides a container for all types of list items.
+For mobile devices, the recommended limit of list items is 100 to assure proper performance. To improve initial rendering of large lists, use the &quot;growing&quot; feature. Please refer to the SAPUI5 Developer Guide for more information..</documentation>
+	<baseType>sap.m/ListBase</baseType>
+	<properties>
+		<property group="Appearance" name="backgroundDesign" type="sap.m/BackgroundDesign" defaultValue="Solid" since="1.14">
+			<documentation>This property is used to set the background color of the list. Depending on the theme you can change the state of the background from &quot;Solid&quot; over &quot;Translucent&quot; to &quot;Transparent&quot;.</documentation>
+		</property>
+	</properties>
+	<aggregations>
+		<aggregation cardinality="0..n" name="columns" type="sap.m/Column">
+			<documentation>Columns</documentation>
+			<deprecation since="1.16">Use Table control instead.</deprecation>
+		</aggregation>
+	</aggregations>
+</control>

@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<simple-type xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>GridPosition</name>
+	<author>SAP AG</author>
+	<documentation>Position of the Grid. Can be &quot;Left&quot;, &quot;Center&quot; or &quot;Right&quot;. &quot;Left&quot; is default.</documentation>
+	<baseType>string</baseType>
+
+	<final/>
+	<enumeration>
+		<value name="Left">
+			<documentation>Grid is aligned left.</documentation>
+		</value>
+		<value name="Right">
+			<documentation>Grid is aligned to the right.</documentation>
+		</value>
+		<value name="Center">
+			<documentation>Grid is centered on the screen.</documentation>
+		</value>
+	</enumeration>
+
+</simple-type>

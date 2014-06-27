@@ -1,0 +1,73 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
+	<name>Column</name>
+	<author>SAP AG</author>
+	<since>1.12</since>
+	<documentation>The column allows to define column specific properties that will be applied when rendering the List.</documentation>
+	<baseType>sap.ui.core/Element</baseType>
+	<properties>
+		<property group="Dimension" name="width" type="sap.ui.core/CSSSize">
+			<documentation>Defines the width of the column. If you leave it empty then this column covers the remaining space.</documentation>
+		</property>
+		<property group="Appearance" name="hAlign" type="sap.ui.core/TextAlign" defaultValue="Begin">
+			<documentation>Horizontal alignment of the column content. Available alignment settings are &quot;Begin&quot;, &quot;Center&quot;, &quot;End&quot;, &quot;Left&quot;, and &quot;Right&quot;.
+
+NOTE:  Control with a &quot;textAlign&quot; property inherits the horizontal alignment.</documentation>
+		</property>
+		<property group="Appearance" name="vAlign" type="sap.ui.core/VerticalAlign" defaultValue="Inherit">
+			<documentation>Vertical alignment of the cells in a column. Possible values are &quot;Inherit&quot;, &quot;Top&quot;, &quot;Middle&quot;, &quot;Bottom&quot;
+This property does not affect the vertical alignment of header and footer.</documentation>
+		</property>
+		<property group="Appearance" name="styleClass" type="sap.ui.core/string">
+			<documentation>CSS class name for column contents(header, cells and footer of column). This property can be used for different column styling. If column is shown as pop-in then this class name is applied to related pop-in row.</documentation>
+		</property>
+		<property group="Appearance" name="visible" type="sap.ui.core/boolean" defaultValue="true">
+			<documentation>Specifies whether or not the column is visible. Invisible columns are not rendered.</documentation>
+		</property>
+		<property group="Behavior" name="minScreenWidth" type="sap.ui.core/string">
+			<documentation>By default column is always shown. If you set this property, control checks the minimum width of the screen to show or hide this column.
+As you can give specific CSS sizes(e.g: &quot;480px&quot; or &quot;40em&quot;), you can also use sap.m.ScreenSize enumeration(e.g: &quot;Phone&quot;, &quot;Tablet&quot;, &quot;Desktop&quot;, &quot;Small&quot;, &quot;Medium&quot;, &quot;Large&quot;, ....).
+
+sap.m.Column.MediaQuery1-&gt;Range1 = 199
+
+This property can be used for responsive design. e.g: &quot;40em&quot;(or &quot;640px&quot; or &quot;Tablet&quot;) setting shows this column in iPad(and Desktop) but hides in iPhone.
+Please also see &quot;demandPopin&quot; property</documentation>
+		</property>
+		<property group="Behavior" name="demandPopin" type="sap.ui.core/boolean" defaultValue="false">
+			<documentation>According to your minScreenWidth settings, the column can be hidden in different screen sizes.
+Setting this property to true, shows this column as pop-in instead of hiding it.</documentation>
+		</property>
+		<property group="Appearance" name="popinHAlign" type="sap.ui.core/TextAlign" defaultValue="Begin">
+			<documentation>Horizontal alignment of the pop-in content. Available alignment settings are &quot;Begin&quot;, &quot;Center&quot;, &quot;End&quot;, &quot;Left&quot;, and &quot;Right&quot;.
+
+NOTE: Controls with a text align do not inherit the horizontal alignment.</documentation>
+			<deprecation since="1.14">Use popinDisplay property instead.</deprecation>
+		</property>
+		<property group="Appearance" name="popinDisplay" type="sap.m/PopinDisplay" defaultValue="sap.m.PopinDisplay.Block" since="1.13.2">
+			<documentation>Defines the display options of pop-in.
+Possible values are
+1 - &quot;Block&quot;(Header is displayed in first line and value field in next line.)
+2 - &quot;Inline&quot; (Value field is displayed next to the header in same line.)</documentation>
+		</property>
+		<property group="Behavior" type="sap.ui.core/boolean" name="mergeDuplicates" defaultValue="false" since="1.16">
+			<documentation>Set &quot;true&quot; to merge repeating cells(duplicates) into one.
+Also see &quot;mergeFunctionName&quot; property to customize.
+Note: this property gets disabled if any column is in pop-in!</documentation>
+		</property>
+		<property group="Misc" name="mergeFunctionName" type="sap.ui.core/string" defaultValue="getText" since="1.16">
+			<documentation>Defines the value getter(serialization) function if &quot;mergeDuplicates&quot; property is set &quot;true&quot;
+Control itself uses this function to compare values of two repeating cells.
+Default value &quot;getText&quot; is suitable for Label and Text control.
+e.g. For &quot;Icon&quot; control &quot;getSrc&quot; can be used.
+Note: You can pass one string parameter to given function after &quot;#&quot; sign. e.g. &quot;data#myparameter&quot;</documentation>
+		</property>
+	</properties>
+	<aggregations default="header">
+		<aggregation cardinality="0..1" name="header" type="sap.ui.core/Control">
+			<documentation>Control to be displayed in the column header.</documentation>
+		</aggregation>
+		<aggregation cardinality="0..1" type="sap.ui.core/Control" name="footer">
+			<documentation>Control to be displayed in the column footer.</documentation>
+		</aggregation>
+	</aggregations>
+</control>

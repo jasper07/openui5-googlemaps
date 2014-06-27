@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<simple-type xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>layout/VAlign</name>
+	<author>d029921</author>
+	<documentation>
+	Vertical alignment, e.g. of a layout cell's content within the cell's borders.
+	</documentation>
+
+	<!--
+		Design decisions (compared to UR/LS):
+		- no Baseline yet, because it was never well supported for containers
+	  -->	
+  <enumeration>
+	  <value name="Bottom">
+			<documentation>
+			Aligned at the bottom.
+	    </documentation>
+	  </value>
+	  <value name="Middle">
+			<documentation>
+			Vertically centered.
+	    </documentation>
+	  </value>
+	  <value name="Top">
+			<documentation>
+			Aligned at the top.
+	    </documentation>
+	  </value>
+  </enumeration>
+
+</simple-type>

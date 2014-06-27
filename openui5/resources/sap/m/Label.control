@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>Label</name>
+	<author>SAP AG</author>
+	<documentation>Label control is used in a UI5 mobile application to provide label text for other controls. Design such as bold, and text alignment can be specified. </documentation>
+
+	<baseType>sap.ui.core/Control</baseType>
+  <interfaces>
+		<interface>sap.ui.core/Label</interface>
+  </interfaces>
+	<properties>
+		<property group="Appearance" name="design" type="sap.m/LabelDesign" defaultValue="sap.m.LabelDesign.Standard">
+			<documentation>set design of a label to either Standard or Bold</documentation>
+		</property>
+		<property group="Misc" name="text" type="sap.ui.core/string">
+			<documentation>Label Text to be displayed</documentation>
+		</property>
+		<property group="Appearance" name="visible" type="sap.ui.core/boolean" defaultValue="true">
+			<documentation>Invisible labels are not rendered</documentation>
+		</property>
+		<property group="Appearance" name="textAlign" type="sap.ui.core/TextAlign" defaultValue="sap.ui.core.TextAlign.Begin">
+			<documentation>Available alignment settings are &quot;Begin&quot;, &quot;Center&quot;, &quot;End&quot;, &quot;Left&quot;, and &quot;Right&quot;.</documentation>
+		</property>
+		<property group="Appearance" name="textDirection" type="sap.ui.core/TextDirection" defaultValue="sap.ui.core.TextDirection.Inherit">
+			<documentation>Options for the text direction are RTL and LTR. Alternatively, the control can inherit the text direction from its parent container.</documentation>
+		</property>
+		<property group="Dimension" name="width" type="sap.ui.core/CSSSize" defaultValue="''">
+			<documentation>Width of Label</documentation>
+		</property>
+		<property group="Misc" name="required" type="sap.ui.core/boolean" defaultValue="false">
+			<documentation>Indicates that user input is required in the input this label labels.</documentation>
+		</property>
+	</properties>
+	<associations>
+		<association cardinality="0..1" name="labelFor" type="sap.ui.core/Control">
+			<documentation>Association to the labeled control.
+By default the label set the for attribute to the ID of the labeled control. This can be changed implementing function getIdForLabel on the labelled control.</documentation>
+		</association>
+	</associations>
+</control>

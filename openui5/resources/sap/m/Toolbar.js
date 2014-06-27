@@ -17,8 +17,8 @@ sap.m.Toolbar.prototype.addContent=function(c){this.addAggregation("content",c);
 sap.m.Toolbar.prototype.insertContent=function(c,i){this.insertAggregation("content",c,i);this._attachContentPropertyChange(c);return this};
 sap.m.Toolbar.prototype.removeContent=function(c){c=this.removeAggregation("content",c);this._detachContentPropertyChange(c);return c};
 sap.m.Toolbar.prototype.removeAllContent=function(){var c=this.removeAllAggregation("content")||[];c.forEach(function(C){this._detachContentPropertyChange(C)},this);return c};
-sap.m.Toolbar.prototype.ontap=function(e){if(this.getActive()&&!e.isMarked()){e.setMarked();this.firePress({srcControl:e.srcControl||this})}};
-sap.m.Toolbar.prototype.onsapenter=function(e){if(this.getActive()&&e.srcControl===this){e.setMarked();this.firePress({srcControl:this})}};
+sap.m.Toolbar.prototype.ontap=function(e){if(this.getActive()&&!e.isMarked()){e.setMarked();this.firePress({srcControl:e.srcControl})}};
+sap.m.Toolbar.prototype.onsapenter=function(e){if(this.getActive()&&e.srcControl===this&&!e.isMarked()){e.setMarked();this.firePress({srcControl:this})}};
 sap.m.Toolbar.prototype.onsapspace=sap.m.Toolbar.prototype.onsapenter;
 sap.m.Toolbar.prototype.ontouchstart=function(e){this.getActive()&&e.setMarked()};
 sap.m.Toolbar.prototype._isInvisible=function(){if(!this.getVisible()||!this.getContent().length){return true}};
@@ -39,5 +39,5 @@ sap.m.Toolbar.prototype._getEndPoint=function(){var l=(this._$this[0]||this.getD
 sap.m.Toolbar.prototype._handleToolbarResize=function(){this._handleResize(false)};
 sap.m.Toolbar.prototype._handleContentResize=function(){this._handleResize(true)};
 sap.m.Toolbar.prototype._handleResize=function(c){if(c&&this._endPoint==this._getEndPoint()){return}if(!sap.m.Toolbar.hasFlexBoxSupport){this._reflexie()}else if(!sap.m.Toolbar.hasNewFlexBoxSupport){this._resetOverflow()}};
-sap.m.Toolbar.prototype.setDesign=function(d,s){if(!s){return this.setProperty("design",d)}this._sAutoDesign=this.validateProperty("design",d);if(this.getDesign()==sap.m.ToolbarDesign.Auto){this.invalidate()}return this};
+sap.m.Toolbar.prototype.setDesign=function(d,s){if(!s){return this.setProperty("design",d)}this._sAutoDesign=this.validateProperty("design",d);return this};
 sap.m.Toolbar.prototype.getActiveDesign=function(){var d=this.getDesign();if(d!=sap.m.ToolbarDesign.Auto){return d}return this._sAutoDesign||d};

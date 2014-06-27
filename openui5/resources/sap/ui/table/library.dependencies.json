@@ -1,0 +1,326 @@
+{
+  "modules" : [
+    {
+      "name" : "sap/ui/table/Column.js",
+      "description" : "Provides control sap.ui.table.Column.",
+      "size" : 41098,
+      "compressedSize" : 10588,
+      "required" : ["sap/ui/table/library.js", "sap/ui/core/Element.js", "sap/ui/core/RenderManager.js", "sap/ui/model/Type.js", "sap/ui/model/Filter.js", "sap/ui/model/Sorter.js", "sap/ui/commons/Image.js", "sap/ui/commons/Label.js", "sap/ui/commons/TextField.js", "sap/ui/model/type/String.js", "jquery.sap.global.js"],
+      "includes" : []
+    },
+    {
+      "name" : "sap/ui/table/ColumnMenu.js",
+      "description" : "Provides control sap.ui.table.ColumnMenu.",
+      "size" : 12728,
+      "compressedSize" : 5409,
+      "required" : ["sap/ui/table/library.js", "sap/ui/commons/Menu.js", "sap/ui/core/RenderManager.js", "sap/ui/commons/MenuItem.js", "sap/ui/commons/TextField.js", "jquery.sap.global.js"],
+      "includes" : []
+    },
+    {
+      "name" : "sap/ui/table/ColumnMenuRenderer.js",
+      "description" : "Provides default renderer for control sap.ui.commons.ComboBox",
+      "size" : 576,
+      "compressedSize" : 441,
+      "required" : ["sap/ui/core/Renderer.js", "sap/ui/commons/MenuRenderer.js", "jquery.sap.global.js"],
+      "includes" : []
+    },
+    {
+      "name" : "sap/ui/table/DataTable.js",
+      "description" : "Provides control sap.ui.table.DataTable.",
+      "size" : 11197,
+      "compressedSize" : 2058,
+      "required" : ["sap/ui/table/library.js", "sap/ui/table/TreeTable.js", "jquery.sap.global.js"],
+      "includes" : []
+    },
+    {
+      "name" : "sap/ui/table/DataTableRenderer.js",
+      "description" : "Provides default renderer for control sap.ui.table.DataTable",
+      "size" : 556,
+      "compressedSize" : 445,
+      "required" : ["sap/ui/core/Renderer.js", "sap/ui/table/TreeTableRenderer.js", "jquery.sap.global.js"],
+      "includes" : []
+    },
+    {
+      "name" : "sap/ui/table/Row.js",
+      "description" : "Provides control sap.ui.table.Row.",
+      "size" : 6262,
+      "compressedSize" : 705,
+      "required" : ["sap/ui/table/library.js", "sap/ui/core/Element.js", "jquery.sap.global.js"],
+      "includes" : []
+    },
+    {
+      "name" : "sap/ui/table/Table.js",
+      "description" : "Provides control sap.ui.table.Table.",
+      "size" : 175590,
+      "compressedSize" : 60877,
+      "required" : ["sap/ui/table/library.js", "sap/ui/core/Control.js", "sap/ui/model/SelectionModel.js", "sap/ui/core/delegate/ItemNavigation.js", "sap/ui/core/theming/Parameters.js", "sap/ui/core/ScrollBar.js", "sap/ui/core/IntervalTrigger.js", "sap/ui/commons/TextView.js", "sap/ui/table/Row.js", "jquery.sap.global.js"],
+      "includes" : []
+    },
+    {
+      "name" : "sap/ui/table/TableRenderer.js",
+      "description" : "Provides default renderer for control sap.ui.table.Table",
+      "size" : 27193,
+      "compressedSize" : 17653,
+      "required" : ["jquery.sap.global.js"],
+      "includes" : []
+    },
+    {
+      "name" : "sap/ui/table/TreeTable.js",
+      "description" : "Provides control sap.ui.table.TreeTable.",
+      "size" : 23971,
+      "compressedSize" : 9347,
+      "required" : ["sap/ui/table/library.js", "sap/ui/table/Table.js", "jquery.sap.global.js"],
+      "includes" : []
+    },
+    {
+      "name" : "sap/ui/table/TreeTableRenderer.js",
+      "description" : "Provides default renderer for control sap.ui.table.TreeTable",
+      "size" : 955,
+      "compressedSize" : 750,
+      "required" : ["sap/ui/core/Renderer.js", "sap/ui/table/TableRenderer.js", "jquery.sap.global.js"],
+      "includes" : []
+    },
+    {
+      "name" : "sap/ui/table/library.js",
+      "description" : "Initialization Code and shared classes of library sap.ui.table (1.20.7)",
+      "size" : 7978,
+      "compressedSize" : 1601,
+      "required" : ["sap/ui/core/Core.js", "sap/ui/core/library.js", "sap/ui/commons/library.js", "jquery.sap.global.js"],
+      "includes" : ["sap/ui/table/NavigationMode.js", "sap/ui/table/SelectionBehavior.js", "sap/ui/table/SelectionMode.js", "sap/ui/table/SortOrder.js", "sap/ui/table/VisibleRowCountMode.js"]
+    },
+    {
+      "name" : "sap/ui/table/library.properties",
+      "size" : 731,
+      "required" : [],
+      "includes" : []
+    },
+    {
+      "name" : "sap/ui/table/messagebundle.properties",
+      "size" : 2728,
+      "required" : [],
+      "includes" : []
+    },
+    {
+      "name" : "sap/ui/table/messagebundle_ar.properties",
+      "size" : 5076,
+      "required" : [],
+      "includes" : []
+    },
+    {
+      "name" : "sap/ui/table/messagebundle_bg.properties",
+      "size" : 6187,
+      "required" : [],
+      "includes" : []
+    },
+    {
+      "name" : "sap/ui/table/messagebundle_ca.properties",
+      "size" : 3015,
+      "required" : [],
+      "includes" : []
+    },
+    {
+      "name" : "sap/ui/table/messagebundle_cs.properties",
+      "size" : 3285,
+      "required" : [],
+      "includes" : []
+    },
+    {
+      "name" : "sap/ui/table/messagebundle_da.properties",
+      "size" : 2949,
+      "required" : [],
+      "includes" : []
+    },
+    {
+      "name" : "sap/ui/table/messagebundle_de.properties",
+      "size" : 2953,
+      "required" : [],
+      "includes" : []
+    },
+    {
+      "name" : "sap/ui/table/messagebundle_el.properties",
+      "size" : 6071,
+      "required" : [],
+      "includes" : []
+    },
+    {
+      "name" : "sap/ui/table/messagebundle_en.properties",
+      "size" : 2607,
+      "required" : [],
+      "includes" : []
+    },
+    {
+      "name" : "sap/ui/table/messagebundle_es.properties",
+      "size" : 2995,
+      "required" : [],
+      "includes" : []
+    },
+    {
+      "name" : "sap/ui/table/messagebundle_et.properties",
+      "size" : 2985,
+      "required" : [],
+      "includes" : []
+    },
+    {
+      "name" : "sap/ui/table/messagebundle_fi.properties",
+      "size" : 3250,
+      "required" : [],
+      "includes" : []
+    },
+    {
+      "name" : "sap/ui/table/messagebundle_fr.properties",
+      "size" : 3118,
+      "required" : [],
+      "includes" : []
+    },
+    {
+      "name" : "sap/ui/table/messagebundle_hi.properties",
+      "size" : 5803,
+      "required" : [],
+      "includes" : []
+    },
+    {
+      "name" : "sap/ui/table/messagebundle_hr.properties",
+      "size" : 2841,
+      "required" : [],
+      "includes" : []
+    },
+    {
+      "name" : "sap/ui/table/messagebundle_hu.properties",
+      "size" : 3585,
+      "required" : [],
+      "includes" : []
+    },
+    {
+      "name" : "sap/ui/table/messagebundle_it.properties",
+      "size" : 2962,
+      "required" : [],
+      "includes" : []
+    },
+    {
+      "name" : "sap/ui/table/messagebundle_iw.properties",
+      "size" : 4836,
+      "required" : [],
+      "includes" : []
+    },
+    {
+      "name" : "sap/ui/table/messagebundle_ja.properties",
+      "size" : 4163,
+      "required" : [],
+      "includes" : []
+    },
+    {
+      "name" : "sap/ui/table/messagebundle_ko.properties",
+      "size" : 4052,
+      "required" : [],
+      "includes" : []
+    },
+    {
+      "name" : "sap/ui/table/messagebundle_lt.properties",
+      "size" : 3362,
+      "required" : [],
+      "includes" : []
+    },
+    {
+      "name" : "sap/ui/table/messagebundle_lv.properties",
+      "size" : 3241,
+      "required" : [],
+      "includes" : []
+    },
+    {
+      "name" : "sap/ui/table/messagebundle_nl.properties",
+      "size" : 2844,
+      "required" : [],
+      "includes" : []
+    },
+    {
+      "name" : "sap/ui/table/messagebundle_no.properties",
+      "size" : 2893,
+      "required" : [],
+      "includes" : []
+    },
+    {
+      "name" : "sap/ui/table/messagebundle_pl.properties",
+      "size" : 3258,
+      "required" : [],
+      "includes" : []
+    },
+    {
+      "name" : "sap/ui/table/messagebundle_pt.properties",
+      "size" : 2917,
+      "required" : [],
+      "includes" : []
+    },
+    {
+      "name" : "sap/ui/table/messagebundle_ro.properties",
+      "size" : 3099,
+      "required" : [],
+      "includes" : []
+    },
+    {
+      "name" : "sap/ui/table/messagebundle_ru.properties",
+      "size" : 5954,
+      "required" : [],
+      "includes" : []
+    },
+    {
+      "name" : "sap/ui/table/messagebundle_sh.properties",
+      "size" : 2863,
+      "required" : [],
+      "includes" : []
+    },
+    {
+      "name" : "sap/ui/table/messagebundle_sk.properties",
+      "size" : 3160,
+      "required" : [],
+      "includes" : []
+    },
+    {
+      "name" : "sap/ui/table/messagebundle_sl.properties",
+      "size" : 2942,
+      "required" : [],
+      "includes" : []
+    },
+    {
+      "name" : "sap/ui/table/messagebundle_sv.properties",
+      "size" : 2919,
+      "required" : [],
+      "includes" : []
+    },
+    {
+      "name" : "sap/ui/table/messagebundle_th.properties",
+      "size" : 5656,
+      "required" : [],
+      "includes" : []
+    },
+    {
+      "name" : "sap/ui/table/messagebundle_tr.properties",
+      "size" : 3381,
+      "required" : [],
+      "includes" : []
+    },
+    {
+      "name" : "sap/ui/table/messagebundle_uk.properties",
+      "size" : 6497,
+      "required" : [],
+      "includes" : []
+    },
+    {
+      "name" : "sap/ui/table/messagebundle_vi.properties",
+      "size" : 3827,
+      "required" : [],
+      "includes" : []
+    },
+    {
+      "name" : "sap/ui/table/messagebundle_zh_CN.properties",
+      "size" : 3255,
+      "required" : [],
+      "includes" : []
+    },
+    {
+      "name" : "sap/ui/table/messagebundle_zh_TW.properties",
+      "size" : 3308,
+      "required" : [],
+      "includes" : []
+    }
+  ]
+}

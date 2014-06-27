@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<simple-type xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>string</name>
+	<author>SAP AG</author>
+	<documentation>Basic string type.</documentation>
+
+	<targetConfigurations>
+		<targetConfiguration name="JavaScriptAPI">
+			<property name="sap.ui.generate">false</property>
+			<property name="sap.ui.jsName">string</property>
+		</targetConfiguration>
+		<targetConfiguration name="JavaAPI">
+			<property name="sap.ui.generate">false</property>
+			<property name="sap.ui.javaName">String</property>
+		</targetConfiguration>
+	</targetConfigurations>
+
+</simple-type>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<simple-type xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+  <name>ImeMode</name>
+  <author>SAP AG</author>
+  <documentation>State of the Input Method Editor (IME) for the control. Depending on its value, it allows users to enter and edit for example Chinese characters.</documentation>
+  
+  <enumeration>
+    <value name="Auto" >
+      <documentation>The value is automatically computed by the user agent.</documentation>
+    </value>
+    <value name="Active" >
+      <documentation>IME is used for entering characters.</documentation>
+    </value>
+    <value name="Inactive" >
+      <documentation>IME is not used for entering characters.</documentation>
+    </value>
+    <value name="Disabled" >
+      <documentation>IME is disabled.</documentation>
+    </value>
+  </enumeration>
+
+</simple-type>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd">
+
+	<name>layout/MatrixLayoutCell</name>
+	<author>d029921</author>
+	<documentation>
+	Non-control element used as part of a matrix layout's inner structure.
+	</documentation>
+
+	<baseType>sap.ui.core/Element</baseType>
+
+	<aggregatingType>MatrixLayoutRow</aggregatingType>
+
+	<!--
+		Design decisions (compared to UR/LS):
+		- no Border
+		- Wrapping always on
+		- no drag-and-drop because of complexity
+		- VAlign = Middle as default to ease form layout
+	  -->	
+	<properties>
+		<property name="backgroundDesign" type="BackgroundDesign" defaultValue="'Transparent'"><!-- TODO omit '' -->
+		  <!-- TODO remove (comment out?) this property later on, but use it for testing! -->
+		  <documentation>
+		  Determines the matrix layout cell's background design.
+		  </documentation>
+		</property>
+		<property name="colSpan" type="int" defaultValue="1">
+			<documentation>
+			Determines how many columns of the underlying grid structure are occupied
+			by this matrix layout cell.
+			</documentation>
+		</property>
+		<property name="hAlign" type="HAlign" defaultValue="'Begin'"><!-- TODO omit '' -->
+		  <documentation>
+		  Determines the horizontal alignment of the matrix layout cell's content
+		  with the cell's borders.  
+		  </documentation>
+		</property>
+		<property name="padding" type="Padding" defaultValue="'End'"><!-- TODO omit '' -->
+		  <documentation>
+		  Determines the padding of the matrix layout cell's content within the
+		  cell's borders. The default value is appropriate for all cells in a
+		  form-like layout. Consider to remove the padding on the outer layout in
+		  case of nesting.
+		  </documentation>
+		</property>
+		<property name="rowSpan" type="int" defaultValue="1">
+			<documentation>Determines how many rows of the underlying grid structure are occupied by this matrix layout cell.
+In case a row-height is used, all rows affected by the RowSpan must have the same unit. </documentation>
+		</property>
+		<property name="separation" type="Separation" defaultValue="'None'"><!-- TODO omit '' -->
+		  <documentation>
+		  Determines how a matrix layout cell is separated from its predecessor,
+		  via a vertical gutter of variable width, with or without a vertical line.  
+		  </documentation>
+		</property>
+		<property name="vAlign" type="VAlign" defaultValue="'Middle'"><!-- TODO omit '' -->
+		  <documentation>
+		  Determines the vertical alignment of the matrix layout cell's content  
+		  with the cell's borders.  
+		  </documentation>
+		</property>
+	</properties>
+
+	<aggregations default="content">
+		<aggregation name="content" type="Control" cardinality="0..n">
+			<documentation>The matrix layout cell's content (arbitrary controls).
+
+If the matrix row has a defined height and the matrix has layoutFixed = true, the controls inside of a cell should all use the same unit for its height property.</documentation>
+		</aggregation>
+	</aggregations>
+	<methods>
+		<method name="addStyleClass" type="MatrixLayoutCell">
+			<documentation>The string given as &quot;sStyleClass&quot; will be added to the &quot;class&quot; attribute of this element's root HTML element.
+
+This method is intended to be used to mark controls as being of a special type for which
+special styling can be provided using CSS selectors that reference this style class name.
+
+&lt;pre&gt;
+Example:
+   myButton.addStyleClass(&quot;myRedTextButton&quot;); // add a CSS class to one button instance
+
+...and in CSS:
+   .myRedTextButton {
+      color: red;
+   }
+&lt;/pre&gt;
+
+This will add the CSS class &quot;myRedTextButton&quot; to the Button HTML and the CSS code above will then
+make the text in this particular button red.
+
+Only characters allowed inside HTML attributes are allowed.
+Quotes are not allowed and this method will ignore any strings containing quotes.
+Strings containing spaces are interpreted as ONE custom style class (even though CSS selectors interpret them
+as different classes) and can only removed later by calling removeStyleClass() with exactly the
+same (space-containing) string as parameter.
+Multiple calls with the same sStyleClass will have no different effect than calling once.
+If sStyleClass is null, the call is ignored.
+
+Returns &lt;code&gt;this&lt;/code&gt; to allow method chaining</documentation>
+			<parameters>
+				<parameter name="styleClass" type="sap.ui.core/string">
+					<documentation>the CSS class name to be added</documentation>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="removeStyleClass" type="MatrixLayoutCell">
+			<documentation>Removes the given string from the list of custom style classes that have been set previously.
+Regular style classes like &quot;sapUiBtn&quot; cannot be removed.
+
+Returns &lt;code&gt;this&lt;/code&gt; to allow method chaining</documentation>
+			<parameters>
+				<parameter name="styleClass" type="sap.ui.core/string">
+					<documentation>the style to be removed</documentation>
+				</parameter>
+			</parameters>
+		</method>
+				<method name="hasStyleClass" type="boolean">
+			<documentation>Returns true if the given style class string is valid and if this Element has this style class set via a previous call to addStyleClass().</documentation>
+			<parameters>
+				<parameter name="styleClass" type="sap.ui.core/string">
+					<documentation>the style to check for</documentation>
+				</parameter>
+			</parameters>
+		</method>
+	</methods>
+
+</control>

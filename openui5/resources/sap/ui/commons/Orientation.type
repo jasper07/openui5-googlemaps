@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<simple-type xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>Orientation</name>
+
+	<author></author>
+	<documentation>Orientation of an UI element</documentation>
+	<enumeration>
+		<value name="Horizontal">
+			<documentation>Arrange Horizontally</documentation>
+		</value>
+		<value name="Vertical">
+			<documentation>Arrange Vertically</documentation>
+		</value>
+	</enumeration>
+
+</simple-type>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>PopupInterface</name>
+	<author>SAP</author>
+	<since>1.19.0</since>
+	<documentation>
+Marker interface for controls that are not rendered "embedded" into other controls but need to be opened/closed. 
+
+Such controls are handled differently during rendering.
+</documentation>
+</interface>

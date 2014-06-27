@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<simple-type xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>RatingIndicatorVisualMode</name>
+	<author>SAP AG</author>
+	<documentation>Possible values for the visualization of float values in the RatingIndicator Control.</documentation>
+	<enumeration>
+		<value name="Full">
+			<documentation>Values are rounded to the nearest integer value (e.g. 1.7 -> 2).</documentation>
+		</value>
+		<value name="Half">
+			<documentation>Values are rounded to the nearest half value (e.g. 1.7 -> 1.5).</documentation>
+		</value>
+		<!-- <value name="Continuous">
+			<documentation>Values are not rounded.</documentation>
+		</value>-->
+	</enumeration>
+
+</simple-type>

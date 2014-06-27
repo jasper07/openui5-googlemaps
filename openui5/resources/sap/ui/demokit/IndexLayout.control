@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
+	<name>IndexLayout</name>
+	<author>SAP AG</author>
+	<since>1.17.0</since>
+	<documentation>Layout which renders content items with equal width and height. The items are arranged in rows.</documentation>
+    <developmentState state="experimental" since="1.17.0">API is not yet finished and might change completely</developmentState>
+	<baseType>sap.ui.core/Control</baseType>
+	<properties>
+		<property group="Appearance" name="itemWidth" type="sap.ui.core/CSSSize" defaultValue="200px">
+			<documentation>The width of a content item. Only px values are allowed.</documentation>
+		</property>
+		<property group="Appearance" name="itemHeight" type="sap.ui.core/CSSSize" defaultValue="200px">
+			<documentation>The height of a content item. Only px values are allowed.</documentation>
+		</property>
+		<property group="Appearance" name="enableScaling" type="boolean" defaultValue="true">
+			<documentation>Whether the given item width/height should be scaled according to the screen size.</documentation>
+		</property>
+	</properties>
+	<aggregations default="content">
+		<aggregation cardinality="0..n" name="content" type="sap.ui.core/Control">
+			<documentation>The content items</documentation>
+		</aggregation>
+	</aggregations>
+</control>

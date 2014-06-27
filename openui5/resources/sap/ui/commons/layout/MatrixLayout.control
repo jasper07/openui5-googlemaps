@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>layout/MatrixLayout</name>
+	<author>d029921</author>
+	<!-- docs copied from WD; TODO adapt! -->
+	<documentation>
+		&lt;p&gt;
+		A matrix layout arranges controls in a grid structure, using rows which
+		need not have the same number of cells.
+		&lt;/p&gt;
+		
+		&lt;p&gt;
+		It uses predefined cell classes that guarantee appropriate distances
+		between cells in the grid. The cell's &lt;code>vGutter&lt;/code> property lets
+		you specify additional horizontal distances easily. You can set these
+		additional distances (known as gutters) with or without separators.
+		The distance for each cell is specified by assigning a specific
+		enumeration value of the class &lt;code>LayoutCellSeparator&lt;/code> of the
+		matrix data object. 
+		&lt;/p&gt;
+		
+		&lt;p&gt; 
+		You should &lt;b>avoid nesting&lt;/b> matrix layouts. You should only use a
+		matrix layout if you need to align controls horizontally across rows.
+		&lt;/p&gt;
+	</documentation>
+
+	<baseType>sap.ui.core/Control</baseType>
+	
+	<!--
+		Design decisions (compared to UR/LS):
+		- no Width/Height, just 100% of its container (TODO: a single boolean flag would be nice here)
+		- no Margin* (also not used in WD)
+		- no FixedLayout yet because of complexity
+		- no drag-and-drop because of complexity
+	  -->	
+	<properties>
+		<property name="visible" type="sap.ui.core/boolean" defaultValue="true" group="Behavior">
+			<documentation>
+			Determines whether the matrix layout, including all its content, is
+			visible. An invisible control will not be rendered.
+			</documentation>
+		</property>
+		<property group="Dimension" name="width" type="sap.ui.core/CSSSize">
+		    <documentation>CSS width of the matrix layout.
+If the LayoutFixed = true a adequate width should be provided. </documentation>
+		</property>
+		<property group="Dimension" name="height" type="sap.ui.core/CSSSize">
+		    <documentation>
+		    CSS height of the matrix layout.
+		    </documentation>
+		</property>
+		<property group="Appearance" name="layoutFixed" type="sap.ui.core/boolean" defaultValue="true">
+			<documentation>Sets the table layout. If fixed the width parameter of a column has priority, if not the width of the content of the colums has priority. 
+The default is &quot;fixed&quot;.
+If the fixed layout is used a adequate width of the MatrixLayout should be provided.  Otherwise the column width displayed could be different than the given ones because of browser dependend optimazations. </documentation>
+		</property>
+		<property group="Appearance" name="columns" type="sap.ui.core/int">
+			<documentation>Number of columns. If not specified, the number of columns will be determined from the given cells. </documentation>
+		</property>
+		<property group="Appearance" name="widths" type="sap.ui.core/CSSSize[]">
+			<documentation>Widths of the columns. Use an array to define the widths of the columns.
+If a column shall have an automatical sizing enter &quot;auto&quot; for this column width.</documentation>
+		</property>
+	</properties>
+
+	<aggregations default="rows">
+		<aggregation name="rows" type="MatrixLayoutRow" cardinality="0..n">
+			<documentation>
+			The matrix layout's individual rows.
+			</documentation>
+		</aggregation>
+	</aggregations>
+
+	<methods>
+		<method type="MatrixLayout" name="createRow" varargs="true">
+	  	<documentation>Creates a new matrix layout row and appends it to this matrix layout.</documentation>
+	  	<parameters>
+	  		<parameter name="controls" type="sap.ui.core/Control">
+	  			<documentation>Each argument must be either a matrix layout cell, which is added to the row &quot;as is&quot;, or an arbitrary content control, which is wrapped with a new (default) matrix layout cell first and then added to the row.
+Supports a variable number of arguments!</documentation>
+	  		</parameter>
+	  	</parameters>
+		</method>
+	</methods>
+
+</control>

@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd">
+	<name>ToolbarSpacer</name>
+	<author>SAP AG</author>
+	<documentation>This control can be used to add horizontal space between toolbar items.
+Note: ToolbarLayoutData should not be used with this control.</documentation>
+	<since>1.16</since>
+	<baseType>sap.ui.core/Control</baseType>
+	<properties>
+		<property group="Appearance" name="width" type="sap.ui.core/CSSSize" defaultValue="">
+			<documentation>Defines the width of the horizontal space.
+Note: Empty(&quot;&quot;) value makes the space flexible which means it covers the remaining space between toolbar items.
+This feature can be used to push next item to the edge of the toolbar.</documentation>
+		</property>
+	</properties>
+</control>

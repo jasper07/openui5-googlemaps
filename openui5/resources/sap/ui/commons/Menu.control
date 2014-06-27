@@ -1,0 +1,89 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>Menu</name>
+	<author>SAP AG</author>
+	<documentation>A container for menu items. When the space in the browser is not large enough to display all defined items, a scroll bar is provided.</documentation>
+
+	<baseType>sap.ui.core/Control</baseType>
+	<properties>
+		<property name="enabled" type="boolean" defaultValue="true" group="Behavior">
+		  <documentation>
+		  Disabled menus have other colors than enabled ones, depending on customer settings. 
+	      </documentation>
+		</property>
+		<property name="ariaDescription" type="string" group="Accessibility">
+		  <documentation>
+		  The label/description provided for screen readers</documentation>
+		</property>
+	</properties>
+	<events>
+		<event name="itemSelect">
+			<documentation>
+			Provides the application an alternative option to listen to select events. This event is only fired on the root menu of a menu hierarchy. 
+			Note that there is also a select event available for MenuItem; if the current event is used, the select event of a MenuItem becomes redundant.
+			</documentation>
+			<parameters>
+				<parameter name="item" type="sap.ui.commons/MenuItemBase">
+					<documentation>The selected item</documentation>
+				</parameter>
+			</parameters>
+		</event>
+	</events>
+	<aggregations default="items">
+		<aggregation cardinality="0..n" name="items" type="MenuItemBase">
+			<documentation>Aggregation of menu items</documentation>
+		</aggregation>
+	</aggregations>
+	<methods>
+		<method name="open" type="void">
+			<documentation>Opens the menu</documentation>
+			<parameters>
+				<parameter name="withKeyboard" type="boolean">
+					<documentation>
+					An indicator whether the first item shall be highlighted, or not. It is highlighted in the case that the menu is opened via keyboard.				
+					</documentation>
+				</parameter>
+				<parameter name="openerRef" type="object">
+					<documentation>
+					DOMNode or sap.ui.core.Element that opens the menu; the DOMNode or sap.ui.core.Element will be focused again after the menu is closed. This parameter is optional.
+					</documentation>
+				</parameter>
+				<parameter name="my" type="sap.ui.core/Dock">
+					<documentation>
+					The popup content's reference position for docking.
+					See also sap.ui.core.Popup.Dock and sap.ui.core.Popup.open.
+					</documentation>
+				</parameter>
+				<parameter name="at" type="sap.ui.core/Dock">
+					<documentation>
+					The 'of' element's reference point for docking to.  
+					See also sap.ui.core.Popup.Dock and sap.ui.core.Popup.open.
+					</documentation>
+				</parameter>
+				<parameter name="of" type="object">
+					<documentation>
+					The DOM element or sap.ui.core.Element to dock to.
+					See also sap.ui.core.Popup.open.
+					</documentation>
+				</parameter>
+				<parameter name="offset" type="string">
+					<documentation>
+					The offset relative to the docking point, specified as a string with space-separated pixel values (e.g. "0 10" to move the popup 10 pixels to the right).
+					See also sap.ui.core.Popup.open.
+					</documentation>
+				</parameter>
+				<parameter name="collision" type="sap.ui.core/Collision">
+					<documentation>
+					The collision defines how the position of an element should be adjusted in case it overflows the window in some direction.
+					See also sap.ui.core.Popup.open.
+					</documentation>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="close" type="void">
+			<documentation>Closes the menu</documentation>
+		</method>
+	</methods>
+
+</control>

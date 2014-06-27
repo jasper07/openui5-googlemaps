@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<simple-type xmlns="http://www.sap.com/sap.ui.library.xsd" >
+    <name>TriStateCheckBoxState</name>
+	<documentation>States for TriStateCheckBox</documentation>
+	<since>1.7.2</since>
+	<enumeration>
+		<value name="Unchecked">
+			<documentation>unchecked, default value for tri-state checkbox</documentation>
+		</value>
+		<value name="Mixed">
+			<documentation>mixed state for tri-state checkbox</documentation>
+		</value>
+		<value name="Checked">
+			<documentation>checked value for tri-state checkbox</documentation>
+		</value>
+	</enumeration>
+</simple-type>

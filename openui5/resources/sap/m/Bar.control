@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>Bar</name>
+	<author>SAP AG</author>
+	<documentation>A bar that may be used as a header of a page. It has the capability to center a content like a title, while having few controls on the left and right side.</documentation>
+
+	<baseType>sap.ui.core/Control</baseType>
+	<properties>
+		<property group="Misc" name="enableFlexBox" type="boolean" defaultValue="false">
+			<documentation>If this flag is set to true, contentMiddle will be rendered as a HBox and layoutData can be used to allocate available space</documentation>
+			<deprecation since="1.16">This property is no longer supported, instead, contentMiddle will always occupy 100% width when no contentLeft and contentRight are being set.</deprecation>
+		</property>
+		<property group="Appearance" name="translucent" type="sap.ui.core/boolean" defaultValue="false" since="1.12">
+			<documentation>A boolean value indicating whether the bar is partially translucent.
+It is only applied for touch devices.</documentation>
+			<deprecation since="1.18.6">This property has no effect since release 1.18.6 and should not be used. Translucent bar may overlay an input and make it difficult to edit.</deprecation>
+		</property>
+	</properties>
+	<aggregations>
+		<aggregation cardinality="0..n" name="contentLeft" type="sap.ui.core/Control">
+			<documentation>this is the left content area, usually containing a button or an app icon. If this is overlapped by the right content, its content will disappear and text will show an elipsis.</documentation>
+		</aggregation>
+		<aggregation cardinality="0..n" name="contentMiddle" type="sap.ui.core/Control">
+			<documentation>This is the middle content area. Controls such as label, segmented buttons or select should be placed here. Content that is placed here will be centrally positioned, if there is enough space. If the right or left content overlaps the middle content, the middle content will be centered in the space between the left and the right content.</documentation>
+		</aggregation>
+		<aggregation cardinality="0..n" name="contentRight" type="sap.ui.core/Control">
+			<documentation>this is the right content area. Controls such as action buttons or search field could be placed here.</documentation>
+		</aggregation>
+	</aggregations>
+</control>

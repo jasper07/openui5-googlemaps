@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>ViewSettingsCustomItem</name>
+	<author>SAP AG</author>
+	<since>1.16</since>
+	<documentation>ViewSettingsCustomItem is used for modelling custom filters in the ViewSettingsDialog.</documentation>
+	<baseType>sap.m/ViewSettingsItem</baseType>
+	<properties>
+		<property group="Behavior" name="filterCount" type="sap.ui.core/int" defaultValue="0">
+			<documentation>The number of currently active filters for this custom filter item. It will be displayed in the filter list of the ViewSettingsDialog to represent the filter state of the custom control.</documentation>
+		</property>
+	</properties>
+	<aggregations>
+		<aggregation cardinality="0..1" name="customControl" type="sap.ui.core/Control">
+			<documentation>A custom control for the filter field. It can be used for complex filtering mechanisms.</documentation>
+		</aggregation>
+	</aggregations>
+</control>

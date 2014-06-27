@@ -1,0 +1,48 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>ExactList</name>
+	<author>SAP AG</author>
+	<documentation>Internal sub-control of the ExactBrowser. The control is not intended to be used stand alone. For this purpose, the ExactBrowser control can be used.</documentation>
+
+	<baseType>sap.ui.core/Control</baseType>
+	<properties>
+		<property group="Misc" name="showClose" type="sap.ui.core/boolean" defaultValue="false">
+			<documentation>Defines whether the close icon shall be displayed in the header.</documentation>
+		</property>
+		<property group="Misc" name="topTitle" type="sap.ui.core/string">
+			<documentation>The title of this list is the top of the list hierarchy.</documentation>
+		</property>
+		<property group="Appearance" name="topHeight" type="sap.ui.core/int" defaultValue="290">
+			<documentation>The height in px if this list is the top of the list hierarchy.</documentation>
+		</property>
+	</properties>
+	<events>
+		<event name="attributeSelected">
+			<documentation>Event which is fired when an attribute is selected/unselected</documentation>
+			<parameters>
+				<parameter name="attribute" type="sap.ui.ux3/ExactAttribute">
+					<documentation>The attribute which was selected/unselected recently</documentation>
+				</parameter>
+				<parameter name="allAttributes" type="sap.ui.core/object">
+					<documentation>Array of all ExactAttributes</documentation>
+				</parameter>
+			</parameters>
+		</event>
+	</events>
+	<aggregations>
+		<aggregation cardinality="0..n" name="subLists" type="ExactList">
+			<documentation>The sub-ExactLists of this list. This aggregation must not be maintained from outside. 
+			The control automatically takes care to fill this aggregation according to the given ExactAttribute.</documentation>
+		</aggregation>
+		<aggregation cardinality="0..n" name="controls" type="sap.ui.commons/ListBox" visibility="hidden">
+			<documentation>Hidden aggregation for internal Listbox</documentation>
+		</aggregation>
+	</aggregations>
+	
+	<associations>
+		<association cardinality="0..1" name="data" type="sap.ui.ux3/ExactAttribute">
+			<documentation>The associated ExactAttribute</documentation>
+		</association>
+	</associations>
+</control>

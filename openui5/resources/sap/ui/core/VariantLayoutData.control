@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>VariantLayoutData</name>
+	<since>1.9.2</since>
+	<documentation>Allows to add multiple LayoutData to one control in case that a easy switch of layouts (e.g. in a Form) is needed.</documentation>
+
+	<baseType>LayoutData</baseType>
+	<aggregations>
+		<aggregation cardinality="0..n" name="multipleLayoutData" type="LayoutData">
+			<documentation>Allows multiple LayoutData.</documentation>
+		</aggregation>
+	</aggregations>
+</control>
