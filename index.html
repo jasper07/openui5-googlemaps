@@ -54,21 +54,26 @@
     <!-- MAIN CONTENT -->
     <div id="main_content_wrap" class="outer">
         <section id="main_content" class="inner">
-blah
-            <pre><code>
-            <?xml version="1.0" encoding="UTF-8" ?>
-<mvc:View controllerName="testapp.view.Detail" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:gmaps="openui5.googlemaps">
-    <Page title="{brewName}" enableScrolling="false">
-        <content>
-            <gmaps:Map height="400px" zoom="12" center="{parts:[{path:'lat'}, {path:'lng'}], formatter:'util.Formatter.center'}">
-                <gmaps:markers>
-                    <gmaps:Marker lat="{lat}" lng="{lng}" info="{parts:[{path:'brewName'},{path:'brewerName'},{path:'brewType'}], formatter:'util.Formatter.info'}" icon="http://maps.google.com/mapfiles/kml/pal2/icon21.png"></gmaps:Marker>
-                </gmaps:markers>
-            </gmaps:Map>
-        </content>
-    </Page>
-</mvc:View>
-            </code></pre>
+             <pre class="language-javascript"><code>sap.ui.getCore().loadLibrary("openui5.googlemaps", "../openui5/googlemaps/");</code></pre>
+
+             <pre class="language-javascript"><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+&lt;mvc:View xmlns:mvc=&quot;sap.ui.core.mvc&quot;
+    xmlns:gmaps=&quot;openui5.googlemaps&quot; 
+    controllerName=&quot;testapp.view.Detail&quot;&gt;
+    &lt;gmaps:Map height=&quot;250px&quot; zoom=&quot;12&quot; lat=&quot;-33.895&quot; lng=&quot;151.275&quot;&gt;
+        &lt;gmaps:markers&gt;
+            &lt;gmaps:Marker lat=&quot;-33.895&quot; lng=&quot;151.275&quot; info=&quot;Bondi Beach&quot; /&gt;
+        &lt;/gmaps:markers&gt;
+    &lt;/gmaps:Map&gt;
+&lt;/mvc:View&gt;</code></pre>
+
+<div id="example1" class="sampleButtonBox" style="min-width: 150px"></div>
+
+<a href="samples/search.html" target="_blank">Search Demo</a><br>
+<a href="samples/app1/" target="_blank">List Binding Demo</a><br>
+<a href="samples/app2/" target="_blank">Mash up Demo</a>
+
+            
         </section>
     </div>
 
@@ -86,4 +91,23 @@ blah
 </html>
 <script src="js/prism.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
+sap.ui.getCore().loadLibrary("openui5.googlemaps", "openui5/googlemaps/");
+var sXmlView = '<?xml version="1.0" encoding="UTF-8" ?>'
++ '<mvc:View xmlns:mvc="sap.ui.core.mvc"'
++ '    xmlns:gmaps="openui5.googlemaps"' 
++ '    controllerName="sampleController">'
++ '    <gmaps:Map height="250px" zoom="12" lat="-33.895" lng="151.275">'
++ '        <gmaps:markers>'
++ '            <gmaps:Marker lat="-33.895" lng="151.275" info="Bondi Beach" />'
++ '        </gmaps:markers>'
++ '    </gmaps:Map>'
++ '</mvc:View>';
+
+    var oController = sap.ui.controller("sampleController", {
+    });
+
+    var oXMLView = new sap.ui.xmlview({
+        viewContent : sXmlView,
+        controller : oController
+    }).placeAt("example1");
 </script>

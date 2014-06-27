@@ -7,7 +7,7 @@
                     <maps:Map id="map1" class="googleMap" height="370px" zoom="10" lat="-33.920" lng="151.2" markers="{/beaches}" ready="onMapReady">
                         <maps:Marker lat="{lat}" lng="{lng}" info="{name}" animation="0" icon="http://www.w3schools.com/googleapi/pinkball.png" click="onMarkerClick"></maps:Marker>
                     </maps:Map>
-                    <l:C3Chart id="chart1" class="c3Chart" height="300px" width="710px" columns="{cols}" visible="true"></l:C3Chart>
+                    <l:C3Chart id="chart1" class="c3Chart" height="300px" width="710px" columns="{cols}"></l:C3Chart>
                 </items>
             </VBox>
         </content>
