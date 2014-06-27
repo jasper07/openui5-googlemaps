@@ -1,1 +1,0 @@
-sap.ui.define(["jquery.sap.global"],function(){"use strict";var t={};return t.setApiKey=function(t){this.apiKey=t},t.getApiKey=function(){return this.apiKey},t.setUrl=function(t){this.baseUrl=t},t.getUrl=function(){return this.baseUrl},t},!0);
