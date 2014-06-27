@@ -93,8 +93,12 @@ sap.ui.controller("testapp.view.Detail", {
     onShowPolygon: function(oEvent) {
         this.showPolygon = !this.showPolygon;
         if (this.showPolygon) {
+            var center = {
+                lat: this.oMap.getLat(),
+                lng: this.oMap.getLng()
+            };
             this.oMap.addPolygon(new openui5.googlemaps.Polygon({
-                paths: jQuery.merge([this.oMap.getCenter()], this.getPaths()),
+                paths: jQuery.merge([center], this.getPaths()),
                 strokeColor: '#FF0000',
                 strokeOpacity: 0.8,
                 strokeWeight: 2,

@@ -9,6 +9,14 @@
         var Map = Control.extend('openui5.googlemaps.Map', {
             metadata: {
                 properties: {
+                    'lat': {
+                        type: 'float',
+                        bindable: 'bindable',
+                    },
+                    'lng': {
+                        type: 'float',
+                        bindable: 'bindable',
+                    },
                     'width': {
                         type: 'sap.ui.core.CSSSize',
                         group: 'Dimension',
@@ -22,14 +30,6 @@
                     'zoom': {
                         type: 'int',
                         defaultValue: 8
-                    },
-                    'center': {
-                        type: 'object', //LatLng
-                        bindable: 'bindable',
-                        defaultValue: {
-                            lat: 48,
-                            lng: -121
-                        }
                     },
                     'disableDefaultUI': {
                         type: 'boolean',
@@ -107,40 +107,52 @@
 
         Map.prototype.setZoom = function(iValue) {
             this.setProperty('zoom', iValue, true);
-            if (this._map && iValue !== this._map.getZoom()) {
-                this._map.setZoom(iValue);
+            if (this.map && iValue !== this.map.getZoom()) {
+                this.map.setZoom(iValue);
             }
         };
 
-        Map.prototype.setCenter = function(oValue) {
-            if (oValue === null || MapUtils.latLngEqual(this.getCenter(), oValue)) {
-                return true;
+        Map.prototype.setLat = function(oValue) {
+            this.setProperty('lat', parseFloat(oValue), true);
+            this._updateCenter();
+        };
+
+        Map.prototype.setLng = function(oValue) {
+            this.setProperty('lng', parseFloat(oValue), true);
+            this._updateCenter();
+        };
+
+        Map.prototype._updateCenter = function() {
+            if (!this.map || this.getLat() == null || this.getLng() == null) {
+                return;
             }
 
-            this.setProperty('center', oValue, true);
-            if (this._map && !MapUtils.latLngEqual(MapUtils.latLngToObj(this._map.getCenter()), oValue)) {
-                this._map.panTo(MapUtils.objToLatLng(oValue));
-            }
+            // delay if lat and lng updated through binding
+            jQuery.sap.clearDelayedCall(this.delayedCallId);
+            this.delayedCallId = jQuery.sap.delayedCall(100, this, function() {
+                this.map.panTo(new Gmaps.LatLng(this.getLat(), this.getLng()));
+            });
+
         };
 
         Map.prototype.setMapTypeId = function(sValue) {
             this.setProperty('mapTypeId', sValue, true);
-            if (this._map && sValue !== this._map.getMapTypeId()) {
-                this._map.setMapTypeId(sValue);
+            if (this.map && sValue !== this.map.getMapTypeId()) {
+                this.map.setMapTypeId(sValue);
             }
         };
 
         Map.prototype.setZoomControl = function(bValue) {
             this.setProperty('zoomControl', bValue, true);
-            if (this._map && bValue !== this._map.getZoomControl()) {
-                this._map.setZoomControl(bValue);
+            if (this.map && bValue !== this.map.getZoomControl()) {
+                this.map.setZoomControl(bValue);
             }
         };
 
         Map.prototype._getMapOptions = function() {
             var mapOptions = {};
             mapOptions.zoom = this.getZoom();
-            mapOptions.center = MapUtils.objToLatLng(this.getCenter());
+            mapOptions.center = new Gmaps.LatLng(this.getLat(), this.getLng());
             mapOptions.disableDefaultUi = this.getDisableDefaultUI();
             mapOptions.mapTypeId = this.getMapTypeId();
             mapOptions.panControl = this.getPanControl();
@@ -151,17 +163,17 @@
         };
 
         Map.prototype.onAfterRendering = function() {
-            if (this._map) {
+            if (this.map) {
                 this.resetMap();
-                // this._map = undefined;
+                // this.map = undefined;
 
                 //TODO map is attached to DOM, on render dom gets rewritten, find a way to reattach 
                 // this.trigger('resize');
-                // this._map.setOptions(this._getMapOptions());
+                // this.map.setOptions(this._getMapOptions());
                 // return false;
             }
 
-            // if (!this._map) {
+            // if (!this.map) {
             this.createMap();
             // }
         };
@@ -176,7 +188,7 @@
                 return false;
             }
 
-            this._map = new Gmaps.Map(jQuery.sap.byId(this.mapId)[0], this._getMapOptions());
+            this.map = new Gmaps.Map(jQuery.sap.byId(this.mapId)[0], this._getMapOptions());
 
             this.addListener('drag', jQuery.proxy(this.updateValues, this));
             this.addListener('zoom_changed', jQuery.proxy(this.updateValues, this));
@@ -185,19 +197,20 @@
             this.addListener('maptypeid_changed', jQuery.proxy(this.updateValues, this));
             this.addListener('resize', jQuery.proxy(this.updateValues, this));
 
-            this._notifyMarkers('MapRendered', this._map);
-            this._notifyPolylines('MapRendered', this._map);
-            this._notifyPolygons('MapRendered', this._map);
+            this._notifyMarkers('MapRendered', this.map);
+            this._notifyPolylines('MapRendered', this.map);
+            this._notifyPolygons('MapRendered', this.map);
 
             this.fireReady({
                 map: this.map,
                 context: this.getBindingContext(),
-                center: this.getCenter()
+                lat: this.getLat(),
+                lng: this.getLng()
             });
         };
 
         Map.prototype.addListener = function(event, callback) {
-            this.aListeners.push(Gmaps.event.addListener(this._map, event, callback));
+            this.aListeners.push(Gmaps.event.addListener(this.map, event, callback));
         };
 
         Map.prototype.removeListeners = function() {
@@ -209,7 +222,7 @@
 
         Map.prototype.trigger = function(event) {
 
-            Gmaps.event.trigger(this._map, event);
+            Gmaps.event.trigger(this.map, event);
         };
 
         Map.prototype.isDragging = function() {
@@ -222,16 +235,22 @@
 
         Map.prototype.updateValues = function() {
             //sync maps values with control
-            if (MapUtils.latLngToObj(this._map.getCenter()) !== this.getCenter()) {
-                this.setCenter(MapUtils.latLngToObj(this._map.getCenter()));
+            var center = MapUtils.latLngToObj(this.map.getCenter());
+
+            if (center.lat !== this.getLat()) {
+                this.setProperty('lat', center.lat, true);
             }
 
-            if (this._map.getZoom() !== this.getZoom()) {
-                this.setZoom(this._map.getZoom());
+            if (center.lng !== this.getLng()) {
+                this.setProperty('lng', center.lng, true);
             }
 
-            if (this._map.getMapTypeId() !== this.getMapTypeId()) {
-                this.setMapTypeId(this._map.getMapTypeId());
+            if (this.map.getZoom() !== this.getZoom()) {
+                this.setZoom(this.map.getZoom());
+            }
+
+            if (this.map.getMapTypeId() !== this.getMapTypeId()) {
+                this.setMapTypeId(this.map.getMapTypeId());
             }
         };
 
@@ -263,7 +282,7 @@
 
         Map.prototype.resetMap = function() {
             this.removeListeners();
-            this._map.set(null);
+            this.map.set(null);
         };
 
         Map.prototype.exit = function() {

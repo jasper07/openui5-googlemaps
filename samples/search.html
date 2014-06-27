@@ -34,13 +34,6 @@ var getLocationCallback = function(oPos) {
     oModel.setProperty('name', 'My Location', oContext);
 };
 
-var formatCenter = function(oV1, oV2) {
-    return {
-        lat: oV1,
-        lng: oV2
-    };
-};
-
 var onSuggest = function(oEvent) {
     var sValue = oEvent.getParameter("suggestValue");
     if (sValue.length > 3) {
@@ -82,7 +75,6 @@ var searchResults = function(results, status) {
         that.addItem(new sap.ui.core.ListItem({
             text: item.value,
         }));
-
     });
 };
 
@@ -111,10 +103,8 @@ var oMarkers = new openui5.googlemaps.Marker({
 });
 
 var oMap = new openui5.googlemaps.Map("map1", {
-    center: {
-        parts: ["lat", "lng"],
-        formatter: formatCenter
-    },
+    lat: '{lat}',
+    lng: '{lng}',
     zoom: 12,
     width: '600px',
     height: '400px',

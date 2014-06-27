@@ -54,6 +54,21 @@
     <!-- MAIN CONTENT -->
     <div id="main_content_wrap" class="outer">
         <section id="main_content" class="inner">
+blah
+            <pre><code>
+            <?xml version="1.0" encoding="UTF-8" ?>
+<mvc:View controllerName="testapp.view.Detail" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:gmaps="openui5.googlemaps">
+    <Page title="{brewName}" enableScrolling="false">
+        <content>
+            <gmaps:Map height="400px" zoom="12" center="{parts:[{path:'lat'}, {path:'lng'}], formatter:'util.Formatter.center'}">
+                <gmaps:markers>
+                    <gmaps:Marker lat="{lat}" lng="{lng}" info="{parts:[{path:'brewName'},{path:'brewerName'},{path:'brewType'}], formatter:'util.Formatter.info'}" icon="http://maps.google.com/mapfiles/kml/pal2/icon21.png"></gmaps:Marker>
+                </gmaps:markers>
+            </gmaps:Map>
+        </content>
+    </Page>
+</mvc:View>
+            </code></pre>
         </section>
     </div>
 
@@ -71,5 +86,4 @@
 </html>
 <script src="js/prism.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
-    
 </script>

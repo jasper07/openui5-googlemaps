@@ -66,7 +66,6 @@
         Marker.prototype.setLng = function(oValue) {
             this.setProperty('lng', parseFloat(oValue), true);
             this.updatePosition();
-
         };
 
         Marker.prototype.setICon = function() {
