@@ -7,9 +7,12 @@ sap.ui.controller("testapp.view.Detail", {
     },
 
     onMapReady: function(oEvent) {
-        var obj = this.getView().getModel().getData().beaches[4];
-        this.markerWindowOpen(obj);
-        this.setChartData(obj.columns);
+        if (!this.firstTime) {
+            this.firstTime = true;
+            var obj = this.getView().getModel().getData().beaches[4];
+            this.markerWindowOpen(obj);
+            this.setChartData(obj.columns);
+        }
     },
 
     markerWindowOpen: function(oData) {
