@@ -21,21 +21,22 @@
 
     <script type="text/javascript">
 
-        // sap.ui.getCore().loadLibrary("openui5.googlemaps", "../openui5/googlemaps/");
-        // // jQuery.sap.require('openui5.googlemaps.Map');
+        sap.ui.getCore().loadLibrary("openui5.googlemaps", "../openui5/googlemaps/");
+         jQuery.sap.require('openui5.googlemaps.Map');
+         jQuery.sap.require('openui5.googlemaps.MapUtils');
 
-        // QUnit.config.autostart = false;
-        // // jQuery(document).ready(function () {
-        // //     QUnit.start();
-        // // });
-
-        // var oMap = new openui5.googlemaps.Map( MAP_ID, {
-        //     lat: MAP_POSITION.lat,
-        //     lng: MAP_POSITION.lng,
-        //     ready: function(){ QUnit.start();}
+        QUnit.config.autostart = false;
+        // jQuery(document).ready(function () {
+        //     QUnit.start();
         // });
 
-        // oMap.placeAt("uiArea1");
+        var oMap = new openui5.googlemaps.Map( MAP_ID, {
+            lat: MAP_POSITION.lat,
+            lng: MAP_POSITION.lng,
+            ready: function(){ QUnit.start();}
+        });
+
+        oMap.placeAt("uiArea1");
 
     </script>
 

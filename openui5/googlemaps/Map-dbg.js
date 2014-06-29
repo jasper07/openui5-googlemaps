@@ -12,10 +12,12 @@
                     'lat': {
                         type: 'float',
                         bindable: 'bindable',
+                        defaultValue: 1
                     },
                     'lng': {
                         type: 'float',
                         bindable: 'bindable',
+                        defaultValue: 1
                     },
                     'width': {
                         type: 'sap.ui.core.CSSSize',
@@ -76,7 +78,7 @@
                     }
                 },
                 events: {
-                    'change': {},
+                    'changed': {},
                     'ready': {}
                 }
             },
@@ -204,6 +206,7 @@
             this.addListener('drag', jQuery.proxy(this.updateValues, this));
             this.addListener('zoom_changed', jQuery.proxy(this.updateValues, this));
             this.addListener('center_changed', jQuery.proxy(this.updateValues, this));
+            this.addListener('idle', jQuery.proxy(this.updateValues, this));
             this.addListener('bounds_changed', jQuery.proxy(this.updateValues, this));
             this.addListener('maptypeid_changed', jQuery.proxy(this.updateValues, this));
             this.addListener('resize', jQuery.proxy(this.updateValues, this));
@@ -246,16 +249,29 @@
             this._dragging = false;
         };
 
-        Map.prototype.updateValues = function() {
+        Map.prototype.mapChanged = function() {
+            this.fireChanged({
+                map: this.map,
+                context: this.getBindingContext(),
+                lat: this.getLat(),
+                lng: this.getLng()
+            });
+
+        };
+
+        Map.prototype.updateValues = function(oEvent) {
             //sync maps values with control
             var center = MapUtils.latLngToObj(this.map.getCenter());
+            var mapChanged = false;
 
             if (center.lat !== this.getLat()) {
                 this.setProperty('lat', center.lat, true);
+                mapChanged = true;
             }
 
             if (center.lng !== this.getLng()) {
                 this.setProperty('lng', center.lng, true);
+                mapChanged = true;
             }
 
             if (this.map.getZoom() !== this.getZoom()) {
@@ -264,6 +280,10 @@
 
             if (this.map.getMapTypeId() !== this.getMapTypeId()) {
                 this.setMapTypeId(this.map.getMapTypeId());
+            }
+
+            if (mapChanged) {
+                this.mapChanged();
             }
         };
 
