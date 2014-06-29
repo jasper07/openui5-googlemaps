@@ -1,0 +1,8 @@
+images/ export-ignore
+js/ export-ignore
+src/ export-ignore
+stylesheets/ export-ignore
+test/ export-ignore
+index.html export-ignore
+gulp.js export-ignore
+package.json export-ignore
