@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>CustomData</name>
+	<documentation>Contains a single key/value pair of custom data attached to an Element. See method data().</documentation>
+
+	<baseType>sap.ui.core/Element</baseType>
+	<properties>
+		<property group="Data" name="key" type="sap.ui.core/string">
+			<documentation>The key of the data in this CustomData object.
+When the data is just stored, it can be any string, but when it is to be written to HTML (writeToDom == true) then it must also be a valid HTML attribute name (it must conform to the sap.ui.core.ID type and may contain no colon) to avoid collisions, it also may not start with &quot;sap-ui&quot;. When written to HTML, the key is prefixed with &quot;data-&quot;.
+If any restriction is violated, a warning will be logged and nothing will be written to the DOM.</documentation>
+		</property>
+		<property group="Data" name="value" type="any">
+			<documentation>The data stored in this CustomData object.
+When the data is just stored, it can be any JS type, but when it is to be written to HTML (writeToDom == true) then it must be a string.
+If this restriction is violated, a warning will be logged and nothing will be written to the DOM.</documentation>
+		</property>
+		<property group="Data" name="writeToDom" type="boolean" defaultValue="false" since="1.9.0">
+			<documentation>If set to &quot;true&quot; and the value is of type &quot;string&quot; and the key conforms to the documented restrictions, this custom data is written to the HTML root element of the control as a &quot;data-*&quot; attribute.
+If the key is &quot;abc&quot; and the value is &quot;cde&quot;, the HTML will look as follows:
+&amp;lt;SomeTag ...  data-abc=&quot;cde&quot; ... &amp;gt;
+Thus the application can provide stable attributes by data binding which can be used for styling or identification purposes.
+ATTENTION: use carefully to not create huge attributes or a large number of them.</documentation>
+		</property>
+	</properties>
+</control>

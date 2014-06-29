@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>HorizontalLayout</name>
+	<author>SAP AG</author>
+	<since>1.16.0</since>
+	<documentation>A layout that provides support for horizontal alignment of controls</documentation>
+
+	<baseType>sap.ui.core/Control</baseType>
+	<properties>
+		<property group="Misc" name="allowWrapping" type="boolean" defaultValue="false">
+			<documentation>Specifies whether the content inside the Layout shall be line-wrapped in the case that there is less horizontal space available than required.</documentation>
+		</property>
+		<property group="Appearance" name="visible" type="boolean" defaultValue="true">
+			<documentation>Whether this HorizontalLayout is visible.</documentation>
+		</property>
+	</properties>
+	<aggregations default="content">
+		<aggregation cardinality="0..n" name="content" type="sap.ui.core/Control">
+			<documentation>The controls inside this layout</documentation>
+		</aggregation>
+	</aggregations>
+</control>

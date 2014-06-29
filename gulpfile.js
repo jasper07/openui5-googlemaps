@@ -7,6 +7,7 @@ var concat = require('gulp-concat');
 var clean = require('gulp-clean');
 var header = require('gulp-header');
 var streamify = require('gulp-streamify');
+var qunit = require('gulp-qunit');
 var pkg = require('./package.json');
 
 var banner = ['/**',
@@ -57,6 +58,11 @@ gulp.task('lint', function() {
 
 gulp.task('watch', function() {
     gulp.watch('./src/*.js', ['lint']);
+});
+
+gulp.task('test', function() {
+    return gulp.src('./test/*.qunit.html')
+        .pipe(qunit());
 });
 
 gulp.task('develop ', ['build', 'watch']);

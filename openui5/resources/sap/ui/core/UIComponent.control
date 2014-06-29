@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>UIComponent</name>
+
+	<documentation>Base class for UI Components.</documentation>
+	<developmentState state="experimental" since="1.9.2">The Component concept is still under construction, so some implementation details can be changed in future.</developmentState>
+	<abstract/>
+	<aggregations>
+		<aggregation cardinality="0..1" name="rootControl" type="sap.ui.core/Control" visibility="hidden">
+			<documentation>The root Control of the UIComponent. The root control should be created inside the function {@link sap.ui.core.UIComponent#createContent}.</documentation>
+		</aggregation>
+	</aggregations>
+	<methods>
+		<method name="render" type="sap.ui.core/void">
+			<documentation>Renders the the root control of the UIComponent.</documentation>
+		</method>
+		<method name="createContent" type="sap.ui.core/Control">
+			<documentation>The method to create the content (UI Control Tree) of the UIComponent. This method has to be overwritten in the implementation of the component. It returns the reference to the root Control which will be applied to the aggregation rootControl.</documentation>
+		</method>
+	</methods>
+
+	<targetConfigurations>
+		<targetConfiguration name="JavaScriptAPI">
+			<property name="sap.ui.generate">false</property>
+		</targetConfiguration>
+		<targetConfiguration name="JavaAPI">
+			<property name="sap.ui.generate">false</property>
+		</targetConfiguration>
+	</targetConfigurations>
+
+</control>

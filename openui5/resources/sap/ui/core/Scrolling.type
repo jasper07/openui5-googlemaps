@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<simple-type xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>Scrolling</name>
+	<author>SAP AG</author>
+	<documentation>Defines the possible values for horizontal and vertical scrolling behavior.</documentation>
+	<baseType>string</baseType>
+	
+	<enumeration>
+		<value name="None">
+			<documentation>No scroll bar provided even if the content is larger than the available space.</documentation>
+		</value>
+		<value name="Auto">
+			<documentation>A scroll bar is shown if the content requires more space than the given space (rectangle) provides.</documentation>
+		</value>
+		<value name="Scroll">
+			<documentation>A scroll bar is always shown even if the space is large enough for the current content.</documentation>
+		</value>
+		<value name="Hidden">
+			<documentation>No scroll bar is shown, and the content stays in the given rectangle.</documentation>
+		</value>
+	</enumeration>
+
+</simple-type>

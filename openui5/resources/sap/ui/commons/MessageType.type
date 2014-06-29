@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<simple-type xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>MessageType</name>
+	<author></author>
+	<documentation>[Enter description for MessageType] </documentation>
+	<baseType>sap.ui.core/string</baseType>
+	<enumeration>
+		<value name="Error">
+			<documentation>Error message</documentation>
+		</value>
+		<value name="Warning">
+			<documentation>Warning message</documentation>
+		</value>
+		<value name="Success">
+			<documentation>Successful message</documentation>
+		</value>
+	</enumeration>
+
+</simple-type>

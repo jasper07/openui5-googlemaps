@@ -1,0 +1,62 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>Overlay</name>
+	<author>SAP AG</author>
+	<documentation>Overlay Control</documentation>
+	
+	<baseType>sap.ui.core/Control</baseType>
+	<interfaces>
+		<interface>sap.ui.core/PopupInterface</interface>
+	</interfaces>
+	<properties>
+		<property group="Misc" name="openButtonVisible" type="sap.ui.core/boolean" defaultValue="true">
+			<documentation>Defines whether the 'Open' button shall be visible</documentation>
+		</property>
+		<property group="Misc" name="closeButtonVisible" type="sap.ui.core/boolean" defaultValue="true">
+			<documentation>Defines whether the 'Close' button shall be visible</documentation>
+		</property>
+	</properties>
+	<events>	
+		<event name="close" allowPreventDefault="true">
+			<documentation>Event is fired when the ThingInspector is closed</documentation>
+			<parameters>
+				<parameter name="id" type="sap.ui.core/string">
+					<documentation>The Id of the Thing which is inspected in this ThingInspector instance</documentation>
+				</parameter>
+			</parameters>
+		</event>
+		<event name="openNew">
+			<documentation>Event is fired when the 'Open' button of the ThingInspector is clicked</documentation>
+			<parameters>
+				<parameter name="id" type="sap.ui.core/string">
+					<documentation>The Id of the Thing which is inspected in this ThingInspector instance</documentation>
+				</parameter>
+			</parameters>
+		</event>
+		<event name="open">
+			<documentation>Event is fired when the ThingInspector is opened</documentation>
+			<parameters>
+				<parameter name="id" type="sap.ui.core/string">
+					<documentation>The Id of the Thing which is inspected in this ThingInspector instance</documentation>
+				</parameter>
+			</parameters>
+		</event>
+	</events>	
+	<methods>
+		<method name="open" type="sap.ui.core/void">
+			<documentation>Opens Overlay as pop up</documentation>
+			<parameters>
+				<parameter name="initialFocusId" type="sap.ui.core/string">
+					<documentation>ID of the control that gets focused when the overlay is openend</documentation>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="close" type="sap.ui.core/void">
+			<documentation>Closes Overlay</documentation>
+		</method>
+		<method name="isOpen" type="sap.ui.core/boolean">
+			<documentation>Checks whether Overlay is open</documentation>
+		</method>
+	</methods>
+</control>

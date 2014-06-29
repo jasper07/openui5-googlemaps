@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<simple-type xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>ListType</name>
+	<author>SAP AG</author>
+	<documentation>List types</documentation>
+	<baseType>sap.ui.core/string</baseType>
+	<enumeration>
+		<value name="Inactive">
+			<documentation>Inactive</documentation>
+		</value>
+		<value name="Detail">
+			<documentation>Detail</documentation>
+		</value>
+		<value name="Navigation">
+			<documentation>Navigation</documentation>
+		</value>
+		<value name="Active">
+			<documentation>Active</documentation>
+		</value>
+		<value name="DetailAndActive">
+			<documentation>DetailAndActive</documentation>
+		</value>
+	</enumeration>
+</simple-type>

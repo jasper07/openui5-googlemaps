@@ -28,13 +28,14 @@
     "gulp-uglify": "^0.3.0",
     "gulp-jshint": "~1.6.3",
     "gulp-header": "~1.0.2",
-    "gulp-clean": "~0.3.0"
+    "gulp-clean": "~0.3.0",
+    "gulp-qunit": "~0.3.3"
   },
   "bugs": {
     "url": "http://stackoverflow.com/questions/tagged/sapui5"
   },
   "scripts": {
-    "test": "vows test/*"
+    "test": "qunit test/*"
   },
   "license": "MIT"
 }

@@ -1,0 +1,62 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>SearchField</name>
+	<author>SAP AG</author>
+	<documentation>Enables users to input a search string.</documentation>
+	<baseType>sap.ui.core/Control</baseType>
+	<properties>
+		<property group="Data" name="value" type="sap.ui.core/string" bindable="bindable">
+			<documentation>Input Value.</documentation>
+		</property>
+		<property group="Appearance" name="width" type="sap.ui.core/CSSSize">
+			<documentation>Defines the width of the input.</documentation>
+		</property>
+		<property group="Behavior" name="enabled" type="sap.ui.core/boolean" defaultValue="true">
+			<documentation>Boolean property to enable the control (default is true). </documentation>
+		</property>
+		<property group="Appearance" name="visible" type="sap.ui.core/boolean" defaultValue="true">
+			<documentation>Invisible inputs are not rendered.</documentation>
+		</property>
+		<property name="maxLength" type="sap.ui.core/int" defaultValue="0" group="Behavior">
+			<documentation>Maximum number of characters. Value '0' means the feature is switched off.</documentation>
+		</property>
+		<property group="Misc" name="placeholder" type="sap.ui.core/string">
+			<documentation>Text shown when no value available. Default placeholder text is the word &quot;Search&quot; in the current local language (if supported) or in English.</documentation>
+		</property>
+		<property group="Misc" name="showMagnifier" type="sap.ui.core/boolean" defaultValue="true">
+			<documentation>Set to false to hide the magnifier icon. This property is deprecated since version 1.16.</documentation>
+		</property>
+		<property group="Behavior" name="showRefreshButton" type="sap.ui.core/boolean" defaultValue="false"  since="1.16">
+			<documentation>Set to true to display a &quot;refresh&quot; button. By pressing the refresh button, the user can reload the results list without changing the search string. This is a visual clue only: a normal search event is fired when a user presses on a refresh button.
+</documentation>
+		</property>
+		<property group="Misc" name="refreshButtonTooltip" type="sap.ui.core/string" since="1.16">
+			<documentation>Tooltip text of the refresh button. If it is not set, the tooltip of the SearchField (if any) is displayed. Tooltips are not displayed on touch devices.</documentation>
+		</property>
+		<property group="Behavior" name="selectOnFocus" type="sap.ui.core/boolean" defaultValue="true" since="1.20">
+			<documentation>Normally, search text is selected for copy when the SearchField is focused by keyboard navigation. If an application re-renders the SearchField during the liveChange event, set this property to false to disable text selection by focus.</documentation>
+		</property>
+	</properties>
+	<events>
+		<event name="search">
+			<documentation>Event which is fired when the user triggers a search.</documentation>
+			<parameters>
+				<parameter name="query" type="sap.ui.core/string">
+					<documentation>The search query string.</documentation>
+				</parameter>
+				<parameter name="refreshButtonPressed" type="sap.ui.core/boolean" since="1.16">
+					<documentation>Indicates if the user pressed the refresh button.</documentation>
+				</parameter>
+			</parameters>
+		</event>
+		<event name="liveChange" since="1.9.1">
+			<documentation>This event is fired when the value of the search field is changed by a user - e.g. at each key press.</documentation>
+			<parameters>
+				<parameter name="newValue" type="sap.ui.core/string">
+					<documentation>Current search string.</documentation>
+				</parameter>
+			</parameters>
+		</event>
+	</events>
+</control>

@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd">
+	<name>layout/BorderLayout</name>
+	<author>SAP AG</author>
+	<documentation>Based upon the border layout as it comes with the Java standard. Using this layout, you are able to divide your available UI space into five areas whose sizes can be defined. These areas are: Top: Header; Bottom: Footer; Begin: Left/right-hand side panel; Center: Content area 
+	in the middle; End: Right/left-hand side panel.
+</documentation>
+	<baseType>sap.ui.core/Control</baseType>
+	<properties>		
+		<property group="Appearance" name="rtl" type="sap.ui.core/boolean" defaultValue="false">
+			<documentation>The RTL setting swaps the areas Begin and End. Since version 1.5.2, this property is deprecated and ignored as it conflicts with the central configuration for the page.</documentation>
+			<deprecation since="1.5.2">RTL should not be configured on control level but is determined by a global configuration.</deprecation>
+		</property>
+		<property group="Dimension" name="width" type="sap.ui.core/CSSSize" defaultValue="100%">
+			<documentation>Defines the overall width of the layout</documentation>
+		</property>
+		<property group="Dimension" name="height" type="sap.ui.core/CSSSize" defaultValue="100%">
+			<documentation>Defines the overall height of the layout</documentation>
+		</property>
+		
+	</properties>
+	<aggregations>	
+		<aggregation cardinality="0..1" name="top" type="sap.ui.commons/layout/BorderLayoutArea">
+			<documentation>Represents the Top area</documentation>
+		</aggregation>
+		<aggregation cardinality="0..1" name="begin" type="sap.ui.commons/layout/BorderLayoutArea">
+			<documentation>Represents the Begin area</documentation>
+		</aggregation>
+		<aggregation cardinality="0..1" name="center" type="sap.ui.commons/layout/BorderLayoutArea">
+			<documentation>Represents the Center area</documentation>
+		</aggregation>
+		<aggregation cardinality="0..1" name="end" type="sap.ui.commons/layout/BorderLayoutArea">
+			<documentation>Represents the End area</documentation>
+		</aggregation>
+		<aggregation cardinality="0..1" name="bottom" type="sap.ui.commons/layout/BorderLayoutArea">
+			<documentation>Represents the Bottom area</documentation>
+		</aggregation>
+	</aggregations>
+	<methods>
+		<method name="createArea" type="sap.ui.commons/layout/BorderLayoutArea">
+			<documentation>Creates the specified area and adds the given controls to it. Returns the created area.</documentation>
+			<parameters>
+				<parameter name="areaId" type="sap.ui.commons/layout/BorderLayoutAreaTypes">
+					<documentation>Specifies which area will be created. If the area is already available, the method call is ignored.</documentation>
+				</parameter>
+				<parameter name="controls" type="sap.ui.core/Control">
+					<documentation>Any number of controls can be submitted to be added to the newly created area; where each control is submitted as one argument.</documentation>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="setAreaData" type="sap.ui.core/void">
+			<documentation>Sets the properties of the specified area with the given values</documentation>
+			<parameters>
+				<parameter name="areaId" type="sap.ui.commons/layout/BorderLayoutAreaTypes">
+					<documentation>Specifies the area whose properties will be set</documentation>
+				</parameter>
+				<parameter name="data" type="sap.ui.core/object">
+					<documentation>JSON-like object that contains the values to be set</documentation>
+				</parameter>
+			</parameters>
+		</method>		
+		<method name="addContent" type="sap.ui.core/void">
+			<documentation>Adds controls to the specified area</documentation>
+			<parameters>
+				<parameter name="areaId" type="sap.ui.commons/layout/BorderLayoutAreaTypes">
+					<documentation>Specifies the area where controls will be added</documentation>
+				</parameter>
+				<parameter name="controls" type="sap.ui.core/Control">
+					<documentation>N controls can be submitted to be added. Each control is submitted as one argument.</documentation>
+				</parameter>
+			</parameters>
+		</method>		
+		<method name="insertContent" type="sap.ui.core/void">
+			<documentation>Inserts controls to an area at a given index.</documentation>
+			<parameters>
+				<parameter name="areaId" type="sap.ui.commons/layout/BorderLayoutAreaTypes">
+					<documentation>Specifies the area where the controls shall be inserted.</documentation>
+				</parameter>
+				<parameter name="index" type="sap.ui.core/int">
+					<documentation>Specifies the index where the controls shall be added. For a negative value of iIndex, the content is inserted at 
+					position '0'; for a value greater than the current size of the aggregation, the content is inserted at the last position.</documentation>
+				</parameter>
+				<parameter name="control" type="sap.ui.core/Control">
+					<documentation>N controls can be submitted to be added. Each control is submitted as one argument.</documentation>
+				</parameter>
+			</parameters>
+		</method>		
+		<method name="removeContent" type="sap.ui.core/void">
+			<documentation>Removes the content with the given index from an area</documentation>
+			<parameters>
+				<parameter name="areaId" type="sap.ui.commons/layout/BorderLayoutAreaTypes">
+					<documentation>Specifies the area whose content shall be removed</documentation>
+				</parameter>
+				<parameter name="index" type="sap.ui.core/int">
+					<documentation>Specifies the index of the control that shall be removed</documentation>
+				</parameter>
+			</parameters>
+		</method>		
+		<method name="removeAllContent" type="sap.ui.core/void">
+			<documentation>Removes all content from an area</documentation>
+			<parameters>
+				<parameter name="areaId" type="sap.ui.commons/layout/BorderLayoutAreaTypes">
+					<documentation>Specifies the area whose content shall be removed</documentation>
+				</parameter>
+			</parameters>
+		</method>				
+		<method name="getContent" type="sap.ui.core/Control[]">
+			<documentation>Returns all controls inside the specified area inside an array</documentation>
+			<parameters>
+				<parameter name="areaId" type="sap.ui.commons/layout/BorderLayoutAreaTypes">
+					<documentation>Specifies the area whose content controls shall be returned.</documentation>
+				</parameter>
+			</parameters>
+		</method>				
+		<method name="indexOfContent" type="sap.ui.core/int">
+			<documentation>Determines the index of a given content control</documentation>
+			<parameters>
+				<parameter name="areaId" type="sap.ui.commons/layout/BorderLayoutAreaTypes">
+					<documentation>Specifies the area that will be searched</documentation>
+				</parameter>
+				<parameter name="content" type="sap.ui.core/Control">
+					<documentation>Specifies the control whose index will be searched</documentation>
+				</parameter>
+			</parameters>
+		</method>		
+		<method name="destroyContent" type="sap.ui.core/void">
+			<documentation>Destroys the content of the specified area</documentation>
+			<parameters>
+				<parameter name="areaId" type="sap.ui.commons/layout/BorderLayoutAreaTypes">
+					<documentation>Specifies the area whose content will be destroyed</documentation>
+				</parameter>
+			</parameters>
+		</method>		
+		<method name="getAreaData" type="sap.ui.core/object">
+			<documentation>Returns a JSON-like object that contains all property values of the requested area</documentation>
+			<parameters>
+				<parameter name="areaId" type="sap.ui.commons/layout/BorderLayoutAreaTypes">
+					<documentation>Specifies the area whose data will be returned</documentation>
+				</parameter>
+			</parameters>
+		</method>		
+		<method name="getAreaById" type="sap.ui.commons/layout/BorderLayoutArea">
+			<documentation>Returns the object of the specified area. If the area does not exist, the area will be created and returned.</documentation>
+			<parameters>
+				<parameter name="areaId" type="sap.ui.commons/layout/BorderLayoutAreaTypes">
+					<documentation>Specifies the area whose object will be returned.</documentation>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="getArea" type="sap.ui.commons/layout/BorderLayoutAreaTypes">
+			<documentation>Returns the area of the given type. If the area does not exist, it will be created when create is set to true.</documentation>
+			<parameters>
+				<parameter name="areaId" type="sap.ui.commons/layout/BorderLayoutAreaTypes">
+				</parameter>
+				<parameter name="create" type="sap.ui.core/boolean">
+				</parameter>
+			</parameters>
+		</method>
+		
+	</methods>
+</control>

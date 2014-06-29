@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>RangeSlider</name>
+	<author>SAP AG</author>
+	<since>1.8.0</since>
+	<documentation>The interactive control is displayed either as a horizontal or a vertical line with two pointers and units of measurement. 
+Users can move the pointers along the line to change a range with graphical support.</documentation>
+
+	<baseType>sap.ui.commons/Slider</baseType>
+	<properties>
+		<property group="Appearance" name="value2" type="sap.ui.core/float" defaultValue="80">
+			<documentation>Current second value of the slider. (Position of the second grip.)</documentation>
+		</property>
+	</properties>
+</control>

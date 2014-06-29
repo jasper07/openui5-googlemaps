@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>StandardListItem</name>
+	<author>SAP AG</author>
+
+	<documentation>The StandardListItem is a list item providing image, titel and description.</documentation>
+
+	<baseType>ListItemBase</baseType>
+	<properties>
+		<property group="Misc" name="title" type="sap.ui.core/string">
+			<documentation>List item text</documentation>
+		</property>
+		<property group="Misc" name="description" type="sap.ui.core/string">
+			<documentation>Description</documentation>
+		</property>
+		<property group="Misc" type="sap.ui.core/URI" name="icon">
+			<documentation>List item icon</documentation>
+		</property>
+		<property group="Appearance" name="iconInset" type="sap.ui.core/boolean" defaultValue='true'>
+			<documentation>If false image will not be shown as embedded icon. Instead it will take the full height of the listitem.</documentation>
+		</property>
+		<property group="Misc" name="iconDensityAware" type="sap.ui.core/boolean" defaultValue="true">
+			<documentation>By default, this is set to true but then one or more requests are sent trying to get the density perfect version of image if this version of image doesn't exist on the server.
+
+If bandwidth is the key for the application, set this value to false.</documentation>
+		</property>
+		<property group="Misc" name="activeIcon" type="sap.ui.core/URI">
+			<documentation>List item active icon</documentation>
+		</property>
+		<property group="Misc" name="info" type="sap.ui.core/string">
+			<documentation>Info text shown on the right side of the description.</documentation>
+		</property>
+		<property group="Misc" name="infoState" type="sap.ui.core/ValueState" defaultValue="None">
+			<documentation>Info state defines the color of the info text. E.g. Error, Warning, Success... </documentation>
+		</property>
+		<property group="Appearance" name="adaptTitleSize" type="sap.ui.core/boolean" defaultValue="true" since="1.16.3">
+			<documentation>By default the title size adapts to the available space and gets bigger if the description is empty. If you have list items with and without description this results in titles with different sizes. In this cases it can be better to switch the size adaption off with setting this property to &quot;false&quot;.</documentation>
+		</property>
+	</properties>
+</control>

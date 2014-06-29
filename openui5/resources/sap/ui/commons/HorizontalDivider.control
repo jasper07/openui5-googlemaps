@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>HorizontalDivider</name>
+
+	<documentation>Divides the screen in visual areas.</documentation>
+
+	<baseType>sap.ui.core/Control</baseType>
+	<properties>
+		<property name="visible" type="sap.ui.core/boolean" defaultValue="true" group="Appearance">
+			<documentation>Invisible dividers are not rendered.</documentation>
+		</property>
+		<property name="width" type="sap.ui.core/CSSSize" defaultValue="100%" group="Appearance">
+			<documentation>Defines the width of the divider.</documentation>
+		</property>
+		<property name="type" type="sap.ui.commons/HorizontalDividerType" defaultValue="Area" group="Appearance">
+			<documentation>Defines the type of the divider.</documentation>
+		</property>
+		<property name="height" type="sap.ui.commons/HorizontalDividerHeight" defaultValue="Medium" group="Appearance">
+			<documentation>Defines the height of the divider.</documentation>
+		</property>
+	</properties>
+</control>

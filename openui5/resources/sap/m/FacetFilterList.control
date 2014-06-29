@@ -1,0 +1,75 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>FacetFilterList</name>
+	<documentation>FacetFilterList represents a list of values for the FacetFilter control.</documentation>
+
+	<baseType>sap.m/List</baseType>
+	<properties>
+		<property group="Appearance" name="title" type="sap.ui.core/string">
+			<documentation>The title of the facet.  The facet title is displayed on the facet button when the FacetFilter type is set to Simple.  It is also displayed as a list item in the facet page of the dialog.</documentation>
+		</property>
+		<property group="Behavior" name="multiSelect" type="sap.ui.core/boolean" defaultValue="true">
+			<documentation>Specifies whether multiple or single selection is used.</documentation>
+			<deprecation since="1.20.0">This property is no longer supported.  Use the setMode method instead.  FacetFilterList overrides the setMode method to restrict the possible modes to MultiSelect and SingleSelectMaster.  All other modes are ignored and will not be set.</deprecation>
+		</property>
+		<property group="Behavior" name="active" type="sap.ui.core/boolean" defaultValue="true">
+			<documentation>Indicates that the list is displayed as a button when the FacetFilter type is set to Simple.</documentation>
+		</property>
+		<property group="Appearance" name="allCount" type="sap.ui.core/int">
+			<documentation>Number of objects that match this item in the target data set when all filter items are selected.</documentation>
+		</property>
+		<property group="Behavior" name="sequence" type="sap.ui.core/int" defaultValue="-1">
+			<documentation>Sequence that determines the order in which facet list is shown on the facet filter. Lists are rendered by ascending order of sequence.</documentation>
+		</property>
+		<property group="Identification" name="key" type="sap.ui.core/string">
+			<documentation>Unique identifier for this filter list.</documentation>
+		</property>
+	</properties>
+	<events>
+		<event name="listOpen">
+			<documentation>Fired before the filter list is opened.</documentation>
+		</event>
+		<event name="listClose">
+			<documentation>Triggered after the list of items is closed.</documentation>
+			<parameters>
+				<parameter name="selectedItems" type="sap.m/FacetFilterItem[]">
+					<documentation>Array of selected items.  Items returned are only copies and therefore can only be used to read properties, not set them.</documentation>
+				</parameter>
+				<parameter name="allSelected" type="sap.ui.core/boolean">
+					<documentation>True if the select All checkbox is selected.  This will be false if all items are actually selected (every FacetFilterItem.selected == true).  In that case selectedItems will contain all selected items.</documentation>
+				</parameter>
+				<parameter name="selectedKeys" type="sap.ui.core/object">
+					<documentation>Associative array containing the keys of selected FacetFilterItems. Unlike the selectedItems parameter, this contains only the keys for all selected items, not the items themselves.  Being an associative array, each object property is the FacetFilterItem key value and the value of the property is the FacetFilterItem text.</documentation>
+				</parameter>
+			</parameters>
+		</event>
+	</events>
+	<methods>
+		<method name="getSelectedKeys" type="sap.ui.core/object" since="1.20.3">
+			<documentation>Returns the keys of the selected elements as an associative array. An empty object is returned if no items are selected.</documentation>
+		</method>
+		<method name="setSelectedKeys" type="sap.ui.core/void" since="1.20.3">
+			<documentation>Use this method to pre-select FacetFilterItems, such as when restoring FacetFilterList selections from a variant.  Keys are cached separately from the actual FacetFilterItems so that they remain even when the physical items are removed by filtering or sorting.  If aKeys is undefined, null, or {} (empty object) then all keys are deleted.  After this method completes only those items with matching keys will be selected.  All other items in the list will be deselected.</documentation>
+			<parameters>
+				<parameter name="aKeys" type="sap.ui.core/object">
+					<documentation>Associative array indicating which FacetFilterItems should be selected in the list. Each property must be set to the value of a FacetFilterItem.key property.  Each property value should be set to the FacetFilterItem.text property value.  The text value is used to display the FacetFilterItem text when the FacetFilterList button or FacetFilter summary bar is displayed.  If no property value is set then the property key is used for the text.  </documentation>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="removeSelectedKey" type="sap.ui.core/void" since="1.20.4">
+			<documentation>Remove the specified key from the selected keys cache and deselect the item.</documentation>
+			<parameters>
+				<parameter name="key" type="sap.ui.core/string">
+					<documentation>The key of the selected item to be removed from the cache.   If null then the text parameter will be used as the key.</documentation>
+				</parameter>
+				<parameter name="text" type="sap.ui.core/string">
+					<documentation>The text of the selected item to be removed from the cache.  If the key parameter is null then text will be used as the key.</documentation>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="removeSelectedKeys" type="sap.ui.core/void" since="1.20.4">
+			<documentation>Remove all selected keys from the selected keys cache and deselect all items.</documentation>
+		</method>
+	</methods>	
+</control>

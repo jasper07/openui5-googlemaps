@@ -1,0 +1,168 @@
+<?xml version="1.0" ?>
+<library  version="2.0" name="sap.ui.unified">
+  <module name="sap/ui/unified/ContentSwitcher.js" size="14623" compressedSize="2262">
+    <description>Provides control sap.ui.unified.ContentSwitcher.</description>
+    <requires>
+      <module name="sap/ui/unified/library.js"/>
+      <module name="sap/ui/core/Control.js"/>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/unified/ContentSwitcherRenderer.js" size="1929" compressedSize="1232">
+    <description>! SAP UI development toolkit for HTML5 (SAPUI5/OpenUI5) (c) Copyright 2009-2014 SAP AG or an SAP affiliate company.  Licensed under the Apache License, Version 2.0 - see LICENSE.txt.</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/unified/Shell.js" size="45696" compressedSize="15765">
+    <description>Provides control sap.ui.unified.Shell.</description>
+    <requires>
+      <module name="sap/ui/unified/library.js"/>
+      <module name="sap/ui/core/Control.js"/>
+      <module name="sap/ui/Device.js"/>
+      <module name="jquery.sap.script.js"/>
+      <module name="jquery.sap.dom.js"/>
+      <module name="sap/ui/unified/SplitContainer.js"/>
+      <module name="sap/ui/core/Popup.js"/>
+      <module name="sap/ui/core/theming/Parameters.js"/>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/unified/ShellHeadItem.js" size="11826" compressedSize="2163">
+    <description>Provides control sap.ui.unified.ShellHeadItem.</description>
+    <requires>
+      <module name="sap/ui/unified/library.js"/>
+      <module name="sap/ui/core/Element.js"/>
+      <module name="sap/ui/core/IconPool.js"/>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/unified/ShellOverlay.js" size="18032" compressedSize="7073">
+    <description>Provides control sap.ui.unified.ShellOverlay.</description>
+    <requires>
+      <module name="sap/ui/unified/library.js"/>
+      <module name="sap/ui/core/Control.js"/>
+      <module name="sap/ui/core/Popup.js"/>
+      <module name="sap/ui/Device.js"/>
+      <module name="sap/ui/unified/Shell.js"/>
+      <module name="jquery.sap.script.js"/>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/unified/ShellOverlayRenderer.js" size="2719" compressedSize="1885">
+    <description>Provides default renderer for control sap.ui.unified.ShellOverlay</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/unified/ShellRenderer.js" size="4723" compressedSize="3556">
+    <description>Provides default renderer for control sap.ui.unified.Shell</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/unified/SplitContainer.js" size="19275" compressedSize="4741">
+    <description>Provides control sap.ui.unified.SplitContainer.</description>
+    <requires>
+      <module name="sap/ui/unified/library.js"/>
+      <module name="sap/ui/core/Control.js"/>
+      <module name="sap/ui/core/theming/Parameters.js"/>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/unified/SplitContainerRenderer.js" size="2301" compressedSize="1455">
+    <description>Provides default renderer for control sap.ui.unified.SplitContainer</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/unified/library.js" size="4981" compressedSize="1888">
+    <description>Initialization Code and shared classes of library sap.ui.unified (1.20.7)</description>
+    <requires>
+      <module name="sap/ui/core/Core.js"/>
+      <module name="sap/ui/core/library.js"/>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+    <includes>
+      <module name="sap/ui/unified/ContentSwitcherAnimation.js"/>
+    </includes>
+  </module>
+  <module name="sap/ui/unified/library.properties" size="499">
+  </module>
+  <module name="sap/ui/unified/messagebundle.properties" size="338">
+  </module>
+  <module name="sap/ui/unified/messagebundle_ar.properties" size="272">
+  </module>
+  <module name="sap/ui/unified/messagebundle_bg.properties" size="284">
+  </module>
+  <module name="sap/ui/unified/messagebundle_ca.properties" size="219">
+  </module>
+  <module name="sap/ui/unified/messagebundle_cs.properties" size="226">
+  </module>
+  <module name="sap/ui/unified/messagebundle_da.properties" size="213">
+  </module>
+  <module name="sap/ui/unified/messagebundle_de.properties" size="224">
+  </module>
+  <module name="sap/ui/unified/messagebundle_el.properties" size="302">
+  </module>
+  <module name="sap/ui/unified/messagebundle_en.properties" size="215">
+  </module>
+  <module name="sap/ui/unified/messagebundle_es.properties" size="220">
+  </module>
+  <module name="sap/ui/unified/messagebundle_et.properties" size="214">
+  </module>
+  <module name="sap/ui/unified/messagebundle_fi.properties" size="215">
+  </module>
+  <module name="sap/ui/unified/messagebundle_fr.properties" size="216">
+  </module>
+  <module name="sap/ui/unified/messagebundle_hi.properties" size="273">
+  </module>
+  <module name="sap/ui/unified/messagebundle_hr.properties" size="220">
+  </module>
+  <module name="sap/ui/unified/messagebundle_hu.properties" size="232">
+  </module>
+  <module name="sap/ui/unified/messagebundle_it.properties" size="218">
+  </module>
+  <module name="sap/ui/unified/messagebundle_iw.properties" size="279">
+  </module>
+  <module name="sap/ui/unified/messagebundle_ja.properties" size="236">
+  </module>
+  <module name="sap/ui/unified/messagebundle_ko.properties" size="230">
+  </module>
+  <module name="sap/ui/unified/messagebundle_lt.properties" size="228">
+  </module>
+  <module name="sap/ui/unified/messagebundle_lv.properties" size="226">
+  </module>
+  <module name="sap/ui/unified/messagebundle_nl.properties" size="217">
+  </module>
+  <module name="sap/ui/unified/messagebundle_no.properties" size="214">
+  </module>
+  <module name="sap/ui/unified/messagebundle_pl.properties" size="219">
+  </module>
+  <module name="sap/ui/unified/messagebundle_pt.properties" size="216">
+  </module>
+  <module name="sap/ui/unified/messagebundle_ro.properties" size="224">
+  </module>
+  <module name="sap/ui/unified/messagebundle_ru.properties" size="290">
+  </module>
+  <module name="sap/ui/unified/messagebundle_sh.properties" size="217">
+  </module>
+  <module name="sap/ui/unified/messagebundle_sk.properties" size="222">
+  </module>
+  <module name="sap/ui/unified/messagebundle_sl.properties" size="222">
+  </module>
+  <module name="sap/ui/unified/messagebundle_sv.properties" size="223">
+  </module>
+  <module name="sap/ui/unified/messagebundle_th.properties" size="254">
+  </module>
+  <module name="sap/ui/unified/messagebundle_tr.properties" size="215">
+  </module>
+  <module name="sap/ui/unified/messagebundle_uk.properties" size="290">
+  </module>
+  <module name="sap/ui/unified/messagebundle_vi.properties" size="225">
+  </module>
+  <module name="sap/ui/unified/messagebundle_zh_CN.properties" size="230">
+  </module>
+  <module name="sap/ui/unified/messagebundle_zh_TW.properties" size="230">
+  </module>
+</library>

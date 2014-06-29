@@ -4,13 +4,6 @@ sap.ui.define(['jquery.sap.global'],
 
         var Formatter = {};
 
-        Formatter.center = function(oV1, oV2) {
-            return {
-                lat: oV1,
-                lng: oV2
-            };
-        };
-
         Formatter.info = function(oV1, oV2, oV3) {
             var str = jQuery('<div class="marker-info-win">' +
                 '<div class="marker-inner-win"><span class="info-content">' +

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<simple-type xmlns="http://www.sap.com/sap.ui.library.xsd">
+	<name>TextViewDesign</name>
+	<documentation>Designs for TextView.</documentation>
+	<baseType>string</baseType>
+	<enumeration>
+		<value name="Standard">
+			<documentation>Displays the text in standard letters.</documentation>
+		</value>
+		<value name="Bold">
+			<documentation>Displays the text in bold letters</documentation>
+		</value>
+		<value name="H1">
+			<documentation>Displays the text in header 1 letters.</documentation>
+		</value>
+		<value name="H2">
+			<documentation>Displays the text in header 2 letters.</documentation>
+		</value>
+		<value name="H3">
+			<documentation>Displays the text in header 3 letters.</documentation>
+		</value>
+		<value name="H4">
+			<documentation>Displays the text in header 4 letters.</documentation>
+		</value>
+		<value name="H5">
+			<documentation>Displays the text in header 5 letters.</documentation>
+		</value>
+		<value name="H6">
+			<documentation>Displays the text in header 6 letters.</documentation>
+		</value>
+		<value name="Italic">
+			<documentation>Displays the text in italic letters</documentation>
+		</value>
+		<value name="Small">
+			<documentation>Displays the text in smaller letters.</documentation>
+		</value>
+		<value name="Monospace">
+			<documentation>Displays the text in monospace letters.</documentation>
+		</value>
+		<value name="Underline">
+			<documentation>underlined Text</documentation>
+		</value>
+	</enumeration>
+</simple-type>

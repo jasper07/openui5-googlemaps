@@ -1,0 +1,109 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>ViewSettingsDialog</name>
+	<author>SAP AG</author>
+	<documentation>ViewSettingsDialog provides functionality to easily select the options for sorting, grouping, and filtering data. It is a composite control, consisting of a modal popover and several internal lists. There are three different tabs (Sort, Group, Filter) in the dialog that can be activated by filling the respecive associations. If only one assication is filled, the other tabs are automatically hidden. The selected options can be used to create sorters and filters for the table.</documentation>
+	<since>1.16</since>
+	<baseType>sap.ui.core/Control</baseType>
+	<properties>
+		<property group="Behavior" name="title" type="sap.ui.core/string">
+			<documentation>Title of the dialog. If not set, the dialog uses the default "View" or "Sort", "Group", "Filter" respectively if there is only one active tab.</documentation>
+		</property>
+		<property group="Behavior" name="sortDescending" type="sap.ui.core/boolean" defaultValue="false">
+			<documentation>If set to true, the sort order is descending, otherwise ascending (default).</documentation>
+		</property>	
+		<property group="Behavior" name="groupDescending" type="sap.ui.core/boolean" defaultValue="false">
+			<documentation>If set to true, the group order is descending, otherwise ascending (default).</documentation>
+		</property>
+	</properties>
+	<events>
+		<event name="confirm">
+			<documentation>The event indicates that the user has pressed the OK button and the selected sort, group, and filter settings should be applied to the data on this page.</documentation>
+			<parameters>
+				<parameter name="sortItem" type="sap.m/ViewSettingsItem">
+					<documentation>Selected sort item.</documentation>
+				</parameter>
+				<parameter name="sortDescending" type="sap.ui.core/boolean" >
+					<documentation>Selected sort order (true = descending, false = ascending).</documentation>
+				</parameter>
+				<parameter name="groupItem" type="sap.m/ViewSettingsItem">
+					<documentation>Selected group item</documentation>
+				</parameter>
+				<parameter name="groupDescending" type="sap.ui.core/boolean">
+					<documentation>Selected group order (true = descending, false = ascending).</documentation>
+				</parameter>
+				<parameter name="presetFilterItem" type="sap.m/ViewSettingsItem">
+					<documentation>Selected preset filter item.</documentation>
+				</parameter>
+				<parameter name="filterItems" type="sap.m/ViewSettingsItem[]">
+					<documentation>Selected filters in an array of ViewSettingsItem.</documentation>
+				</parameter>
+				<parameter name="filterKeys" type="sap.ui.core/object">
+					<documentation>Selected filter items in an object notation format: { key: boolean }. If a custom control filter was displayed (e.g. the user clicked on the filter item), the value for its key is set to true to indicate that there has been an interaction with the control.</documentation>
+				</parameter>
+				<parameter name="filterString" type="sap.ui.core/string">
+					<documentation>Selected filter items in string format to display in a control's header bar in format "Filtered by: key (subkey1, subkey2, subkey3)".</documentation>
+				</parameter>
+			</parameters>
+		</event>
+		<event name="cancel">
+			<documentation>Event is called when the cancel button is pressed. It can be used to set the state of custom filter controls.</documentation>
+		</event>
+		<event name="resetFilters">
+			<documentation>Event is called when the reset filters button is pressed. It can be used to clear the state of custom filter controls.</documentation>
+		</event>
+	</events>
+	<aggregations>
+		<aggregation cardinality="0..n" name="sortItems" type="sap.m/ViewSettingsItem" bindable="bindable">
+			<documentation>List of items with key and value that can be sorted over (e.g. a list of columns for a table).</documentation>
+		</aggregation>
+		<aggregation cardinality="0..n" name="groupItems" type="sap.m/ViewSettingsItem" bindable="bindable">
+			<documentation>List of items with key and value that can be grouped on (e.g. a list of columns for a table).</documentation>
+		</aggregation>
+		<aggregation cardinality="0..n" name="filterItems" type="sap.m/ViewSettingsItem" bindable="bindable">
+			<documentation>List of items with key and value that can be filtered on (e.g. a list of columns for a table). A filterItem is associated with one or more detail filters.</documentation>
+		</aggregation>
+		<aggregation cardinality="0..n" name="presetFilterItems" type="sap.m/ViewSettingsItem" bindable="bindable">
+			<documentation>List of preset filter items that allow the selection of more complex or custom filters. These entries are displayed at the top of the filter tab.</documentation>
+		</aggregation>
+	</aggregations>
+	<associations>
+		<association cardinality="0..1" name="selectedSortItem" type="sap.m/ViewSettingsItem">
+			<documentation>Sort item that is selected. It can be set by either passing a key or the item itself to the function "setSelectedSortItem"</documentation>
+		</association>
+		<association cardinality="0..1" name="selectedGroupItem" type="sap.m/ViewSettingsItem">
+			<documentation>Group item that is selected. It can be set by either passing a key or the item itself to the function "setSelectedGrouptItem"</documentation>
+		</association>
+		<association cardinality="0..1" name="selectedPresetFilterItem" type="sap.m/ViewSettingsItem">
+			<documentation>Preset filter item that is selected. It can be set by either passing a key or the item itself to the function "setSelectedPresetFilterItem". Note that either a preset filter OR multiple detail filters can be active at the same time.</documentation>
+		</association>
+	</associations>
+	<methods>
+		<method name="open" type="sap.m/ViewSettingsDialog">
+			<documentation>Open the dialog.</documentation>
+			<parameters>
+				<parameter name="control" type="sap.ui.core/object">
+					<documentation>This is the control to which the dialog will be placed. It can be not only a UI5 control, but also an existing dom reference.</documentation>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="getSelectedFilters" type="sap.m/ViewSettingsItem[]">
+			<documentation>Returns the selected filters as an array of ViewSettingsItems. It can be used to create matching sorters and filters to apply the selected settings to the data.</documentation>
+		</method>
+		<method name="getSelectedFilterString" type="sap.ui.core/string">
+			<documentation>Returns the filter string in the format "filter name (subfilter1 name, subfilter2 name, ...), ..." to be displayed in table/list headers. For custom filters and preset filters it will only add the filter name to the resulting string.</documentation>
+		</method>
+		<method name="getSelectedFilterKeys" type="sap.ui.core/object">
+			<documentation>Returns the filter state of the dialog based on filter keys 8the following format: { key: boolean }. It can be used to create matching sorters and filters to apply the selected settings to the data.</documentation>
+		</method>
+		<method name="setSelectedFilterKeys" type="sap.m/ViewSettingsDialog">
+			<documentation>Sets the filter state of the dialog based on filter keys.</documentation>
+			<parameters>
+				<parameter name="filters" type="sap.ui.core/object">
+					<documentation>Configuration object to set the dialogs filter state with the following format: { key: boolean }. Setting boolean to true will set the filter to true, false or ommiting an entry will set the filter to false. It can be used to set the dialog state based on presets.</documentation>
+				</parameter>
+			</parameters>
+		</method>
+	</methods>
+</control>

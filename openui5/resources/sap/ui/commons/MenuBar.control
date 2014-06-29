@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>MenuBar</name>
+	<author>SAP AG</author>
+	<documentation>Represents a user interface area which is the entry point for menus with their menu items. MenuBar is useful for applications which shall offer a 
+	set of actions that shall be provided in a structured way. The MenuBar contains the menu titles from where users navigate to the single items. The control supports 
+	for example long menu item texts, automated scrolling for menu items when the browser space is not large enough to display all items, defining images for single 
+	or all items in a menu, automated layouting of items with or w/o image, and active/non-active items.
+	</documentation>
+	<baseType>sap.ui.core/Control</baseType>
+	<properties>
+		<property name="enabled" type="boolean" defaultValue="true" group="Behavior">
+		  <documentation>When the MenuBar is not enabled, automatically all single menu items are also displayed as 'disabled'.</documentation>
+		</property>
+		<property name="visible" type="boolean" defaultValue="true" group="Appearance">
+		  <documentation>Invisible controls are not rendered.</documentation>
+		</property>
+		<property name="width" type="sap.ui.core/CSSSize" defaultValue="100%" group="Dimension">
+		<documentation>Specifies the width of the MenuBar</documentation>
+		</property>
+		<property group="Appearance" name="design" type="sap.ui.commons/MenuBarDesign" defaultValue="Standard">
+		<documentation>Available design options are Header and Standard. Note that design settings are theme-dependent.</documentation>
+		</property>
+	</properties>
+	<events>
+	</events>
+	<aggregations default="items">
+		<aggregation cardinality="0..n" name="items" type="MenuItem">
+			<documentation>Aggregation of menu items.</documentation>
+		</aggregation>
+	</aggregations>
+	<methods>
+	</methods>
+
+</control>

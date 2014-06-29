@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<simple-type xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>DialogType</name>
+	<author></author>
+	<documentation>Enum for the type of sap.m.Dialog control.</documentation>
+	<baseType>sap.ui.core/string</baseType>
+	<enumeration>
+		<value name="Standard">
+			<documentation>This is the default value for Dialog type. Stardard dialog in iOS has a header on the top and the left, right buttons are put inside the header. In android, the left, right buttons are put to the bottom of the Dialog.</documentation>
+		</value>
+		<value name="Message">
+			<documentation>Dialog with type Message looks the same as the Stardard Dialog in Android. And it puts the left, right buttons to the bottom of the Dialog in iOS.</documentation>
+		</value>
+	</enumeration>
+</simple-type>

@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>form/FormElement</name>
+	<author>SAP AG</author>
+	<since>1.9.1</since>
+	<documentation>A form element is a combination of one label and different controls associated to this label.</documentation>
+
+	<baseType>sap.ui.layout/form/FormElement</baseType>
+	<deprecation since="1.16.0">moved to sap.ui.layout library. Please use this one.</deprecation>
+</control>

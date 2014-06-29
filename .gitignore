@@ -1,1 +1,4 @@
 /node_modules
+/openui5/resources  
+/coverage
+*.log

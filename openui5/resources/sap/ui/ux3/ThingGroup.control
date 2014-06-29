@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>ThingGroup</name>
+	<documentation>Thing Group Area </documentation>
+
+	<baseType>sap.ui.core/Element</baseType>
+	<properties>
+		<property group="Misc" name="title" type="sap.ui.core/string">
+			<documentation>Title of Group</documentation>
+		</property>
+		<property group="Misc" name="colspan" type="sap.ui.core/boolean" defaultValue="false">
+			<documentation>If Group is used in a column layout the groups spans the all columns if set to true.</documentation>
+		</property>
+	</properties>
+	<aggregations default="content">
+		<aggregation cardinality="0..n" name="content" type="sap.ui.core/Control">
+			<documentation>Content of Group</documentation>
+		</aggregation>
+		<aggregation cardinality="0..n" name="actions" type="sap.ui.ux3/ThingGroup">
+			<documentation>Actions of the groups content</documentation>
+		</aggregation>
+	</aggregations>
+</control>

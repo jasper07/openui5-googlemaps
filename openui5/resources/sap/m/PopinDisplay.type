@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<simple-type xmlns="http://www.sap.com/sap.ui.library.xsd" >
+	<name>PopinDisplay</name>
+	<author>SAP AG</author>
+	<since>1.13.2</since>
+	<documentation>Defines the display of table pop-ins</documentation>
+	<baseType>sap.ui.core/string</baseType>
+	<enumeration>
+		<value name="Block">
+			<documentation>Inside the table popin, header is displayed in first line and value field is displayed in next line.</documentation>
+		</value>
+		<value name="Inline">
+			<documentation>Inside the table popin, value field is displayed next to the header in the same line. Note: If there is no enough space for the value field then goes to next line.</documentation>
+		</value>
+	</enumeration>
+</simple-type>

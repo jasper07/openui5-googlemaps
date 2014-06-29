@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd">
+	<name>FileUploader</name>
+	<author>SAP AG</author>
+	<documentation>The framework generates an input field and a button with text "Browse ...". The API supports features such as on change uploads (the upload starts immediately after a file has been selected), file uploads with explicit calls, adjustable control sizes, text display after uploads, or tooltips containing complete file paths.</documentation>
+	<baseType>sap.ui.core/Control</baseType>
+	<properties>
+		<property group="Data" type="sap.ui.core/string" name="value" defaultValue="''">
+			<documentation>Value of the path for file upload.</documentation>
+		</property>
+		<property group="Behavior" name="enabled" type="sap.ui.core/boolean" defaultValue="true">
+			<documentation>Disabled controls have different colors, depending on customer settings.</documentation>
+		</property>
+		<property group="Behavior" name="visible" type="sap.ui.core/boolean" defaultValue="true">
+			<documentation>Invisible controls are not rendered.</documentation>
+		</property>
+		<property group="Data" name="uploadUrl" type="sap.ui.core/URI" defaultValue="''">
+			<documentation>Used when URL address is on a remote server.</documentation>
+		</property>
+		<property group="Data" name="name" type="sap.ui.core/string">
+			<documentation>Unique control name for identification on the server side after sending data to the server.</documentation>
+		</property>
+		<property group="Misc" name="width" type="sap.ui.core/CSSSize" defaultValue="''">
+			<documentation>Specifies the displayed control width.</documentation>
+		</property>
+		<property group="Behavior" name="uploadOnChange" type="sap.ui.core/boolean" defaultValue="false">
+			<documentation>If set to "true", the upload immediately starts after file selection. With the default setting, the upload needs to be explicitly triggered.</documentation>
+		</property>
+		<property group="Data" name="additionalData" type="sap.ui.core/string">
+			<documentation>Additional data that is sent to the back end service. Data will be transmitted as value of a hidden input where the name is derived from the name property with suffix -data.</documentation>
+		</property>
+		<property group="Behavior" name="sameFilenameAllowed" type="sap.ui.core/boolean" defaultValue="false">
+			<documentation>If the FileUploader is configured to upload the file directly after the file is selected it is not allowed to upload a file with the same name again. If a user should be allowed to upload a file with the same name again this parameter has to be &quot;true&quot;. A typical use case would be if the files have different paths.</documentation>
+		</property>
+		<property group="Misc" name="buttonText" type="sap.ui.core/string">
+			<documentation>The Button text can be overwritten using this property.</documentation>
+		</property>
+		<property group="Data" name="fileType" type="sap.ui.core/string[]">
+			<documentation>The chosen files will be checked against an array of file types. This property can be defined as a array of file endings to be checked against. If at least one file does not fit the file type restriction the upload is prevented. Example: fileType: &quot;jpg,png,txt&quot;.</documentation>
+		</property>
+		<property group="Behavior" name="multiple" type="sap.ui.core/boolean" defaultValue="false">
+			<documentation>Allows multiple files to be chosen and uploaded from the same folder. This property is not supported by Internet Explorer.</documentation>
+		</property>
+		<property group="Data" name="maximumFileSize" type="sap.ui.core/float">
+			<documentation>A file size limit in megabytes which prevents the upload if at least one file exceeds it. This property is not supported by Internet Explorer.</documentation>
+		</property>
+		<property group="Data" name="mimeType" type="sap.ui.core/string[]">
+			<documentation>The chosen files will be checked against an array of mime types. This property can be defined as a array of mime types to be checked against. If at least one file does not fit the mime type restriction the upload is prevented. This property is not supported by Internet Explorer. Example: fileType: &quot;image,text&quot;. It is also possible to be more specific and set &quot;image/png&quot;.</documentation>
+		</property>
+	</properties>
+	<events>
+		<event name="change">
+			<documentation>Event is fired when the value of the file path has been changed.</documentation>
+			<parameters>
+				<parameter name="newValue" type="sap.ui.core/string">
+					<documentation>New file path value.</documentation>
+				</parameter>
+			</parameters>
+		</event>
+		<event name="uploadComplete">
+			<documentation>Event is fired when the upload of the file is completed. However this covers only the client side of the Upload process and does not give any success status from the server.</documentation>
+			<parameters>
+				<parameter name="response" type="sap.ui.core/string">
+					<documentation>Response message which comes from the server. On the server side this response has to be put within the &amp;quot;body&amp;quot; tags of the response document of the iFrame. It can consist of a return code and an optional message. This does not work in cross-domain scenarios.</documentation>
+				</parameter>
+			</parameters>
+		</event>
+		<event name="typeMissmatch">
+			<documentation>Event is fired when the type of a file does not match the mimeType or fileType property.</documentation>
+			<parameters>
+				<parameter name="fileName" type="sap.ui.core/string">
+					<documentation>The name of a file to be uploaded.</documentation>
+				</parameter>
+				<parameter name="fileType" type="sap.ui.core/string">
+					<documentation>The file ending of a file to be uploaded.</documentation>
+				</parameter>
+				<parameter name="mimeType" type="sap.ui.core/string">
+					<documentation>The MIME type of a file to be uploaded.</documentation>
+				</parameter>
+			</parameters>
+		</event>
+		<event name="fileSizeExceed">
+			<documentation>Event is fired when the size of a file is above the maximumFileSize property.</documentation>
+			<parameters>
+				<parameter name="fileName" type="sap.ui.core/string">
+					<documentation>The name of a file to be uploaded.</documentation>
+				</parameter>
+				<parameter name="fileSize" type="sap.ui.core/string">
+					<documentation>The size in MB of a file to be uploaded.</documentation>
+				</parameter>
+			</parameters>
+		</event>
+	</events>
+	<aggregations>
+		<aggregation cardinality="0..n" name="parameters" type="sap.ui.commons/FileUploaderParameter" since="1.12.2">
+			<documentation>The parameters for the FileUploader which are rendered as a hidden inputfield.</documentation>
+		</aggregation>
+	</aggregations>
+	<methods>
+		<method name="upload" type="sap.ui.core/void">
+			<documentation>Starts the upload (as defined by uploadUrl)</documentation>
+		</method>
+	</methods>
+</control>

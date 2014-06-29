@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>form/FormContainer</name>
+	<author>SAP AG</author>
+	<since>1.9.1</since>
+	<documentation>Used to group form elements.
+Can contain other form elements or containers.</documentation>
+
+	<baseType>sap.ui.layout/form/FormContainer</baseType>
+	<deprecation since="1.16.0">moved to sap.ui.layout library. Please use this one.</deprecation>
+</control>

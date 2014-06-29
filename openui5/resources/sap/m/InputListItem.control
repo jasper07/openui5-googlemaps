@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>InputListItem</name>
+	<author>SAP AG</author>
+	<documentation>List item should be used for a label and an input field.</documentation>
+
+	<baseType>ListItemBase</baseType>
+	<properties>
+		<property group="Misc" name="label" type="sap.ui.core/string">
+			<documentation>Label of the list item</documentation>
+		</property>
+	</properties>
+	<aggregations default="content">
+		<aggregation cardinality="0..n" name="content" type="sap.ui.core/Control" bindable="bindable">
+			<documentation>Content controls can be added</documentation>
+		</aggregation>
+	</aggregations>
+</control>

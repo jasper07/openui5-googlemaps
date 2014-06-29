@@ -1,0 +1,9 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>form/SimpleForm</name>
+	<documentation>Use the SimpleForm to create a  form based on title, label and fields that are stacked in the content aggregation. Add Title to start a new FormContainer(Group). Add Label to start a new row in the container. Add Input/Display controls as needed. Use LayoutData to influence the layout for special cases in the Input/Display controls.</documentation>
+	<since>1.12</since>
+	<baseType>sap.ui.layout/form/SimpleForm</baseType>
+	<deprecation since="1.16.0">moved to sap.ui.layout library. Please use this one.</deprecation>
+</control>

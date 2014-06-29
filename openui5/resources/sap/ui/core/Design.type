@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<simple-type xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>Design</name>
+	<author>SAP AG</author>
+	<documentation>Font design for texts</documentation>
+	<enumeration>
+		<value name="Standard">
+			<documentation>Standard font</documentation>
+		</value>
+		<value name="Monospace">
+			<documentation>Mono space font</documentation>
+		</value>
+	</enumeration>
+
+</simple-type>

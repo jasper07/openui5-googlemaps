@@ -1,0 +1,556 @@
+<?xml version="1.0" ?>
+<library  version="2.0" name="sap.ui.ux3">
+  <module name="sap/ui/ux3/ActionBar.js" size="69496" compressedSize="22356">
+    <description>Provides control sap.ui.ux3.ActionBar.</description>
+    <requires>
+      <module name="sap/ui/ux3/library.js"/>
+      <module name="sap/ui/core/Control.js"/>
+      <module name="sap/ui/core/delegate/ItemNavigation.js"/>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/ux3/ActionBarRenderer.js" size="7525" compressedSize="2981">
+    <description>! SAP UI development toolkit for HTML5 (SAPUI5/OpenUI5) (c) Copyright 2009-2014 SAP AG or an SAP affiliate company.  Licensed under the Apache License, Version 2.0 - see LICENSE.txt.</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/ux3/Collection.js" size="18103" compressedSize="2979">
+    <description>Provides control sap.ui.ux3.Collection.</description>
+    <requires>
+      <module name="sap/ui/ux3/library.js"/>
+      <module name="sap/ui/core/Element.js"/>
+      <module name="sap/ui/model/SelectionModel.js"/>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/ux3/CollectionInspector.js" size="37257" compressedSize="10102">
+    <description>Provides control sap.ui.ux3.CollectionInspector.</description>
+    <requires>
+      <module name="sap/ui/ux3/library.js"/>
+      <module name="sap/ui/core/Control.js"/>
+      <module name="sap/ui/core/delegate/ItemNavigation.js"/>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/ux3/CollectionInspectorRenderer.js" size="5608" compressedSize="2842">
+    <description>Provides default renderer for the sap.ui.ux3.Collection</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/ux3/DataSet.js" size="39249" compressedSize="12253">
+    <description>Provides control sap.ui.ux3.DataSet.</description>
+    <requires>
+      <module name="sap/ui/ux3/library.js"/>
+      <module name="sap/ui/core/Control.js"/>
+      <module name="sap/ui/core/ResizeHandler.js"/>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/ux3/DataSetItem.js" size="9340" compressedSize="1106">
+    <description>Provides control sap.ui.ux3.DataSetItem.</description>
+    <requires>
+      <module name="sap/ui/ux3/library.js"/>
+      <module name="sap/ui/core/Element.js"/>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/ux3/DataSetRenderer.js" size="2980" compressedSize="1376">
+    <description>Provides default renderer for the sap.ui.ux3.DataSet</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/ux3/DataSetSimpleView.js" size="24766" compressedSize="7767">
+    <description>Provides control sap.ui.ux3.DataSetSimpleView.</description>
+    <requires>
+      <module name="sap/ui/ux3/library.js"/>
+      <module name="sap/ui/core/Control.js"/>
+      <module name="jquery.sap.script.js"/>
+      <module name="sap/ui/core/ResizeHandler.js"/>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/ux3/DataSetSimpleViewRenderer.js" size="2125" compressedSize="1256">
+    <description>Provides default renderer for the sap.ui.ux3.DataSetSimpleView</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/ux3/Exact.js" size="18341" compressedSize="4038">
+    <description>Provides control sap.ui.ux3.Exact.</description>
+    <requires>
+      <module name="sap/ui/ux3/library.js"/>
+      <module name="sap/ui/core/Control.js"/>
+      <module name="sap/ui/ux3/ExactArea.js"/>
+      <module name="sap/ui/ux3/ExactAttribute.js"/>
+      <module name="sap/ui/ux3/ExactBrowser.js"/>
+      <module name="sap/ui/commons/SearchField.js"/>
+      <module name="sap/ui/commons/Button.js"/>
+      <module name="sap/ui/commons/Menu.js"/>
+      <module name="sap/ui/commons/TextView.js"/>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/ux3/ExactArea.js" size="11317" compressedSize="1036">
+    <description>Provides control sap.ui.ux3.ExactArea.</description>
+    <requires>
+      <module name="sap/ui/ux3/library.js"/>
+      <module name="sap/ui/core/Control.js"/>
+      <module name="sap/ui/commons/Toolbar.js"/>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/ux3/ExactAreaRenderer.js" size="2046" compressedSize="1233">
+    <description>Provides default renderer for the sap.ui.ux3.ExactArea</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/ux3/ExactAttribute.js" size="25089" compressedSize="6342">
+    <description>Provides control sap.ui.ux3.ExactAttribute.</description>
+    <requires>
+      <module name="sap/ui/ux3/library.js"/>
+      <module name="sap/ui/core/Element.js"/>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/ux3/ExactBrowser.js" size="31136" compressedSize="5924">
+    <description>Provides control sap.ui.ux3.ExactBrowser.</description>
+    <requires>
+      <module name="sap/ui/ux3/library.js"/>
+      <module name="sap/ui/core/Control.js"/>
+      <module name="sap/ui/ux3/ExactAttribute.js"/>
+      <module name="sap/ui/ux3/ExactList.js"/>
+      <module name="sap/ui/commons/Menu.js"/>
+      <module name="sap/ui/commons/Button.js"/>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/ux3/ExactBrowserRenderer.js" size="1902" compressedSize="1161">
+    <description>Provides default renderer for the sap.ui.ux3.ExactBrowser</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/ux3/ExactList.js" size="56309" compressedSize="21985">
+    <description>Provides control sap.ui.ux3.ExactList.</description>
+    <requires>
+      <module name="sap/ui/ux3/library.js"/>
+      <module name="sap/ui/core/Control.js"/>
+      <module name="sap/ui/commons/ListBox.js"/>
+      <module name="sap/ui/core/Popup.js"/>
+      <module name="jquery.sap.dom.js"/>
+      <module name="sap/ui/core/theming/Parameters.js"/>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/ux3/ExactListRenderer.js" size="6516" compressedSize="3876">
+    <description>Provides default renderer for the sap.ui.ux3.ExactListRenderer</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/ux3/ExactRenderer.js" size="1272" compressedSize="666">
+    <description>Provides default renderer for the sap.ui.ux3.Exact</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/ux3/FacetFilter.js" size="7681" compressedSize="714">
+    <description>Provides control sap.ui.ux3.FacetFilter.</description>
+    <requires>
+      <module name="sap/ui/ux3/library.js"/>
+      <module name="sap/ui/core/Control.js"/>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/ux3/FacetFilterList.js" size="19803" compressedSize="5229">
+    <description>Provides control sap.ui.ux3.FacetFilterList.</description>
+    <requires>
+      <module name="sap/ui/ux3/library.js"/>
+      <module name="sap/ui/core/Control.js"/>
+      <module name="sap/ui/commons/ListBox.js"/>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/ux3/FacetFilterListRenderer.js" size="1602" compressedSize="889">
+    <description>Provides default renderer for the sap.ui.ux3.FacetFilterListRenderer</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/ux3/FacetFilterRenderer.js" size="1482" compressedSize="747">
+    <description>Provides default renderer for the sap.ui.ux3.FacetFilter</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/ux3/Feed.js" size="39298" compressedSize="6950">
+    <description>Provides control sap.ui.ux3.Feed.</description>
+    <requires>
+      <module name="sap/ui/ux3/library.js"/>
+      <module name="sap/ui/core/Control.js"/>
+      <module name="sap/ui/commons/MenuButton.js"/>
+      <module name="sap/ui/commons/ToggleButton.js"/>
+      <module name="sap/ui/commons/DropdownBox.js"/>
+      <module name="sap/ui/commons/SearchField.js"/>
+      <module name="sap/ui/ux3/Feeder.js"/>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/ux3/FeedChunk.js" size="61751" compressedSize="10273">
+    <description>Provides control sap.ui.ux3.FeedChunk.</description>
+    <requires>
+      <module name="sap/ui/ux3/library.js"/>
+      <module name="sap/ui/core/Control.js"/>
+      <module name="sap/ui/core/theming/Parameters.js"/>
+      <module name="sap/ui/commons/MenuButton.js"/>
+      <module name="sap/ui/ux3/Feeder.js"/>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/ux3/FeedChunkRenderer.js" size="7975" compressedSize="5007">
+    <description>Provides default renderer for the sap.ui.ux3.FeedChunk</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/ux3/FeedRenderer.js" size="1969" compressedSize="986">
+    <description>! SAP UI development toolkit for HTML5 (SAPUI5/OpenUI5) (c) Copyright 2009-2014 SAP AG or an SAP affiliate company.  Licensed under the Apache License, Version 2.0 - see LICENSE.txt.</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/ux3/Feeder.js" size="15871" compressedSize="3873">
+    <description>Provides control sap.ui.ux3.Feeder.</description>
+    <requires>
+      <module name="sap/ui/ux3/library.js"/>
+      <module name="sap/ui/core/Control.js"/>
+      <module name="sap/ui/core/theming/Parameters.js"/>
+      <module name="sap/ui/commons/Button.js"/>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/ux3/FeederRenderer.js" size="2475" compressedSize="1417">
+    <description>Provides default renderer for the sap.ui.ux3.Feeder</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/ux3/NavigationBar.js" size="37050" compressedSize="12170">
+    <description>Provides control sap.ui.ux3.NavigationBar.</description>
+    <requires>
+      <module name="sap/ui/ux3/library.js"/>
+      <module name="sap/ui/core/Control.js"/>
+      <module name="sap/ui/core/delegate/ItemNavigation.js"/>
+      <module name="jquery.sap.dom.js"/>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/ux3/NavigationBarRenderer.js" size="4693" compressedSize="2478">
+    <description>Provides default renderer for the sap.ui.ux3.NavigationBar</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/ux3/NavigationItem.js" size="8519" compressedSize="692">
+    <description>Provides control sap.ui.ux3.NavigationItem.</description>
+    <requires>
+      <module name="sap/ui/ux3/library.js"/>
+      <module name="sap/ui/core/Item.js"/>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/ux3/NotificationBar.js" size="50387" compressedSize="17046">
+    <description>Provides control sap.ui.ux3.NotificationBar.</description>
+    <requires>
+      <module name="sap/ui/ux3/library.js"/>
+      <module name="sap/ui/core/Control.js"/>
+      <module name="sap/ui/core/delegate/ItemNavigation.js"/>
+      <module name="sap/ui/core/theming/Parameters.js"/>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/ux3/NotificationBarRenderer.js" size="13594" compressedSize="6763">
+    <description>! SAP UI development toolkit for HTML5 (SAPUI5/OpenUI5) (c) Copyright 2009-2014 SAP AG or an SAP affiliate company.  Licensed under the Apache License, Version 2.0 - see LICENSE.txt.</description>
+    <requires>
+      <module name="sap/ui/core/theming/Parameters.js"/>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/ux3/Notifier.js" size="16698" compressedSize="3752">
+    <description>Provides control sap.ui.ux3.Notifier.</description>
+    <requires>
+      <module name="sap/ui/ux3/library.js"/>
+      <module name="sap/ui/core/Element.js"/>
+      <module name="sap/ui/commons/Callout.js"/>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/ux3/Overlay.js" size="20394" compressedSize="4727">
+    <description>Provides control sap.ui.ux3.Overlay.</description>
+    <requires>
+      <module name="sap/ui/ux3/library.js"/>
+      <module name="sap/ui/core/Control.js"/>
+      <module name="sap/ui/core/Popup.js"/>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/ux3/OverlayContainer.js" size="6875" compressedSize="1100">
+    <description>Provides control sap.ui.ux3.OverlayContainer.</description>
+    <requires>
+      <module name="sap/ui/ux3/library.js"/>
+      <module name="sap/ui/ux3/Overlay.js"/>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/ux3/OverlayContainerRenderer.js" size="2232" compressedSize="913">
+    <description>Provides default renderer for the sap.ui.ux3.OverlayContainer</description>
+    <requires>
+      <module name="sap/ui/ux3/OverlayRenderer.js"/>
+      <module name="sap/ui/core/Renderer.js"/>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/ux3/OverlayDialog.js" size="12524" compressedSize="3907">
+    <description>Provides control sap.ui.ux3.OverlayDialog.</description>
+    <requires>
+      <module name="sap/ui/ux3/library.js"/>
+      <module name="sap/ui/ux3/Overlay.js"/>
+      <module name="sap/ui/core/IntervalTrigger.js"/>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/ux3/OverlayDialogRenderer.js" size="2211" compressedSize="898">
+    <description>Provides default renderer for the sap.ui.ux3.OverlayDialog</description>
+    <requires>
+      <module name="sap/ui/ux3/OverlayRenderer.js"/>
+      <module name="sap/ui/core/Renderer.js"/>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/ux3/OverlayRenderer.js" size="2342" compressedSize="1523">
+    <description>Provides default renderer for the sap.ui.ux3.Overlay</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/ux3/QuickView.js" size="40264" compressedSize="7104">
+    <description>Provides control sap.ui.ux3.QuickView.</description>
+    <requires>
+      <module name="sap/ui/ux3/library.js"/>
+      <module name="sap/ui/commons/CalloutBase.js"/>
+      <module name="sap/ui/core/delegate/ItemNavigation.js"/>
+      <module name="sap/ui/ux3/ActionBar.js"/>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/ux3/QuickViewRenderer.js" size="5006" compressedSize="2674">
+    <description>! SAP UI development toolkit for HTML5 (SAPUI5/OpenUI5) (c) Copyright 2009-2014 SAP AG or an SAP affiliate company.  Licensed under the Apache License, Version 2.0 - see LICENSE.txt.</description>
+    <requires>
+      <module name="sap/ui/commons/CalloutBaseRenderer.js"/>
+      <module name="sap/ui/core/Renderer.js"/>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/ux3/Shell.js" size="140727" compressedSize="49074">
+    <description>Provides control sap.ui.ux3.Shell.</description>
+    <requires>
+      <module name="sap/ui/ux3/library.js"/>
+      <module name="sap/ui/core/Control.js"/>
+      <module name="sap/ui/core/theming/Parameters.js"/>
+      <module name="sap/ui/commons/Menu.js"/>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/ux3/ShellColorPicker.js" size="9503" compressedSize="7212">
+    <description>Provides the class sap.ui.ux3.ShellColorPicker</description>
+    <requires>
+      <module name="sap/ui/base/EventProvider.js"/>
+      <module name="sap/ui/core/Popup.js"/>
+      <module name="sap/ui/commons/Button.js"/>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/ux3/ShellPersonalization.js" size="25316" compressedSize="18473">
+    <description>Provides the class sap.ui.ux3.ShellPersonalization</description>
+    <requires>
+      <module name="sap/ui/base/EventProvider.js"/>
+      <module name="sap/ui/commons/Dialog.js"/>
+      <module name="sap/ui/commons/Button.js"/>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/ux3/ShellRenderer.js" size="14859" compressedSize="9681">
+    <description>Provides default renderer for the sap.ui.ux3.Shell</description>
+    <requires>
+      <module name="sap/ui/core/IconPool.js"/>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/ux3/ThingAction.js" size="7780" compressedSize="828">
+    <description>Provides control sap.ui.ux3.ThingAction.</description>
+    <requires>
+      <module name="sap/ui/ux3/library.js"/>
+      <module name="sap/ui/core/Element.js"/>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/ux3/ThingGroup.js" size="10426" compressedSize="742">
+    <description>Provides control sap.ui.ux3.ThingGroup.</description>
+    <requires>
+      <module name="sap/ui/ux3/library.js"/>
+      <module name="sap/ui/core/Element.js"/>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/ux3/ThingInspector.js" size="52007" compressedSize="12516">
+    <description>Provides control sap.ui.ux3.ThingInspector.</description>
+    <requires>
+      <module name="sap/ui/ux3/library.js"/>
+      <module name="sap/ui/ux3/Overlay.js"/>
+      <module name="sap/ui/ux3/ActionBar.js"/>
+      <module name="sap/ui/ux3/ThingViewer.js"/>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/ux3/ThingInspectorRenderer.js" size="2166" compressedSize="857">
+    <description>Provides default renderer for the sap.ui.ux3.ThingInspector</description>
+    <requires>
+      <module name="sap/ui/ux3/OverlayRenderer.js"/>
+      <module name="sap/ui/core/Renderer.js"/>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/ux3/ThingViewer.js" size="34611" compressedSize="8901">
+    <description>Provides control sap.ui.ux3.ThingViewer.</description>
+    <requires>
+      <module name="sap/ui/ux3/library.js"/>
+      <module name="sap/ui/core/Control.js"/>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/ux3/ThingViewerRenderer.js" size="9103" compressedSize="4998">
+    <description>! SAP UI development toolkit for HTML5 (SAPUI5/OpenUI5) (c) Copyright 2009-2014 SAP AG or an SAP affiliate company.  Licensed under the Apache License, Version 2.0 - see LICENSE.txt.</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/ux3/ToolPopup.js" size="71474" compressedSize="15890">
+    <description>Provides control sap.ui.ux3.ToolPopup.</description>
+    <requires>
+      <module name="sap/ui/ux3/library.js"/>
+      <module name="sap/ui/core/Control.js"/>
+      <module name="sap/ui/core/Popup.js"/>
+      <module name="sap/ui/core/theming/Parameters.js"/>
+      <module name="sap/ui/core/IconPool.js"/>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/ux3/ToolPopupRenderer.js" size="4031" compressedSize="2448">
+    <description>Provides default renderer for the sap.ui.ux3.ToolPopup</description>
+    <requires>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+  </module>
+  <module name="sap/ui/ux3/library.js" size="14283" compressedSize="2780">
+    <description>Initialization Code and shared classes of library sap.ui.ux3 (1.20.7)</description>
+    <requires>
+      <module name="sap/ui/core/Core.js"/>
+      <module name="sap/ui/core/library.js"/>
+      <module name="sap/ui/commons/library.js"/>
+      <module name="jquery.sap.global.js"/>
+    </requires>
+    <includes>
+      <module name="sap/ui/ux3/ActionBarSocialActions.js"/>
+      <module name="sap/ui/ux3/ExactOrder.js"/>
+      <module name="sap/ui/ux3/FeederType.js"/>
+      <module name="sap/ui/ux3/FollowActionState.js"/>
+      <module name="sap/ui/ux3/NotificationBarStatus.js"/>
+      <module name="sap/ui/ux3/ShellDesignType.js"/>
+      <module name="sap/ui/ux3/ShellHeaderType.js"/>
+      <module name="sap/ui/ux3/ThingViewerHeaderType.js"/>
+      <module name="sap/ui/ux3/VisibleItemCountMode.js"/>
+    </includes>
+  </module>
+  <module name="sap/ui/ux3/library.properties" size="2369">
+  </module>
+  <module name="sap/ui/ux3/messagebundle.properties" size="10578">
+  </module>
+  <module name="sap/ui/ux3/messagebundle_ar.properties" size="16255">
+  </module>
+  <module name="sap/ui/ux3/messagebundle_bg.properties" size="19245">
+  </module>
+  <module name="sap/ui/ux3/messagebundle_ca.properties" size="11041">
+  </module>
+  <module name="sap/ui/ux3/messagebundle_cs.properties" size="12087">
+  </module>
+  <module name="sap/ui/ux3/messagebundle_da.properties" size="11035">
+  </module>
+  <module name="sap/ui/ux3/messagebundle_de.properties" size="11042">
+  </module>
+  <module name="sap/ui/ux3/messagebundle_el.properties" size="18091">
+  </module>
+  <module name="sap/ui/ux3/messagebundle_en.properties" size="10459">
+  </module>
+  <module name="sap/ui/ux3/messagebundle_es.properties" size="11038">
+  </module>
+  <module name="sap/ui/ux3/messagebundle_et.properties" size="10981">
+  </module>
+  <module name="sap/ui/ux3/messagebundle_fi.properties" size="11381">
+  </module>
+  <module name="sap/ui/ux3/messagebundle_fr.properties" size="11333">
+  </module>
+  <module name="sap/ui/ux3/messagebundle_hi.properties" size="16734">
+  </module>
+  <module name="sap/ui/ux3/messagebundle_hr.properties" size="11036">
+  </module>
+  <module name="sap/ui/ux3/messagebundle_hu.properties" size="12218">
+  </module>
+  <module name="sap/ui/ux3/messagebundle_it.properties" size="11112">
+  </module>
+  <module name="sap/ui/ux3/messagebundle_iw.properties" size="14962">
+  </module>
+  <module name="sap/ui/ux3/messagebundle_ja.properties" size="13210">
+  </module>
+  <module name="sap/ui/ux3/messagebundle_ko.properties" size="12670">
+  </module>
+  <module name="sap/ui/ux3/messagebundle_lt.properties" size="11573">
+  </module>
+  <module name="sap/ui/ux3/messagebundle_lv.properties" size="11613">
+  </module>
+  <module name="sap/ui/ux3/messagebundle_nl.properties" size="10793">
+  </module>
+  <module name="sap/ui/ux3/messagebundle_no.properties" size="10970">
+  </module>
+  <module name="sap/ui/ux3/messagebundle_pl.properties" size="11484">
+  </module>
+  <module name="sap/ui/ux3/messagebundle_pt.properties" size="11129">
+  </module>
+  <module name="sap/ui/ux3/messagebundle_ro.properties" size="11050">
+  </module>
+  <module name="sap/ui/ux3/messagebundle_ru.properties" size="19358">
+  </module>
+  <module name="sap/ui/ux3/messagebundle_sh.properties" size="10857">
+  </module>
+  <module name="sap/ui/ux3/messagebundle_sk.properties" size="12168">
+  </module>
+  <module name="sap/ui/ux3/messagebundle_sl.properties" size="11233">
+  </module>
+  <module name="sap/ui/ux3/messagebundle_sv.properties" size="11256">
+  </module>
+  <module name="sap/ui/ux3/messagebundle_th.properties" size="17070">
+  </module>
+  <module name="sap/ui/ux3/messagebundle_tr.properties" size="11499">
+  </module>
+  <module name="sap/ui/ux3/messagebundle_uk.properties" size="18570">
+  </module>
+  <module name="sap/ui/ux3/messagebundle_vi.properties" size="13373">
+  </module>
+  <module name="sap/ui/ux3/messagebundle_zh_CN.properties" size="11921">
+  </module>
+  <module name="sap/ui/ux3/messagebundle_zh_TW.properties" size="11849">
+  </module>
+</library>

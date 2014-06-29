@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+
+    <title>OpenUi5 GoogleMaps: Test Page for Map</title>
+
+    <script src="../openui5/resources/sap-ui-core.js" id="sap-ui-bootstrap"
+            data-sap-ui-libs="sap.m" data-sap-ui-theme="sap_bluecrystal"
+            data-sap-ui-xx-bindingSyntax="complex" data-sap-ui-noConflict="true">
+    </script>
+
+    <link rel="stylesheet"
+          href="../openui5/resources/sap/ui/thirdparty/qunit.css"
+          type="text/css" media="screen"/>
+    <script type="text/javascript"
+            src="../OpenUi5/resources/sap/ui/thirdparty/qunit.js"></script>
+    <script type="text/javascript"
+            src="../openui5/resources/sap/ui/qunit/QUnitUtils.js"></script>
+    <script type="text/javascript" src="Map.js"></script>
+
+    <script type="text/javascript">
+
+        // sap.ui.getCore().loadLibrary("openui5.googlemaps", "../openui5/googlemaps/");
+        // // jQuery.sap.require('openui5.googlemaps.Map');
+
+        // QUnit.config.autostart = false;
+        // // jQuery(document).ready(function () {
+        // //     QUnit.start();
+        // // });
+
+        // var oMap = new openui5.googlemaps.Map( MAP_ID, {
+        //     lat: MAP_POSITION.lat,
+        //     lng: MAP_POSITION.lng,
+        //     ready: function(){ QUnit.start();}
+        // });
+
+        // oMap.placeAt("uiArea1");
+
+    </script>
+
+</head>
+<body id="body" class="sapUiBody">
+<h1 id="qunit-header">QUnit tests: Map control</h1>
+
+<h2 id="qunit-banner"></h2>
+
+<h2 id="qunit-userAgent"></h2>
+
+<!-- <div id='content' style="width: 640px; height: 480px;"></div> -->
+<div id="qunit-testrunner-toolbar"></div>
+<ol id="qunit-tests"></ol>
+    <div id="uiArea1" style="width: 640px; height: 480px;"></div>
+    <div id="uiArea2"></div>
+    <div id="uiArea3"></div>
+    <div id="uiArea4"></div>
+    <div id="uiArea5"></div>
+</body>
+</html>

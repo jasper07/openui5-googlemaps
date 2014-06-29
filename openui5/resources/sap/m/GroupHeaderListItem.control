@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>GroupHeaderListItem</name>
+	<author>SAP AG</author>
+	<documentation>The group header list item is used to display the title of a group and act as separator between groups in Lists.
+
+There are several API parts inherited from ListItemBase which do not apply here:
+The properties &quot;type&quot;, &quot;unread&quot;, &quot;selected&quot; and &quot;counter&quot; are currently ignored.
+Tap events will not be fired.
+</documentation>
+	<since>1.12</since>
+
+	<baseType>ListItemBase</baseType>
+	<properties>
+		<property group="Data" name="title" type="sap.ui.core/string">
+			<documentation>The title of the group header.</documentation>
+		</property>
+		<property group="Data" name="count" type="sap.ui.core/string">
+			<documentation>A text to be displayed in the group header in brackets next to the group title. Usually the count of items in the group, but it could also be an amount which represents the sum of all amounts in the group.
+Will not be displayed if not set.</documentation>
+		</property>
+		<property group="Appearance" name="upperCase" type="sap.ui.core/boolean" defaultValue="true" since="1.13.2">			
+			<documentation>Title will be put to capital letters by default, otherwise set this property to 'false'</documentation>
+		</property>
+	</properties>
+</control>

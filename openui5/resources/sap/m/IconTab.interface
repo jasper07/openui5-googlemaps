@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>IconTab</name>
+	<author>SAP</author>
+  <documentation>
+  Marker interface for controls which are suitable as items for the IconTabBar.
+  These controls must implement a method isSelectable().
+  </documentation>
+</interface>

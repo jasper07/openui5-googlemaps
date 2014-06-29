@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd">
+	<name>DateTimeInput</name>
+	<author>SAP AG</author>
+	<documentation>Allows end users to interact with date and/or time and select from a date and/or time pad.</documentation>
+	<baseType>sap.m/InputBase</baseType>
+	<since>1.9.1</since>
+	<properties>
+		<property group="Data" name="type" type="sap.m/DateTimeInputType" defaultValue="Date">
+			<documentation>Type of DateTimeInput (e.g. Date, Time, DateTime)</documentation>
+		</property>
+		<property group="Appearance" name="displayFormat" type="sap.ui.core/string">
+			<documentation>Displays date value in this given format in text field. Default value is taken from locale settings.
+If you use data-binding on value property with type sap.ui.model.type.Date then you can ignore this property  or latter wins.
+If user browser supports native picker then this property is overwritten by browser with locale settings.</documentation>
+		</property>
+		<property group="Data" name="valueFormat" type="sap.ui.core/string">
+			<documentation>Given value property should match with valueFormat to parse date. Default value is taken from locale settings. 
+You can only set and get value in this format.
+If you use data-binding on value property with type sap.ui.model.type.Date you can ignore this property or latter wins.</documentation>
+		</property>
+		<property group="Data" name="dateValue" type="object">
+			<documentation>This property as JavaScript Date Object can be used to assign a new value which is independent from valueFormat.</documentation>
+		</property>
+	</properties>
+	<events>
+		<event name="change">
+			<documentation>This event gets fired when the selection has finished and the value has changed.</documentation>
+			<parameters>
+				<parameter name="value" type="sap.ui.core/string">
+					<documentation>The string value of the control in given valueFormat(or locale format).</documentation>
+				</parameter>
+				<parameter name="dateValue" type="object">
+					<documentation>The value of control as JavaScript Date Object or null if value is empty.</documentation>
+				</parameter>
+			</parameters>
+		</event>
+	</events>
+</control>

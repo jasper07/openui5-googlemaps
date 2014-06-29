@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<simple-type xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>VisibleItemCountMode</name>
+	<documentation>VisibleItemCountMode of the FacetFilter defines if the FacetFilter takes the whole available height (Auto) in the surrounding container, or is so high as needed to show 5 Items (&quot;Fixed &quot; - default). </documentation>
+	<baseType>sap.ui.core/string</baseType>
+	<enumeration>
+		<value name="Fixed">
+			<documentation>The FacetFilter always has as many items in the FacetFilterList as defined in the visibleItemCount property.</documentation>
+		</value>
+		<value name="Auto">
+			<documentation>The FacetFilter automatically fills the height of the surrounding container. The visibleItemCount property is automatically changed accordingly.</documentation>
+		</value>
+	</enumeration>
+</simple-type>

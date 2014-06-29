@@ -1,0 +1,56 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>Icon</name>
+	<author>SAP AG</author>
+	<since>1.11.1</since>
+	<documentation>Icon uses embeded font instead of pixel image. Comparing to image, Icon is easily scalable, color can be altered live and various effects can be added using css.
+
+A set of built in Icons is available and they can be fetched by calling sap.ui.core.IconPool.getIconURI and set this value to the src property on the Icon.</documentation>
+
+	<baseType>sap.ui.core/Control</baseType>
+	<properties>
+		<property group="Data" name="src" type="sap.ui.core/URI">
+			<documentation>This property should be set by the return value of calling sap.ui.core.IconPool.getIconURI with a Icon name parameter and an optional collection parameter which is required when using application extended Icons. A list of standard FontIcon is available here. </documentation>
+		</property>
+		<property group="Dimension" name="size" type="sap.ui.core/CSSSize">
+			<documentation>Since Icon uses font, this property will be applied to the css font-size property on the rendered DOM element.</documentation>
+		</property>
+		<property group="Appearance" name="color" type="sap.ui.core/CSSColor">
+			<documentation>The color of the Icon. If color is not defined here, the Icon inherits the color from its DOM parent.</documentation>
+		</property>
+		<property group="Appearance" name="hoverColor" type="sap.ui.core/CSSColor">
+			<documentation>This color is shown when icon is hovered. This property has no visual effect when run on mobile device.</documentation>
+		</property>
+		<property group="Appearance" name="activeColor" type="sap.ui.core/CSSColor">
+			<documentation>This color is shown when icon is pressed/activated by the user.</documentation>
+		</property>
+		<property group="Dimension" name="width" type="sap.ui.core/CSSSize">
+			<documentation>This is the width of the DOM element which contains the Icon. Setting this property doesn't affect the size of the font. If you want to make the font bigger, increase the size property.</documentation>
+		</property>
+		<property group="Dimension" name="height" type="sap.ui.core/CSSSize">
+			<documentation>This is the height of the DOM element which contains the Icon. Setting this property doesn't affect the size of the font. If you want to make the font bigger, increase the size property.</documentation>
+		</property>
+		<property group="Appearance" name="backgroundColor" type="sap.ui.core/CSSColor">
+			<documentation>Background color of the Icon in normal state.</documentation>
+		</property>
+		<property group="Appearance" name="hoverBackgroundColor" type="sap.ui.core/CSSColor">
+			<documentation>Background color for Icon in hover state. This property has no visual effect when run on mobile device.</documentation>
+		</property>
+		<property group="Appearance" name="activeBackgroundColor" type="sap.ui.core/CSSColor">
+			<documentation>Background color for Icon in active state.</documentation>
+		</property>
+		<property group="Appearance" name="visible" type="boolean" defaultValue="true">
+			<documentation>An invisible icon is not rendered</documentation>
+		</property>
+		<property group="Accessibility" name="decorative" type="sap.ui.core/boolean" defaultValue = "true" since="1.16.4">
+			<documentation>A decorative icon is included for design reasons. Accessibility tools will ignore decorative icons. Decorative icons don't have tab stop.
+			</documentation>
+		</property>
+	</properties>
+	<events>
+		<event name="press">
+			<documentation>This event is fired when icon is pressed/activated by the user.</documentation>
+		</event>
+	</events>
+</control>

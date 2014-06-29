@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
+<name>Text</name>
+<author>SAP AG</author>
+<documentation>The Text control is used to display some continuous text.</documentation>
+<baseType>sap.ui.core/Control</baseType>
+<properties>
+	<property name="text" type="string" defaultValue="''" bindable="bindable">
+	  <documentation>Text to be displayed.</documentation>
+	</property>
+	<property name="textDirection" type="sap.ui.core/TextDirection" defaultValue="Inherit" group="Appearance">
+	  <documentation>Available options for the text direction are LTR and RTL. By default the control inherits the text direction from its parent control.</documentation>
+	</property>
+	<property name="visible" type="boolean" defaultValue="true" group="Appearance">
+	  <documentation>Set this property to false to make the text invisible.</documentation>
+	</property>
+	<property group="Appearance" name="wrapping" type="boolean" defaultValue="true">
+		<documentation>Set this property to false to disable the automatic text wrapping.</documentation>
+	</property>
+	<property group="Appearance" name="textAlign" type="sap.ui.core/TextAlign" defaultValue="Begin">
+		<documentation>Sets the horizontal alignment of the text.</documentation>
+	</property>
+	<property group="Dimension" name="width" type="sap.ui.core/CSSSize">
+		<documentation>By default, the Text control uses the full width available. Set this property to restrict the width to a custom value.</documentation>
+	</property>
+	<property group="Appearance" name="maxLines" type="sap.ui.core/int" since="1.13.2">
+		<documentation>Limits the number of lines for wrapping texts.
+
+Note: The multi-line overflow indicator depends on the browser line clamping support. For such browsers, this will be shown as ellipsis, for the other browsers the overflow will just be hidden.</documentation>
+	</property>
+</properties>
+</control>

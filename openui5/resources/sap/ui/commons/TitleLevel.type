@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<simple-type xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>TitleLevel</name>
+	<author></author>
+	<documentation>Level of a title.</documentation>
+	<since>1.9.1</since>
+	<baseType>sap.ui.core/TitleLevel</baseType>
+	<deprecation since="1.16.0">moved to sap.ui.core library. Please use this one.</deprecation>
+	<targetConfigurations>
+		<targetConfiguration name="JavaScriptAPI">
+			<property name="sap.ui.generate">false</property>
+			<property name="sap.ui.jsName">sap.ui.core.TitleLevel</property>
+		</targetConfiguration>
+		<targetConfiguration name="JavaAPI">
+			<property name="sap.ui.generate">false</property>
+			<property name="sap.ui.javaName">sap.ui.core.TitleLevel</property>
+		</targetConfiguration>
+	</targetConfigurations>
+</simple-type>

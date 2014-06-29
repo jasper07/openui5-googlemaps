@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<simple-type xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>TaskCircleColor</name>
+	<author></author>
+	<documentation>Defined color values for the Task Circle Control</documentation>
+	<baseType>sap.ui.core/string</baseType>
+	<enumeration>
+		<value name="Red">
+			<documentation>Red</documentation>
+		</value>
+		<value name="Yellow">
+			<documentation>Yellow</documentation>
+		</value>
+		<value name="Green">
+			<documentation>Green</documentation>
+		</value>
+		<value name="Gray">
+			<documentation>Default value</documentation>
+		</value>
+	</enumeration>
+</simple-type>

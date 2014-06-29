@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
+	<name>GrowingList</name>
+	<author>SAP AG</author>
+	<documentation>sap.m.GrowingList control is the container for all list items and inherits from sap.m.List control. Everything like the selection, deletion, unread states  and inset style are also maintained here. In addition the control provides a loading mechanism to request data from the model and append the list items to the list. The request is started manually by tapping on the trigger at the end of the list.</documentation>
+	<baseType>sap.m/List</baseType>
+	<deprecation since="1.16">Instead use &quot;List&quot; or &quot;Table&quot; control with setting &quot;growing&quot; property to &quot;true&quot;</deprecation>
+	<properties>
+		<property group="Misc" name="threshold" type="sap.ui.core/int" defaultValue="20" since="1.16">
+			<documentation>Number of items requested from the server. To activate this you should set growing property to &quot;true&quot;</documentation>
+		</property>
+		<property group="Appearance" name="triggerText" type="sap.ui.core/string" since="1.16">
+			<documentation>Text which is displayed on the trigger at the end of the list. The default is a translated text (&quot;Load More Data&quot;) coming from the messagebundle properties.
+This property can be used only if growing property is set &quot;true&quot; and scrollToLoad property is set &quot;false&quot;.</documentation>
+		</property>
+		<property group="Behavior" name="scrollToLoad" type="sap.ui.core/boolean" defaultValue="false" since="1.16">
+			<documentation>If you set this property to true then user needs to scroll end to trigger loading a new page. Default value is false which means user needs to scroll end and then click button to load new page.
+NOTE: This property can be set true, if growing property is set &quot;true&quot; and if you only have one instance of this control inside the scroll container(e.g Page).</documentation>
+		</property>
+	</properties>
+</control>

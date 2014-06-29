@@ -1,0 +1,48 @@
+<?xml version="1.0" ?>
+<simple-type xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>layout/BackgroundDesign</name>
+	<author>d029921</author>
+	<documentation>
+	Background design (i.e. color), e.g. of a layout cell.
+	</documentation>
+	
+	<enumeration>
+	  <value name="Border">
+			<documentation>
+			A background design suitable for borders.
+	    </documentation>
+	  </value>
+	  <value name="Fill1"><!-- TODO can we talk about dark vs. light here? -->
+			<documentation>
+			An opaque background design that looks dark filled.
+	    </documentation>
+	  </value>
+	  <value name="Fill2">
+			<documentation>
+			An opaque background design that looks medium filled.
+	    </documentation>
+	  </value>
+	  <value name="Fill3">
+			<documentation>
+			An opaque background design that looks light filled.
+	    </documentation>
+	  </value>
+	  <value name="Header">
+			<documentation>
+			A background design suitable for headers.
+	    </documentation>
+	  </value>
+	  <value name="Plain">
+			<documentation>
+			A plain but opaque background design.
+	    </documentation>
+	  </value>
+	  <value name="Transparent">
+			<documentation>
+			A transparent background.
+	    </documentation>
+	  </value>
+	</enumeration>
+
+</simple-type>

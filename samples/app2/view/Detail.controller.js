@@ -3,13 +3,23 @@ sap.ui.controller("testapp.view.Detail", {
         sap.ui.getCore().getEventBus().subscribe("listSelected", this.onListSelected, this);
         this.oPage = this.byId("page1");
         this.oMap = this.byId("map1");
-        this.oChart = this.byId("chart1")
+        this.oChart = this.byId("chart1");
     },
 
     onMapReady: function(oEvent) {
-        var obj = this.getView().getModel().getData().beaches[4];
-        this.markerWindowOpen(obj);
-        this.setChartData(obj.columns);
+        if (this.selectedLocation === undefined) {
+            var beaches = this.getView().getModel().getData().beaches;
+            this.selectedLocation = beaches[beaches.length - 1]; //Cronulla
+        }
+        this.setLocation();
+    },
+
+    setLocation: function(bPublish) {
+        this.markerWindowOpen(this.selectedLocation);
+        this.setChartData(this.selectedLocation.columns);
+        sap.ui.getCore().getEventBus().publish("placeSelected", {
+            location: this.selectedLocation
+        });
     },
 
     markerWindowOpen: function(oData) {
@@ -30,13 +40,13 @@ sap.ui.controller("testapp.view.Detail", {
     },
 
     onListSelected: function(sChannelId, sEventId, oData) {
-        this.markerWindowOpen(oData.context.getObject());
-        this.setChartData(oData.context.getObject().columns);
+        this.selectedLocation = oData.context.getObject();
+        this.setLocation();
     },
 
     onMarkerClick: function(oEvent) {
-        this.markerWindowOpen(oEvent.getParameter('location'));
-        this.setChartData(oEvent.getParameter('context').getObject().columns);
+        this.selectedLocation = oEvent.getParameter('context').getObject();
+        this.setLocation();
     },
 
     getPaths: function() {
@@ -83,8 +93,12 @@ sap.ui.controller("testapp.view.Detail", {
     onShowPolygon: function(oEvent) {
         this.showPolygon = !this.showPolygon;
         if (this.showPolygon) {
+            var center = {
+                lat: this.oMap.getLat(),
+                lng: this.oMap.getLng()
+            };
             this.oMap.addPolygon(new openui5.googlemaps.Polygon({
-                paths: jQuery.merge([this.oMap.getCenter()], this.getPaths()),
+                paths: jQuery.merge([center], this.getPaths()),
                 strokeColor: '#FF0000',
                 strokeOpacity: 0.8,
                 strokeWeight: 2,

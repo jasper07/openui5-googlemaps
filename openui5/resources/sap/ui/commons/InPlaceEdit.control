@@ -1,0 +1,53 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
+	<since>1.8.0</since>
+
+	<name>InPlaceEdit</name>
+	<documentation>The InPlaceEdit is a functionality to have text in display mode that can be changed in place.</documentation>
+
+	<baseType>sap.ui.core/Control</baseType>
+	<properties>
+		<property name="valueState" type="sap.ui.core/ValueState" defaultValue="None" group="Data">
+			<documentation>Visualizes warnings or errors related to the InPlaceEdit. Possible values: Warning, Error, Success.
+If the content control has a own valueState property this will be used. </documentation>
+		</property>
+		<property group="Misc" name="undoEnabled" type="sap.ui.core/boolean" defaultValue="true">
+			<documentation>If undo is enabled after changing the text an undo button appears.
+</documentation>
+		</property>
+		<property group="Data" name="design" type="sap.ui.commons/TextViewDesign" defaultValue="Standard" since="1.9.0">
+			<documentation>Defines the visual appearance of the control.
+Currently this is not supported for Labels.</documentation>
+		</property>
+	</properties>
+	<events>
+		<event name="change">
+			<documentation>Event is fired when the text in the field has changed AND the focus leaves the InPlaceEdit or the Enter key is pressed.</documentation>
+			<parameters>
+				<parameter name="newValue" type="sap.ui.core/string">
+					<documentation>The new / changed value of the InPlaceEdit.</documentation>
+				</parameter>
+			</parameters>
+		</event>
+		<event name="liveChange" since="1.16.5">
+			<documentation>This event if fired during typing into the InPlaceEdit and returns the currently entered value. This is not the content of the value property. The value property is only updated by ENTER and by leaving the control.</documentation>
+			<parameters>
+				<parameter name="liveValue" type="sap.ui.core/string">
+					<documentation>Current value of the Textfield.</documentation>
+				</parameter>
+			</parameters>
+		</event>
+	</events>
+	<aggregations default="content">
+		<aggregation cardinality="0..1" type="sap.ui.core/Control" name="content">
+			<documentation>Content control of the InPlaceEdit.
+The following controls are allowed:
+TextField, ComboBox, DropdownBox and Link</documentation>
+		</aggregation>
+	</aggregations>
+	<methods>
+		<method name="clearOldText" type="sap.ui.core/void">
+			<documentation>Clear the old text after a change to disable the undo functionality. If undoEnabled is false this has no effect.</documentation>
+		</method>
+	</methods>
+</control>

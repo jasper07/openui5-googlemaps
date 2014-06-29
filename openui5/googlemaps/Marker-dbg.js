@@ -53,9 +53,14 @@
         };
 
         Marker.prototype.updatePosition = function() {
-            if (this.marker && this.getLat() != null && this.getLng() != null) {
-                this.marker.setPosition(new Gmaps.LatLng(this.getLat(), this.getLng()));
+            if (!this.marker || this.getLat() === null || this.getLng() === null) {
+                return;
             }
+
+            jQuery.sap.clearDelayedCall(this.delayedCallId);
+            this.delayedCallId = jQuery.sap.delayedCall(100, this, function() {
+                this.marker.setPosition(new Gmaps.LatLng(this.getLat(), this.getLng()));
+            });
         };
 
         Marker.prototype.setLat = function(oValue) {
@@ -66,7 +71,6 @@
         Marker.prototype.setLng = function(oValue) {
             this.setProperty('lng', parseFloat(oValue), true);
             this.updatePosition();
-
         };
 
         Marker.prototype.setICon = function() {
@@ -80,7 +84,10 @@
             this.marker.setMap(this.map);
 
             this.addListener('click', jQuery.proxy(this.onClick, this));
-            this.addListener('dragend', jQuery.proxy(this.onDragEnd, this));
+
+            if (this.getDraggable()) {
+                this.addListener('dragend', jQuery.proxy(this.onDragEnd, this));
+            }
 
             this.infoWindow = undefined;
 
@@ -155,7 +162,6 @@
 
             this.setLat(oPosition.lat());
             this.setLng(oPosition.lng());
-
 
             this.fireDragEnd({
                 position: oPosition

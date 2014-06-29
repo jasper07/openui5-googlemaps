@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>ColumnListItem</name>
+	<author>SAP AG</author>
+	<documentation>ColumnListItem can be used to create columns for Table control.
+Note: This control should not be used without Column definition in parent control.</documentation>
+	<since>1.12</since>
+	<baseType>ListItemBase</baseType>
+	<properties>
+		<property group="Appearance" name="vAlign" type="sap.ui.core/VerticalAlign" defaultValue="Inherit" since="1.20">
+			<documentation>Sets the vertical alignment of the all cells in a table row(including selection and navigation). Possible values are &quot;Inherit&quot;, &quot;Top&quot;, &quot;Middle&quot;, &quot;Bottom&quot;
+Note: Column's &quot;vAlign&quot; property is stronger than this one.</documentation>
+		</property>
+	</properties>
+	<aggregations default="cells">
+		<aggregation name="clonedHeaders" cardinality="0..n" type="sap.ui.core/Control" visibility="hidden">
+			<documentation>Internal aggregation to hold the cloned column headers for pop-in.</documentation>
+		</aggregation>
+		<aggregation cardinality="0..n" name="cells" type="sap.ui.core/Control" bindable="bindable">
+			<documentation>Every item inside the cells aggregation defines one column of the row.</documentation>
+		</aggregation>
+	</aggregations>
+</control>
