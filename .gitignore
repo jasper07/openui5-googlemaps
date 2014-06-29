@@ -1,5 +1,6 @@
 /node_modules
-**/resources/   
+**/resources/
+openu5/resources/  
 coverage
 *.log
 .gitcredentials
