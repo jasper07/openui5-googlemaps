@@ -1,6 +1,5 @@
 /node_modules
-openui5/resources 
-/openui5/resources  
+**/resources/   
 coverage
 *.log
 .gitcredentials
