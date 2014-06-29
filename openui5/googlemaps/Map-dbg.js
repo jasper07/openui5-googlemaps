@@ -149,6 +149,15 @@
             }
         };
 
+        Map.prototype.setDisableDefaultUi = function(bValue) {
+            this.setProperty('disableDefaultUi', bValue, true);
+            if (this.map) {
+                this.map.setOptions({
+                    disableDefaultUI: this.disableDefaultUI
+                });
+            }
+        };
+
         Map.prototype._getMapOptions = function() {
             var mapOptions = {};
             mapOptions.zoom = this.getZoom();
@@ -188,8 +197,10 @@
                 return false;
             }
 
+            //  create map
             this.map = new Gmaps.Map(jQuery.sap.byId(this.mapId)[0], this._getMapOptions());
 
+            // set up listeners
             this.addListener('drag', jQuery.proxy(this.updateValues, this));
             this.addListener('zoom_changed', jQuery.proxy(this.updateValues, this));
             this.addListener('center_changed', jQuery.proxy(this.updateValues, this));
@@ -197,10 +208,12 @@
             this.addListener('maptypeid_changed', jQuery.proxy(this.updateValues, this));
             this.addListener('resize', jQuery.proxy(this.updateValues, this));
 
+            // notify markers, polylines and poloygons
             this._notifyMarkers('MapRendered', this.map);
             this._notifyPolylines('MapRendered', this.map);
             this._notifyPolygons('MapRendered', this.map);
 
+            // fire map ready event
             this.fireReady({
                 map: this.map,
                 context: this.getBindingContext(),
@@ -282,7 +295,9 @@
 
         Map.prototype.resetMap = function() {
             this.removeListeners();
-            this.map.set(null);
+            if (this.map) {
+                this.map.set(null);
+            }
         };
 
         Map.prototype.exit = function() {
