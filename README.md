@@ -1,0 +1,1 @@
+see http://jasper07.github.io/openui5-googlemaps/

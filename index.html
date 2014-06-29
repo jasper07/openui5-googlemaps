@@ -24,10 +24,7 @@
         margin-top: 0px;
         background-color: #272822;
     }
-/*    [id^="sample"] {
-        margin: 10px auto 20px;
-        padding: 10px 0px 20px 0px;
-    }*/
+
     [id$="-map"] {
         border-radius: 0.3em;
     }
@@ -53,8 +50,12 @@
     <!-- MAIN CONTENT -->
     <div id="main_content_wrap" class="outer">
         <section id="main_content" class="inner">
-            <pre class="language-javascript"><code>sap.ui.getCore().loadLibrary("openui5.googlemaps", "../openui5/googlemaps/");</code></pre>
+            <h2>Getting Started</h2>
 
+        <p>Include the openui5.googlemaps library</p>
+            <pre class="language-javascript"><code>sap.ui.getCore().loadLibrary("openui5.googlemaps", "../openui5/googlemaps/");</code></pre>
+          
+ <p>Example - render a map with a marker</p>
             <pre class="language-javascript"><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
 &lt;mvc:View xmlns:mvc=&quot;sap.ui.core.mvc&quot;
     xmlns:gmaps=&quot;openui5.googlemaps&quot; 
