@@ -118,39 +118,42 @@ asyncTest("Check changing intial values", function() {
         ok(MapUtils.floatEqual(oEvent.getParameter('lat'), 1), "latitude in ready event");
         ok(MapUtils.floatEqual(oEvent.getParameter('lng'), 1), "longitude in ready event");
         ok((oEvent.getParameter('map')), "longitude in ready event");
-        // map: this.map,
-        //  context: this.getBindingContext(),
-        //  lat: this.getLat(),
-        //  lng: this.getLng()
+
         var oMap = sap.ui.getCore().byId("MAP4");
         strictEqual(oMap.map.getDiv().style.width, options.width, "goolemap width found");
         strictEqual(oMap.map.getDiv().style.height, options.height, "goolemap height found");
+        stop();
 
         oMap.setLat(MAP_POSITION.lat);
         oMap.setLng(MAP_POSITION.lng);
 
+
     };
 
     var changedCallback = function(oEvent) {
-        start();
+        var oMap = sap.ui.getCore().byId("MAP4");
         //check event data
-        ok(MapUtils.floatEqual(oEvent.getParameter('lat'), 1), "latitude in ready event");
-        ok(MapUtils.floatEqual(oEvent.getParameter('lng'), 1), "longitude in ready event");
-        ok((oEvent.getParameter('map')), "longitude in ready event");
+        start();
+        ok(MapUtils.floatEqual(oMap.map.getCenter().lat(), MAP_POSITION.lat), "goolemap latitude found");
+        ok(MapUtils.floatEqual(oMap.map.getCenter().lng(), MAP_POSITION.lng), "goolemap longitude found");
+
+        ok(MapUtils.floatEqual(oEvent.getParameter('lat'), MAP_POSITION.lat), "latitude in changed event");
+        ok(MapUtils.floatEqual(oEvent.getParameter('lng'), MAP_POSITION.lng), "longitude in changed event");;
+        ok((oEvent.getParameter('map')), "map returned in changed event");
     };
 
-    setTimeout(function() {
-        var testID = "MAP4";
-        var oMap = new openui5.googlemaps.Map(testID, {
-            lat: 1,
-            lng: 1,
-            width: options.width,
-            height: options.height,
-            ready: readyCallback,
-            changed: changedCallback
-        }).placeAt("uiArea2");
+    // setTimeout(function() {
+    var testID = "MAP4";
+    var oMap = new openui5.googlemaps.Map(testID, {
+        lat: 1,
+        lng: 1,
+        width: options.width,
+        height: options.height,
+        ready: readyCallback,
+        changed: changedCallback
+    }).placeAt("uiArea2");
 
-    }, 10);
+    // }, 100);
 
 
 

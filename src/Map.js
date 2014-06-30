@@ -126,7 +126,7 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './Map
 
             // delay if lat and lng updated through binding
             jQuery.sap.clearDelayedCall(this.delayedCallId);
-            this.delayedCallId = jQuery.sap.delayedCall(100, this, function() {
+            this.delayedCallId = jQuery.sap.delayedCall(1, this, function() {
                 this.map.panTo(new Gmaps.LatLng(this.getLat(), this.getLng()));
             });
 
@@ -202,7 +202,7 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './Map
             this.addListener('zoom_changed', jQuery.proxy(this.updateValues, this));
             this.addListener('center_changed', jQuery.proxy(this.updateValues, this));
             this.addListener('idle', jQuery.proxy(this.updateValues, this));
-            this.addListener('bounds_changed', jQuery.proxy(this.updateValues, this));
+            this.addListener('bounds_changed', jQuery.proxy(this.mapChanged, this));
             this.addListener('maptypeid_changed', jQuery.proxy(this.updateValues, this));
             this.addListener('resize', jQuery.proxy(this.updateValues, this));
 
@@ -245,6 +245,7 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './Map
         };
 
         Map.prototype.mapChanged = function() {
+            this.updateValues();
             this.fireChanged({
                 map: this.map,
                 context: this.getBindingContext(),
@@ -261,12 +262,10 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './Map
 
             if (center.lat !== this.getLat()) {
                 this.setProperty('lat', center.lat, true);
-                mapChanged = true;
             }
 
             if (center.lng !== this.getLng()) {
                 this.setProperty('lng', center.lng, true);
-                mapChanged = true;
             }
 
             if (this.map.getZoom() !== this.getZoom()) {
@@ -275,10 +274,6 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './Map
 
             if (this.map.getMapTypeId() !== this.getMapTypeId()) {
                 this.setMapTypeId(this.map.getMapTypeId());
-            }
-
-            if (mapChanged) {
-                this.mapChanged();
             }
         };
 
