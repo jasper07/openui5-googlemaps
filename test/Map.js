@@ -1,12 +1,13 @@
-"use_strict"
+/*global QUnit:true, module:true, test:true, asyncTest:true, expect:true, ok:true*/
+/*global start:true, stop:true ok:true, equal:true, notEqual:true, deepEqual:true*/
+/*global notDeepEqual:true, strictEqual:true, notStrictEqual:true, raises:true*/
+/*global openui5:true*/
+"use_strict";
 
 var MAP_ID = 'MAP_TEST';
 var MAP_POSITION = {};
 MAP_POSITION.lat = parseFloat("-33.895");
 MAP_POSITION.lng = parseFloat("151.275");
-
-
-// var MapUtils = openui5.googlemaps.MapUtils ? openui5.googlemaps.MapUtils : {};
 
 module("Map - defaults test");
 
@@ -24,12 +25,12 @@ asyncTest("Object Creation and Destroy with Id", function() {
         // find just created object byId
         var oMap2 = sap.ui.getCore().byId(testID);
         ok( !! oMap2, "Object created and found byId");
-        ok(oMap2.$().size() > 0, "DOM has some content")
+        ok(oMap2.$().size() > 0, "DOM has some content");
 
         // Destroy object
         oMap2.destroy();
 
-        ok(oMap2.$().size() === 0, "DOM content destroyed")
+        ok(oMap2.$().size() === 0, "DOM content destroyed");
 
         // try to find destroyed object
         setTimeout(function() {
@@ -97,15 +98,14 @@ test("Check goolemap object", function() {
     strictEqual(oMap.streetViewControl, false, "goolemap streetViewControl found");
 });
 
-
 asyncTest("Check changing intial values", function() {
     var MapUtils = openui5.googlemaps.MapUtils;
     var options = {};
     options.lat = MAP_POSITION.lat;
     options.lng = MAP_POSITION.lng;
     options.disableDefaultUi = true;
-    options.width = "100px";
-    options.height = "100px";
+    options.width = "400px";
+    options.height = "200px";
     options.zoom = 12;
     options.mapTypeID = 'streetview';
     options.panControl = true;
@@ -113,36 +113,31 @@ asyncTest("Check changing intial values", function() {
     options.streetViewControl = true;
 
     var readyCallback = function(oEvent) {
-        start();
-        //check event data
-        ok(MapUtils.floatEqual(oEvent.getParameter('lat'), 1), "latitude in ready event");
-        ok(MapUtils.floatEqual(oEvent.getParameter('lng'), 1), "longitude in ready event");
-        ok((oEvent.getParameter('map')), "longitude in ready event");
-
         var oMap = sap.ui.getCore().byId("MAP4");
-        strictEqual(oMap.map.getDiv().style.width, options.width, "goolemap width found");
-        strictEqual(oMap.map.getDiv().style.height, options.height, "goolemap height found");
-        stop();
+        if (this.changed === undefined) {
+            this.changed = true;
+            // start();
+            //check event data
+            ok(MapUtils.floatEqual(oEvent.getParameter('lat'), 1), "latitude in ready event");
+            ok(MapUtils.floatEqual(oEvent.getParameter('lng'), 1), "longitude in ready event");
+            ok((oEvent.getParameter('map')), "longitude in ready event");
 
-        oMap.setLat(MAP_POSITION.lat);
-        oMap.setLng(MAP_POSITION.lng);
+            strictEqual(oMap.map.getDiv().style.width, options.width, "goolemap width found");
+            strictEqual(oMap.map.getDiv().style.height, options.height, "goolemap height found");
+            // stop();
 
+            oMap.setLat(MAP_POSITION.lat);
+            oMap.setLng(MAP_POSITION.lng);
+        } else {
+            start();
+            ok(MapUtils.floatEqual(oMap.map.getCenter().lat(), MAP_POSITION.lat), "goolemap latitude found");
+            ok(MapUtils.floatEqual(oMap.map.getCenter().lng(), MAP_POSITION.lng), "goolemap longitude found");
+            ok((oEvent.getParameter('map')), "map returned in changed event");
+            stop();
+        }
 
     };
 
-    var changedCallback = function(oEvent) {
-        var oMap = sap.ui.getCore().byId("MAP4");
-        //check event data
-        start();
-        ok(MapUtils.floatEqual(oMap.map.getCenter().lat(), MAP_POSITION.lat), "goolemap latitude found");
-        ok(MapUtils.floatEqual(oMap.map.getCenter().lng(), MAP_POSITION.lng), "goolemap longitude found");
-
-        ok(MapUtils.floatEqual(oEvent.getParameter('lat'), MAP_POSITION.lat), "latitude in changed event");
-        ok(MapUtils.floatEqual(oEvent.getParameter('lng'), MAP_POSITION.lng), "longitude in changed event");;
-        ok((oEvent.getParameter('map')), "map returned in changed event");
-    };
-
-    // setTimeout(function() {
     var testID = "MAP4";
     var oMap = new openui5.googlemaps.Map(testID, {
         lat: 1,
@@ -150,53 +145,5 @@ asyncTest("Check changing intial values", function() {
         width: options.width,
         height: options.height,
         ready: readyCallback,
-        changed: changedCallback
     }).placeAt("uiArea2");
-
-    // }, 100);
-
-
-
-    // var oMap = sap.ui.getCore().byId(MAP_ID).map;
-    // var MapUtils = openui5.googlemaps.MapUtils;
-    // ok(MapUtils.floatEqual(oMap.getCenter().lat(), MAP_POSITION.lat), "goolemap latitude found ");
-    // ok(MapUtils.floatEqual(oMap.getCenter().lng(), MAP_POSITION.lng), "goolemap longitude found ");
-    // strictEqual(oMap.disableDefaultUi, true, "goolemap default UI found ");
-
-    // strictEqual(oMap.getZoom(), 8, "goolemap zoom found");
-    // strictEqual(oMap.getMapTypeId(), 'roadmap', "goolemap mapTypeID found");
-    // strictEqual(oMap.panControl, false, "goolemap panControl found");
-    // strictEqual(oMap.mapTypeControl, false, "goolemap mapTypeControl found");
-    // strictEqual(oMap.streetViewControl, false, "goolemap streetViewControl found");
 });
-// // test("DatePicker - empty input by default ", function() {
-// //     var oDatePicker = sap.ui.getCore().byId("DATEPICKER");
-// //     equal(oDatePicker.getValue(), "", "Default value for DatePicker should be empty string");
-// // });
-
-// // asyncTest("Open Calendar", function() {
-// //     expect(1);
-
-// //     core = sap.ui.getCore();
-// //     ci = core.byId("DATEPICKER__ci");
-
-// //     // Open Calendar
-// //     ci.firePress();
-
-// //     // asserts in 300ms
-// //     setTimeout(function() {
-// //         ok(true, "Passed and ready to resume!");
-
-// //         // Press on Cancel button
-// //         core.byId("__button0").firePress();
-
-// //         start();
-// //     }, 300);
-
-// // });
-
-
-// // test("DatePicker - empty input by default ", function() {
-// //     var oMap = sap.ui.getCore().byId("DATEPICKER");
-// //     equal(oDatePicker.getValue(), "", "Default value for DatePicker should be empty string");
-// // });

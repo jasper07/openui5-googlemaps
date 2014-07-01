@@ -14,7 +14,7 @@
           href="../openui5/resources/sap/ui/thirdparty/qunit.css"
           type="text/css" media="screen"/>
     <script type="text/javascript"
-            src="../OpenUi5/resources/sap/ui/thirdparty/qunit.js"></script>
+            src="../OpenUi5/resources/sap/ui/thirdparty/qunit-dbg.js"></script>
     <script type="text/javascript"
             src="../openui5/resources/sap/ui/qunit/QUnitUtils.js"></script>
     <script type="text/javascript" src="Map.js"></script>
@@ -22,8 +22,8 @@
     <script type="text/javascript">
 
         sap.ui.getCore().loadLibrary("openui5.googlemaps", "../openui5/googlemaps/");
-         jQuery.sap.require('openui5.googlemaps.Map');
-         jQuery.sap.require('openui5.googlemaps.MapUtils');
+        jQuery.sap.require('openui5.googlemaps.Map');
+        jQuery.sap.require('openui5.googlemaps.MapUtils');
 
         QUnit.config.autostart = false;
         // jQuery(document).ready(function () {
@@ -51,8 +51,8 @@
 <!-- <div id='content' style="width: 640px; height: 480px;"></div> -->
 <div id="qunit-testrunner-toolbar"></div>
 <ol id="qunit-tests"></ol>
-    <div id="uiArea1" style="width: 640px; height: 480px;"></div>
-    <div id="uiArea2"></div>
+    <div id="uiArea1" style="width: 640px; height: 280px;"></div>
+    <div id="uiArea2" style="width: 640px; height: 280px;"></div>
     <div id="uiArea3"></div>
     <div id="uiArea4"></div>
     <div id="uiArea5"></div>

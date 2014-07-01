@@ -73,7 +73,7 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './Map
                     }
                 },
                 events: {
-                    'changed': {},
+                    // 'changed': {},
                     'ready': {}
                 }
             },
@@ -210,14 +210,6 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './Map
             this._notifyMarkers('MapRendered', this.map);
             this._notifyPolylines('MapRendered', this.map);
             this._notifyPolygons('MapRendered', this.map);
-
-            // fire map ready event
-            this.fireReady({
-                map: this.map,
-                context: this.getBindingContext(),
-                lat: this.getLat(),
-                lng: this.getLng()
-            });
         };
 
         Map.prototype.addListener = function(event, callback) {
@@ -246,13 +238,13 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './Map
 
         Map.prototype.mapChanged = function() {
             this.updateValues();
-            this.fireChanged({
+
+            this.fireReady({
                 map: this.map,
                 context: this.getBindingContext(),
                 lat: this.getLat(),
                 lng: this.getLng()
             });
-
         };
 
         Map.prototype.updateValues = function(oEvent) {

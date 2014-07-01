@@ -78,7 +78,7 @@
                     }
                 },
                 events: {
-                    'changed': {},
+                    // 'changed': {},
                     'ready': {}
                 }
             },
@@ -215,14 +215,6 @@
             this._notifyMarkers('MapRendered', this.map);
             this._notifyPolylines('MapRendered', this.map);
             this._notifyPolygons('MapRendered', this.map);
-
-            // fire map ready event
-            this.fireReady({
-                map: this.map,
-                context: this.getBindingContext(),
-                lat: this.getLat(),
-                lng: this.getLng()
-            });
         };
 
         Map.prototype.addListener = function(event, callback) {
@@ -251,13 +243,13 @@
 
         Map.prototype.mapChanged = function() {
             this.updateValues();
-            this.fireChanged({
+
+            this.fireReady({
                 map: this.map,
                 context: this.getBindingContext(),
                 lat: this.getLat(),
                 lng: this.getLng()
             });
-
         };
 
         Map.prototype.updateValues = function(oEvent) {
