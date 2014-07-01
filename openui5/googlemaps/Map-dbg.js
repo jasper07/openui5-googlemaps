@@ -12,10 +12,12 @@
                     'lat': {
                         type: 'float',
                         bindable: 'bindable',
+                        defaultValue: 1
                     },
                     'lng': {
                         type: 'float',
                         bindable: 'bindable',
+                        defaultValue: 1
                     },
                     'width': {
                         type: 'sap.ui.core.CSSSize',
@@ -76,7 +78,7 @@
                     }
                 },
                 events: {
-                    'change': {},
+                    // 'changed': {},
                     'ready': {}
                 }
             },
@@ -129,7 +131,7 @@
 
             // delay if lat and lng updated through binding
             jQuery.sap.clearDelayedCall(this.delayedCallId);
-            this.delayedCallId = jQuery.sap.delayedCall(100, this, function() {
+            this.delayedCallId = jQuery.sap.delayedCall(1, this, function() {
                 this.map.panTo(new Gmaps.LatLng(this.getLat(), this.getLng()));
             });
 
@@ -204,7 +206,8 @@
             this.addListener('drag', jQuery.proxy(this.updateValues, this));
             this.addListener('zoom_changed', jQuery.proxy(this.updateValues, this));
             this.addListener('center_changed', jQuery.proxy(this.updateValues, this));
-            this.addListener('bounds_changed', jQuery.proxy(this.updateValues, this));
+            this.addListener('idle', jQuery.proxy(this.updateValues, this));
+            this.addListener('bounds_changed', jQuery.proxy(this.mapChanged, this));
             this.addListener('maptypeid_changed', jQuery.proxy(this.updateValues, this));
             this.addListener('resize', jQuery.proxy(this.updateValues, this));
 
@@ -212,14 +215,6 @@
             this._notifyMarkers('MapRendered', this.map);
             this._notifyPolylines('MapRendered', this.map);
             this._notifyPolygons('MapRendered', this.map);
-
-            // fire map ready event
-            this.fireReady({
-                map: this.map,
-                context: this.getBindingContext(),
-                lat: this.getLat(),
-                lng: this.getLng()
-            });
         };
 
         Map.prototype.addListener = function(event, callback) {
@@ -246,9 +241,21 @@
             this._dragging = false;
         };
 
-        Map.prototype.updateValues = function() {
+        Map.prototype.mapChanged = function() {
+            this.updateValues();
+
+            this.fireReady({
+                map: this.map,
+                context: this.getBindingContext(),
+                lat: this.getLat(),
+                lng: this.getLng()
+            });
+        };
+
+        Map.prototype.updateValues = function(oEvent) {
             //sync maps values with control
             var center = MapUtils.latLngToObj(this.map.getCenter());
+            var mapChanged = false;
 
             if (center.lat !== this.getLat()) {
                 this.setProperty('lat', center.lat, true);
