@@ -3,8 +3,7 @@
  * @version v0.0.0
  * @link http://jasper07.github.io/openui5-googlemaps/
  * @license MIT
- */
-sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './MapUtils', './MapTypeId'],
+ */sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './MapUtils', './MapTypeId'],
     function(jQuery, Control, Gmaps, MapUtils, MapTypeId) {
         "use strict";
         var Map = Control.extend('openui5.googlemaps.Map', {
@@ -28,7 +27,7 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './Map
                     'height': {
                         type: 'sap.ui.core.CSSSize',
                         group: 'Dimension',
-                        defaultValue: '10rem'
+                        defaultValue: '20em'
                     },
                     'zoom': {
                         type: 'int',
@@ -79,7 +78,6 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './Map
                     }
                 },
                 events: {
-                    // 'changed': {},
                     'ready': {}
                 }
             },
@@ -91,13 +89,7 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './Map
                 oRm.writeClasses();
                 oRm.writeStyles();
                 oRm.write('>');
-
-                oRm.write("<div");
-                oRm.writeAttribute("id", oControl.getId() + "-map");
-                oRm.addStyle("width", oControl.getWidth());
-                oRm.addStyle("height", oControl.getHeight());
-                oRm.writeStyles();
-                oRm.write(">");
+                oRm.renderControl(oControl._html);
                 oRm.write('</div>');
             }
         });
@@ -106,6 +98,21 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './Map
             this._dragging = false;
             this.aListeners = [];
             this.mapId = this.getId() + "-map";
+            this._html = new sap.ui.core.HTML({
+                content: "<div style='height: " + this.getHeight() + ";width: " + this.getWidth() + ";' id='" + this.mapId + "'></div>"
+            });
+        };
+
+        Map.prototype.setHeight = function(sValue) {
+            this.setProperty('height', sValue, true);
+            var content = jQuery(this._html.getContent()).css("height", this.getHeight());
+            this._html.setContent(content.outerHTML());
+        };
+
+        Map.prototype.setWidth = function(sValue) {
+            this.setProperty('width', sValue, true);
+            var content = jQuery(this._html.getContent()).css("width", this.getWidth());
+            this._html.setContent(content.outerHTML());
         };
 
         Map.prototype.setZoom = function(iValue) {
@@ -116,13 +123,19 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './Map
         };
 
         Map.prototype.setLat = function(oValue) {
-            this.setProperty('lat', parseFloat(oValue), true);
-            this._updateCenter();
+            var val = parseFloat(oValue);
+            if (!MapUtils.floatEqual(val, this.getLat())) {
+                this.setProperty('lat', parseFloat(oValue), true);
+                this._updateCenter();
+            }
         };
 
         Map.prototype.setLng = function(oValue) {
-            this.setProperty('lng', parseFloat(oValue), true);
-            this._updateCenter();
+            var val = parseFloat(oValue);
+            if (!MapUtils.floatEqual(val, this.getLng())) {
+                this.setProperty('lng', val, true);
+                this._updateCenter();
+            }
         };
 
         Map.prototype._updateCenter = function() {
@@ -132,8 +145,9 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './Map
 
             // delay if lat and lng updated through binding
             jQuery.sap.clearDelayedCall(this.delayedCallId);
-            this.delayedCallId = jQuery.sap.delayedCall(1, this, function() {
-                this.map.panTo(new Gmaps.LatLng(this.getLat(), this.getLng()));
+            this.delayedCallId = jQuery.sap.delayedCall(0, this, function() {
+                this.map.setCenter(new Gmaps.LatLng(this.getLat(), this.getLng()));
+                this.notifyAggregations('MapRendered');
             });
 
         };
@@ -174,23 +188,18 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './Map
             return mapOptions;
         };
 
-        Map.prototype.onAfterRendering = function() {
-            if (this.map) {
-                this.resetMap();
-                // this.map = undefined;
-
-                //TODO map is attached to DOM, on render dom gets rewritten, find a way to reattach 
-                // this.trigger('resize');
-                // this.map.setOptions(this._getMapOptions());
-                // return false;
-            }
-
-            // if (!this.map) {
-            this.createMap();
-            // }
+        Map.prototype.notifyAggregations = function(sEvent) {
+            // notify markers, polylines and poloygons
+            this._notifyMarkers(sEvent, this.map);
+            this._notifyPolylines(sEvent, this.map);
+            this._notifyPolygons(sEvent, this.map);
         };
 
-        Map.prototype.createMap = function() {
+        Map.prototype.onBeforeRendering = function() {
+            this.notifyAggregations('Reset');
+        };
+
+        Map.prototype.onAfterRendering = function() {
             //if map not loaded yet subscribe to its event    
             if (Gmaps.loaded === undefined) {
                 if (this.subscribed === undefined) {
@@ -200,22 +209,46 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './Map
                 return false;
             }
 
+            if (!this.initialized) {
+                this.createMap();
+            } else {
+                this._updateCenter();
+            }
+        };
+
+        Map.prototype.zoomChanged = function() {
+            if (this.map.getZoom() !== this.getZoom()) {
+                this.setZoom(this.map.getZoom());
+            }
+        };
+
+        Map.prototype.mapTypeIdChanged = function() {
+            if (this.map.getMapTypeId() !== this.getMapTypeId()) {
+                this.setMapTypeId(this.map.getMapTypeId());
+            }
+        };
+
+        Map.prototype.createMap = function() {
+            if (!this.getLat() || !this.getLng()) {
+                return;
+            }
+
             //  create map
-            this.map = new Gmaps.Map(jQuery.sap.byId(this.mapId)[0], this._getMapOptions());
+            this.map = new Gmaps.Map(jQuery.sap.domById(this.mapId), this._getMapOptions());
+
+            this.notifyAggregations('MapRendered');
 
             // set up listeners
-            this.addListener('drag', jQuery.proxy(this.updateValues, this));
-            this.addListener('zoom_changed', jQuery.proxy(this.updateValues, this));
+            this.addListener('drag', jQuery.proxy(this.isDragging, this));
+            this.addListener('dragstart', jQuery.proxy(this.isDragging, this));
+            this.addListener('zoom_changed', jQuery.proxy(this.zoomChanged, this));
             this.addListener('center_changed', jQuery.proxy(this.updateValues, this));
-            this.addListener('idle', jQuery.proxy(this.updateValues, this));
-            this.addListener('bounds_changed', jQuery.proxy(this.mapChanged, this));
-            this.addListener('maptypeid_changed', jQuery.proxy(this.updateValues, this));
+            this.addListener('idle', jQuery.proxy(this.mapChanged, this));
+            // this.addListener('bounds_changed', jQuery.proxy(this.updateValues, this));
+            this.addListener('maptypeid_changed', jQuery.proxy(this.mapTypeIdChanged, this));
             this.addListener('resize', jQuery.proxy(this.updateValues, this));
 
-            // notify markers, polylines and poloygons
-            this._notifyMarkers('MapRendered', this.map);
-            this._notifyPolylines('MapRendered', this.map);
-            this._notifyPolygons('MapRendered', this.map);
+            this.initialized = true;
         };
 
         Map.prototype.addListener = function(event, callback) {
@@ -243,8 +276,11 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './Map
         };
 
         Map.prototype.mapChanged = function() {
-            this.updateValues();
+            if (this._dragging) {
+                this.isNotDragging();
+            }
 
+            this.updateValues();
             this.fireReady({
                 map: this.map,
                 context: this.getBindingContext(),
@@ -254,24 +290,14 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './Map
         };
 
         Map.prototype.updateValues = function(oEvent) {
-            //sync maps values with control
             var center = MapUtils.latLngToObj(this.map.getCenter());
-            var mapChanged = false;
 
-            if (center.lat !== this.getLat()) {
+            if (!MapUtils.floatEqual(center.lat, this.getLat())) {
                 this.setProperty('lat', center.lat, true);
             }
 
-            if (center.lng !== this.getLng()) {
+            if (!MapUtils.floatEqual(center.lng, this.getLng())) {
                 this.setProperty('lng', center.lng, true);
-            }
-
-            if (this.map.getZoom() !== this.getZoom()) {
-                this.setZoom(this.map.getZoom());
-            }
-
-            if (this.map.getMapTypeId() !== this.getMapTypeId()) {
-                this.setMapTypeId(this.map.getMapTypeId());
             }
         };
 
@@ -293,6 +319,10 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './Map
             this.getPolylines().forEach(function(oPolyline) {
                 oPolyline["on" + action](param);
             });
+        };
+
+        Map.prototype.getPolygons = function() {
+            return this.getAggregation("polygons", []);
         };
 
         Map.prototype._notifyPolygons = function(action, param) {

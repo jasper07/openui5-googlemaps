@@ -1,4 +1,9 @@
-sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './MapUtils'],
+/**
+ * openui5-googlemaps - OpenUI5 Google Maps library
+ * @version v0.0.0
+ * @link http://jasper07.github.io/openui5-googlemaps/
+ * @license MIT
+ */sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './MapUtils'],
     function(jQuery, Control, gmaps, utils) {
         "use strict";
 
@@ -33,10 +38,6 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './Map
                         type: "boolean"
                     }
                 },
-                events: {
-                    'click': {},
-                    'dragEnd': {}
-                },
                 renderer: {}
             }
         });
@@ -52,8 +53,10 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './Map
         };
 
         Polygon.prototype.createPolygon = function() {
-            this.Polygon = new gmaps.Polygon(this.getOptions());
-            this.Polygon.setMap(this.map);
+            if (!this.polygon) {
+                this.polygon = new gmaps.Polygon(this.getOptions());
+            }
+            this.polygon.setMap(this.map);
         };
 
         Polygon.prototype.getOptions = function() {
@@ -73,8 +76,18 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './Map
             this.createPolygon();
         };
 
+        Polygon.prototype.onReset = function() {
+            this.reset();
+        };
+
+        Polygon.prototype.reset = function() {
+            if (this.polygon) {
+                this.polygon.setMap(null);
+            }
+        };
+
         Polygon.prototype.exit = function() {
-            this.Polygon.setMap(null);
+            this.reset();
         };
 
         return Polygon;

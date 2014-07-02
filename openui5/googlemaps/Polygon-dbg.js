@@ -38,10 +38,6 @@
                         type: "boolean"
                     }
                 },
-                events: {
-                    'click': {},
-                    'dragEnd': {}
-                },
                 renderer: {}
             }
         });
@@ -57,8 +53,10 @@
         };
 
         Polygon.prototype.createPolygon = function() {
-            this.Polygon = new gmaps.Polygon(this.getOptions());
-            this.Polygon.setMap(this.map);
+            if (!this.polygon) {
+                this.polygon = new gmaps.Polygon(this.getOptions());
+            }
+            this.polygon.setMap(this.map);
         };
 
         Polygon.prototype.getOptions = function() {
@@ -78,8 +76,18 @@
             this.createPolygon();
         };
 
+        Polygon.prototype.onReset = function() {
+            this.reset();
+        };
+
+        Polygon.prototype.reset = function() {
+            if (this.polygon) {
+                this.polygon.setMap(null);
+            }
+        };
+
         Polygon.prototype.exit = function() {
-            this.Polygon.setMap(null);
+            this.reset();
         };
 
         return Polygon;
