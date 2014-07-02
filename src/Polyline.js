@@ -26,10 +26,6 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './Map
                         type: "boolean"
                     }
                 },
-                events: {
-                    'click': {},
-                    'dragEnd': {}
-                },
                 renderer: {}
             }
         });
@@ -45,7 +41,9 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './Map
         };
 
         Polyline.prototype.createPolyline = function() {
-            this.polyline = new gmaps.Polyline(this.getOptions());
+            if (!this.polyline) {
+                this.polyline = new gmaps.Polyline(this.getOptions());
+            }
             this.polyline.setMap(this.map);
         };
 
@@ -66,8 +64,18 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './Map
             this.createPolyline();
         };
 
+        Polyline.prototype.onReset = function() {
+            this.reset();
+        };
+
+        Polyline.prototype.reset = function() {
+            if (this.polyline) {
+                this.polyline.setMap(null);
+            }
+        };
+
         Polyline.prototype.exit = function() {
-            this.polyline.setMap(null);
+            this.reset();
         };
 
         return Polyline;

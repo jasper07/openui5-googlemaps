@@ -75,6 +75,10 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './Ani
         };
 
         Marker.prototype.mapReady = function() {
+            if (this.marker) {
+                this.reset();
+            }
+
             this.marker = new Gmaps.Marker(this.getOptions());
             this.marker.setMap(this.map);
 
@@ -92,8 +96,10 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './Ani
                     content: this.getInfo(),
                     maxWidth: this.iwMaxWidth
                 });
-                Gmaps.event.addListener(this.infoWindow, 'closeclick', jQuery.proxy(this.onInfoWindowClose, this));
+                this.aListeners.push(Gmaps.event.addListener(this.infoWindow, 'closeclick',
+                    jQuery.proxy(this.onInfoWindowClose, this)));
             }
+
         };
 
         Marker.prototype.getOptions = function() {
@@ -110,7 +116,7 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './Ani
             this.mapReady();
         };
 
-        Marker.prototype.addListener = function(event, callback) {
+        Marker.prototype.addListener = function(event, callback, object) {
             this.aListeners.push(Gmaps.event.addListener(this.marker, event, callback));
         };
 
@@ -167,9 +173,19 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './Ani
             this.fireInfoWindowClose({});
         };
 
+        Marker.prototype.reset = function() {
+            if (this.marker) {
+                this.removeListeners();
+                this.marker.setMap(null);
+            }
+        };
+
+        Marker.prototype.onReset = function() {
+            this.reset();
+        };
+
         Marker.prototype.exit = function() {
-            this.removeListeners();
-            this.marker.setMap(null);
+            this.reset();
         };
 
         return Marker;

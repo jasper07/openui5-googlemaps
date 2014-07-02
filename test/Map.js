@@ -60,7 +60,7 @@ test("Default options test", function() {
     ok(MapUtils.floatEqual(oMap.getLng(), 1), "default longitude found ");
     strictEqual(oMap.getDisableDefaultUI(), true, "disable default UI found ");
     strictEqual(oMap.getWidth(), "auto", "default width found");
-    strictEqual(oMap.getHeight(), "10rem", "default height found");
+    strictEqual(oMap.getHeight(), "20em", "default height found");
     strictEqual(oMap.getZoom(), 8, "default zoom found");
     strictEqual(oMap.getMapTypeId(), 'roadmap', "default mapTypeID found");
     strictEqual(oMap.getPanControl(), false, "default panControl found");
@@ -75,7 +75,7 @@ test("Check map options", function() {
     ok(MapUtils.floatEqual(oMap.getLng(), MAP_POSITION.lng), "set longitude found ");
     strictEqual(oMap.getDisableDefaultUI(), true, "disable default UI found ");
     strictEqual(oMap.getWidth(), "auto", "default width found");
-    strictEqual(oMap.getHeight(), "10rem", "default height found");
+    strictEqual(oMap.getHeight(), "20em", "default height found");
     strictEqual(oMap.getZoom(), 8, "default zoom found");
     strictEqual(oMap.getMapTypeId(), 'roadmap', "default mapTypeID found");
     strictEqual(oMap.getPanControl(), false, "default panControl found");
@@ -90,7 +90,7 @@ test("Check goolemap object", function() {
     ok(MapUtils.floatEqual(oMap.getCenter().lng(), MAP_POSITION.lng), "goolemap longitude found ");
     strictEqual(oMap.disableDefaultUi, true, "goolemap default UI found ");
     strictEqual(oMap.getDiv().style.width, "auto", "goolemap width found");
-    strictEqual(oMap.getDiv().style.height, "10rem", "dgoolemap height found");
+    strictEqual(oMap.getDiv().style.height, "20em", "dgoolemap height found");
     strictEqual(oMap.getZoom(), 8, "goolemap zoom found");
     strictEqual(oMap.getMapTypeId(), 'roadmap', "goolemap mapTypeID found");
     strictEqual(oMap.panControl, false, "goolemap panControl found");
