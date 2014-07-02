@@ -3,6 +3,11 @@
  * @version v0.0.0
  * @link http://jasper07.github.io/openui5-googlemaps/
  * @license MIT
+ *//**
+ * openui5-googlemaps - OpenUI5 Google Maps library
+ * @version v0.0.0
+ * @link http://jasper07.github.io/openui5-googlemaps/
+ * @license MIT
  */sap.ui.define("openui5/googlemaps/MapTypeId", ['jquery.sap.global'],
     function(jQuery) {
         "use strict";

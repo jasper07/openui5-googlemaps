@@ -3,7 +3,13 @@
  * @version v0.0.0
  * @link http://jasper07.github.io/openui5-googlemaps/
  * @license MIT
- */sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './Animation'],
+ *//**
+ * openui5-googlemaps - OpenUI5 Google Maps library
+ * @version v0.0.0
+ * @link http://jasper07.github.io/openui5-googlemaps/
+ * @license MIT
+ */
+sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './Animation'],
     function(jQuery, Control, Gmaps, Animation) {
         "use strict";
 
@@ -58,7 +64,7 @@
             }
 
             jQuery.sap.clearDelayedCall(this.delayedCallId);
-            this.delayedCallId = jQuery.sap.delayedCall(100, this, function() {
+            this.delayedCallId = jQuery.sap.delayedCall(0, this, function() {
                 this.marker.setPosition(new Gmaps.LatLng(this.getLat(), this.getLng()));
             });
         };
