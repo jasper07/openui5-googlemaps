@@ -1,2 +1,7 @@
 /node_modules
 /openui5/resources
+**/resources/
+openu5/resources/  
+coverage
+*.log
+.gitcredentials

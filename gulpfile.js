@@ -7,7 +7,9 @@ var concat = require('gulp-concat');
 var clean = require('gulp-clean');
 var header = require('gulp-header');
 var streamify = require('gulp-streamify');
+var qunit = require('gulp-qunit');
 var pkg = require('./package.json');
+var yuidoc = require('gulp-yuidoc');
 
 var banner = ['/**',
     ' * <%= pkg.name %> - <%= pkg.description %>',
@@ -50,13 +52,24 @@ gulp.task('scripts-min', function() {
 
 // JSHint task
 gulp.task('lint', function() {
-    gulp.src('./src/*.js')
+    gulp.src(filePath.src)
         .pipe(jshint())
         .pipe(jshint.reporter('default'));
 });
 
 gulp.task('watch', function() {
-    gulp.watch('./src/*.js', ['lint']);
+    gulp.watch(filePath.src, ['lint']);
+});
+
+gulp.task('test', function() {
+    return gulp.src('./test/*.qunit.html')
+        .pipe(qunit());
+});
+
+gulp.task('docs', function() {
+    gulp.src(filePath.src)
+        .pipe(yuidoc())
+        .pipe(gulp.dest('./docs'));
 });
 
 gulp.task('develop ', ['build', 'watch']);
