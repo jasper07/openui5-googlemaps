@@ -1,9 +1,0 @@
-<?xml version="1.0" ?>
-<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
-
-	<name>layout/HorizontalLayout</name>
-	<author>SAP AG</author>
-	<documentation>A layout that provides support for horizontal alignment of controls</documentation>
-
-	<baseType>sap.ui.layout/HorizontalLayout</baseType>
-</control>
