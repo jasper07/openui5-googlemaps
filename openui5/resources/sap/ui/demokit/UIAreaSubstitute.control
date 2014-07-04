@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>UIAreaSubstitute</name>
+
+	<documentation>Add your documentation for the new UIAreaSubstitute</documentation>
+
+	<baseType>sap.ui.core/Element</baseType>
+	<aggregatingType>sap.ui.demokit/CodeSampleContainer</aggregatingType>
+	<aggregations>
+		<aggregation cardinality="0..n" name="content" type="sap.ui.core/Control">
+			<documentation>Content Area used for the running sample code</documentation>
+		</aggregation>
+	</aggregations>
+</control>

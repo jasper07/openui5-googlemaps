@@ -1,0 +1,10 @@
+/*!
+ * SAP UI development toolkit for HTML5 (SAPUI5/OpenUI5)
+ * (c) Copyright 2009-2014 SAP AG or an SAP affiliate company. 
+ * Licensed under the Apache License, Version 2.0 - see LICENSE.txt.
+ */
+jQuery.sap.declare("sap.m.SwitchRenderer");sap.m.SwitchRenderer={};sap.m.SwitchRenderer.CSS_CLASS="sapMSwt";
+sap.m.SwitchRenderer.render=function(r,s){var S=s.getState(),a=S?s._sOn:s._sOff,t=s.getTooltip_AsString(),T=s.getType(),d=(T==="Default"),D=!s.getEnabled(),n=s.getName(),C=sap.m.SwitchRenderer.CSS_CLASS;if(!s.getVisible()){return}r.write('<div');r.addClass(C+"Cont");if(D){r.addClass(C+"ContDisabled")}r.writeClasses();r.writeStyles();r.writeControlData(s);if(t){r.writeAttributeEscaped("title",t)}r.write(">");r.write("<div");r.addClass(C);r.addClass(S?C+"On":C+"Off");r.addClass(C+T);if(D){r.addClass(C+"Disabled")}r.writeClasses();r.write(">");r.write('<div class="'+C+'Inner">');this._renderText(r,s,d);this._renderHandle(r,s,a,D);r.write("</div>");r.write("</div>");if(n){this._renderCheckbox(r,s,n,a,S,D)}r.write("</div>")};
+sap.m.SwitchRenderer._renderText=function(r,s,d){var C=sap.m.SwitchRenderer.CSS_CLASS;r.write('<div class="'+C+'Text '+C+'TextOn">');r.write("<span>");if(d){r.writeEscaped(s._sOn)}r.write("</span>");r.write("</div>");r.write('<div class="'+C+'Text '+C+'TextOff">');r.write("<span>");if(d){r.writeEscaped(s._sOff)}r.write("</span>");r.write("</div>")};
+sap.m.SwitchRenderer._renderHandle=function(r,s,S,d){var C=sap.m.SwitchRenderer.CSS_CLASS;r.write("<div");r.addClass(C+"Handle");if(sap.ui.Device.browser.webkit&&Number(sap.ui.Device.browser.webkitVersion).toFixed(2)==="537.35"){r.addClass(C+"WebKit537-35")}r.writeClasses();if(!d){r.writeAttribute("tabindex","0")}r.writeAttributeEscaped("data-sap-ui-swt",S);r.write(">");r.write("</div>")};
+sap.m.SwitchRenderer._renderCheckbox=function(r,s,n,S,b,d){r.write('<input type="checkbox"');r.writeAttributeEscaped("name",n);r.writeAttribute("id",s.getId()+"-input");if(b){r.writeAttribute("checked","checked")}if(d){r.writeAttribute("disabled","disabled")}r.writeAttributeEscaped("value",S);r.write(">")};

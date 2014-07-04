@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<simple-type xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+  <name>ShellDesignType</name>
+  <author>SAP AG</author>
+  <documentation>Available shell design types.</documentation>
+  <since>1.12.0</since>
+  
+  <enumeration>
+    <value name="Standard" >
+      <documentation>The standard Shell design (dark).</documentation>
+    </value>
+    <value name="Light">
+        <documentation>
+            A lighter design. Should be used in combination with the Standard header
+            type.
+        </documentation>
+    </value>
+    <value name="Crystal">
+        <documentation>
+            An even lighter design. It borrows most of its properties from the Light 
+            design and just changes a few details like the header colors in order to
+            have a blue design within gold reflection.
+        </documentation>
+    </value>
+  </enumeration>
+  
+</simple-type>

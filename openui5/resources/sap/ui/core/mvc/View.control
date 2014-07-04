@@ -1,0 +1,48 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>mvc/View</name>
+	<documentation>View</documentation>
+
+	<baseType>sap.ui.core/Control</baseType>
+	<properties>
+		<property group="Dimension" name="width" type="CSSSize" defaultValue="100%">
+			<documentation>The width</documentation>
+		</property>
+		<property group="Dimension" name="height" type="CSSSize">
+			<documentation>The height</documentation>
+		</property>
+		<property group="Misc" name="viewName" type="sap.ui.core/string">
+			<documentation>Name of the View</documentation>
+		</property>
+		<property group="Appearance" name="displayBlock" type="sap.ui.core/boolean" defaultValue="false">
+			<documentation>Whether the CSS display should be set to &quot;block&quot;.
+Set this to &quot;true&quot; if the default display &quot;inline-block&quot; causes a vertical scrollbar with Views that are set to 100% height. 
+Do not set this to &quot;true&quot; if you want to display other content in the same HTML parent on either side of the View (setting to &quot;true&quot; may push that other content to the next/previous line).</documentation>
+		</property>
+	</properties>
+	<events>
+		<event name="afterInit">
+			<documentation>Fired when the View has parsed the UI description and instantiated the contained controls (/control tree).</documentation>
+		</event>
+		<event name="beforeExit">
+			<documentation>Fired when the view has received the request to destroy itself, but before it has destroyed anything.</documentation>
+		</event>
+		<event name="afterRendering">
+			<documentation>Fired when the View has been (re-)rendered and its HTML is present in the DOM.</documentation>
+		</event>
+		<event name="beforeRendering">
+			<documentation>Fired before this View is re-rendered. Use to unbind event handlers from HTML elements etc.</documentation>
+		</event>
+	</events>
+	<aggregations>
+		<aggregation cardinality="0..n" type="sap.ui.core/Control" name="content">
+			<documentation>Child Controls of the view</documentation>
+		</aggregation>
+	</aggregations>
+	<methods>
+		<method name="getController" type="object">
+			<documentation>Returns the view's Controller instance (if any)</documentation>
+		</method>
+	</methods>
+</control>

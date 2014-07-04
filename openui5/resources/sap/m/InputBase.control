@@ -1,0 +1,45 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd">
+
+	<name>InputBase</name>
+	<author>SAP AG</author>
+	<documentation>Base control for Input fields.</documentation>
+	<since>1.12.0</since>
+	<baseType>sap.ui.core/Control</baseType>
+	<properties>
+		<property group="Data" name="value" type="sap.ui.core/string" bindable="bindable">
+			<documentation>Input Value</documentation>
+		</property>
+		<property group="Appearance" name="width" type="sap.ui.core/CSSSize">
+			<documentation>Defines the width of the input.</documentation>
+		</property>
+		<property group="Behavior" name="enabled" type="sap.ui.core/boolean" defaultValue="true">
+			<documentation>Boolean property to enable the control (default is true). </documentation>
+		</property>
+		<property group="Appearance" name="visible" type="sap.ui.core/boolean" defaultValue="true">
+			<documentation>Invisible inputs are not rendered</documentation>
+		</property>
+		<property name="valueState" type="sap.ui.core/ValueState" defaultValue="None" group="Data">
+			<documentation>Visualizes warnings or errors related to the text field. Possible values: Warning, Error, Success.</documentation>
+		</property>
+		<property group="Misc" name="name" type="sap.ui.core/string">
+			<documentation>The 'name' property to be used in the HTML code (e.g. for HTML forms that send data to the server via 'submit').</documentation>
+		</property>
+		<property group="Misc" name="placeholder" type="sap.ui.core/string">
+			<documentation>text shown when no value available</documentation>
+		</property>
+		<property group="Misc" name="editable" type="sap.ui.core/boolean" defaultValue="true" since="1.12.0">
+			<documentation>Controls if a user can change the value.</documentation>
+		</property>
+	</properties>
+	<events>
+		<event name="change">
+			<documentation>This event gets fired when the input operation has finished and the value has changed.</documentation>
+			<parameters>
+				<parameter name="newValue" type="sap.ui.core/string">
+					<documentation>The new value of the input</documentation>
+				</parameter>
+			</parameters>
+		</event>
+	</events>
+</control>

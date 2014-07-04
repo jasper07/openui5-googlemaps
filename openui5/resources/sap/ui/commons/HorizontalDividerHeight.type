@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<simple-type xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>HorizontalDividerHeight</name>
+
+	<author></author>
+	<documentation>Enumeration of possible HorizontalDivider height settings.</documentation>
+	<enumeration>
+		<value name="Ruleheight">
+			<documentation>Divider gets no top and bottom margin.</documentation>
+		</value>
+		<value name="Small">
+			<documentation>Divider gets a small top and bottom margin.</documentation>
+		</value>
+		<value name="Medium">
+			<documentation>Divider gets a medium top and bottom margin.</documentation>
+		</value>
+		<value name="Large">
+			<documentation>Divider gets a large top and bottom margin.</documentation>
+		</value>
+	</enumeration>
+
+</simple-type>

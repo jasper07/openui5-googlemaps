@@ -1,0 +1,89 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
+	<name>ExactBrowser</name>
+	<author>SAP AG</author>
+	<documentation>Attribute browse area used within the Exact pattern. The main benefit of this control is the high flexibility when large data amounts shall be displayed 
+	in the form of structured data sets with a high or low interdependency level. From lists - which can be nested according to the defined attributes - the user can choose 
+	entries and thereby trigger the display of further information, depending on the chosen entry/entries (multiple selection supported).</documentation>
+	
+	<baseType>sap.ui.core/Control</baseType>
+	<properties>
+		<property group="Misc" name="title" type="sap.ui.core/string">
+			<documentation>Title text in the list area of the Exact Browser. The title is not shown when the property showTopList is set to false.</documentation>
+		</property>
+		<property group="Misc" name="headerTitle" type="sap.ui.core/string">
+			<documentation>Title text in the header of the Exact Browser.</documentation>
+		</property>
+		<property name="visible" type="sap.ui.core/boolean" defaultValue="true">
+		  <documentation>Invisible ExactBrowsers are not rendered.</documentation>
+		</property>
+		<property name="topListOrder" type="ExactOrder" defaultValue="Select" since="1.7.1">
+		  <documentation>The order how the sublists of the top level list should be displayed.</documentation>
+		</property>
+		<property group="Misc" name="enableListClose" type="sap.ui.core/boolean" defaultValue="false">
+		  <documentation>Enables the close icons of the displayed lists.</documentation>
+		</property>
+		<property group="Appearance" name="listHeight" type="sap.ui.core/int" defaultValue="290">
+			<documentation>The height of the list area in px.</documentation>
+		</property>
+		<property group="Misc" name="showHeader" type="sap.ui.core/boolean" defaultValue="false">
+			<documentation>Whether the header area of the ExactBrowser should be shown.</documentation>
+		</property>
+		<property group="Misc" name="showTopList" type="sap.ui.core/boolean" defaultValue="true" since="1.7.0">
+			<documentation>Whether the top list of the ExactBrowser should be shown. When the property is set to false the 
+			application must ensure to select top level attributes appropriately.</documentation>
+		</property>
+		<property group="Misc" name="enableReset" type="sap.ui.core/boolean" defaultValue="true">
+			<documentation>Whether the reset functionality should be available in the header area.</documentation>
+		</property>
+		<property group="Misc" name="enableSave" type="sap.ui.core/boolean" defaultValue="false" since="1.9.2">
+			<documentation>Whether the save button should be available in the header area.</documentation>
+		</property>
+		<property group="Misc" name="topListWidth" type="sap.ui.core/int" defaultValue="168" since="1.7.0">
+			<documentation>Specifies the width of the top list in pixels. The value must be between 70 and 500.</documentation>
+		</property>
+	</properties>
+	<events>
+		<event name="attributeSelected">
+			<documentation>Event is fired when an attribute is selected or unselected.</documentation>
+			<parameters>
+				<parameter name="attribute" type="sap.ui.ux3/ExactAttribute">
+					<documentation>The attribute which was selected or unselected recently</documentation>
+				</parameter>
+				<parameter name="allAttributes" type="sap.ui.core/object">
+					<documentation>Array of all selected ExactAttributes</documentation>
+				</parameter>
+			</parameters>
+		</event>
+		<event name="save">
+			<documentation>Event is fired when an attribute is selected or unselected.</documentation>
+		</event>
+	</events>
+	<aggregations default="attributes">
+		<aggregation cardinality="0..n" name="attributes" type="sap.ui.ux3/ExactAttribute">
+			<documentation>The attributes which shall be available.</documentation>
+		</aggregation>
+		<aggregation cardinality="0..1" name="optionsMenu" type="sap.ui.commons/Menu">
+			<documentation>Menu with options. The menu can not used when the property showTopList is set to false.</documentation>
+		</aggregation>
+		<aggregation cardinality="0..n" name="controls" type="sap.ui.core/Control" visibility="hidden">
+			<documentation>Controls managed by this ExactBrowser</documentation>
+		</aggregation>
+		<aggregation cardinality="0..1" name="rootAttribute" type="sap.ui.core/Element" visibility="hidden">
+			<documentation>root attribute managed by this ExactBrowser</documentation>
+		</aggregation>
+	</aggregations>
+	<associations>
+		<association cardinality="0..1" name="followUpControl" type="sap.ui.core/Control">
+			<documentation>
+			The successor control of the Exact Browser. The id of this control is used in the ARIA description of the control.
+			Additionally it is possible to directly jump to this control via the F6 key.
+			</documentation>
+		</association>
+	</associations>
+	<methods>
+		<method name="reset" type="sap.ui.core/void">
+			<documentation>Deselects all currently selected attributes and closes all attribute lists.</documentation>
+		</method>
+	</methods>
+</control>

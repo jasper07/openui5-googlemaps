@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>SeparatorItem</name>
+	<author>SAP AG</author>
+	<documentation>An item that provides a visual separation. It borrows all its methods from the classes sap.ui.core.Item, sap.ui.core.Element, 
+	sap.ui.base.EventProvider, and sap.ui.base.Object.</documentation>
+
+	<baseType>sap.ui.core/Item</baseType>
+</control>

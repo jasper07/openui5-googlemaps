@@ -1,0 +1,53 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>UI5EntityCueCard</name>
+
+	<documentation>Displays documentation for a UI5 entity (control or type). 
+	
+	The documentation will be read from a UI5 metamodel file that by default is loaded from the same resource location 
+	where the control or type would be loaded from (using the UI5 resource loading). This control displays all properties,
+	aggregations, associations, events and methods that are described in the metamodel. For each part, it lists the name,
+	type (where applicable) and documentation. If the navigable property is set to true, all types are shown as links 
+	and when pressed, the navigate event is fired. This allows consumers to react on a user click on such a type 
+	(and to e.g. navigate to the underlying type of a property or aggregation)</documentation>
+
+	<baseType>sap.ui.core/Control</baseType>
+	<properties>
+		<!-- 
+		<property group="Misc" type="sap.ui.core/string" name="controlName">
+			<documentation>Qualified name of the control to show the documentation for.</documentation>
+			<deprecation since="1.1.2">As the cue card now supports controls and types, the name &quot;controlName makes no longer sense. Use the property entityName instead. If both properties are used, the newer one wins.</deprecation>
+		</property>
+		-->
+		<property group="Misc" name="collapsible" type="sap.ui.core/boolean" defaultValue="true">
+			<documentation>Whether the cue card can be collapsed at all. When set to true, the value of property expanded determines the current collapsed/expanded state. When false, the control is always expanded.</documentation>
+		</property>
+		<property group="Misc" name="expanded" type="sap.ui.core/boolean" defaultValue="false">
+			<documentation>Whether the cue card is currently expanded.</documentation>
+		</property>
+		<property group="Misc" name="navigable" type="sap.ui.core/boolean" defaultValue="false">
+			<documentation>Whether type information is navigable. Also see event 'navigate'. </documentation>
+		</property>
+		<property group="Misc" name="entityName" type="sap.ui.core/string">
+			<documentation>Qualified name of the control or type to show the documentation for. The name can be specified in the metamodel notation ('sap.ui.core/Control' or in the UI5 resource notation (sap.ui.core.Control).</documentation>
+		</property>
+		<property group="Misc" name="style" type="sap.ui.demokit/UI5EntityCueCardStyle">
+			<documentation>Style of the cue card.</documentation>
+		</property>
+	</properties>
+	<events>
+		<event name="navigate" allowPreventDefault="true">
+			<documentation>Fired when a link for a type is activated (clicked) by the user.
+
+When property &quot;navigable&quot; is set to true, type links are created for the types of properties, aggregations and associations, for the types of event or method parameters and for the return types of methods (if not void). 
+
+The default behavior for this event is to set the entityName property to the clicked entityName. Applications can prevent the default by calling the corresponding method on the event object.</documentation>
+			<parameters>
+				<parameter name="entityName" type="sap.ui.core/string">
+					<documentation>Name of the entity (control or type) that has been clicked. </documentation>
+				</parameter>
+			</parameters>
+		</event>
+	</events>
+</control>

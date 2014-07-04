@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>HexagonButtonGroup</name>
+
+	<documentation>Add your documentation for the new HexagonButtonGroup</documentation>
+
+	<baseType>sap.ui.core/Control</baseType>
+	<properties>
+		<property group="Misc" name="colspan" type="sap.ui.core/int" defaultValue="3">
+		</property>
+	</properties>
+	<aggregations>
+		<aggregation cardinality="0..n" name="buttons" type="sap.ui.demokit/HexagonButton">
+		</aggregation>
+	</aggregations>
+</control>

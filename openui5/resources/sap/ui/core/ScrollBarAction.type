@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<simple-type xmlns="http://www.sap.com/sap.ui.library.xsd">
+	<name>ScrollBarAction</name>
+	<author>SAP AG</author>
+	<documentation>Actions are: Click on track, button, drag of thumb, or mouse wheel click</documentation>
+	<baseType>string</baseType>
+	<enumeration>
+		<value name="Step">
+			<documentation>Single step scrolling caused by clicking an arrow button or arrow key.</documentation>
+		</value>
+		<value name="Page">
+			<documentation>Range scrolling caused by clicking track area or using page up or page down key.</documentation>
+		</value>
+		<value name="MouseWheel">
+			<documentation>Scrolling done by mouse wheel</documentation>
+		</value>
+		<value name="Drag">
+			<documentation>Scrolling done by dragging the scroll bar's paint thumb</documentation>
+		</value>
+	</enumeration>
+</simple-type>

@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
+	<name>Table</name>
+	<since>1.16</since>
+	<author>SAP AG</author>
+	<documentation>The Table control provides a set of sophisticated and convenience functions for responsive table design.
+For mobile devices, the recommended limit of table rows is 100(based on 4 columns) to assure proper performance. To improve initial rendering on large tables, use the &quot;growing&quot; feature. Please refer to the SAPUI5 Developer Guide for more information</documentation>
+	<baseType>sap.m/ListBase</baseType>
+	<properties>
+		<property group="Appearance" name="backgroundDesign" type="sap.m/BackgroundDesign" defaultValue="Translucent">
+			<documentation>This property is used to set the background color of the table. Depending on the theme you can change the state of the background from &quot;Solid&quot; over &quot;Translucent&quot; to &quot;Transparent&quot;.</documentation>
+		</property>
+	</properties>
+	<aggregations>
+		<aggregation cardinality="0..n" name="columns" type="sap.m/Column">
+			<documentation>Columns of the Table</documentation>
+		</aggregation>
+	</aggregations>
+</control>

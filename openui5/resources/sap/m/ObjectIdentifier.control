@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>ObjectIdentifier</name>
+	<since>1.12</since>
+	<documentation>ObjectIdentifier is a display control that enables the user to easily identify a specific object. The object identifier title is the key identifier of the object and additional text and icons can be used to further distinguish it from other objects.</documentation>
+	<baseType>sap.ui.core/Control</baseType>
+	<properties>
+		<property group="Misc" name="title" type="sap.ui.core/string">
+			<documentation>The object title.</documentation>
+		</property>
+		<property group="Misc" type="sap.ui.core/string" name="text">
+			<documentation>The object text.</documentation>
+		</property>
+		<property group="Misc" name="badgeNotes" type="sap.ui.core/boolean">
+			<documentation>Indicates whether or not the notes icon is displayed.</documentation>
+		</property>
+		<property group="Misc" name="badgePeople" type="sap.ui.core/boolean">
+			<documentation>Indicates whether or not the address book icon is displayed.</documentation>
+		</property>
+		<property group="Misc" name="badgeAttachments" type="sap.ui.core/boolean">
+			<documentation>Indicates whether or not the attachments icon is displayed.</documentation>
+		</property>
+	</properties>
+</control>

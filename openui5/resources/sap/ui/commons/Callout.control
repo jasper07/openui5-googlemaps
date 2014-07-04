@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>Callout</name>
+	<author>SAP AG</author>
+
+	<documentation>Callout is a small popup with some useful information and links that is shown when a mouse is hovered over a specific view element.</documentation>
+
+	<baseType>sap.ui.commons/CalloutBase</baseType>
+	<aggregations>
+		<aggregation cardinality="0..n" name="content" type="sap.ui.core/Control">
+			<documentation>Content of the Callout</documentation>
+		</aggregation>
+	</aggregations>
+</control>

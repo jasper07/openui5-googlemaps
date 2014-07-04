@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<simple-type xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>SplitAppMode</name>
+	<author></author>
+	<documentation>The mode of SplitContainer or SplitApp control to show/hide the master area.</documentation>
+	<baseType>sap.ui.core/string</baseType>
+	<enumeration>
+		<value name="ShowHideMode">
+			<documentation>Master will automatically be hidden in portrait mode.</documentation>
+		</value>
+		<value name="StretchCompressMode">
+			<documentation>Master will always be shown but in a compressed version when in portrait mode.</documentation>
+		</value>
+		<value name="PopoverMode">
+			<documentation>Master will be shown inside a Popover when in portrait mode</documentation>
+		</value>
+		<value name="HideMode">
+			<documentation>Master area is hidden initially both in portrait and landscape.  Master area  can be opened by clicking on the top left corner button or swiping right. Swipe is only enabled on mobile devices. Master will keep the open state when changing the orientation of the device.</documentation>
+		</value>
+	</enumeration>
+</simple-type>

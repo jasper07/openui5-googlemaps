@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<library xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+  <name>sap.ui.layout</name>
+  <vendor>SAP</vendor>
+  <copyright>SAP UI development toolkit for HTML5 (SAPUI5)
+
+(c) Copyright 2009-2014 SAP AG. All rights reserved</copyright>
+  <version>1.20.7</version>
+  
+  <documentation>SAPUI5 library with layout controls.</documentation>
+  
+  <dependencies>
+    <dependency>
+      <libraryName>sap.ui.core</libraryName>
+    </dependency>
+  </dependencies>
+
+  <appData>
+    <!-- package name for selenium -->
+    <selenium xmlns="http://www.sap.com/ui5/buildext/selenium" package="com.sap.ui5.selenium.layout" />
+    <!-- excludes for the JSDoc -->
+    <jsdoc xmlns="http://www.sap.com/ui5/buildext/jsdoc" >
+        <exclude name="sap.ui.layout.js." />
+    </jsdoc>
+    <!-- excludes for the JSCoverage -->
+    <jscoverage xmlns="http://www.sap.com/ui5/buildext/jscoverage" >
+        <exclude name="sap.ui.layout.js." />
+    </jscoverage>
+  </appData>
+
+</library>

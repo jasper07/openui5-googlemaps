@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<simple-type xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>layout/Padding</name>
+	<author>d029921</author>
+	<documentation><!-- TODO may we talk about px here? -->
+	Padding, e.g. of a layout cell's content within the cell's borders.
+	Note that all options except "None" include a padding of 2px at the top and
+	bottom, and differ only in the presence of a 4px padding towards the beginning
+	or end of a line, in the current locale's writing direction.
+	</documentation>
+
+	<!--
+		Design decisions (compared to UR/LS):
+		- different naming scheme, less cryptic and RTL compatible
+	  -->	
+  <enumeration>
+	  <value name="None">
+			<documentation>
+			No padding at all.
+	    </documentation>
+	  </value>
+	  <value name="Begin">
+			<documentation>
+			Top and bottom padding of 2px.
+			Padding of 4px towards the beginning of a line, in the current locale's
+			writing direction, but none towards its end.
+	    </documentation>
+	  </value>
+	  <value name="End">
+			<documentation>
+			Top and bottom padding of 2px.
+			Padding of 4px towards the end of a line, in the current locale's
+			writing direction, but none towards its beginning.
+	    </documentation>
+	  </value>
+	  <value name="Both">
+			<documentation>
+			Top and bottom padding of 2px.
+			Padding of 4px towards both the beginning and end of a line.
+	    </documentation>
+	  </value>
+	  <value name="Neither">
+			<documentation>
+			Top and bottom padding of 2px.
+			No padding towards neither the beginning nor end of a line.
+	    </documentation>
+	  </value>
+  </enumeration>
+
+</simple-type>

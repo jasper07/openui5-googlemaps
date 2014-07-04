@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<simple-type xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>SelectionMode</name>
+	<documentation>Selection mode of the table</documentation>
+	<baseType>sap.ui.core/string</baseType>
+	<enumeration>
+		<value name="MultiToggle">
+			<documentation>Select multiple rows at a time (toggle behavior).</documentation>
+		</value>
+		<value name="Multi">
+			<documentation>Select multiple rows at a time.</documentation>
+		</value>
+		<value name="Single">
+			<documentation>Select one row at a time.</documentation>
+		</value>
+		<value name="None">
+			<documentation>No rows can be selected.</documentation>
+		</value>
+	</enumeration>
+
+</simple-type>

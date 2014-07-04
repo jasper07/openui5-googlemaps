@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>OverlayContainer</name>
+	<author>SAP AG</author>
+	<documentation>Is to be embedded into the Overlay control as content container</documentation>
+
+	<baseType>sap.ui.ux3/Overlay</baseType>
+	<aggregations default="content">
+		<aggregation cardinality="0..n" name="content" type="sap.ui.core/Control">
+			<documentation>Aggregation for content</documentation>
+		</aggregation>
+	</aggregations>
+</control>

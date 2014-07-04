@@ -1,0 +1,72 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>Accordion</name>
+	<author>SAP AG</author>
+	<documentation>Contains N sections which act as containers for any library controls</documentation>
+
+	<baseType>sap.ui.core/Control</baseType>
+	<properties>
+		<property group="Misc" name="width" type="sap.ui.core/CSSSize" defaultValue="200px">
+			<documentation>When the width specified is smaller than a section content, a horizontal scroll bar is provided.</documentation>
+		</property>
+		<property group="Misc" name="openedSectionsId" type="sap.ui.core/string">
+			<documentation>Section IDs that shall be opened by default at application start.</documentation>
+		</property>
+	</properties>
+	<events>
+		<event name="sectionOpen">
+			<documentation>Event is triggered when the user opens a section.</documentation>
+			<parameters>
+				<parameter name="openSectionId" type="sap.ui.core/string">
+					<documentation>ID of the opened section</documentation>
+				</parameter>
+				<parameter name="closeSectionIds" type="string[]">
+					<documentation>IDs of the sections that shall be closed. Can be initial in the case of no previously opened section.</documentation>
+				</parameter>
+			</parameters>
+		</event>
+		<event name="sectionClose">
+			<documentation>Event is triggered when the user closes a section.</documentation>
+			<parameters>
+				<parameter name="closeSectionId" type="sap.ui.core/string">
+					<documentation>ID of the closed section</documentation>
+				</parameter>
+			</parameters>
+		</event>
+		<event name="sectionsReorder">
+			<documentation>Triggered when the user changes the position of a section.</documentation>
+			<parameters>
+				<parameter name="movedSectionId" type="sap.ui.core/string">
+					<documentation>ID of the moved section.</documentation>
+				</parameter>
+				<parameter name="newIndex" type="sap.ui.core/int">
+					<documentation>New index of the moved section.</documentation>
+				</parameter>
+			</parameters>
+		</event>
+	</events>
+	<aggregations default="sections">
+		<aggregation cardinality="0..n" name="sections" type="AccordionSection">
+			<documentation>Empty container used to display any library controls.</documentation>			
+		</aggregation>		
+	</aggregations>
+	<methods>
+		<method name="openSection" type="sap.ui.core/void">
+			<documentation>Opens a section.</documentation>
+			<parameters>
+				<parameter name="sectionId" type="sap.ui.core/string">
+					<documentation>Id of the section that shall be opened</documentation>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="closeSection" type="sap.ui.core/void">
+			<documentation>Closes a section, and opens the default one</documentation>
+			<parameters>
+				<parameter name="sectionId" type="sap.ui.core/string">
+					<documentation>Id of the section that shall be closed</documentation>
+				</parameter>
+			</parameters>
+		</method>
+	</methods>
+</control>

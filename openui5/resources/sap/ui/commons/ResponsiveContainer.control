@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd">
+	<name>ResponsiveContainer</name>
+	<author>SAP AG</author>
+	<documentation>Is used to provide a container, which can show different content depending on its current width. It fires an event, whenever a new range is reached. In addition the content of the new range is automatically shown, if it is set.</documentation>
+	
+	<baseType>sap.ui.core/Control</baseType>
+	<properties>
+		<property name="width" type="CSSSize" defaultValue="100%" group="Dimension">
+			<documentation>The width of the responsive container.</documentation>
+		</property>
+		<property name="height" type="CSSSize" defaultValue="100%" group="Dimension">
+			<documentation>The width of the responsive container.</documentation>
+		</property>
+	</properties>
+	<events>
+		<event name="rangeSwitch">
+			<documentation>The event is fired the width of the container reaches a new range.</documentation>
+			<parameters>
+				<parameter name="currentRange" type="sap.ui.commons/ResponsiveContainerRange">
+					<documentation>The current range</documentation>
+				</parameter>
+			</parameters>
+		</event>
+	</events>
+	<associations>
+		<association cardinality="0..1" name="defaultContent" type="sap.ui.core/Control">
+			<documentation>The default content to show, in case the range does not provide content</documentation>
+		</association>
+	</associations>
+	<aggregations>
+		<aggregation cardinality="0..n" name="ranges" type="sap.ui.commons/ResponsiveContainerRange">
+			<documentation>The ranges defined for this container</documentation>
+		</aggregation>
+		<aggregation cardinality="0..1" name="content" type="sap.ui.core/Control" visibility="hidden">
+			<documentation>The currently shown content, either the default content or content of a range</documentation>
+		</aggregation>
+	</aggregations>	
+</control>

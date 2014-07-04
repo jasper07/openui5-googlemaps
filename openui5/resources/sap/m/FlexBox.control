@@ -1,0 +1,52 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>FlexBox</name>
+	<author>SAP AG</author>
+	<documentation>The FlexBox control builds the container for a flexible box layout.
+
+Browser support:
+This control is not supported in Internet Explorer 9!</documentation>
+
+	<baseType>sap.ui.core/Control</baseType>
+	<properties>
+		<property group="Appearance" name="visible" type="sap.ui.core/boolean" defaultValue="true">
+			<documentation>Is the control visible</documentation>
+		</property>
+		<property group="Dimension" name="height" type="sap.ui.core/CSSSize" defaultValue="" since="1.9.1">
+			<documentation>The height of the FlexBox. Note that when a percentage is given, for the height to work as expected, the height of the surrounding container must be defined.</documentation>
+		</property>
+		<property group="Dimension" name="width" type="sap.ui.core/CSSSize" defaultValue="" since="1.9.1">
+			<documentation>The width of the FlexBox. Note that when a percentage is given, for the width to work as expected, the width of the surrounding container must be defined.</documentation>
+		</property>
+		<property group="Appearance" name="displayInline" type="sap.ui.core/boolean" defaultValue="false">
+			<documentation>Determines whether the flexbox is in block or inline mode</documentation>
+		</property>
+		<property group="Appearance" name="direction" type="sap.m/FlexDirection" defaultValue="Row">
+			<documentation>Determines the direction of the layout of child elements</documentation>
+		</property>
+		<property group="Appearance" name="fitContainer" type="sap.ui.core/boolean" defaultValue="false">
+			<documentation>Determines whether the flexbox will be sized to completely fill its container. If the FlexBox is inserted into a Page, the property 'enableScrolling' of the Page needs to be set to 'false' for the FlexBox to fit the entire viewport.</documentation>
+		</property>
+		<property group="Misc" name="renderType" type="sap.m/FlexRendertype" defaultValue="Div">
+			<documentation>Determines whether the layout is rendered as a series of divs or as an unordered list (ul)</documentation>
+		</property>
+<!-- 		<property group="Appearance" name="wrap" type="sap.m/FlexWrap" defaultValue="Nowrap"> -->
+<!-- 			<documentation>Determines the wrap behavior (currently not supported by any browser)</documentation> -->
+<!-- 		</property> -->
+		<property group="Appearance" name="justifyContent" type="sap.m/FlexJustifyContent" defaultValue="Start">
+			<documentation>Determines the layout behavior along the main axis. &quot;SpaceAround&quot; is currently not supported in most non-Webkit browsers.</documentation>
+		</property>
+		<property group="Appearance" name="alignItems" type="sap.m/FlexAlignItems" defaultValue="Stretch">
+			<documentation>Determines the layout behavior of items along the cross-axis. &quot;Baseline&quot; is not supported in Internet Explorer &lt;10.</documentation>
+		</property>
+<!-- 		<property group="Appearance" name="alignContent" type="sap.m/FlexAlignContent" defaultValue="Stretch"> -->
+<!-- 			<documentation>Determines the layout behavior of wrapped lines along the cross-axis (currently not supported by any browser)</documentation> -->
+<!-- 		</property> -->
+	</properties>
+	<aggregations default="items">
+		<aggregation cardinality="0..n" name="items" type="sap.ui.core/Control">
+			<documentation>Flex items within the FlexBox layout</documentation>
+		</aggregation>
+	</aggregations>
+</control>

@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<simple-type xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>enums/AreaDesign</name>
+	<author>SAP AG</author>
+	<documentation>Value set for the background design of areas</documentation>
+	<enumeration>
+		<value name="Plain">
+			<documentation>Shows the area in a plain look</documentation>
+		</value>
+		<value name="Fill">
+			<documentation>Shows the label in a filled look</documentation>
+		</value>
+		<value name="Transparent">
+			<documentation>Shows the background as transparent</documentation>
+		</value>
+	</enumeration>
+
+</simple-type>

@@ -1,0 +1,156 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>Dialog</name>
+	<author>SAP AG</author>
+	<documentation>An interactive window appearing on request displaying information to the user. The API supports features such as popups with fixed sizes, popups with unlimited width, scrolling bars for large windows, and control nesting (for example, a drop-down list can be included in the window).</documentation>
+
+	<baseType>sap.ui.core/Control</baseType>
+	<interfaces>
+		<interface>sap.ui.core/PopupInterface</interface>
+	</interfaces>
+	<properties>
+		<property group="Dimension" name="width" type="sap.ui.core/CSSSize">
+			<documentation>
+			  Outer width of dialog window. When not set and not constrained by one of the width parameters (minWidth/maxWidth), the window size is automatically adapted to the content.
+			</documentation>
+		</property>
+		<property group="Dimension" name="height" type="sap.ui.core/CSSSize">
+			<documentation>
+			  Outer height of dialog window. When not set and not constrained by one of the height parameters (minHeight/maxHeight), the window size is automatically adapted to the content.
+	                </documentation>
+		</property>
+		<property group="Behavior" name="scrollLeft" type="int" defaultValue="0">
+			<documentation>
+			  Scroll position from left to right. "0" means leftmost position.
+			</documentation>
+		</property>
+		<property group="Behavior" name="scrollTop" type="int" defaultValue="0">
+			<documentation>
+			  Scroll position from top to buttom. "0" means topmost position.
+			</documentation>
+		</property>
+		<property group="Misc" name="title" type="sap.ui.core/string" defaultValue="''">
+			<documentation>
+			  Dialog title displayed in the header.
+		        </documentation>
+		</property>
+		<property group="Appearance" name="applyContentPadding" type="boolean" defaultValue="true">
+			<documentation>
+			  Padding is theme-dependent. When set to "false", the content extends to the dialog borders.
+			</documentation>
+		</property>
+		<property group="Behavior" name="showCloseButton" type="boolean" defaultValue="true">
+			<documentation>
+			  Displays a close button in the title bar.
+			</documentation>
+		</property>
+		<property group="Behavior" name="resizable" type="boolean" defaultValue="true">
+			<documentation>
+			  Specifies whether the dialog window can be resized by the user. The dialog frame contains the visual symbol.
+			</documentation>
+		</property>
+		<property group="Dimension" name="minWidth" type="sap.ui.core/CSSSize">
+			<documentation>
+			  Minimum outer width of the dialog window. When set, neither the user nor some layout settings can make the window smaller.
+			</documentation>
+		</property>
+		<property group="Dimension" name="minHeight" type="sap.ui.core/CSSSize">
+			<documentation>
+			  Minimum outer height of the dialog window. When set, neither the user nor some layout settings can make the window smaller.
+			</documentation>
+		</property>
+		<property group="Dimension" name="maxWidth" type="sap.ui.core/CSSSize">
+			<documentation>
+			  Maximum outer width of the dialog window. If set, neither the user nor some layout settings can make the window larger.
+			</documentation>
+		</property>
+		<property group="Dimension" name="maxHeight" type="sap.ui.core/CSSSize">
+			<documentation>
+			  Maximum outer height of the dialog window. If set, neither the user nor some layout settings can make the window larger.
+			</documentation>
+		</property>
+		<property group="Appearance" name="contentBorderDesign" type="sap.ui.commons/enums/BorderDesign" defaultValue="None">
+			<documentation>
+			  Border design is theme-dependent.
+			</documentation>
+		</property>
+		<property group="Misc" name="modal" type="sap.ui.core/boolean" defaultValue="false">
+			<documentation>Specify whether the dialog should be modal, or not. In case of &lt;code&gt;true&lt;/code&gt; the focus is kept inside the dialog.</documentation>
+		</property>
+		<property group="Accessibility" name="accessibleRole" type="sap.ui.core/AccessibleRole" defaultValue="Dialog">
+			<documentation>The ARIA role for the control. E.g. for alert-style Dialogs this can be set to &quot;AlertDialog&quot;.</documentation>
+		</property>
+		<property group="Behavior" name="keepInWindow" type="boolean" defaultValue="false" since="1.9.0">
+			<documentation>Whether Dialog movement should be restricted to the visible area of the window. This only affects drag&amp;drop movements by the user. This doesn't affect modal dialogs -&gt; modal dialogs always stay in the window.</documentation>
+		</property>
+		<property group="Misc" name="autoClose" type="sap.ui.core/boolean" defaultValue="false" since="1.10">
+			<documentation>If this property is set to true the Dialog will close if the Dialog loses its focus</documentation>
+		</property>
+	</properties>
+	<events>
+		<event name="closed">
+			<documentation>
+			Event is fired when the user closes the dialog window. Event parameters provide information about last position and last size.
+			</documentation>
+			<parameters>
+				<!--parameter name="size" type="object">
+					<documentation>
+					
+					</documentation>
+				</parameter>
+				<parameter name="position" type="object">
+					<documentation>
+					
+					</documentation>
+				</parameter-->
+				<parameter name="width" type="sap.ui.core/int">
+					<documentation>the width of the dialog when closed</documentation>
+				</parameter>
+				<parameter name="height" type="sap.ui.core/int">
+					<documentation>the height of the dialog when closed</documentation>
+				</parameter>
+				<parameter name="top" type="sap.ui.core/int">
+					<documentation>the top position of the dialog when closed</documentation>
+				</parameter>
+				<parameter name="left" type="sap.ui.core/int">
+					<documentation>the left position of the dialog when closed</documentation>
+				</parameter>
+			</parameters>
+		</event>
+	</events>
+	<aggregations default="content">
+		<aggregation cardinality="0..n" name="buttons" type="sap.ui.core/Control">
+			<documentation>Aggregating the buttons to display at the bottom of the dialog, for example OK and Cancel. Association defaultButton can be used for one of the defined buttons.</documentation>
+		</aggregation>
+		<aggregation cardinality="0..n" name="content" type="sap.ui.core/Control">
+			<documentation>Aggregating the content of the dialog (one or more controls).
+
+Caveat: when content is added with width given as a percentage, the Dialog itself should have a width set.</documentation>
+		</aggregation>
+	</aggregations>
+	<associations>
+		<association cardinality="0..1" name="defaultButton" type="sap.ui.commons/Button">
+			<documentation>
+			Defines one of the buttons that have been provided via button aggregation to be the default button. This default button is initially selected, if no control is set via the initialFocus association explicitly. The default button is activated when Enter is pressed in the context of the dialog and when the currently selected element does not handle the Enter event itself.</documentation>
+		</association>
+		<association cardinality="0..1" name="initialFocus" type="sap.ui.core/Control">
+			<documentation>
+			Defines the control that shall get the focus when the dialog is opened.</documentation>
+		</association>
+	</associations>
+	<methods>
+		<method name="open" type="sap.ui.core/void">
+			<documentation>Opens the dialog control instance.</documentation>
+		</method>
+		<method name="close" type="sap.ui.core/void">
+			<documentation>Closes the dialog control instance.</documentation>
+		</method>
+		<method name="isOpen" type="sap.ui.core/boolean">
+			<documentation>Returns whether the Dialog is open (this includes opening and closing animations). For more detailed information about the current state check Dialog.getOpenState().</documentation>
+		</method>
+		<method name="getOpenState" type="sap.ui.core/OpenState">
+			<documentation>Returns whether the Dialog is currently open, closed, or transitioning between these states.</documentation>
+		</method>
+	</methods>
+</control>

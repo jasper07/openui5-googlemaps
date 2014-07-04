@@ -1,0 +1,42 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd">
+
+	<name>DataSetItem</name>
+	<documentation>DataSet Item</documentation>
+
+	<baseType>sap.ui.core/Element</baseType>
+	<properties>
+		<property group="Misc" type="sap.ui.core/URI" name="iconSrc">
+			<documentation>image</documentation>
+		</property>
+		<property group="Misc" name="title" type="sap.ui.core/string"
+			defaultValue="Title">
+			<documentation>title</documentation>
+		</property>
+		<property group="Misc" name="checkable" type="sap.ui.core/boolean"
+			defaultValue="true">
+			<documentation>checkable
+			</documentation>
+		</property>
+		<property group="Misc" name="subtitle" type="sap.ui.core/string"
+			defaultValue="Subtitle">
+			<documentation>subtitle</documentation>
+		</property>
+	</properties>
+	<aggregations>
+		<aggregation cardinality="0..1" name="_template" type="sap.ui.core/Control" visibility="hidden">
+			<documentation>The template control currently aggregated by this item and managed by the DataSet</documentation>
+		</aggregation>
+	</aggregations>
+	<events>
+		<event name="selected">
+			<documentation>Event Fired when Datset item is selected.
+			</documentation>
+			<parameters>
+				<parameter name="itemId" type="sap.ui.core/string">
+					<documentation>Id of the selected Datset item</documentation>
+				</parameter>
+			</parameters>
+		</event>
+	</events>
+</control>

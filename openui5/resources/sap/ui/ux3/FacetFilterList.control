@@ -1,0 +1,51 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
+	<name>FacetFilterList</name>
+	<author>SAP AG</author>
+	<documentation>List to be used with the FacetFilter control. The control is not intended to be used stand alone.</documentation>
+	<baseType>sap.ui.core/Control</baseType>
+	<properties>
+		<property group="Misc" name="title" type="sap.ui.core/string">
+			<documentation>The title of this list.</documentation>
+		</property>
+		<property group="Behavior" name="multiSelect" type="boolean" defaultValue="true">
+			<documentation>Specifies whether multiple or single selection is used.</documentation>
+		</property>
+		<property group="Misc" name="displaySecondaryValues" type="boolean" defaultValue="false" since="1.9.0">
+			<documentation>Specifies whether the text values from the additionalText property (see sap.ui.core.ListItems) shall be displayed.</documentation>
+		</property>
+		<property group="Misc" name="selectedKeys" type="sap.ui.core/string[]">
+			<documentation>Array of type string containing the selected keys.</documentation>
+		</property>
+		<property group="Behavior" name="showCounter" type="boolean" defaultValue="true">
+			<documentation>Specifies whether the counter for all entries is shown.</documentation>
+		</property>
+	</properties>
+	<events>
+		<event name="select">
+			<documentation>On Select event.</documentation>
+			<parameters>
+				<parameter name="id" type="sap.ui.core/string">
+					<documentation>Id of the FacetFilterList taht fires the event.</documentation>
+				</parameter>
+				<parameter name="selectedIndices" type="sap.ui.core/int[]">
+					<documentation>Array of selected Indices.</documentation>
+				</parameter>
+				<parameter name="selectedItems" type="sap.ui.core/ListItem[]">
+					<documentation>Array of selected Items.</documentation>
+				</parameter>
+				<parameter name="all" type="boolean">
+					<documentation>If it is true, then Item All is selected. That means all items in the list are selected - no filter is set.</documentation>
+				</parameter>
+			</parameters>
+		</event>
+	</events>
+	<aggregations>
+		<aggregation cardinality="0..n" name="items" type="sap.ui.core/ListItem">
+			<documentation>The filter values that are presented as a list.</documentation>
+		</aggregation>
+		<aggregation cardinality="0..n" name="controls" type="sap.ui.commons/ListBox" visibility="hidden" >
+			<documentation>ListBoxes that are managed by this FacetFilterList</documentation>
+		</aggregation>
+	</aggregations>
+</control>

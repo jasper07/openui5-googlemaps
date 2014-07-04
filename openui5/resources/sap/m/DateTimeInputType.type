@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<simple-type xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>DateTimeInputType</name>
+	<author>SAP AG</author>
+	<documentation>A subset of DateTimeInput types that fit to a simple API returning one string.</documentation>
+	<baseType>sap.ui.core/string</baseType>
+	<enumeration>
+		<value name="Date">
+			<documentation>An input control for specifying a date value. The user can select a month, day of the month, and year.</documentation>
+		</value>
+		<value name="DateTime">
+			<documentation>An input control for specifying a date and time value. The user can select a month, day of the month, year, and time of day.</documentation>
+		</value>
+		<value name="Time">
+			<documentation>An input control for specifying a time value. The user can select the hour, minute, and optionally AM or PM.</documentation>
+		</value>
+	</enumeration>
+</simple-type>

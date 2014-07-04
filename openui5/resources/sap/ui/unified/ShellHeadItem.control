@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
+	<name>ShellHeadItem</name>
+	<author>SAP AG</author>
+	<since>1.15.1</since>
+	<documentation>Header Action item of the Shell.</documentation>
+	<baseType>sap.ui.core/Element</baseType>
+	<properties>
+		<property name="startsSection" type="boolean" defaultValue="false" group="Appearance">
+			<documentation>If set to true, a divider is displayed before the item.</documentation>
+			<deprecation since="1.18">Dividers are not supported anymore.</deprecation>
+		</property>	
+		<property name="selected" type="boolean" defaultValue="false" group="Appearance">
+			<documentation>If set to true, the item gets a special design.</documentation>
+		</property>	
+		<property name="showMarker" type="boolean" defaultValue="false" group="Appearance">
+			<documentation>If set to true, a theme dependent marker is shown on the item.</documentation>
+			<deprecation since="1.18">Markers should not be used anymore.</deprecation>
+		</property>	
+		<property group="Appearance" name="icon" type="sap.ui.core/URI">
+			<documentation>The icon of the item, either defined in the sap.ui.core.IconPool or an URI to a custom image. An icon must be set.</documentation>
+		</property>
+		<property group="Appearance" name="visible" type="boolean" defaultValue="true" since="1.18">
+			<documentation>Invisible items are not shown on the UI.</documentation>
+		</property>
+	</properties>
+	<events>
+		<event name="press">
+			<documentation>Event is fired when the user presses the item.</documentation>
+		</event>
+	</events>
+</control>

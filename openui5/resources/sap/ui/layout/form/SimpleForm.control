@@ -1,0 +1,97 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>form/SimpleForm</name>
+	<documentation>Use the SimpleForm to create a  form based on title, label and fields that are stacked in the content aggregation. Add Title to start a new FormContainer(Group). Add Label to start a new row in the container. Add Input/Display controls as needed. Use LayoutData to influence the layout for special cases in the Input/Display controls.</documentation>
+	<since>1.16.0</since>
+	<baseType>sap.ui.core/Control</baseType>
+	<properties>
+		<property group="Appearance" name="maxContainerCols" type="sap.ui.core/int" defaultValue="2">
+			<documentation>The maximum amount of inner FormContainers per row that is used before a new row is started.
+(If a ResponsiveGridLayout is used as layout this property is not used. Please use the properties ColumnsL and ColumnsM in this case.)</documentation>
+		</property>
+		<property group="Appearance" name="minWidth" type="sap.ui.core/int" defaultValue="-1">
+			<documentation>The overall minimal width in pixels that is used for the SimpleForm. If the available width is below the given minWidth the SimpleForm will create a new row for the next FormContainer.
+-1 value is default meaning that inner FormContainers will be stacked until maxCols is reached, irrespective if a maxWidth is reached or the available parents width is reached.
+(only used if ResponsiveLayout is used as Layout)</documentation>
+		</property>
+		<property group="Misc" name="editable" type="sap.ui.core/boolean">
+			<documentation>Applies a device and theme specific line-height to the form elements if the form has editable content.
+In this case all (not only the editable) rows of the form will get the line height.</documentation>
+		</property>
+		<property group="Misc" name="labelMinWidth" type="sap.ui.core/int" defaultValue="192">
+			<documentation>Specifies the min-width in pixels of the label in all form containers. (only used if ResponsiveLaout is used as Layout)</documentation>
+		</property>
+		<property group="Misc" type="SimpleFormLayout" name="layout" defaultValue="ResponsiveLayout">
+			<documentation>The FormLayout that is used to render the SimpleForm</documentation>
+		</property>
+		<property group="Misc" name="labelSpanL" type="sap.ui.core/int" defaultValue="4" since="1.16.3">
+			<documentation>Default span for labels in large size.
+This span is only used if more than 1 container is in one line, if only 1 container is in the line the labelSpanM value is used.
+(This property is only used if a ResponsiveGridLayout is used as Layout.)</documentation>
+		</property>
+		<property group="Misc" name="labelSpanM" type="sap.ui.core/int" defaultValue="2" since="1.16.3">
+			<documentation>Default span for labels in medium size.
+This property is used for full size containers. If more than one Container is in one line, labelSpanL is used.
+(This property is only used if a ResponsiveGridLayout is used as Layout.)</documentation>
+		</property>
+		<property group="Misc" name="labelSpanS" type="sap.ui.core/int" defaultValue="12" since="1.16.3">
+			<documentation>Default span for labels in small size.
+(This property is only used if a ResponsiveGridLayout is used as Layout.)</documentation>
+		</property>
+		<property group="Misc" name="emptySpanL" type="sap.ui.core/int" defaultValue="0" since="1.16.3">
+			<documentation>Number of grid cells that are empty at the end of each line on large size.
+(This property is only used if a ResponsiveGridLayout is used as Layout.)</documentation>
+		</property>
+		<property group="Misc" name="emptySpanM" type="sap.ui.core/int" defaultValue="0" since="1.16.3">
+			<documentation>Number of grid cells that are empty at the end of each line on medium size.
+(This property is only used if a ResponsiveGridLayout is used as Layout.)</documentation>
+		</property>
+		<property group="Misc" name="emptySpanS" type="sap.ui.core/int" defaultValue="0" since="1.16.3">
+			<documentation>Number of grid cells that are empty at the end of each line on small size.
+(This property is only used if a ResponsiveGridLayout is used as Layout.)</documentation>
+		</property>
+		<property group="Misc" name="columnsL" type="sap.ui.core/int" defaultValue="2" since="1.16.3">
+			<documentation>Form columns for large size.
+			The number of columns for large size must not be smaller that the number of columns for medium size.
+(This property is only used if a ResponsiveGridLayout is used as Layout.)</documentation>
+		</property>
+		<property group="Misc" name="columnsM" type="sap.ui.core/int" defaultValue="1" since="1.16.3">
+			<documentation>Form columns for medium size.
+(This property is only used if a ResponsiveGridLayout is used as Layout.)</documentation>
+		</property>
+		<property group="Misc" name="breakpointL" type="sap.ui.core/int" defaultValue="1024" since="1.16.3">
+			<documentation>Breakpoint between Medium size and Large size.
+(This property is only used if a ResponsiveGridLayout is used as Layout.)</documentation>
+		</property>
+		<property group="Misc" name="breakpointM" type="sap.ui.core/int" defaultValue="600" since="1.16.3">
+			<documentation>Breakpoint between Small size and Medium size.
+(This property is only used if a ResponsiveGridLayout is used as Layout.)</documentation>
+		</property>
+	</properties>
+	<aggregations default="content">
+		<aggregation cardinality="0..n" name="content" type="sap.ui.core/Element">
+			<documentation>The form content.
+Add a Title control to start a new group (Container).
+Add a Label control to start a new row (Element).
+Add controls as Input fields, text fields or other as needed.
+Use LayoutData to influence the layout for special cases in the single controls.
+For example, if a ResponsiveLayout is used as layout the form content is weighted using weight 3 for the labels and weight 5 for the fields part. Per default the label column is 192 pixels wide.
+If your Input controls should influence their width you can add sap.ui.layout.ResponsiveFlowLayoutData to them via setLayoutData method.
+Ensure that the sum of the weights in the ResponsiveFlowLayoutData does not use more than 5 as this is the total width of Input control part of each form row.
+Example for a row where the Input takes 4 and the Text takes 1 weight:
+  new sap.ui.commons.Label({text:&quot;Label&quot;});
+  new sap.ui.commons.TextField({value:&quot;Weight 4&quot;,
+        layoutData:new sap.ui.layout.ResponsiveFlowLayoutData({weight:4})}),
+  new sap.ui.commons.TextView({text:&quot;Weight 1&quot;,
+        layoutData: new sap.ui.layout.ResponsiveFlowLayoutData({weight:1})}),</documentation>
+		</aggregation>
+		<aggregation cardinality="0..1" name="form" type="sap.ui.layout/form/Form" visibility="hidden">
+			<documentation>Hidden, for internal use only.</documentation>
+		</aggregation>
+		<aggregation cardinality="0..1" name="title" type="sap.ui.core/Title" since="1.16.3">
+			<documentation>Title element of the SimpleForm. Can either be a Label object, or a simple string.</documentation>
+			<altType type="sap.ui.core/string" />
+		</aggregation>
+	</aggregations>
+</control>

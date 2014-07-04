@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<simple-type xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>ExactOrder</name>
+	<author>SAP AG</author>
+	<documentation>Defines the order of the sub lists of a list in the ExactBrowser.</documentation>
+	<baseType>sap.ui.core/string</baseType>
+	<since>1.7.1</since>
+	
+	<enumeration>
+		<value name="Select">
+			<documentation>The order of the sub lists is defined by the selection order of the user.</documentation>
+		</value>
+		<value name="Fixed">
+			<documentation>The order of the sub lists is defined by order of the defined sub attributes.</documentation>
+		</value>
+	</enumeration>
+
+</simple-type>

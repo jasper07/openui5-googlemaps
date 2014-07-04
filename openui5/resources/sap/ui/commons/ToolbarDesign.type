@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<simple-type xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>ToolbarDesign</name>
+
+	<author></author>
+	<documentation>Determines the visual design of a Toolbar.</documentation>
+	<enumeration>
+		<value name="Standard">
+		<documentation>The toolbar elements such as buttons for example have their normal visual design, and the toolbar appears solid. 
+		The feature might be not supported by all themes.</documentation>
+		</value>
+		<value name="Transparent">
+		<documentation>The controls included in the toolbar have a normal visual design where the toolbar appears transparent.
+		The feature might be not supported by all themes.
+		</documentation>
+		</value>
+		<value name="Flat">
+		<documentation>The included controls have a very light appearance. The feature might be not supported by all themes.</documentation>
+		</value>
+	</enumeration>
+
+</simple-type>

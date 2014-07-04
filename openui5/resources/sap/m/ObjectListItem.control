@@ -1,0 +1,59 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>ObjectListItem</name>
+
+	<since>1.12</since>
+	<documentation>ObjectListItem is a display control that provides summary information about an object as an item in a list. The object list item title is the key identifier of the object. Additional text and icons can be used to further distinguish it from other objects. Attributes and statuses can be used to provide additional meaning about the object to the user.</documentation>
+	
+
+	<baseType>sap.m/ListItemBase</baseType> 
+	<properties>
+		<property group="Misc" name="title" type="sap.ui.core/string">
+			<documentation>Object list item title</documentation>
+		</property>
+		<property group="Misc" name="number" type="sap.ui.core/string">
+			<documentation>Object list item number</documentation>
+		</property>
+		<property group="Misc" name="numberUnit" type="sap.ui.core/string">
+			<documentation>The number units qualifier of the object list item</documentation>
+		</property>
+		<property group="Misc" name="intro" type="sap.ui.core/string">
+			<documentation>Introductory text for the object list item.</documentation>
+		</property>
+		<property group="Misc" name="icon" type="sap.ui.core/URI">
+			<documentation>Object list item icon displayed to the left of the title.</documentation>
+		</property>
+		<property group="Misc" name="activeIcon" type="sap.ui.core/URI">
+			<documentation>Icon displayed when the object list item is active.</documentation>
+		</property>
+		<property group="Misc" name="iconDensityAware" type="sap.ui.core/boolean" defaultValue="true">
+			<documentation>By default, this is set to true but then one or more requests are sent trying to get the density perfect version of image if this version of image doesn't exist on the server.
+
+If bandwidth is the key for the application, set this value to false.</documentation>
+		</property>
+		<property group="Misc" name="markFavorite" type="sap.ui.core/boolean" since="1.16.0">
+			<documentation>Set the favorite state for the object list item</documentation>
+		</property>
+		<property group="Misc" name="markFlagged" type="sap.ui.core/boolean" since="1.16.0">
+			<documentation>Set the flagged state for the object list item</documentation>
+		</property>
+		<property group="Misc" name="showMarkers" type="sap.ui.core/boolean" since="1.16.0">
+			<documentation>Set to true if the object list item can be marked with icons such as favorite and flag.</documentation>
+		</property>
+		<property group="Misc" name="numberState" type="sap.ui.core/ValueState" defaultValue="None" since="1.16.0">
+			<documentation>Object list item number and numberUnit value state.</documentation>
+		</property>
+	</properties>
+	<aggregations default="attributes">
+		<aggregation cardinality="0..n" name="attributes" type="ObjectAttribute">
+			<documentation>List of attributes displayed below the title to the left of the status fields.</documentation>
+		</aggregation>
+		<aggregation cardinality="0..1" name="firstStatus" type="ObjectStatus">
+			<documentation>First status text field shown on the right side of the attributes.</documentation>
+		</aggregation>
+		<aggregation cardinality="0..1" name="secondStatus" type="ObjectStatus">
+			<documentation>Second status text field shown on the right side of the attributes.</documentation>
+		</aggregation>
+	</aggregations>
+</control>

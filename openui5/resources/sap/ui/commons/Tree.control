@@ -1,0 +1,57 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>Tree</name>
+	<documentation>Simple tree to display item in a hierarchical way</documentation>
+
+	<baseType>sap.ui.core/Control</baseType>
+	<properties>
+		<property group="Misc" name="title" type="sap.ui.core/string">
+			<documentation>Tree title</documentation>
+		</property>
+		<property group="Misc" name="width" type="sap.ui.core/CSSSize" defaultValue="auto">
+			<documentation>Tree width</documentation>
+		</property>
+		<property group="Misc" name="height" type="sap.ui.core/CSSSize" defaultValue="auto">
+			<documentation>Tree height</documentation>
+		</property>
+		<property group="Misc" type="sap.ui.core/boolean" name="showHeader" defaultValue="true">
+			<documentation>Tree Header is display. If false, the tree will be in a transparent mode</documentation>
+		</property>
+		<property group="Misc" name="showHeaderIcons" type="sap.ui.core/boolean" defaultValue="true">
+			<documentation>Show Header icons (e.g. Expand/Collapse all). Only consider if showHeader is true</documentation>
+		</property>
+		<property group="Misc" name="showHorizontalScrollbar" type="sap.ui.core/boolean" defaultValue="false">
+			<documentation>Display horizontal scrollbar. If false, the overflow content will be hidden</documentation>
+		</property>
+		<property group="Misc" name="minWidth" type="sap.ui.core/CSSSize">
+			<documentation>Minimal width for the Tree. Can be useful when, for example, the width is specified in percentage, to avoid the tree to become too narrow when container is resize</documentation>
+		</property>
+	</properties>
+	<events>
+		<event name="select" allowPreventDefault="true">
+			<documentation>Event is fired when a tree node is selected.</documentation>
+			<parameters>
+				<parameter name="node" type="sap.ui.commons/TreeNode">
+					<documentation>The node which has been selected.</documentation>
+				</parameter>
+				<parameter name="nodeContext" type="sap.ui.core/object">
+					<documentation>The binding context of the selected node.</documentation>
+				</parameter>
+			</parameters>
+		</event>
+	</events>
+	<aggregations default="nodes">
+		<aggregation cardinality="0..n" type="TreeNode" name="nodes" bindable="bindable">
+			<documentation>First level nodes</documentation>
+		</aggregation>
+	</aggregations>
+	<methods>
+		<method name="expandAll" type="sap.ui.core/void">
+			<documentation>Expands all nodes in the tree</documentation>
+		</method>
+		<method name="collapseAll" type="sap.ui.core/void">
+			<documentation>Collapses all nodes in the tree</documentation>
+		</method>
+	</methods>
+</control>

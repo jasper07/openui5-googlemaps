@@ -1,0 +1,47 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>Element</name>
+
+	<documentation>Base class for elements.</documentation>
+
+	<abstract/>
+	
+	<properties>
+		<property name="id" type="sap.ui.core/ID" >
+			<documentation>The unique identifier within a page, either configured or automatically generated.</documentation>
+		</property>
+	</properties>
+	
+	<aggregations>
+		<aggregation name="tooltip" type="sap.ui.core/TooltipBase" cardinality="0..1" >
+			<documentation>Can either be a TooltipBase object, or a simple string.</documentation>
+			<altType type="sap.ui.core/string" />
+		</aggregation>
+		<aggregation cardinality="0..n" name="customData" type="sap.ui.core/CustomData">
+			<documentation>Custom Data (data structure like a map containing key value pairs).</documentation>
+		</aggregation>
+		<aggregation cardinality="0..1" name="layoutData" type="sap.ui.core/LayoutData">
+			<documentation>LayoutData defining the layout constraints for this control when it is used inside a Layout.</documentation>
+		</aggregation>
+		<aggregation cardinality="0..n" name="dependents" type="sap.ui.core/Control" since="1.19">
+			<documentation>Dependents are not rendered, but connected to databinding and lifecycle management</documentation>
+		</aggregation>
+	</aggregations>
+	
+	<methods>
+		<method name="getParent" type="sap.ui.core/Element">
+			<documentation>Returns the parent control.</documentation>
+		</method>
+	</methods>
+	
+	<targetConfigurations>
+		<targetConfiguration name="JavaScriptAPI">
+			<property name="sap.ui.generate">false</property>
+		</targetConfiguration>
+		<targetConfiguration name="JavaAPI">
+			<property name="sap.ui.generate">false</property>
+		</targetConfiguration>
+	</targetConfigurations>
+	
+</control>

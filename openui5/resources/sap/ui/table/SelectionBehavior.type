@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<simple-type xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>SelectionBehavior</name>
+	<documentation>Selection behavior of the table</documentation>
+	<baseType>sap.ui.core/string</baseType>
+	<enumeration>
+		<value name="Row">
+			<documentation>Rows can be selected on the complete row.</documentation>
+		</value>
+		<value name="RowSelector">
+			<documentation>Rows can only be selected on the row selector.</documentation>
+		</value>
+		<value name="RowOnly">
+			<documentation>Rows can only be selected on the row (and the selector is hidden).</documentation>
+		</value>
+	</enumeration>
+
+</simple-type>

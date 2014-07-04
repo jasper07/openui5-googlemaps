@@ -1,0 +1,71 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd">
+
+	<name>CheckBox</name>
+	<author>SAP AG</author>
+	<documentation>
+        Provides a box which can be flagged, the box has a label. A check box can either stand alone, or in a group with other check boxes. As an option, the boxes can initially be set to status 'Not Editable'.</documentation>
+	<baseType>sap.ui.core/Control</baseType>
+	<properties>
+		<property name="checked" type="boolean" defaultValue="false" group="Data" bindable="bindable">
+			<documentation>Contains the state of the control whether it is flagged with a check mark, or not</documentation>
+		</property>
+		<property name="text" type="string" group="Appearance">
+			<documentation>Defines the text displayed next to the check box</documentation>
+		</property>
+		<property group="Misc" name="visible" type="boolean" defaultValue="true">
+			<documentation>Invisible controls are not rendered</documentation>
+		</property>
+		<property group="Behavior" name="enabled" type="boolean" defaultValue="true">
+			<documentation>Using this property, the control could be disabled, if required.</documentation>
+		</property>
+		<property group="Behavior" name="editable" type="boolean" defaultValue="true">
+			<documentation>Specifies whether the user shall be allowed to flag the check box</documentation>
+		</property>
+		<property group="Data" name="valueState" type="sap.ui.core/ValueState" defaultValue="None">
+			<documentation>Accepts the core enumeration ValueState.type that supports 'None', 'Error', 'Warning' and 'Success'.</documentation>
+		</property>
+		<property group="Dimension" name="width" type="sap.ui.core/CSSSize">
+			<documentation>The width can be set to an absolute value. If no value is set, the control width results from the text length.</documentation>
+		</property>
+		<property group="Appearance" name="textDirection" type="sap.ui.core/TextDirection" defaultValue="Inherit">
+			<documentation>The value can be set to LTR or RTL. Otherwise, the control inherits the text direction from its parent control.</documentation>
+		</property>
+		<property group="Misc" name="name" type="sap.ui.core/string">
+			<documentation>The 'name' property to be used in the HTML code, for example for HTML forms that send data to the server via submit.</documentation>
+		</property>
+	</properties>
+
+	<events>
+		<event name="change">
+			<documentation>
+			  Event is triggered when the control status is changed by the user by flagging or unflagging the checkbox.
+			</documentation>
+			<parameters>
+				<parameter name="checked" type="boolean">
+					<documentation>
+					Checks whether the box is flagged or not flagged.
+					</documentation>
+				</parameter>
+			</parameters>
+		</event>
+	</events>
+	<aggregations>
+	</aggregations>
+	<associations>
+		<association cardinality="0..n" name="ariaDescribedBy" type="sap.ui.core/Control">
+			<documentation>Association to controls / ids which describe this control (see WAI-ARIA attribute aria-describedby).</documentation>
+		</association>
+		<association cardinality="0..n" name="ariaLabelledBy" type="sap.ui.core/Control">
+			<documentation>Association to controls / ids which label this control (see WAI-ARIA attribute aria-labelledby).</documentation>
+		</association>
+	</associations>
+	<methods>
+		<method name="toggle" type="CheckBox">
+			<documentation>
+			  Inverts the current value of the control.
+			</documentation>
+		</method>
+	</methods>
+
+</control>

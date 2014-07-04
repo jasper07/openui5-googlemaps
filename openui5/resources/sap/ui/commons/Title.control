@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>Title</name>
+	<author>SAP AG</author>
+	<documentation>Represents a title element that can be used for aggregation with other controls</documentation>
+
+	<baseType>sap.ui.core/Title</baseType>
+	<deprecation since="1.16.0">moved to sap.ui.core library. Please use this one.</deprecation>
+</control>

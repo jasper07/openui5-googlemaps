@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<simple-type xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>SwipeDirection</name>
+	<author>SAP AG</author>
+	<documentation>Directions for swipe event.</documentation>
+	<baseType>sap.ui.core/string</baseType>
+	<enumeration>
+		<value name="LeftToRight">
+			<documentation>Swipe from left to right</documentation>
+		</value>
+		<value name="RightToLeft">
+			<documentation>Swipe from right to left.</documentation>
+		</value>
+		<value name="Both">
+			<documentation>Both directions (left to right or right to left)</documentation>
+		</value>
+	</enumeration>
+</simple-type>

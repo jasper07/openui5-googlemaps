@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd">
+
+  <name>ListItem</name>
+  <author>SAP AG</author>
+  <documentation>An item that is used in lists or list-similar controls such as DropdownBox, for example.
+  The element foresees the usage of additional texts displayed in a second column.
+  </documentation>
+
+  <baseType>sap.ui.core/Item</baseType>
+  <properties>
+  	<property group="Appearance" name="icon" type="string">
+  		<documentation>The icon belonging to this list item instance.
+This can be an URI to an image or an icon font URI.</documentation>
+  	</property>
+  	<!--property group="Data" name="key" type="string"></property-->
+  	<property group="Data" name="additionalText" type="string">
+  		<documentation>Some additional text of type string, optionally to be displayed along with this item.
+		</documentation>
+  	</property>
+  </properties>
+  <aggregations>
+  	<!--aggregation cardinality="0..n" name="items" type="sap.ui.core/ListItem">
+  		<documentation>Aggregation to provide child items to this item. 
+		If there are children added, this item can be considered a group item.
+		@see sap.ui.core.ListItem#isGroupItem()</documentation>
+  	</aggregation-->
+  </aggregations>
+  <methods>
+  	<!--method name="isGroupItem" type="boolean">
+  		<documentation>Indicate whether this item is used for grouping (then this item is a node), or is an item itself (then this item is a leaf).
+		@see sap.ui.core.ListItem#addItem()</documentation>
+  	</method-->
+  </methods>
+
+</control>

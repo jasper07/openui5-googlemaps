@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
+	<name>ActionSelect</name>
+	<since>1.16</since>
+	<author>SAP AG</author>
+	<documentation>The ActionSelect control provides a list of predefined items that allows end users to choose options and additionally trigger some actions.</documentation>
+	<baseType>Select</baseType>
+	<associations>
+		<association cardinality="0..n" name="buttons" type="sap.m/Button">
+			<documentation>Buttons to be added to the ActionSelect content.</documentation>
+		</association>
+	</associations>
+</control>

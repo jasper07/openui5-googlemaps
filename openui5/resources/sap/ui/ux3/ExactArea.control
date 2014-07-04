@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>ExactArea</name>
+	<author>SAP AG</author>
+
+	<documentation>Consists of two sections: A tool bar and a content area where arbitrary controls can be added. 
+	The ExactArea is intended to be used for the Exact design approach but alternatively also in a stand alone version.</documentation>
+	<developmentState state="experimental" since="1.6">API is not yet finished and might change completely</developmentState>
+
+	<baseType>sap.ui.core/Control</baseType>
+	<properties>
+		<property group="Appearance" name="toolbarVisible" type="sap.ui.core/boolean" defaultValue="true">
+			<documentation>Specifies whether the tool bar shall be visible</documentation>
+		</property>
+		<property name="visible" type="sap.ui.core/boolean" defaultValue="true" group="Appearance">
+			<documentation>Specifies whether the control shall be visible</documentation>
+    	</property>
+	</properties>
+	<aggregations default="content">
+		<aggregation cardinality="0..n" name="content" type="sap.ui.core/Control">
+			<documentation>Arbitrary child controls of the content area</documentation>
+		</aggregation>
+		<aggregation cardinality="0..n" name="toolbarItems" type="sap.ui.commons/ToolbarItem">
+			<documentation>Tool bar items which shall be shown in the tool bar.</documentation>
+		</aggregation>
+	</aggregations>
+</control>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<simple-type xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>SwitchType</name>
+	<author>SAP AG</author>
+	<documentation>Enumaration for different switch types.</documentation>
+	<baseType>sap.ui.core/string</baseType>
+	<enumeration>
+		<value name="Default">
+			<documentation>Will show &quot;ON&quot; and &quot;OFF&quot; translated to the current language or the custom text if provided</documentation>
+		</value>
+		<value name="AcceptReject">
+			<documentation>Switch with accept and reject icons</documentation>
+		</value>
+	</enumeration>
+</simple-type>

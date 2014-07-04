@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>Area</name>
+
+	<author>SAP AG</author>
+	<documentation>Used for defining areas in an image map. At runtime, the user can trigger an action, or start a URL, from the single image areas.</documentation>
+
+	<baseType>sap.ui.core/Element</baseType>
+	<properties>
+		<property group="Misc" name="shape" type="sap.ui.core/string">
+			<documentation>The value is a string and can be 'rect' for rectangle, 'poly' for poligon, 'circle', or default.</documentation>
+		</property>
+		<property group="Misc" name="coords" type="sap.ui.core/string">
+			<documentation>Coordinates of the area</documentation>
+		</property>
+		<property group="Misc" name="href" type="sap.ui.core/URI">
+			<documentation>Hyper link that is executed when the area is clicked</documentation>
+		</property>
+		<property group="Misc" name="alt" type="sap.ui.core/string">
+			<documentation>Alternative text that is displayed in the case the image is not available</documentation>
+		</property>
+	</properties>
+</control>

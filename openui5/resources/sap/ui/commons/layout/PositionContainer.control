@@ -1,0 +1,48 @@
+<?xml version="1.0" ?>
+<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>layout/PositionContainer</name>
+	<author>SAP AG</author>
+	<documentation>Is used to specify the position of a control in the AbsoluteLayout</documentation>
+
+	<baseType>sap.ui.core/Element</baseType>
+	<properties>
+		<property name="top" group="Dimension" type="sap.ui.core/CSSSize">
+			<documentation>Defines the distance to the top of the layout (as specified in HTML)</documentation>
+		</property>
+		<property name="bottom" group="Dimension" type="sap.ui.core/CSSSize">
+			<documentation>Defines the distance to the bottom of the layout (as specified in HTML)</documentation>
+		</property>
+		<property name="left" group="Dimension" type="sap.ui.core/CSSSize">
+			<documentation>Defines the distance to the left of the layout (as specified in HTML)</documentation>
+		</property>
+		<property name="right" group="Dimension" type="sap.ui.core/CSSSize">
+			<documentation>Defines the distance to the right of the layout (as specified in HTML)</documentation>
+		</property>	
+		<property name="centerHorizontally" group="Dimension" type="sap.ui.core/boolean" defaultValue="false">
+			<documentation>Indicates whether this container shall be centered horizontally within the AbsoluteLayout area.
+			The values of the attributes left and right are ignored when this feature is activated.</documentation>
+		</property>		
+		<property name="centerVertically" group="Dimension" type="sap.ui.core/boolean" defaultValue="false">
+			<documentation>Indicates whether this container should be centered vertically within the AbsoluteLayout area.
+			The values of the attributes top and bottom are ignored when this feature is activated.</documentation>
+		</property>	
+	</properties>
+	<aggregations default="control">
+		<aggregation cardinality="0..1" name="control" type="sap.ui.core/Control">
+			<documentation>Child control of the position container</documentation>
+		</aggregation>
+	</aggregations>
+	<methods>
+		<method name="updatePosition" type="sap.ui.core/void">
+			<documentation>Updates the position properties of the container according to the given position in JSON style.</documentation>
+			<parameters>
+				<parameter name="oPos" type="sap.ui.core/object">
+					<documentation>JSON-like object which defines the position of the child control in the absolute layout. The object is expected 
+					to have one or more out of the attributes top, bottom, left, right (each with a value of type sap.ui.core.CSSSize). If no object 
+					is given, nothing is updated.</documentation>
+				</parameter>
+			</parameters>
+		</method>
+	</methods>
+</control>

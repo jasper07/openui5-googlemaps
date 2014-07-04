@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<simple-type xmlns="http://www.sap.com/sap.ui.library.xsd" >
+
+	<name>CSSSize</name>
+	<author>SAP AG</author>
+	<documentation>A string type that represents CSS size values. Allowed values are CSS sizes like &quot;1px&quot; or &quot;2em&quot; or &quot;50%&quot;, but also the special values &quot;auto&quot; and &quot;inherit&quot;. 
+Note that CSS does not allow all of these values for every CSS property representing a size. E.g. &quot;auto&quot; is not an allowed value for a padding size.</documentation>
+	<baseType>string</baseType>
+
+	<final/>
+
+	<pattern>auto|inherit|[-+]?(0*|([0-9]+|[0-9]*\.[0-9]+)([rR][eE][mM]|[eE][mM]|[eE][xX]|[pP][xX]|[cC][mM]|[mM][mM]|[iI][nN]|[pP][tT]|[pP][cC]|%))</pattern>
+
+</simple-type>
