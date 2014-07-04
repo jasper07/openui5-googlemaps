@@ -5,7 +5,7 @@ sap.ui.define(['jquery.sap.global', 'openui5/googlemaps/ScriptsUtil'],
         var LoadScripts = (function() {
             var Loader = {};
 
-            Loader.defaultUrl = 'http://maps.google.com/maps/api/js?sensor=true&callback=google.maps.callBack';
+            Loader.defaultUrl = 'http://maps.google.com/maps/api/js?sensor=true';
 
             // Loader.defaultUrl = 'https://maps.googleapis.com/maps/api/js?libraries=places&callback=%callback%',
             Loader.notifyEvent = "google.maps.loaded";
@@ -17,6 +17,8 @@ sap.ui.define(['jquery.sap.global', 'openui5/googlemaps/ScriptsUtil'],
 
             Loader.load = function(Util) {
                 var sScriptUrl = Util.getUrl() ? Util.getUrl() : this.defaultUrl;
+                sScriptUrl += '&callback=google.maps.callBack';
+
 
                 if (Util.getApiKey()) {
                     sScriptUrl = sScriptUrl + '&key=' + Util.getApiKey();

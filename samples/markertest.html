@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge' />
+    <title>Test Marker Binding</title>
+<style type="text/css">
+.placeIcon {
+  width: 16px;
+  height: 16px;
+  margin: 2px;
+}
+
+</style>
+    <script id="sap-ui-bootstrap" type="text/javascript" src="../openui5/resources/sap-ui-core.js" data-sap-ui-theme='sap_goldreflection' data-sap-ui-libs='sap.ui.commons'></script>
+</head>
+
+<body class='sapUiBody'>
+    <div id='content'></div>
+    <hr/>
+    <div id='sliders'></div>
+</body>
+
+</html>
+<script>
+//https://developers.google.com/maps/documentation/javascript/examples/place-search
+
+// load googlemaps library
+sap.ui.getCore().loadLibrary("openui5.googlemaps", "../openui5/googlemaps/");
+
+//set api url include places library
+openui5.googlemaps.ScriptsUtil.setUrl('https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places');
+//set api key
+openui5.googlemaps.ScriptsUtil.setApiKey('AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM');
+
+jQuery.sap.require("sap.ui.model.json.JSONModel");
+
+var pyrmont = {}; //Google hq sydney
+pyrmont.lat = -33.8665433;
+pyrmont.lng = 151.1956316;
+pyrmont.places = [];
+
+var oModel = new sap.ui.model.json.JSONModel(pyrmont);
+sap.ui.getCore().setModel(oModel);
+
+var getPlaces = function() {
+    var places = new google.maps.places.PlacesService(oMap.map);
+
+    var request = {
+        location: pyrmont,
+        radius: 500,
+    };
+
+    var getIWContent = function(place) {
+        var content = "";
+        content += '<table><tr><td>';
+        content += '<img class="placeIcon" src="' + place.icon + '"/></td>';
+        content += '<td><b><a href="' + place.url + '">' + place.name + '</a></b>';
+        content += '</td></tr></table>';
+        return content;
+    };
+
+    var callback = function(results, status) {
+        if (status === google.maps.places.PlacesServiceStatus.OK) {
+            var aPlaces = [];
+            results.forEach(function(obj) {
+                aPlaces.push({
+                    name: getIWContent(obj),
+                    lat: obj.geometry.location.lat(),
+                    lng: obj.geometry.location.lng(),
+                });
+                oModel.setProperty('/places', aPlaces);
+            });
+        }
+    }
+
+    places.search(request, callback);
+
+};
+
+// markers template
+var oMarkers = new openui5.googlemaps.Marker({
+    lat: '{lat}',
+    lng: '{lng}',
+    info: '{name}',
+    icon: '{icon}', //'{http://www.w3schools.com/googleapi/pinkball.png}',
+});
+
+// map
+var oMap = new openui5.googlemaps.Map({
+    lng: "{/lng}",
+    lat: "{/lat}",
+    height: '400px',
+    width: '800px',
+    zoom: 15,
+    markers: {
+        path: "/places",
+        template: oMarkers
+    },
+    ready: getPlaces
+}).placeAt("content");
+</script>

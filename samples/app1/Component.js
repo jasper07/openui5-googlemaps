@@ -23,7 +23,7 @@ sap.ui.core.UIComponent.extend("testapp.Component", {
         });
 
         // set data model on root view
-        oModel = new sap.ui.model.json.JSONModel("model/mock.json");
+        var oModel = new sap.ui.model.json.JSONModel("model/mock.json");
         oModel.setDefaultBindingMode(sap.ui.model.BindingMode.OneWay);
         oView.setModel(oModel);
         // set i18n model

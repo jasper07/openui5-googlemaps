@@ -133,7 +133,7 @@
         Map.prototype.setLat = function(oValue) {
             var val = parseFloat(oValue);
             if (!MapUtils.floatEqual(val, this.getLat())) {
-                this.setProperty('lat', parseFloat(oValue), true);
+                this.setProperty('lat', val, true);
                 this._updateCenter();
             }
         };
