@@ -6,3 +6,4 @@ test/ export-ignore
 index.html export-ignore
 gulp.js export-ignore
 package.json export-ignore
+openui5/resources export-ignore
