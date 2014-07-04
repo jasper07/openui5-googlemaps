@@ -3,11 +3,6 @@
  * @version v0.0.0
  * @link http://jasper07.github.io/openui5-googlemaps/
  * @license MIT
- *//**
- * openui5-googlemaps - OpenUI5 Google Maps library
- * @version v0.0.0
- * @link http://jasper07.github.io/openui5-googlemaps/
- * @license MIT
  */sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './MapUtils'],
     function(jQuery, Control, gmaps, utils) {
         "use strict";
@@ -39,6 +34,11 @@
                     'paths': {
                         type: "object"
                     },
+                    'visible': {
+                        type: 'boolean',
+                        bindable: 'bindable',
+                        defaultValue: true
+                    },
                     'draggable': {
                         type: "boolean"
                     }
@@ -46,6 +46,13 @@
                 renderer: {}
             }
         });
+
+        Polygon.prototype.setVisible = function(bValue) {
+            this.setProperty('visible', bValue, true);
+            if (this.polygon) {
+                this.polygon.setVisible(this.getVisible());
+            }
+        };
 
         Polygon.prototype.parsePaths = function() {
             var aPaths = [];
@@ -60,8 +67,11 @@
         Polygon.prototype.createPolygon = function() {
             if (!this.polygon) {
                 this.polygon = new gmaps.Polygon(this.getOptions());
+                this.polygon.setMap(this.map);
+            } else {
+                this.polygon.setMap(this.map);
+                this.polygon.setOptions(this.getOptions());
             }
-            this.polygon.setMap(this.map);
         };
 
         Polygon.prototype.getOptions = function() {
@@ -72,6 +82,7 @@
             options.strokeWeight = this.getStrokeWeight();
             options.fillOpacity = this.getFillOpacity();
             options.fillColor = this.getFillColor();
+            options.visible = this.getVisible();
             options.draggable = this.getDraggable();
             return options;
         };

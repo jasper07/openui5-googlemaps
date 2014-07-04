@@ -14,7 +14,8 @@
         "sap": true,
         "util": true,
         "view": true,
-        "google": true
+        "google": true,
+        "openui5": true
     },
     "immed": true,
     "latedef": true,

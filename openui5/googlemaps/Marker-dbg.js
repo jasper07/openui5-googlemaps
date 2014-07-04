@@ -3,13 +3,7 @@
  * @version v0.0.0
  * @link http://jasper07.github.io/openui5-googlemaps/
  * @license MIT
- *//**
- * openui5-googlemaps - OpenUI5 Google Maps library
- * @version v0.0.0
- * @link http://jasper07.github.io/openui5-googlemaps/
- * @license MIT
- */
-sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './Animation'],
+ */sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './Animation'],
     function(jQuery, Control, Gmaps, Animation) {
         "use strict";
 
@@ -36,6 +30,11 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './Ani
                     'icon': {
                         type: 'sap.ui.core.URI',
                         bindable: 'bindable'
+                    },
+                    'visible': {
+                        type: 'boolean',
+                        bindable: 'bindable',
+                        defaultValue: true
                     },
                     'animation': {
                         type: 'int',
@@ -75,33 +74,39 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './Ani
         };
 
         Marker.prototype.setLng = function(oValue) {
-            this.setProperty('lng', parseFloat(oValue), true);
+        this.setProperty('lng', parseFloat(oValue), true);
             this.updatePosition();
         };
 
-        Marker.prototype.setICon = function() {
+        Marker.prototype.setVisible = function(bValue) {
+            this.setProperty('visible', bValue, true);
+            if (this.marker) {
+                this.marker.setVisible(this.getVisible());
+            }
+        };
+
+        Marker.prototype.setICon = function(oValue) {
+            this.setProperty('icon', oValue, true);
             if (this.marker) {
                 this.marker.setIcon(this.getIcon());
             }
         };
 
         Marker.prototype.mapReady = function() {
-            if (this.marker) {
-                this.reset();
+            if (!this.marker) {
+                this.marker = new Gmaps.Marker(this.getOptions());
+                this.marker.setMap(this.map);
+                this.addListener('click', jQuery.proxy(this.onClick, this));
+
+                if (this.getDraggable()) {
+                    this.addListener('dragend', jQuery.proxy(this.onDragEnd, this));
+                }
+            } else {
+                this.marker.setMap(this.map);
+                this.marker.setOptions(this.getOptions());
             }
 
-            this.marker = new Gmaps.Marker(this.getOptions());
-            this.marker.setMap(this.map);
-
-            this.addListener('click', jQuery.proxy(this.onClick, this));
-
-            if (this.getDraggable()) {
-                this.addListener('dragend', jQuery.proxy(this.onDragEnd, this));
-            }
-
-            this.infoWindow = undefined;
-
-            if (this.getInfo()) {
+            if (this.getInfo() && !this.infoWindow) {
                 //http://stackoverflow.com/questions/1554893/google-maps-api-v3-infowindow-not-sizing-correctly
                 this.infoWindow = new Gmaps.InfoWindow({
                     content: this.getInfo(),
@@ -109,8 +114,11 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './Ani
                 });
                 this.aListeners.push(Gmaps.event.addListener(this.infoWindow, 'closeclick',
                     jQuery.proxy(this.onInfoWindowClose, this)));
+            } else {
+                if (this.infoWindow) {
+                    this.infoWindow.setContent(this.getInfo());
+                }
             }
-
         };
 
         Marker.prototype.getOptions = function() {
@@ -118,6 +126,7 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './Ani
             options.position = new Gmaps.LatLng(this.getLat(), this.getLng());
             options.draggable = this.getDraggable();
             options.animation = this.getAnimation();
+            options.visible = this.getVisible();
             options.icon = this.getIcon();
             return options;
         };

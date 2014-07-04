@@ -4,12 +4,17 @@ sap.ui.controller("testapp.view.Detail", {
         this.oPage = this.byId("page1");
         this.oMap = this.byId("map1");
         this.oChart = this.byId("chart1");
+        this.showPolyline = false;
+        this.showPolygon = false;
     },
 
     onMapReady: function(oEvent) {
+        //TODO - toggle visible for Polyline, Polygon instead
         if (this.selectedLocation === undefined) {
             var beaches = this.getView().getModel().getData().beaches;
             this.selectedLocation = beaches[beaches.length - 1]; //Cronulla
+            this.setupPolylines();
+            this.setupPolygons();
         }
         this.setLocation();
     },
@@ -60,58 +65,69 @@ sap.ui.controller("testapp.view.Detail", {
 
         return aPaths;
     },
+    setupPolylines: function() {
+        if (this.oMap.getPolylines().length > 0) {
+            return;
+        }
+
+        var lineSymbol = {
+            path: 'M 0,-1 0,1',
+            strokeOpacity: 0.5,
+            scale: 4
+        };
+
+        this.oMap.addPolyline(new openui5.googlemaps.Polyline({
+            path: this.getPaths(),
+            strokeColor: "#0000FF",
+            strokeOpacity: 0.5,
+            strokeWeight: 0.2,
+            visible: this.showPolyline,
+            icons: [{
+                icon: lineSymbol,
+                offset: '0',
+                repeat: '20px'
+            }]
+        }));
+
+    },
+
+    setupPolygons: function() {
+        if (this.oMap.getPolygons().length > 0) {
+            return;
+        }
+
+        var center = {
+            lat: this.oMap.getLat(),
+            lng: this.oMap.getLng()
+        };
+        this.oMap.addPolygon(new openui5.googlemaps.Polygon({
+            paths: jQuery.merge([center], this.getPaths()),
+            strokeColor: '#FF0000',
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            fillColor: '#FF0000',
+            fillOpacity: 0.35,
+            visible: this.showPolygon,
+        }));
+    },
 
     onShowPolyline: function(oEvent) {
         this.showPolyline = !this.showPolyline;
-        if (this.showPolyline) {
-            var lineSymbol = {
-                path: 'M 0,-1 0,1',
-                strokeOpacity: 0.5,
-                scale: 4
-            };
-
-            this.oMap.addPolyline(new openui5.googlemaps.Polyline({
-                path: this.getPaths(),
-                strokeColor: "#0000FF",
-                strokeOpacity: 0.5,
-                strokeWeight: 0.2,
-                icons: [{
-                    icon: lineSymbol,
-                    offset: '0',
-                    repeat: '20px'
-                }]
-            }));
-        } else {
-            if (this.oMap.getPolylines()) {
-                this.oMap.getPolylines().forEach(function(oControl) {
-                    oControl.destroy();
-                });
-            }
+        that = this;
+        if (this.oMap.getPolylines()) {
+            this.oMap.getPolylines().forEach(function(oControl) {
+                oControl.setVisible(that.showPolyline);
+            });
         }
     },
 
     onShowPolygon: function(oEvent) {
         this.showPolygon = !this.showPolygon;
-        if (this.showPolygon) {
-            var center = {
-                lat: this.oMap.getLat(),
-                lng: this.oMap.getLng()
-            };
-            this.oMap.addPolygon(new openui5.googlemaps.Polygon({
-                paths: jQuery.merge([center], this.getPaths()),
-                strokeColor: '#FF0000',
-                strokeOpacity: 0.8,
-                strokeWeight: 2,
-                fillColor: '#FF0000',
-                fillOpacity: 0.35
-            }));
-        } else {
-            if (this.oMap.getPolygons()) {
-                this.oMap.getPolygons().forEach(function(oControl) {
-                    oControl.destroy();
-                });
-            }
+        that = this;
+        if (this.oMap.getPolygons()) {
+            this.oMap.getPolygons().forEach(function(oControl) {
+                oControl.setVisible(that.showPolygon);
+            });
         }
-
     }
 });

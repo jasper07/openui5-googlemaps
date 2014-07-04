@@ -1,9 +1,4 @@
-/**
- * openui5-googlemaps - OpenUI5 Google Maps library
- * @version v0.0.0
- * @link http://jasper07.github.io/openui5-googlemaps/
- * @license MIT
- */sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './MapUtils'],
+sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './MapUtils'],
     function(jQuery, Control, gmaps, utils) {
         "use strict";
 
@@ -27,6 +22,11 @@
                     'path': {
                         type: "object"
                     },
+                    'visible': {
+                        type: 'boolean',
+                        bindable: 'bindable',
+                        defaultValue: true
+                    },
                     'draggable': {
                         type: "boolean"
                     }
@@ -34,6 +34,13 @@
                 renderer: {}
             }
         });
+
+        Polyline.prototype.setVisible = function(bValue) {
+            this.setProperty('visible', bValue, true);
+            if (this.polyline) {
+                this.polyline.setVisible(this.getVisible());
+            }
+        };
 
         Polyline.prototype.parsePath = function() {
             var aPath = [];
@@ -48,8 +55,12 @@
         Polyline.prototype.createPolyline = function() {
             if (!this.polyline) {
                 this.polyline = new gmaps.Polyline(this.getOptions());
+                this.polyline.setMap(this.map);
+            } else {
+                this.polyline.setMap(this.map);
+                this.polyline.setOptions(this.getOptions());
             }
-            this.polyline.setMap(this.map);
+
         };
 
         Polyline.prototype.getOptions = function() {
@@ -58,6 +69,7 @@
             options.strokeColor = this.getStrokeColor();
             options.strokeOpacity = this.getStrokeOpacity();
             options.strokeWeight = this.getStrokeWeight();
+            options.visible = this.getVisible();
             options.draggable = this.getDraggable();
 
             options.icons = this.getIcons();

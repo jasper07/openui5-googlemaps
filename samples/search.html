@@ -59,6 +59,17 @@ var onChange = function(oEvent) {
     }
 };
 
+var onMarkerDragEnd = function(oEvent){
+    var utils = openui5.googlemaps.MapUtils;
+
+    var callback = function(sLocation){
+        //reverse lookup to get name of location
+        oModel.setProperty(oContext.getPath() + 'name', sLocation);
+    }
+
+    utils.geocodePosition(oEvent.getParameters().position, callback)
+};
+
 var searchResults = function(results, status) {
     var that = this;
     this.destroyItems();
@@ -100,7 +111,9 @@ var oMarkers = new openui5.googlemaps.Marker({
     lng: '{lng}',
     info: '{name}',
     icon: '{http://www.w3schools.com/googleapi/pinkball.png}',
-    draggable: true
+    animation: 0,
+    draggable: true,
+    dragEnd: onMarkerDragEnd
 });
 
 var oMap = new openui5.googlemaps.Map("map1", {
@@ -114,7 +127,7 @@ var oMap = new openui5.googlemaps.Map("map1", {
     }),
     markers: {
         path: "/places",
-        template: oMarkers
+        template: oMarkers,
     }
 });
 

@@ -3,13 +3,8 @@
  * @version v0.0.0
  * @link http://jasper07.github.io/openui5-googlemaps/
  * @license MIT
- *//**
- * openui5-googlemaps - OpenUI5 Google Maps library
- * @version v0.0.0
- * @link http://jasper07.github.io/openui5-googlemaps/
- * @license MIT
- */sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './MapUtils', './MapTypeId'],
-    function(jQuery, Control, Gmaps, MapUtils, MapTypeId) {
+ */sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'sap/ui/core/ResizeHandler', 'google.maps', './MapUtils', './MapTypeId'],
+    function(jQuery, Control, ResizeHandler, Gmaps, MapUtils, MapTypeId) {
         "use strict";
         var Map = Control.extend('openui5.googlemaps.Map', {
             metadata: {
@@ -110,14 +105,22 @@
 
         Map.prototype.setHeight = function(sValue) {
             this.setProperty('height', sValue, true);
-            var content = jQuery(this._html.getContent()).css("height", this.getHeight());
-            this._html.setContent(content.outerHTML());
+            this.setSize();
         };
 
         Map.prototype.setWidth = function(sValue) {
             this.setProperty('width', sValue, true);
-            var content = jQuery(this._html.getContent()).css("width", this.getWidth());
-            this._html.setContent(content.outerHTML());
+            this.setSize();
+        };
+
+        Map.prototype.setSize = function() {
+            if (!jQuery.sap.domById(this.mapId)) {
+                var content = jQuery(this._html.getContent());
+                content.css("height", this.getHeight()).css("width", this.getWidth());
+                this._html.setContent(content.outerHTML());
+            } else {
+                jQuery.sap.byId(this.mapId).css("height", this.getHeight()).css("width", this.getWidth());
+            }
         };
 
         Map.prototype.setZoom = function(iValue) {
@@ -180,6 +183,24 @@
             }
         };
 
+        Map.prototype.zoomChanged = function() {
+            if (this.map.getZoom() !== this.getZoom()) {
+                this.setZoom(this.map.getZoom());
+            }
+        };
+
+        Map.prototype.mapTypeIdChanged = function() {
+            if (this.map.getMapTypeId() !== this.getMapTypeId()) {
+                this.setMapTypeId(this.map.getMapTypeId());
+            }
+        };
+
+        Map.prototype.onResize = function() {
+            var center = this.map.getCenter();
+            this.trigger("resize");
+            this.map.setCenter(center);
+        };
+
         Map.prototype._getMapOptions = function() {
             var mapOptions = {};
             mapOptions.zoom = this.getZoom();
@@ -200,10 +221,6 @@
             this._notifyPolygons(sEvent, this.map);
         };
 
-        Map.prototype.onBeforeRendering = function() {
-            this.notifyAggregations('Reset');
-        };
-
         Map.prototype.onAfterRendering = function() {
             //if map not loaded yet subscribe to its event    
             if (Gmaps.loaded === undefined) {
@@ -218,18 +235,6 @@
                 this.createMap();
             } else {
                 this._updateCenter();
-            }
-        };
-
-        Map.prototype.zoomChanged = function() {
-            if (this.map.getZoom() !== this.getZoom()) {
-                this.setZoom(this.map.getZoom());
-            }
-        };
-
-        Map.prototype.mapTypeIdChanged = function() {
-            if (this.map.getMapTypeId() !== this.getMapTypeId()) {
-                this.setMapTypeId(this.map.getMapTypeId());
             }
         };
 
@@ -249,9 +254,10 @@
             this.addListener('zoom_changed', jQuery.proxy(this.zoomChanged, this));
             this.addListener('center_changed', jQuery.proxy(this.updateValues, this));
             this.addListener('idle', jQuery.proxy(this.mapChanged, this));
-            // this.addListener('bounds_changed', jQuery.proxy(this.updateValues, this));
+            // this.addListener('bounds_changed', jQuery.proxy(this.updateValues, this)); //TODO
             this.addListener('maptypeid_changed', jQuery.proxy(this.mapTypeIdChanged, this));
-            this.addListener('resize', jQuery.proxy(this.updateValues, this));
+
+            this.resizeID = ResizeHandler.register(jQuery.sap.domById(this.mapId), jQuery.proxy(this.onResize, this));
 
             this.initialized = true;
         };
@@ -268,7 +274,6 @@
         };
 
         Map.prototype.trigger = function(event) {
-
             Gmaps.event.trigger(this.map, event);
         };
 
@@ -345,7 +350,7 @@
 
         Map.prototype.exit = function() {
             this.resetMap();
-            this.init();
+            ResizeHandler.deregister(this.resizeID);
         };
 
         return Map;

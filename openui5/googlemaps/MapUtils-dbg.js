@@ -3,11 +3,6 @@
  * @version v0.0.0
  * @link http://jasper07.github.io/openui5-googlemaps/
  * @license MIT
- *//**
- * openui5-googlemaps - OpenUI5 Google Maps library
- * @version v0.0.0
- * @link http://jasper07.github.io/openui5-googlemaps/
- * @license MIT
  */sap.ui.define(['jquery.sap.global', 'google.maps'],
     function(jQuery, gmaps) {
         "use strict";
@@ -36,7 +31,7 @@
             return new gmaps.Geocoder().geocode(oRequest, fnCallback);
         };
 
-        MapUtils.currentPosition = function(fnCallback) {
+        MapUtils.currentPosition = function(fnSuccess, fnError) {
             var options = {
                 enableHighAccuracy: true,
                 timeout: 5000,
@@ -47,16 +42,37 @@
                 var position = {};
                 position.lat = oPosition.coords.latitude;
                 position.lng = oPosition.coords.longitude;
-                fnCallback(position);
+                fnSuccess(position);
             };
 
             var error = function(err) {
                 jQuery.sap.log.info('ERROR(' + err.code + '): ' + err.message);
+                if (fnError) {
+                    fnError(err);
+                }
             };
 
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(success, error, options);
             }
         };
+
+        /* get geocode of current positon, return formatted address
+http://gmaps-samples-v3.googlecode.com/svn/trunk/draggable-markers/draggable-markers.html
+        */
+        MapUtils.geocodePosition = function(oPostion, fnCallback) {
+            var responses = function(results) {
+                if (results && results.length > 0) {
+                    fnCallback(results[0].formatted_address);
+                } else {
+                    fnCallback('Cannot determine address at this location.');
+                }
+            };
+
+            new gmaps.Geocoder().geocode({
+                latLng: oPostion //??
+            }, responses);
+        };
+
         return MapUtils;
     }, true);
