@@ -10,4 +10,5 @@ openui5/resources export-ignore
 index.html export-ignore
 .gitattributes export-ignore
 .gitignore export-ignore
+.jshintrc export-ignore
 projects/ export-ignore
