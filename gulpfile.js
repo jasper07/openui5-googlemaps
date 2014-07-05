@@ -75,7 +75,6 @@ gulp.task('docs', function() {
 gulp.task('commit',
     shell.task([
         'echo start',
-        'git checkout master',
         'git add ./src',
         'git add ./openui5/googlemaps',
         'git add ./samples',
