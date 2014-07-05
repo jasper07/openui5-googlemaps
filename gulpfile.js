@@ -66,11 +66,6 @@ gulp.task('test', function() {
         .pipe(qunit());
 });
 
-gulp.task('docs', function() {
-    gulp.src(filePath.src)
-        .pipe(yuidoc())
-        .pipe(gulp.dest('./docs'));
-});
 
 gulp.task('commit',
     shell.task([
