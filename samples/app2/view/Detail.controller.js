@@ -9,7 +9,6 @@ sap.ui.controller("testapp.view.Detail", {
     },
 
     onMapReady: function(oEvent) {
-        //TODO - toggle visible for Polyline, Polygon instead
         if (this.selectedLocation === undefined) {
             var beaches = this.getView().getModel().getData().beaches;
             this.selectedLocation = beaches[beaches.length - 1]; //Cronulla
