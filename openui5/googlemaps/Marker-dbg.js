@@ -74,7 +74,7 @@
         };
 
         Marker.prototype.setLng = function(oValue) {
-        this.setProperty('lng', parseFloat(oValue), true);
+            this.setProperty('lng', parseFloat(oValue), true);
             this.updatePosition();
         };
 

@@ -31,7 +31,7 @@ gulp.task('clean', function() {
 });
 
 //TODO - all scripts tasks with one stream
-gulp.task('scripts-dbg', function() {
+gulp.task('scripts-dbg', ['lint', 'clean'], function() {
     gulp.src(filePath.src)
         .pipe(header(banner, {
             pkg: pkg
@@ -42,7 +42,7 @@ gulp.task('scripts-dbg', function() {
         .pipe(gulp.dest(filePath.dest));
 });
 
-gulp.task('scripts-min', function() {
+gulp.task('scripts-min', ['lint', 'clean'], function() {
     gulp.src(filePath.src)
         .pipe(streamify(uglify()))
         .pipe(gulp.dest(filePath.dest))
@@ -50,7 +50,6 @@ gulp.task('scripts-min', function() {
         .pipe(gulp.dest(filePath.dest));
 });
 
-// JSHint task
 gulp.task('lint', function() {
     gulp.src(filePath.src)
         .pipe(jshint())
@@ -58,7 +57,7 @@ gulp.task('lint', function() {
 });
 
 gulp.task('watch', function() {
-    gulp.watch(filePath.src, ['lint']);
+    gulp.watch(filePath.src, ['lint', 'build']);
 });
 
 gulp.task('test', function() {
@@ -66,20 +65,28 @@ gulp.task('test', function() {
         .pipe(qunit());
 });
 
-gulp.task('commit',
-    shell.task([
-        'echo start',
-        'git add ./src',
-        'git add ./openui5/googlemaps',
-        'git add ./samples',
-        'git commit -a -m \"test gulp commit\"',
-        'git push --all',
-        'echo update gh-pages',
-        'git branch -f gh-pages master',
-        'git push origin gh-pages'
-    ])
-);
+gulp.task('commit', ['build'], function() {
+    // shell.task([
+    gulp.src('')
+        .pipe(shell('echo start'))
+        .pipe(shell('git add ./src'))
+        .pipe(shell('git add ./openui5/googlemaps'))
+        .pipe(shell('git add ./samples'))
+        .pipe(shell('git commit -a -m \"test gulp commit2\"'))
+        .pipe(shell('git push --all'))
+        .pipe(shell('echo update gh-pages'))
+        .pipe(shell('git branch -f gh-pages master'))
+        .pipe(shell('git push origin gh-pages'));
+});
 
-gulp.task('develop ', ['build', 'watch']);
+gulp.task('shell:staging2', function() {
+    gulp.src('')
+        .pipe(shell('your command'))
+        .on('finish', function() {
+            // ...
+        })
+})
+
+gulp.task('default', ['watch', 'build']);
 gulp.task('build', ['scripts-dbg', 'scripts-min']);
 gulp.task('cleanbuild', ['clean']);
