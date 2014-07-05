@@ -73,7 +73,7 @@ gulp.task('commit',
         'git add ./openui5/googlemaps',
         'git add ./samples',
         'git commit -a -m \"test gulp commit\"',
-        'git push',
+        'git push master',
         'echo update gh-pages',
         'git branch -f gh-pages master',
         'git push origin gh-pages'
