@@ -9,7 +9,7 @@ var header = require('gulp-header');
 var streamify = require('gulp-streamify');
 var qunit = require('gulp-qunit');
 var pkg = require('./package.json');
-var yuidoc = require('gulp-yuidoc');
+var shell = require('gulp-shell');
 
 var banner = ['/**',
     ' * <%= pkg.name %> - <%= pkg.description %>',
@@ -71,6 +71,18 @@ gulp.task('docs', function() {
         .pipe(yuidoc())
         .pipe(gulp.dest('./docs'));
 });
+
+gulp.task('commit',
+    shell.task([
+        'echo start',
+        'git checkout master',
+        'git add ./src',
+        'git add ./openui5/googlemaps',
+        'git add ./samples',
+        'git commit -a -m \"test gulp commit\"',
+        'git push'
+    ])
+);
 
 gulp.task('develop ', ['build', 'watch']);
 gulp.task('build', ['scripts-dbg', 'scripts-min']);
