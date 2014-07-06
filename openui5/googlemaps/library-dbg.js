@@ -1,6 +1,6 @@
 /**
  * openui5-googlemaps - OpenUI5 Google Maps library
- * @version v0.0.3
+ * @version v0.0.1
  * @link http://jasper07.github.io/openui5-googlemaps/
  * @license MIT
  */sap.ui.define(['jquery.sap.global', 'sap/ui/core/Core', 'sap/ui/core/library'],
@@ -29,7 +29,8 @@
                     "openui5.googlemaps.Polygon"
                 ],
                 elements: [],
-                version: "0.0.0"
+                version: "0.0.2"
+
             });
         })();
         return true;

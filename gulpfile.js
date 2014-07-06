@@ -8,12 +8,12 @@ var clean = require('gulp-clean');
 var header = require('gulp-header');
 var streamify = require('gulp-streamify');
 var qunit = require('gulp-qunit');
-var pkg = require('./package.json');
 var shell = require('gulp-shell');
 var git = require('gulp-git');
 var bump = require('gulp-bump');
-var Promise = require('bluebird');
-var fs = Promise.promisifyAll(require('fs'));
+var replace = require('gulp-replace');
+var semver = require('semver');
+var pkg = require('./package.json');
 
 var banner = ['/**',
     ' * <%= pkg.name %> - <%= pkg.description %>',
@@ -28,10 +28,22 @@ var filePath = {
     dest: './openui5/googlemaps'
 };
 
+var oldVer;
+var newVer;
+
 gulp.task('clean', function() {
     return gulp.src(filePath.dest, {
         read: false
     }).pipe(clean());
+});
+
+gulp.task('replace', ['bump'], function(bump) {
+    var oldVer = pkg.version;
+    var newVer = semver.inc(pkg.version, 'patch');
+
+    gulp.src(['src/library.js'])
+        .pipe(replace(oldVer, newVer))
+        .pipe(gulp.dest('src'));
 });
 
 //TODO - all scripts tasks with one stream via lazypipes
@@ -71,70 +83,38 @@ gulp.task('test', function() {
 
 gulp.task('bump', function() {
     var type = 'patch';
-    return gulp.src('./package.json')
+    oldVer = pkg.version;
+    newVer = semver.inc(pkg.version, type);
+
+    gulp.src('./package.json')
         .pipe(bump({
-            type: type
+            version: newVer,
         }))
         .pipe(gulp.dest('./'));
+
+    gulp.src(['src/library.js'])
+        .pipe(replace(oldVer, newVer))
+        .pipe(gulp.dest('src'));
 });
-
-gulp.task('commit', ['build'], function() {
-
-
-    // function(json) {
-    //     return shell.task([
-    //         'git add -u',
-    //         'git commit -m "release ' + json.version + '"',
-    //         'git tag ' + json.version,
-    //         'npm publish',
-    //         'git push',
-    //         'git push --tags',
-    //         'git checkout gh-pages',
-    //         'git merge master',
-    //         'git push',
-    //         'git checkout master'
-    //     ])();
-    // gulp.src('./openui5/googlemaps/*')
-    //     .pipe(git.add())
-    //     .pipe(git.commit('test commit!!'));
-
-    // git.push('origin', 'master')
-    //     .end();
-    // // shell.task([
-    // gulp.src('')
-    //     .pipe(shell('echo start'))
-    //     .pipe(git.add()) // add to the file's git repo
-    // .pipe(git.commit('bump')) // commit message is bump
-    // .pipe(git.push('origin', 'master')) // push it up!ss
-    // .end();
-    // .pipe(shell('git add ./src'))
-    //     .pipe(shell('git add ./openui5/googlemaps'))
-    //     .pipe(shell('git add ./samples'))
-    //     .pipe(shell('git commit -a -m \"test gulp commit2\"'))
-    //     .pipe(shell('git push --all'))
-    //     .pipe(shell('echo update gh-pages'))
-    //     .pipe(shell('git branch -f gh-pages master'))
-    //     .pipe(shell('git push origin gh-pages'));
-});
-
 
 gulp.task('release', ['bump', 'build'], function() {
-    return fs.readFileAsync('./package.json')
-        .bind(JSON)
-        .then(JSON.parse)
-        .then(function(json) {
-            return shell.task([
-                'git add -u',
-                'git commit -m "release ' + json.version + '"',
-                'git tag ' + json.version,
-                'git push',
-                'git push --tags',
-                'git checkout gh-pages',
-                'git merge master',
-                'git push',
-                'git checkout master'
-            ])();
-        });
+    return gulp.src('*.js', {
+        read: false
+    })
+        .pipe(shell([
+            'git add -u',
+            'git commit -m "release ' + newVer + '"',
+            'git tag ' + newVer,
+            'git push',
+            'git push --tags',
+            'git branch -f gh-pages master',
+            'git push origin gh-pages' //update branch from master
+            // 'git checkout gh-pages',
+            // 'git merge master',
+            // 'git push',
+            // 'git checkout master
+        ]));
+
 });
 
 gulp.task('default', ['watch', 'build']);

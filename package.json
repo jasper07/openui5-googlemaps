@@ -1,6 +1,6 @@
 {
     "name": "openui5-googlemaps",
-    "version": "0.0.4",
+    "version": "0.0.2",
     "description": "OpenUI5 Google Maps library",
     "keywords": [
         "openui5",
@@ -32,7 +32,8 @@
         "gulp-git": "~0.4.3",
         "gulp-shell": "~0.2.7",
         "jshint-stylish": "~0.2.0",
-        "bluebird": "^2.0.0"
+        "bluebird": "^2.0.0",
+        "gulp-replace": "~0.3.0"
     },
     "bugs": {
         "url": "http://stackoverflow.com/questions/tagged/sapui5"
