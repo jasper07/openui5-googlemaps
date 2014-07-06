@@ -104,7 +104,7 @@ gulp.task('release', ['bump', 'build'], function() {
         .pipe(shell([
             'git add -u',
             'git commit -m "release ' + newVer + '"',
-            'git tag ' + newVer,
+            // 'git tag ' + newVer,
             'git push',
             // 'git push --tags',
             'git branch -f gh-pages master',
