@@ -118,7 +118,7 @@ gulp.task('commit', ['build'], function() {
 });
 
 
-gulp.task('release', function() {
+gulp.task('release', ['bump', 'build'], function() {
     return fs.readFileAsync('./package.json')
         .bind(JSON)
         .then(JSON.parse)
