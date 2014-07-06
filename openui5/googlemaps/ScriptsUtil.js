@@ -1,1 +1,1 @@
-sap.ui.define(["jquery.sap.global"],function(){"use strict";var t={};return t.setApiKey=function(t){this.apiKey=t},t.getApiKey=function(){return this.apiKey},t.setUrl=function(t){this.baseUrl=t},t.getUrl=function(){return this.baseUrl},t},!0);
+sap.ui.define(["jquery.sap.global"],function(a){"use strict";var s={};return s.params={},s.setApiKey=function(a){this.params.key=a},s.setUrl=function(a){this.params.url=a},s.setParams=function(s){a.extend(this.params,s)},s.getParams=function(){return this.params},s},!0);

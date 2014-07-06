@@ -1,6 +1,6 @@
 /**
  * openui5-googlemaps - OpenUI5 Google Maps library
- * @version v0.0.4
+ * @version v0.0.5
  * @link http://jasper07.github.io/openui5-googlemaps/
  * @license MIT
  */sap.ui.define(['jquery.sap.global', 'openui5/googlemaps/ScriptsUtil'],
@@ -10,10 +10,11 @@
         var LoadScripts = (function() {
             var Loader = {};
 
-            Loader.defaultUrl = 'http://maps.google.com/maps/api/js?sensor=true';
+            Loader.defaultUrl = 'http://maps.google.com/maps/api/js?';
 
             // Loader.defaultUrl = 'https://maps.googleapis.com/maps/api/js?libraries=places&callback=%callback%',
             Loader.notifyEvent = "google.maps.loaded";
+            Loader.callbackName = 'google.maps.callBack';
 
             Loader.callBack = function() {
                 this.loaded = true;
@@ -21,13 +22,35 @@
             };
 
             Loader.load = function(Util) {
-                var sScriptUrl = Util.getUrl() ? Util.getUrl() : this.defaultUrl;
-                sScriptUrl += '&callback=google.maps.callBack';
+                var params = {};
+                var utilParams = Util.getParams();
+                var sUrl = utilParams.url ? utilParams.url : this.defaultUrl;
 
-
-                if (Util.getApiKey()) {
-                    sScriptUrl = sScriptUrl + '&key=' + Util.getApiKey();
+                if (!jQuery.sap.endsWith(sUrl, "?")) {
+                    sUrl += '?';
                 }
+
+                if (utilParams.v) {
+                    params.v = utilParams.v;
+                }
+
+                params.sensor = utilParams.sensor || true;
+
+                if (utilParams.libraries) {
+                    params.libraries = utilParams.libraries;
+                }
+
+                if (utilParams.language) {
+                    params.language = utilParams.language;
+                }
+
+                if (utilParams.key) {
+                    params.key = utilParams.key;
+                }
+
+                params.callback = this.callbackName;
+
+                var sScriptUrl = sUrl.concat(jQuery.param(params));
 
                 //async load the scripts, provides namespace
                 jQuery.sap.includeScript(sScriptUrl, "google.maps", null, null);

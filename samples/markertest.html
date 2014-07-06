@@ -27,9 +27,18 @@
 sap.ui.getCore().loadLibrary("openui5.googlemaps", "../openui5/googlemaps/");
 
 //set api url include places library
-openui5.googlemaps.ScriptsUtil.setUrl('https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places');
-//set api key
-openui5.googlemaps.ScriptsUtil.setApiKey('AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM');
+// openui5.googlemaps.ScriptsUtil.setUrl('https://maps.googleapis.com/maps/api/js');
+// //set api key
+// openui5.googlemaps.ScriptsUtil.setApiKey('AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM');
+
+var params = {
+    url : 'https://maps.googleapis.com/maps/api/js',
+    sensor : false,
+    v:3,
+    libraries : 'places'
+};
+
+openui5.googlemaps.ScriptsUtil.setParams(params);
 
 jQuery.sap.require("sap.ui.model.json.JSONModel");
 

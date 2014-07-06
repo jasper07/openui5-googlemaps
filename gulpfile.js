@@ -37,14 +37,6 @@ gulp.task('clean', function() {
     }).pipe(clean());
 });
 
-gulp.task('replace', ['bump'], function(bump) {
-    var oldVer = pkg.version;
-    var newVer = semver.inc(pkg.version, 'patch');
-
-    gulp.src(['src/library.js'])
-        .pipe(replace(oldVer, newVer))
-        .pipe(gulp.dest('src'));
-});
 
 //TODO - all scripts tasks with one stream via lazypipes
 gulp.task('scripts-dbg', ['lint', 'clean'], function() {
@@ -104,9 +96,9 @@ gulp.task('release', ['bump', 'build'], function() {
         .pipe(shell([
             'git add -u',
             'git commit -m "release ' + newVer + '"',
-            // 'git tag ' + newVer,
+            'git tag ' + newVer,
             'git push',
-            // 'git push --tags',
+            'git push --tags',
             'git branch -f gh-pages master',
             'git push origin gh-pages' //update branch from master
             // 'git checkout gh-pages',
