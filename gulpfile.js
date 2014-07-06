@@ -10,6 +10,7 @@ var streamify = require('gulp-streamify');
 var qunit = require('gulp-qunit');
 var pkg = require('./package.json');
 var shell = require('gulp-shell');
+var git = require('gulp-git');
 
 var banner = ['/**',
     ' * <%= pkg.name %> - <%= pkg.description %>',
@@ -30,9 +31,9 @@ gulp.task('clean', function() {
     }).pipe(clean());
 });
 
-//TODO - all scripts tasks with one stream
+//TODO - all scripts tasks with one stream via lazypipes
 gulp.task('scripts-dbg', ['lint', 'clean'], function() {
-    gulp.src(filePath.src)
+    return gulp.src(filePath.src)
         .pipe(header(banner, {
             pkg: pkg
         }))
@@ -43,7 +44,7 @@ gulp.task('scripts-dbg', ['lint', 'clean'], function() {
 });
 
 gulp.task('scripts-min', ['lint', 'clean'], function() {
-    gulp.src(filePath.src)
+    return gulp.src(filePath.src)
         .pipe(streamify(uglify()))
         .pipe(gulp.dest(filePath.dest))
         .pipe(concat('library-all.js'))
@@ -53,7 +54,7 @@ gulp.task('scripts-min', ['lint', 'clean'], function() {
 gulp.task('lint', function() {
     gulp.src(filePath.src)
         .pipe(jshint())
-        .pipe(jshint.reporter('default'));
+        .pipe(jshint.reporter('jshint-stylish'));
 });
 
 gulp.task('watch', function() {
@@ -66,26 +67,29 @@ gulp.task('test', function() {
 });
 
 gulp.task('commit', ['build'], function() {
-    // shell.task([
-    gulp.src('')
-        .pipe(shell('echo start'))
-        .pipe(shell('git add ./src'))
-        .pipe(shell('git add ./openui5/googlemaps'))
-        .pipe(shell('git add ./samples'))
-        .pipe(shell('git commit -a -m \"test gulp commit2\"'))
-        .pipe(shell('git push --all'))
-        .pipe(shell('echo update gh-pages'))
-        .pipe(shell('git branch -f gh-pages master'))
-        .pipe(shell('git push origin gh-pages'));
+    // gulp.src('./openui5/googlemaps/*')
+    //     .pipe(git.add())
+    //     .pipe(git.commit('test commit!!'));
+
+    // git.push('origin', 'master')
+    //     .end();
+    // // shell.task([
+    // gulp.src('')
+    //     .pipe(shell('echo start'))
+    //     .pipe(git.add()) // add to the file's git repo
+    // .pipe(git.commit('bump')) // commit message is bump
+    // .pipe(git.push('origin', 'master')) // push it up!ss
+    // .end();
+    // .pipe(shell('git add ./src'))
+    //     .pipe(shell('git add ./openui5/googlemaps'))
+    //     .pipe(shell('git add ./samples'))
+    //     .pipe(shell('git commit -a -m \"test gulp commit2\"'))
+    //     .pipe(shell('git push --all'))
+    //     .pipe(shell('echo update gh-pages'))
+    //     .pipe(shell('git branch -f gh-pages master'))
+    //     .pipe(shell('git push origin gh-pages'));
 });
 
-gulp.task('shell:staging2', function() {
-    gulp.src('')
-        .pipe(shell('your command'))
-        .on('finish', function() {
-            // ...
-        })
-})
 
 gulp.task('default', ['watch', 'build']);
 gulp.task('build', ['scripts-dbg', 'scripts-min']);
