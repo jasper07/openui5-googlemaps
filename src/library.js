@@ -24,7 +24,7 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Core', 'sap/ui/core/library'],
                     "openui5.googlemaps.Polygon"
                 ],
                 elements: [],
-                version: "0.0.2"
+                version: "0.0.3"
 
             });
         })();
