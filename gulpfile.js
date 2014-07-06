@@ -106,7 +106,7 @@ gulp.task('release', ['bump', 'build'], function() {
             'git commit -m "release ' + newVer + '"',
             'git tag ' + newVer,
             'git push',
-            'git push --tags',
+            // 'git push --tags',
             'git branch -f gh-pages master',
             'git push origin gh-pages' //update branch from master
             // 'git checkout gh-pages',
