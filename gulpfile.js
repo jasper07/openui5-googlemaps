@@ -11,6 +11,9 @@ var qunit = require('gulp-qunit');
 var pkg = require('./package.json');
 var shell = require('gulp-shell');
 var git = require('gulp-git');
+var bump = require('gulp-bump');
+var Promise = require('bluebird');
+var fs = Promise.promisifyAll(require('fs'));
 
 var banner = ['/**',
     ' * <%= pkg.name %> - <%= pkg.description %>',
@@ -66,7 +69,31 @@ gulp.task('test', function() {
         .pipe(qunit());
 });
 
+gulp.task('bump', function() {
+    var type = 'patch';
+    return gulp.src('./package.json')
+        .pipe(bump({
+            type: type
+        }))
+        .pipe(gulp.dest('./'));
+});
+
 gulp.task('commit', ['build'], function() {
+
+
+    // function(json) {
+    //     return shell.task([
+    //         'git add -u',
+    //         'git commit -m "release ' + json.version + '"',
+    //         'git tag ' + json.version,
+    //         'npm publish',
+    //         'git push',
+    //         'git push --tags',
+    //         'git checkout gh-pages',
+    //         'git merge master',
+    //         'git push',
+    //         'git checkout master'
+    //     ])();
     // gulp.src('./openui5/googlemaps/*')
     //     .pipe(git.add())
     //     .pipe(git.commit('test commit!!'));
@@ -90,6 +117,25 @@ gulp.task('commit', ['build'], function() {
     //     .pipe(shell('git push origin gh-pages'));
 });
 
+
+gulp.task('release', function() {
+    return fs.readFileAsync('./package.json')
+        .bind(JSON)
+        .then(JSON.parse)
+        .then(function(json) {
+            return shell.task([
+                'git add -u',
+                'git commit -m "release ' + json.version + '"',
+                'git tag ' + json.version,
+                'git push',
+                'git push --tags',
+                'git checkout gh-pages',
+                'git merge master',
+                'git push',
+                'git checkout master'
+            ])();
+        });
+});
 
 gulp.task('default', ['watch', 'build']);
 gulp.task('build', ['scripts-dbg', 'scripts-min']);
