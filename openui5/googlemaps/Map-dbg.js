@@ -316,28 +316,16 @@
             }
         };
 
-        Map.prototype.getMarkers = function() {
-            return this.getAggregation("markers", []);
-        };
-
         Map.prototype._notifyMarkers = function(action, param) {
             this.getMarkers().forEach(function(oMarker) {
                 oMarker["on" + action](param);
             });
         };
 
-        Map.prototype.getPolylines = function() {
-            return this.getAggregation("polylines", []);
-        };
-
         Map.prototype._notifyPolylines = function(action, param) {
             this.getPolylines().forEach(function(oPolyline) {
                 oPolyline["on" + action](param);
             });
-        };
-
-        Map.prototype.getPolygons = function() {
-            return this.getAggregation("polygons", []);
         };
 
         Map.prototype._notifyPolygons = function(action, param) {
@@ -347,7 +335,9 @@
         };
 
         Map.prototype._notifyDirections = function(action, param) {
-            this.getDirections()["on" + action](param);
+            if (this.getDirections()) {
+                this.getDirections()["on" + action](param);
+            }
         };
 
         Map.prototype.resetMap = function() {

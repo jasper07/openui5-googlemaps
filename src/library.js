@@ -32,7 +32,7 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Core', 'sap/ui/core/library'],
                     "openui5.googlemaps.Directions"
                 ],
                 elements: [],
-                version: "0.0.6"
+                version: "0.0.7"
 
             });
         })();
