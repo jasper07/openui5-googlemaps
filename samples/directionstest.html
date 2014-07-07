@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge' />
+    <title>Test different sizes</title>
+
+    <script id="sap-ui-bootstrap" type="text/javascript" src="../openui5/resources/sap-ui-core.js" data-sap-ui-theme='sap_goldreflection' data-sap-ui-libs='sap.ui.commons'></script>
+    <style type="text/css">
+    #content {
+        width: 100%;
+        height: 100%;
+    }
+    #map1-map {
+        display: block;
+        width: 460px !important;
+        height: 620px !important;
+    }
+    </style>
+</head>
+
+<body class='sapUiBody'>
+    <div id='content'></div>
+</body>
+
+</html>
+
+<script>
+sap.ui.getCore().loadLibrary("openui5.googlemaps", "../openui5/googlemaps/");
+
+
+var params = {
+    url : 'https://maps.googleapis.com/maps/api/js',
+    sensor : false,
+    v:'3.exp'
+    // libraries : 'places'
+};
+
+openui5.googlemaps.ScriptsUtil.setParams(params);
+
+var directions = new openui5.googlemaps.Directions({
+    startAddress: 'Manly',
+    endAddress: 'Cronulla',
+    travelMode: openui5.googlemaps.TravelMode.transit
+});
+
+var myMap = new openui5.googlemaps.Map("map1", { 
+    lat: -33.89,
+    lng: 151.27,
+    zoom: 8,
+    directions: directions
+  }).placeAt("content");
+
+
+</script>
