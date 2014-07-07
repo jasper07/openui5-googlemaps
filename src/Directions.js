@@ -62,27 +62,26 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './Tra
 
         };
 
+        Directions.prototype.getRequest = function() {
+            var request = {};
+            request.origin = this.getStartAddress();
+            request.destination = this.getEndAddress();
+            request.travelMode = this.getTravelMode();
+            return request;
+        };
+
         Directions.prototype.route = function() {
-            // Abort attempts to route if the API is not available yet or the required attributes are blank.
             if (!this.map || !this.getStartAddress() || !this.getEndAddress()) {
                 return;
             }
 
-            // Construct a directionsService if necessary.
-            // Wait until here where the maps api has loaded and directions are actually needed.
             if (!this.directionsService) {
                 this.directionsService = new gmaps.DirectionsService();
             }
 
-            var request = {
-                origin: this.getStartAddress(),
-                destination: this.getEndAddress(),
-                travelMode: this.getTravelMode()
-            };
-
             jQuery.sap.clearDelayedCall(this.delayedCallId);
             this.delayedCallId = jQuery.sap.delayedCall(0, this, function() {
-                this.directionsService.route(request, jQuery.proxy(this.routeResponse, this));
+                this.directionsService.route(this.getRequest(), jQuery.proxy(this.routeResponse, this));
             });
         };
 
