@@ -34,7 +34,7 @@ sap.ui.getCore().loadLibrary("openui5.googlemaps", "../openui5/googlemaps/");
 var params = {
     url : 'https://maps.googleapis.com/maps/api/js',
     sensor : false,
-    v:3,
+    v:'3.exp',
     libraries : 'places'
 };
 
@@ -80,9 +80,7 @@ var getPlaces = function() {
             });
         }
     }
-
     places.search(request, callback);
-
 };
 
 // markers template

@@ -37,7 +37,6 @@ gulp.task('clean', function() {
     }).pipe(clean());
 });
 
-
 //TODO - all scripts tasks with one stream via lazypipes
 gulp.task('scripts-dbg', ['lint', 'clean'], function() {
     return gulp.src(filePath.src)

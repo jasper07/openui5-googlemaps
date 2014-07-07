@@ -70,6 +70,11 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'sap/ui/core/ResizeHa
                         type: 'openui5.googlemaps.Polygon',
                         multiple: true,
                         bindable: 'bindable'
+                    },
+                    'directions': {
+                        type: 'openui5.googlemaps.Directions',
+                        multiple: false,
+                        bindable: 'bindable'
                     }
                 },
                 events: {
@@ -152,7 +157,6 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'sap/ui/core/ResizeHa
                 this.map.setCenter(new Gmaps.LatLng(this.getLat(), this.getLng()));
                 this.notifyAggregations('MapRendered');
             });
-
         };
 
         Map.prototype.setMapTypeId = function(sValue) {
@@ -214,6 +218,7 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'sap/ui/core/ResizeHa
             this._notifyMarkers(sEvent, this.map);
             this._notifyPolylines(sEvent, this.map);
             this._notifyPolygons(sEvent, this.map);
+            this._notifyDirections(sEvent, this.map);
         };
 
         Map.prototype.onAfterRendering = function() {
@@ -334,6 +339,10 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'sap/ui/core/ResizeHa
             this.getPolygons().forEach(function(oPolygons) {
                 oPolygons["on" + action](param);
             });
+        };
+
+        Map.prototype._notifyDirections = function(action, param) {
+            this.getDirections()["on" + action](param);
         };
 
         Map.prototype.resetMap = function() {
