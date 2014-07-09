@@ -5,72 +5,47 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge' />
     <title>Directions Test</title>
 
-    <script id="sap-ui-bootstrap" type="text/javascript" src="../openui5/resources/sap-ui-core.js" 
- data-sap-ui-theme="sap_bluecrystal" data-sap-ui-libs="sap.m"></script>
+    <script id="sap-ui-bootstrap" type="text/javascript" src="../openui5/resources/sap-ui-core.js" data-sap-ui-theme="sap_bluecrystal" data-sap-ui-libs="sap.m"></script>
     <style type="text/css">
-    #content {
-    /*    width: 100%;
-        height: 100%;*/
-    }
-/*    #map1-map {
-        display: block;
-        width: 100% !important;
-        height: 720px !important;
-    }*/
     #buttons {
         position: absolute;
         bottom: 30px;
         left: 25px;
         z-index: 100;
     }
-
-    .inputField{
-       display: block;
-   }
-
-    @media only screen and (max-width : 240px) {
+    .inputField {
+        display: block;
+    }
+   
+    @media only screen and (min-width: 719px) and (max-width: 720px) {
         #map1-map {
-            width: 230px !important;
-            height: 300px !important;
+            width: 50% !important;
+            height: calc(100% - 1px) !important; 
+            position: absolute;
+            right: 1px;
+            top: 1px !important;
+            bottom: 1px !important;
+            overflow: hidden;
         }
     }
-    @media only screen and (min-width : 241px) and (max-width : 320px) {
-        #map1-map {
-            width: 310px !important;
-            height: 460px !important;
-        }
-    }
-    @media only screen and (min-width : 321px) and (max-width : 480px) {
-        #map1-map {
-            width: 460px !important;
-            height: 620px !important;
-        }
-    }
-    @media only screen and (min-width : 481px) and (max-width : 720px) {
-        #map1-map {
-            width: 720px !important;
-            height: 1280px !important;
-        }
-    }
-
-    @media only screen and (min-device-width : 719px) and (max-device-width : 721px) and (-webkit-min-device-pixel-ratio : 2) and (orientation : portrait) { 
-     #content {
-       width: 720px !important;
-      height: 1280px !important;
-    }
-     #map1-map {
-       width: 720px !important;
-       height: 1280px !important;
-    }
-
+    #map1-map {
+        width: 100% !important;
+        height: calc(100% - 1px) !important;
+        position: absolute;
+        left: 1px;
+        right: 1px;
+        top: 1px !important;
+        bottom: 1px !important;
+        overflow: hidden;
     }
     </style>
 </head>
 
-<body class='sapUiBody'>
-    <div id='content'>
-    <div id='map'></div>
-    <div id='buttons'></div>
+<body class="sapUiBody" role="application" style="height: 100%;">
+
+    <div id="content" data-sap-ui-area="content">
+        <div id='map'></div>
+        <div id='buttons'></div>
     </div>
 </body>
 
@@ -98,10 +73,10 @@ sap.ui.getCore().setModel(oModel);
 var oContext = oModel.getContext('/places/0/');
 
 var params = {
-    url : 'https://maps.googleapis.com/maps/api/js',
-    sensor : false,
-    v:'3.exp'
-    // libraries : 'places'
+    url: 'https://maps.googleapis.com/maps/api/js',
+    sensor: false,
+    v: '3.exp'
+        // libraries : 'places'
 };
 
 openui5.googlemaps.ScriptsUtil.setParams(params);
@@ -112,46 +87,51 @@ var directions = new openui5.googlemaps.Directions({
     travelMode: openui5.googlemaps.TravelMode.transit
 });
 
-var myMap = new openui5.googlemaps.Map("map1", { 
+var myMap = new openui5.googlemaps.Map("map1", {
     lat: -33.89,
     lng: 151.27,
-    zoom: 8,
+    zoom: 7,
+    zoomControl: true,
     directions: directions
-  }).placeAt("map").setBindingContext(oContext);
+}).placeAt("map").setBindingContext(oContext);
 
 var oStartSearch = new sap.m.Input("start", {
     value: '{start}',
     enabled: true,
     width: '180px',
     placeholder: "Start Address",
-    layoutData: new sap.m.FlexItemData({growFactor: 2})      
+    layoutData: new sap.m.FlexItemData({
+        growFactor: 2
+    })
 }).placeAt("buttons").setBindingContext(oContext).addStyleClass('inputField');
 
 var oEndSearch = new sap.m.Input("end", {
     value: '{end}',
-    enabled: true, 
+    enabled: true,
     width: '180px',
     placeholder: "End Address",
-    layoutData: new sap.m.FlexItemData({growFactor: 8} )      
+    layoutData: new sap.m.FlexItemData({
+        growFactor: 2
+    })
 }).placeAt("buttons").setBindingContext(oContext).addStyleClass('inputField');
 
 var oSegmentedBtn = new sap.m.SegmentedButton({
-        selectedButton: "transitBtn",
-        select: function(oEvent) {
-            directions.setTravelMode(sap.ui.getCore().byId(oEvent.getParameters().id).getText().toUpperCase());
-        }
+    selectedButton: "transitBtn",
+    select: function(oEvent) {
+        directions.setTravelMode(sap.ui.getCore().byId(oEvent.getParameters().id).getText().toUpperCase());
+    }
 });
 
-oSegmentedBtn.addButton(new sap.m.Button("drivingBtn", {text: "Driving"}));
+oSegmentedBtn.addButton(new sap.m.Button("drivingBtn", {text: "Driving" }));
 oSegmentedBtn.addButton(new sap.m.Button("walkingBtn", {text: "Walking"}));
 oSegmentedBtn.addButton(new sap.m.Button("bicyclingBtn", {text: "Bicycling"}));
-oSegmentedBtn.addButton(new sap.m.Button("transitBtn", {text: "Transit"}));
+oSegmentedBtn.addButton(new sap.m.Button("transitBtn", { text: "Transit"}));
 
 var oSegmentedButtonBar = new sap.m.Bar({
-   contentMiddle: [oSegmentedBtn]
+    contentMiddle: [oSegmentedBtn]
 });
 
-var oFlexBox = new sap.m.VBox('fb',{
-    items:[oStartSearch, oEndSearch, oSegmentedButtonBar]
+var oFlexBox = new sap.m.VBox('fb', {
+    items: [oStartSearch, oEndSearch, oSegmentedButtonBar]
 }).placeAt("buttons");
 </script>
