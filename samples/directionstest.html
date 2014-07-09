@@ -9,8 +9,8 @@
  data-sap-ui-theme="sap_bluecrystal" data-sap-ui-libs="sap.m"></script>
     <style type="text/css">
     #content {
-        width: 100%;
-        height: 100%;
+    /*    width: 100%;
+        height: 100%;*/
     }
 /*    #map1-map {
         display: block;
@@ -52,11 +52,17 @@
             height: 1280px !important;
         }
     }
-    @media only screen and (min-width : 769px){
-        #map1-map {
-            width: 1010px !important;
-            height: 740px !important;
-        }
+
+    @media only screen and (min-device-width : 719px) and (max-device-width : 721px) and (-webkit-min-device-pixel-ratio : 2) and (orientation : portrait) { 
+     #content {
+       width: 360px !important;
+      height: 640px !important;
+    }
+     #map1-map {
+       width: 360px !important;
+       height: 640px !important;
+    }
+
     }
     </style>
 </head>
