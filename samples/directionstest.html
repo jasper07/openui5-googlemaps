@@ -3,24 +3,69 @@
 
 <head>
     <meta http-equiv='X-UA-Compatible' content='IE=edge' />
-    <title>Test different sizes</title>
+    <title>Directions Test</title>
 
-    <script id="sap-ui-bootstrap" type="text/javascript" src="../openui5/resources/sap-ui-core.js" data-sap-ui-theme='sap_goldreflection' data-sap-ui-libs='sap.ui.commons'></script>
+    <script id="sap-ui-bootstrap" type="text/javascript" src="../openui5/resources/sap-ui-core.js" 
+ data-sap-ui-theme="sap_bluecrystal" data-sap-ui-libs="sap.m"></script>
     <style type="text/css">
     #content {
         width: 100%;
         height: 100%;
     }
-    #map1-map {
+/*    #map1-map {
         display: block;
-        width: 460px !important;
-        height: 620px !important;
+        width: 100% !important;
+        height: 720px !important;
+    }*/
+    #buttons {
+        position: absolute;
+        bottom: 30px;
+        left: 25px;
+        z-index: 100;
+    }
+
+    .inputField{
+       display: block;
+   }
+
+    @media only screen and (max-width : 240px) {
+        #map1-map {
+            width: 230px !important;
+            height: 300px !important;
+        }
+    }
+    @media only screen and (min-width : 241px) and (max-width : 320px) {
+        #map1-map {
+            width: 310px !important;
+            height: 460px !important;
+        }
+    }
+    @media only screen and (min-width : 321px) and (max-width : 480px) {
+        #map1-map {
+            width: 460px !important;
+            height: 620px !important;
+        }
+    }
+    @media only screen and (min-width : 481px) and (max-width : 768px) {
+        #map1-map {
+            width: 754px !important;
+            height: 1000px !important;
+        }
+    }
+    @media only screen and (min-width : 769px){
+        #map1-map {
+            width: 1010px !important;
+            height: 740px !important;
+        }
     }
     </style>
 </head>
 
 <body class='sapUiBody'>
-    <div id='content'></div>
+    <div id='content'>
+    <div id='map'></div>
+    <div id='buttons'></div>
+    </div>
 </body>
 
 </html>
@@ -28,6 +73,23 @@
 <script>
 sap.ui.getCore().loadLibrary("openui5.googlemaps", "../openui5/googlemaps/");
 
+var places = [{
+    name: "Bondi Beach",
+    lat: -33.890542,
+    lng: 151.274856,
+    start: 'Manly',
+    end: 'Cronulla'
+}];
+
+var oModel = new sap.ui.model.json.JSONModel();
+
+oModel.setData({
+    places: places
+});
+
+sap.ui.getCore().setModel(oModel);
+
+var oContext = oModel.getContext('/places/0/');
 
 var params = {
     url : 'https://maps.googleapis.com/maps/api/js',
@@ -39,8 +101,8 @@ var params = {
 openui5.googlemaps.ScriptsUtil.setParams(params);
 
 var directions = new openui5.googlemaps.Directions({
-    startAddress: 'Manly',
-    endAddress: 'Cronulla',
+    startAddress: '{start}',
+    endAddress: '{end}',
     travelMode: openui5.googlemaps.TravelMode.transit
 });
 
@@ -49,7 +111,41 @@ var myMap = new openui5.googlemaps.Map("map1", {
     lng: 151.27,
     zoom: 8,
     directions: directions
-  }).placeAt("content");
+  }).placeAt("map").setBindingContext(oContext);
 
+var oStartSearch = new sap.m.Input("start", {
+    value: '{start}',
+    enabled: true,
+    width: '180px',
+    placeholder: "Start Address",
+    layoutData: new sap.m.FlexItemData({growFactor: 2})      
+}).placeAt("buttons").setBindingContext(oContext).addStyleClass('inputField');
 
+var oEndSearch = new sap.m.Input("end", {
+    value: '{end}',
+    enabled: true, 
+    width: '180px',
+    placeholder: "End Address",
+    layoutData: new sap.m.FlexItemData({growFactor: 8} )      
+}).placeAt("buttons").setBindingContext(oContext).addStyleClass('inputField');
+
+var oSegmentedBtn = new sap.m.SegmentedButton({
+        selectedButton: "transitBtn",
+        select: function(oEvent) {
+            directions.setTravelMode(sap.ui.getCore().byId(oEvent.getParameters().id).getText().toUpperCase());
+        }
+});
+
+oSegmentedBtn.addButton(new sap.m.Button("drivingBtn", {text: "Driving"}));
+oSegmentedBtn.addButton(new sap.m.Button("walkingBtn", {text: "Walking"}));
+oSegmentedBtn.addButton(new sap.m.Button("bicyclingBtn", {text: "Bicycling"}));
+oSegmentedBtn.addButton(new sap.m.Button("transitBtn", {text: "Transit"}));
+
+var oSegmentedButtonBar = new sap.m.Bar({
+   contentMiddle: [oSegmentedBtn]
+});
+
+var oFlexBox = new sap.m.VBox('fb',{
+    items:[oStartSearch, oEndSearch, oSegmentedButtonBar]
+}).placeAt("buttons");
 </script>
