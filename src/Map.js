@@ -75,6 +75,11 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'sap/ui/core/ResizeHa
                         type: 'openui5.googlemaps.Directions',
                         multiple: false,
                         bindable: 'bindable'
+                    },
+                    'markerCluster': {
+                        type: 'openui5.googlemaps.MarkerCluster',
+                        multiple: false,
+                        bindable: 'bindable'
                     }
                 },
                 events: {
@@ -219,6 +224,7 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'sap/ui/core/ResizeHa
             this._notifyPolylines(sEvent, this.map);
             this._notifyPolygons(sEvent, this.map);
             this._notifyDirections(sEvent, this.map);
+            this._notifyMarkerCluster(sEvent, this.map);
         };
 
         Map.prototype.onAfterRendering = function() {
@@ -334,6 +340,13 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'sap/ui/core/ResizeHa
                 this.getDirections()["on" + action](param);
             }
         };
+
+        Map.prototype._notifyMarkerCluster = function(action, param) {
+            if (this.getMarkerCluster()) {
+                this.getMarkerCluster()["on" + action](param);
+            }
+        };
+
 
         Map.prototype.resetMap = function() {
             this.removeListeners();

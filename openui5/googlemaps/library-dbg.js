@@ -1,6 +1,6 @@
 /**
  * openui5-googlemaps - OpenUI5 Google Maps library
- * @version v0.0.7
+ * @version v0.0.8
  * @link http://jasper07.github.io/openui5-googlemaps/
  * @license MIT
  */sap.ui.define(['jquery.sap.global', 'sap/ui/core/Core', 'sap/ui/core/library'],
@@ -34,10 +34,11 @@
                     "openui5.googlemaps.Marker",
                     "openui5.googlemaps.Polyline",
                     "openui5.googlemaps.Polygon",
-                    "openui5.googlemaps.Directions"
+                    "openui5.googlemaps.Directions",
+                    "openui5.googlemaps.MarkerCluster"
                 ],
                 elements: [],
-                version: "0.0.8"
+                version: "0.0.9"
 
             });
         })();

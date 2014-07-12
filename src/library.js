@@ -29,10 +29,11 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Core', 'sap/ui/core/library'],
                     "openui5.googlemaps.Marker",
                     "openui5.googlemaps.Polyline",
                     "openui5.googlemaps.Polygon",
-                    "openui5.googlemaps.Directions"
+                    "openui5.googlemaps.Directions",
+                    "openui5.googlemaps.MarkerCluster"
                 ],
                 elements: [],
-                version: "0.0.8"
+                version: "0.0.9"
 
             });
         })();

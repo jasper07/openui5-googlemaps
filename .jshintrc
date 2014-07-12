@@ -7,6 +7,7 @@
     "eqeqeq": true,
     "eqnull": true,
     "trailing": true,
+    "quotmark": false,
     "globals": {
         "$": true,
         "jQuery": true,

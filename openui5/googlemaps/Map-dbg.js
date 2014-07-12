@@ -1,6 +1,6 @@
 /**
  * openui5-googlemaps - OpenUI5 Google Maps library
- * @version v0.0.7
+ * @version v0.0.8
  * @link http://jasper07.github.io/openui5-googlemaps/
  * @license MIT
  */sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'sap/ui/core/ResizeHandler', 'google.maps', './MapUtils', './MapTypeId'],
@@ -78,6 +78,11 @@
                     },
                     'directions': {
                         type: 'openui5.googlemaps.Directions',
+                        multiple: false,
+                        bindable: 'bindable'
+                    },
+                    'markerCluster': {
+                        type: 'openui5.googlemaps.MarkerCluster',
                         multiple: false,
                         bindable: 'bindable'
                     }
@@ -224,6 +229,7 @@
             this._notifyPolylines(sEvent, this.map);
             this._notifyPolygons(sEvent, this.map);
             this._notifyDirections(sEvent, this.map);
+            this._notifyMarkerCluster(sEvent, this.map);
         };
 
         Map.prototype.onAfterRendering = function() {
@@ -339,6 +345,13 @@
                 this.getDirections()["on" + action](param);
             }
         };
+
+        Map.prototype._notifyMarkerCluster = function(action, param) {
+            if (this.getMarkerCluster()) {
+                this.getMarkerCluster()["on" + action](param);
+            }
+        };
+
 
         Map.prototype.resetMap = function() {
             this.removeListeners();

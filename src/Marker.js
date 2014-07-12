@@ -23,7 +23,7 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './Ani
                         bindable: 'bindable'
                     },
                     'icon': {
-                        type: 'sap.ui.core.URI',
+                        type: 'any',
                         bindable: 'bindable'
                     },
                     'visible': {
@@ -50,6 +50,11 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './Ani
             this._dragging = false;
             this.aListeners = [];
             this.iwMaxWidth = 360;
+        };
+
+        Marker.prototype.onAfterRender = function() {
+            jQuery.sap.log.info('marker rendered ' + this.getId());
+
         };
 
         Marker.prototype.updatePosition = function() {
@@ -87,7 +92,15 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './Ani
             }
         };
 
-        Marker.prototype.mapReady = function() {
+        Marker.prototype.getMap = function() {
+            return this.map;
+        };
+
+        Marker.prototype.setMap = function(map) {
+            this.map = map;
+        };
+
+        Marker.prototype.setMarker = function() {
             if (!this.marker) {
                 this.marker = new Gmaps.Marker(this.getOptions());
                 this.marker.setMap(this.map);
@@ -127,8 +140,8 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './Ani
         };
 
         Marker.prototype.onMapRendered = function(map) {
-            this.map = map;
-            this.mapReady();
+            this.setMap(map);
+            this.setMarker();
         };
 
         Marker.prototype.addListener = function(event, callback, object) {

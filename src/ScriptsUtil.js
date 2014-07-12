@@ -17,7 +17,6 @@ sap.ui.define(['jquery.sap.global'],
             jQuery.extend(this.params, oParams);
         };
 
-
         ScriptsUtil.getParams = function() {
             return this.params;
         };

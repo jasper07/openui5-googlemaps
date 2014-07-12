@@ -1,6 +1,6 @@
 /**
  * openui5-googlemaps - OpenUI5 Google Maps library
- * @version v0.0.7
+ * @version v0.0.8
  * @link http://jasper07.github.io/openui5-googlemaps/
  * @license MIT
  */sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './Animation'],
@@ -28,7 +28,7 @@
                         bindable: 'bindable'
                     },
                     'icon': {
-                        type: 'sap.ui.core.URI',
+                        type: 'any',
                         bindable: 'bindable'
                     },
                     'visible': {
@@ -55,6 +55,11 @@
             this._dragging = false;
             this.aListeners = [];
             this.iwMaxWidth = 360;
+        };
+
+        Marker.prototype.onAfterRender = function() {
+            jQuery.sap.log.info('marker rendered ' + this.getId());
+
         };
 
         Marker.prototype.updatePosition = function() {
@@ -92,7 +97,15 @@
             }
         };
 
-        Marker.prototype.mapReady = function() {
+        Marker.prototype.getMap = function() {
+            return this.map;
+        };
+
+        Marker.prototype.setMap = function(map) {
+            this.map = map;
+        };
+
+        Marker.prototype.setMarker = function() {
             if (!this.marker) {
                 this.marker = new Gmaps.Marker(this.getOptions());
                 this.marker.setMap(this.map);
@@ -132,8 +145,8 @@
         };
 
         Marker.prototype.onMapRendered = function(map) {
-            this.map = map;
-            this.mapReady();
+            this.setMap(map);
+            this.setMarker();
         };
 
         Marker.prototype.addListener = function(event, callback, object) {
