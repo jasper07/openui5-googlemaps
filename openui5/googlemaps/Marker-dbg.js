@@ -57,11 +57,6 @@
             this.iwMaxWidth = 360;
         };
 
-        Marker.prototype.onAfterRender = function() {
-            jQuery.sap.log.info('marker rendered ' + this.getId());
-
-        };
-
         Marker.prototype.updatePosition = function() {
             if (!this.marker || this.getLat() === null || this.getLng() === null) {
                 return;
@@ -101,7 +96,7 @@
             return this.map;
         };
 
-        Marker.prototype.setMap = function(map) {
+    Marker.prototype.setMap = function(map) {
             this.map = map;
         };
 

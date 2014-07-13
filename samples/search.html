@@ -18,35 +18,48 @@
 
 <body class="sapUiBody" role="application">
     <div id="content">
-        <a href="https://github.com/jasper07/openui5-googlemaps"><img style="position: absolute; top: 0; right: 0; border: 0; z-index: 100;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+        <a href="https://github.com/jasper07/openui5-googlemaps">
+            <img style="position: absolute; top: 0; right: 0; border: 0; z-index: 100;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png">
+        </a>
     </div>
 </body>
+
 </html>
 
 <script>
 //load googlemaps library
 sap.ui.getCore().loadLibrary("openui5.googlemaps", "../openui5/googlemaps/");
+jQuery.sap.require('openui5.googlemaps.MapUtils');
 
-var onMyLocation = function() {
-    openui5.googlemaps.MapUtils.currentPosition(getLocationCallback);
-};
+var util = openui5.googlemaps.MapUtils;
 
+/* update mode with location adn return a lat lng object */
 var getLocationCallback = function(oPos) {
     oModel.setProperty('lat', oPos.lat, oContext);
     oModel.setProperty('lng', oPos.lng, oContext);
     oModel.setProperty('name', 'My Location', oContext);
+    return util.objToLatLng(oPos);
 };
 
+/* get my location*/
+var onMyLocation = function() {
+    util.currentPosition()
+    .then(getLocationCallback)
+    .then(util.geocodePosition)
+    .done(updateLocation);
+};
+
+/* on suggest callback */
 var onSuggest = function(oEvent) {
     var sValue = oEvent.getParameter("suggestValue");
     if (sValue.length > 3) {
-        openui5.googlemaps.MapUtils.search({
+        util.search({
                 'address': sValue
-            },
-            jQuery.proxy(searchResults, this))
-    }
+        }).done(jQuery.proxy(searchResults, this));
+}
 };
 
+/* on change of auto complete*/
 var onChange = function(oEvent) {
     if (oEvent) {
         var val = oEvent.getParameters('newValue').newValue;
@@ -61,17 +74,18 @@ var onChange = function(oEvent) {
     }
 };
 
-var onMarkerDragEnd = function(oEvent){
-    var utils = openui5.googlemaps.MapUtils;
+/* update location */
+var updateLocation = function(sLocation){
+    oModel.setProperty(oContext.getPath() + 'name', sLocation);
+    sap.ui.getCore().byId('auto').setValue(sLocation);
+}
 
-    var callback = function(sLocation){
-        //reverse lookup to get name of location
-        oModel.setProperty(oContext.getPath() + 'name', sLocation);
-    }
-
-    utils.geocodePosition(oEvent.getParameters().position, callback)
+/* on marker drag end */
+var onMarkerDragEnd = function(oEvent) {
+    util.geocodePosition(oEvent.getParameters().position).done(updateLocation);
 };
 
+/* search results */
 var searchResults = function(results, status) {
     var that = this;
     this.destroyItems();
@@ -145,7 +159,7 @@ var oForm1 = new sap.ui.layout.form.Form({
                 label: new sap.ui.commons.Label({
                     text: "Query Address"
                 }),
-                fields: [new sap.ui.commons.AutoComplete({
+                fields: [new sap.ui.commons.AutoComplete('auto',{
                         change: onChange,
                         layoutData: new sap.ui.layout.GridData({
                             span: "L3 M6 S12"
