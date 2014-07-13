@@ -108,13 +108,9 @@
                 }
             };
 
-            var geocode = function(deferred, position) {
-                new gmaps.Geocoder().geocode({
-                    latLng: oPostion
-                }, responses);
-            };
-
-            geocode(deferred, oPostion);
+            new gmaps.Geocoder().geocode({
+                latLng: oPostion
+            }, responses);
 
             return deferred.promise();
         };

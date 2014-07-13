@@ -103,13 +103,9 @@ sap.ui.define(['jquery.sap.global', 'google.maps'],
                 }
             };
 
-            var geocode = function(deferred, position) {
-                new gmaps.Geocoder().geocode({
-                    latLng: oPostion
-                }, responses);
-            };
-
-            geocode(deferred, oPostion);
+            new gmaps.Geocoder().geocode({
+                latLng: oPostion
+            }, responses);
 
             return deferred.promise();
         };
