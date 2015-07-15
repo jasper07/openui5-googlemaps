@@ -12,6 +12,7 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Core', 'sap/ui/core/library'],
             jQuery.sap.require('openui5.googlemaps.MapTypeId');
             jQuery.sap.require('openui5.googlemaps.Animation');
             jQuery.sap.require('openui5.googlemaps.TravelMode');
+            jQuery.sap.require('openui5.googlemaps.UnitSystem');
 
 
             // delegate further initialization of this library to the Core
@@ -21,7 +22,8 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Core', 'sap/ui/core/library'],
                 types: [
                     "openui5.googlemaps.MapTypeId",
                     "openui5.googlemaps.Animation",
-                    "openui5.googlemaps.TravelMode"
+                    "openui5.googlemaps.TravelMode",
+                    "openui5.googlemaps.UnitSystem"
                 ],
                 interfaces: [],
                 controls: [
