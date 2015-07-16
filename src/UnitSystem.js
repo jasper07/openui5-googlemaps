@@ -1,9 +1,10 @@
 sap.ui.define("openui5/googlemaps/UnitSystem", ['jquery.sap.global'],
     function(jQuery) {
         "use strict";
+        // These need to match Google's constants
         var UnitSystem = {
-            imperial: 1,
-            metric: 0
+            IMPERIAL: 1,
+            METRIC: 0
         };
         return UnitSystem;
     }, true);

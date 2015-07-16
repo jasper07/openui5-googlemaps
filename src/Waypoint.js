@@ -1,5 +1,5 @@
 sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './MapUtils'],
-    function(jQuery, Control, gmaps, utils) {
+    function(jQuery, Control, Gmaps, MapUtils) {
         "use strict";
 
         var Waypoint = Control.extend('openui5.googlemaps.Waypoint', {
@@ -12,19 +12,23 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './Map
                     'stopover': {
                         type: 'boolean'
                     }
-                }
+                },
+                renderer: {}
             }
-
         });
 
-        Waypoint.prototype.getWaypoint = function() {
-            var aWaypoint = [];
-            var oWaypoint = {};
+        Waypoint.prototype.createWaypoint = function() {
+          if (!this.waypoint) {
+              this.waypoint = new Gmaps.DirectionsWaypoint();
+          }
+          this.waypoint.location = this.getLocation();
+          this.waypoint.stopover = this.getStopover();
+        };
 
-            oWaypoint.location = this.getLocation();
-            oWaypoint.stopover = this.getStopOver();
-            aWaypoint.push(oWaypoint);
-            return aWaypoint;
+        Waypoint.prototype.getOptions = function() {
+            var options = {};
+            options.location = this.getLocation();
+            options.stopover = this.getStopover();
         };
 
         return Waypoint;

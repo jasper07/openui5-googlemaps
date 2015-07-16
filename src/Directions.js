@@ -25,6 +25,7 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './Tra
                         defaultValue: unitSystem.metric
                     }
                 },
+                defaultAggregation: 'waypoints',
                 aggregations: {
                     'waypoints': {
                         type: 'openui5.googlemaps.Waypoint',
@@ -61,6 +62,22 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './Tra
             this.route();
         };
 
+        Directions.prototype.setWaypoints = function (oWaypoints) {
+            this.setAggregation('waypoints', oWaypoints, true);
+            this.route();
+        };
+
+        Directions.prototype.getWaypointLocations = function() {
+            var aLocation = [];
+            this.getWaypoints().forEach(function(oWaypoint) {
+                aLocation.push({
+                    location: oWaypoint.getLocation(),
+                    stopover: oWaypoint.getStopover()
+                });
+            });
+            return aLocation;
+        };
+
         Directions.prototype.onMapRendered = function(map) {
             this.map = map;
             this.mapChanged();
@@ -88,7 +105,7 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './Tra
             request.travelMode = this.getTravelMode();
             request.unitSystem = this.getUnitSystem();
             request.optimizeWaypoints = this.getOptimizeWaypoints();
-            request.waypoints = this.getWaypoints();
+            request.waypoints = this.getWaypointLocations();
             return request;
         };
 
