@@ -80,7 +80,7 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './Ani
             }
         };
 
-        Marker.prototype.setICon = function(oValue) {
+        Marker.prototype.setIcon = function(oValue) {
             this.setProperty('icon', oValue, true);
             if (this.marker) {
                 this.marker.setIcon(this.getIcon());
@@ -91,7 +91,7 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './Ani
             return this.map;
         };
 
-    Marker.prototype.setMap = function(map) {
+        Marker.prototype.setMap = function(map) {
             this.map = map;
         };
 
