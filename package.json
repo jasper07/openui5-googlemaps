@@ -1,6 +1,6 @@
 {
     "name": "openui5-googlemaps",
-    "version": "0.0.9",
+    "version": "0.0.10",
     "description": "OpenUI5 Google Maps library",
     "keywords": [
         "openui5",
@@ -21,7 +21,7 @@
         "test": "test"
     },
     "devDependencies": {
-        "gulp": "~3.8.0",
+        "gulp": "^3.8.0",
         "gulp-concat": "^2.2.0",
         "gulp-rename": "^1.2.0",
         "gulp-streamify": "0.0.5",
@@ -31,11 +31,11 @@
         "gulp-clean": "~0.3.0",
         "gulp-git": "~0.4.3",
         "gulp-shell": "~0.2.7",
-        "gulp-qunit": "^1.2.0",
         "gulp-bump": "^0.3.0",
         "jshint-stylish": "~0.2.0",
         "bluebird": "^2.0.0",
-        "gulp-replace": "~0.3.0"
+        "gulp-replace": "~0.3.0",
+        "semver": "*"
     },
     "bugs": {
         "url": "http://stackoverflow.com/questions/tagged/sapui5"

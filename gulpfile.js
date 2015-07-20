@@ -7,7 +7,7 @@ var concat = require('gulp-concat');
 var clean = require('gulp-clean');
 var header = require('gulp-header');
 var streamify = require('gulp-streamify');
-var qunit = require('gulp-qunit');
+// var qunit = require('gulp-qunit');
 var shell = require('gulp-shell');
 var git = require('gulp-git');
 var bump = require('gulp-bump');
@@ -25,6 +25,7 @@ var banner = ['/**',
 
 var filePath = {
     src: './src/*.js',
+    test: './test/*.js',
     dest: './openui5/googlemaps'
 };
 

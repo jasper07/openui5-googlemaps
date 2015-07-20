@@ -85,7 +85,7 @@
             }
         };
 
-        Marker.prototype.setICon = function(oValue) {
+        Marker.prototype.setIcon = function(oValue) {
             this.setProperty('icon', oValue, true);
             if (this.marker) {
                 this.marker.setIcon(this.getIcon());
@@ -96,7 +96,7 @@
             return this.map;
         };
 
-    Marker.prototype.setMap = function(map) {
+        Marker.prototype.setMap = function(map) {
             this.map = map;
         };
 

@@ -17,6 +17,7 @@
             jQuery.sap.require('openui5.googlemaps.MapTypeId');
             jQuery.sap.require('openui5.googlemaps.Animation');
             jQuery.sap.require('openui5.googlemaps.TravelMode');
+            jQuery.sap.require('openui5.googlemaps.UnitSystem');
 
 
             // delegate further initialization of this library to the Core
@@ -26,7 +27,8 @@
                 types: [
                     "openui5.googlemaps.MapTypeId",
                     "openui5.googlemaps.Animation",
-                    "openui5.googlemaps.TravelMode"
+                    "openui5.googlemaps.TravelMode",
+                    "openui5.googlemaps.UnitSystem"
                 ],
                 interfaces: [],
                 controls: [
@@ -35,10 +37,11 @@
                     "openui5.googlemaps.Polyline",
                     "openui5.googlemaps.Polygon",
                     "openui5.googlemaps.Directions",
+                    "openui5.googlemaps.Waypoint",
                     "openui5.googlemaps.MarkerCluster"
                 ],
                 elements: [],
-                version: "0.0.9"
+                version: "0.0.10"
 
             });
         })();
