@@ -1,5 +1,5 @@
-sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './TravelMode'],
-    function(jQuery, Control, gmaps, travelMode) {
+sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './TravelMode', './UnitSystem'],
+    function(jQuery, Control, gmaps, travelMode, unitSystem) {
         "use strict";
 
         var Directions = Control.extend('openui5.googlemaps.Directions', {
@@ -16,6 +16,21 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './Tra
                     'travelMode': {
                         type: "string",
                         defaultValue: travelMode.driving
+                    },
+                    'optimizeWaypoints': {
+                        type: "boolean"
+                    },
+                    'unitSystem': {
+                        type: "string",
+                        defaultValue: unitSystem.metric
+                    }
+                },
+                defaultAggregation: 'waypoints',
+                aggregations: {
+                    'waypoints': {
+                        type: 'openui5.googlemaps.Waypoint',
+                        multiple: true,
+                        bindable: 'bindable'
                     }
                 },
                 events: {
@@ -40,6 +55,27 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './Tra
         Directions.prototype.setTravelMode = function(sValue) {
             this.setProperty('travelMode', sValue, true);
             this.route();
+        };
+
+        Directions.prototype.setOptimizeWaypoints = function(bValue) {
+            this.setProperty('optimizeWaypoints', bValue, true);
+            this.route();
+        };
+
+        Directions.prototype.setWaypoints = function (oWaypoints) {
+            this.setAggregation('waypoints', oWaypoints, true);
+            this.route();
+        };
+
+        Directions.prototype.getWaypointLocations = function() {
+            var aLocation = [];
+            this.getWaypoints().forEach(function(oWaypoint) {
+                aLocation.push({
+                    location: oWaypoint.getLocation(),
+                    stopover: oWaypoint.getStopover()
+                });
+            });
+            return aLocation;
         };
 
         Directions.prototype.onMapRendered = function(map) {
@@ -67,6 +103,9 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './Tra
             request.origin = this.getStartAddress();
             request.destination = this.getEndAddress();
             request.travelMode = this.getTravelMode();
+            request.unitSystem = this.getUnitSystem();
+            request.optimizeWaypoints = this.getOptimizeWaypoints();
+            request.waypoints = this.getWaypointLocations();
             return request;
         };
 
