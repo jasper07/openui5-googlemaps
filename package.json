@@ -31,6 +31,8 @@
         "gulp-clean": "~0.3.0",
         "gulp-git": "~0.4.3",
         "gulp-shell": "~0.2.7",
+        "gulp-qunit": "^1.2.0",
+        "gulp-bump": "^0.3.0",
         "jshint-stylish": "~0.2.0",
         "bluebird": "^2.0.0",
         "gulp-replace": "~0.3.0"
