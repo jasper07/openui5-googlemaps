@@ -14,6 +14,10 @@ var bump = require('gulp-bump');
 var replace = require('gulp-replace');
 var semver = require('semver');
 var pkg = require('./package.json');
+var ui5preload = require('gulp-ui5-preload');
+var uglify = require('gulp-uglify');
+var prettydata = require('gulp-pretty-data');
+var gulpif = require('gulp-if');
 
 var banner = ['/**',
     ' * <%= pkg.name %> - <%= pkg.description %>',
@@ -89,10 +93,27 @@ gulp.task('bump', function() {
         .pipe(gulp.dest('src'));
 });
 
-gulp.task('release', ['bump', 'build'], function() {
+gulp.task('ui5preload', function() {
+    return gulp.src([
+            'src/**/**.+(js|xml)',
+            '!src/ui/thirdparty/**'
+        ])
+        .pipe(gulpif('**/*.js', uglify())) //only pass .js files to uglify
+        .pipe(gulpif('**/*.xml', prettydata({
+            type: 'minify'
+        }))) // only pass .xml to prettydata 
+        .pipe(ui5preload({
+            base: 'src',
+            namespace: 'openui5.googlemaps',
+            isLibrary: true
+        }))
+        .pipe(gulp.dest('openui5/googlemaps'));
+});
+
+gulp.task('release', ['bump', 'build', 'ui5preload'], function() {
     return gulp.src('*.js', {
-        read: false
-    })
+            read: false
+        })
         .pipe(shell([
             'git add -u',
             'git commit -m "release ' + newVer + '"',
@@ -108,6 +129,8 @@ gulp.task('release', ['bump', 'build'], function() {
         ]));
 
 });
+
+
 
 gulp.task('default', ['watch', 'build']);
 gulp.task('build', ['scripts-dbg', 'scripts-min']);
