@@ -16,8 +16,8 @@ var semver = require('semver');
 var pkg = require('./package.json');
 var ui5preload = require('gulp-ui5-preload');
 var uglify = require('gulp-uglify');
-var prettydata = require('gulp-pretty-data');
-var gulpif = require('gulp-if');
+// var prettydata = require('gulp-pretty-data');
+// var gulpif = require('gulp-if');
 
 var banner = ['/**',
     ' * <%= pkg.name %> - <%= pkg.description %>',
@@ -98,14 +98,11 @@ gulp.task('bump', function() {
 });
 
 gulp.task('ui5preload', function() {
-    return gulp.src([
-            'src/**/**.+(js|xml)',
-            '!src/ui/thirdparty/**'
-        ])
-        .pipe(gulpif('**/*.js', uglify())) //only pass .js files to uglify
-        .pipe(gulpif('**/*.xml', prettydata({
-            type: 'minify'
-        }))) // only pass .xml to prettydata 
+    return gulp.src(filePath.src)
+        .pipe(streamify(uglify())) //only pass .js files to uglify
+        // .pipe(gulpif('**/*.xml', prettydata({
+        //     type: 'minify'
+        // }))) // only pass .xml to prettydata 
         .pipe(ui5preload({
             base: 'src',
             namespace: 'openui5.googlemaps',
