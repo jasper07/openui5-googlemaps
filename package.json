@@ -35,7 +35,8 @@
         "jshint-stylish": "~0.2.0",
         "bluebird": "^2.0.0",
         "gulp-replace": "~0.3.0",
-        "semver": "*"
+        "semver": "*",
+        "node-qunit-phantomjs": "~1.2.1"
     },
     "bugs": {
         "url": "http://stackoverflow.com/questions/tagged/sapui5"
