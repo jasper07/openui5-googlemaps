@@ -134,8 +134,6 @@ gulp.task('release', ['bump', 'build', 'ui5preload'], function() {
 
 });
 
-
-
 gulp.task('default', ['watch', 'build']);
 gulp.task('build', ['scripts-dbg', 'scripts-min']);
 gulp.task('cleanbuild', ['clean']);
