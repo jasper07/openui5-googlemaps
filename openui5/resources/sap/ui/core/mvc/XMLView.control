@@ -1,8 +1,0 @@
-<?xml version="1.0" ?>
-<control xmlns="http://www.sap.com/sap.ui.library.xsd" >
-
-	<name>mvc/XMLView</name>
-	<documentation>A View defined using (P)XML and HTML markup.</documentation>
-
-	<baseType>sap.ui.core/mvc/View</baseType>
-</control>

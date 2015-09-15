@@ -8,6 +8,7 @@ branches:
     - master
 
 before_install:
+  - npm install -g eslint
   - npm install gulp -g
 
 script:

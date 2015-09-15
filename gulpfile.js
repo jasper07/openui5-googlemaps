@@ -72,7 +72,7 @@ gulp.task('watch', function() {
     gulp.watch(filePath.src, ['lint', 'build']);
 });
 
-gulp.task('test', function() {
+gulp.task('test', ['lint'], function() {
     qunit('./test/unitTests.qunit.html', {
         'verbose': true,
         'timeout': 2
@@ -99,10 +99,7 @@ gulp.task('bump', function() {
 
 gulp.task('ui5preload', function() {
     return gulp.src(filePath.src)
-        .pipe(streamify(uglify())) //only pass .js files to uglify
-        // .pipe(gulpif('**/*.xml', prettydata({
-        //     type: 'minify'
-        // }))) // only pass .xml to prettydata 
+        .pipe(streamify(uglify())) 
         .pipe(ui5preload({
             base: 'src',
             namespace: 'openui5.googlemaps',

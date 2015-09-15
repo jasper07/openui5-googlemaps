@@ -5,7 +5,7 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge' />
     <title>Directions Test With Waypoints</title>
     <link rel="icon" type="image/ico" href="../images/favicon.ico">
-    <script id="sap-ui-bootstrap" type="text/javascript" src="../openui5/resources/sap-ui-core.js" data-sap-ui-theme="sap_bluecrystal" data-sap-ui-libs="sap.m"></script>
+    <script id="sap-ui-bootstrap" type="text/javascript" src="https://openui5.hana.ondemand.com/resources/sap-ui-core.js" data-sap-ui-theme="sap_bluecrystal" data-sap-ui-libs="sap.m"></script>
     <style type="text/css">
     #buttons {
         position: absolute;
@@ -139,10 +139,10 @@ var oSegmentedBtn = new sap.m.SegmentedButton({
     }
 });
 
-oSegmentedBtn.addButton(new sap.m.Button("drivingBtn", {text: "Driving" }));
-oSegmentedBtn.addButton(new sap.m.Button("walkingBtn", {text: "Walking"}));
-oSegmentedBtn.addButton(new sap.m.Button("bicyclingBtn", {text: "Bicycling"}));
-oSegmentedBtn.addButton(new sap.m.Button("transitBtn", { text: "Transit"}));
+oSegmentedBtn.addButton(new sap.m.Button("drivingBtn", {text: "Driving" , width: "60px"}));
+oSegmentedBtn.addButton(new sap.m.Button("walkingBtn", {text: "Walking", width: "60px"}));
+oSegmentedBtn.addButton(new sap.m.Button("bicyclingBtn", {text: "Bicycling", width: "60px"}));
+oSegmentedBtn.addButton(new sap.m.Button("transitBtn", { text: "Transit", width: "60px"}));
 
 var oSegmentedButtonBar = new sap.m.Bar({
     contentMiddle: [oSegmentedBtn]
