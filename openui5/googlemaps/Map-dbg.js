@@ -1,6 +1,6 @@
 /**
  * openui5-googlemaps - OpenUI5 Google Maps library
- * @version v0.0.16
+ * @version v0.0.17
  * @link http://jasper07.github.io/openui5-googlemaps/
  * @license MIT
  */sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'sap/ui/core/ResizeHandler', 'google.maps', './MapUtils', './MapTypeId'],
@@ -178,16 +178,16 @@
 
         Map.prototype.setZoomControl = function(bValue) {
             this.setProperty('zoomControl', bValue, true);
-            if (this.map && bValue !== this.map.getZoomControl()) {
-                this.map.setZoomControl(bValue);
+            if (this.map && bValue !== this.map.zoomControl) {
+                this.map.zoomControl = bValue;
             }
         };
 
-        Map.prototype.setDisableDefaultUi = function(bValue) {
-            this.setProperty('disableDefaultUi', bValue, true);
+        Map.prototype.setDisableDefaultUI = function(bValue) {
+            this.setProperty('disableDefaultUI', bValue, true);
             if (this.map) {
                 this.map.setOptions({
-                    disableDefaultUI: this.disableDefaultUI
+                    disableDefaultUI: this.getDisableDefaultUI()
                 });
             }
         };
@@ -214,7 +214,7 @@
             var mapOptions = {};
             mapOptions.zoom = this.getZoom();
             mapOptions.center = new Gmaps.LatLng(this.getLat(), this.getLng());
-            mapOptions.disableDefaultUi = this.getDisableDefaultUI();
+            mapOptions.disableDefaultUI = this.getDisableDefaultUI();
             mapOptions.mapTypeId = this.getMapTypeId();
             mapOptions.panControl = this.getPanControl();
             mapOptions.zoomControl = this.getZoomControl();
