@@ -1,9 +1,14 @@
 /**
  * openui5-googlemaps - OpenUI5 Google Maps library
- * @version v0.0.16
+ * @version v0.0.17
  * @link http://jasper07.github.io/openui5-googlemaps/
  * @license MIT
- */sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'sap/ui/core/ResizeHandler', 'google.maps', './MapUtils', './MapTypeId'],
+ *//*
+Notes: Must not use 'on' as a prefix to event handlers as they
+are reserved. See:
+https://openui5.hana.ondemand.com/#docs/guide/91f0a8dc6f4d1014b6dd926db0e91070.html
+*/
+sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'sap/ui/core/ResizeHandler', 'google.maps', './MapUtils', './MapTypeId'],
     function(jQuery, Control, ResizeHandler, Gmaps, MapUtils, MapTypeId) {
         "use strict";
         var Map = Control.extend('openui5.googlemaps.Map', {
@@ -88,7 +93,8 @@
                     }
                 },
                 events: {
-                    'ready': {}
+                    'ready': {},
+                    'click': {}
                 }
             },
             renderer: function(oRm, oControl) {
@@ -178,16 +184,16 @@
 
         Map.prototype.setZoomControl = function(bValue) {
             this.setProperty('zoomControl', bValue, true);
-            if (this.map && bValue !== this.map.getZoomControl()) {
-                this.map.setZoomControl(bValue);
+            if (this.map && bValue !== this.map.zoomControl) {
+                this.map.zoomControl = bValue;
             }
         };
 
-        Map.prototype.setDisableDefaultUi = function(bValue) {
-            this.setProperty('disableDefaultUi', bValue, true);
+        Map.prototype.setDisableDefaultUI = function(bValue) {
+            this.setProperty('disableDefaultUI', bValue, true);
             if (this.map) {
                 this.map.setOptions({
-                    disableDefaultUI: this.disableDefaultUI
+                    disableDefaultUI: this.getDisableDefaultUI()
                 });
             }
         };
@@ -214,7 +220,7 @@
             var mapOptions = {};
             mapOptions.zoom = this.getZoom();
             mapOptions.center = new Gmaps.LatLng(this.getLat(), this.getLng());
-            mapOptions.disableDefaultUi = this.getDisableDefaultUI();
+            mapOptions.disableDefaultUI = this.getDisableDefaultUI();
             mapOptions.mapTypeId = this.getMapTypeId();
             mapOptions.panControl = this.getPanControl();
             mapOptions.zoomControl = this.getZoomControl();
@@ -233,7 +239,7 @@
         };
 
         Map.prototype.onAfterRendering = function() {
-            //if map not loaded yet subscribe to its event    
+            //if map not loaded yet subscribe to its event
             if (Gmaps.loaded === undefined) {
                 if (this.subscribed === undefined) {
                     sap.ui.getCore().getEventBus().subscribe(Gmaps.notifyEvent, this.createMap, this);
@@ -267,6 +273,7 @@
             this.addListener('idle', jQuery.proxy(this.mapChanged, this));
             // this.addListener('bounds_changed', jQuery.proxy(this.updateValues, this)); //TODO
             this.addListener('maptypeid_changed', jQuery.proxy(this.mapTypeIdChanged, this));
+            this.addListener('click', jQuery.proxy(this.clicked, this));
 
             this.resizeID = ResizeHandler.register(jQuery.sap.domById(this.mapId), jQuery.proxy(this.onResize, this));
 
@@ -363,6 +370,15 @@
         Map.prototype.exit = function() {
             this.resetMap();
             ResizeHandler.deregister(this.resizeID);
+        };
+
+        Map.prototype.clicked = function(oEvent) {
+            this.fireClick({
+                map: this.map,
+                context: this.getBindingContext(),
+                lat: oEvent.latLng.H,
+                lng: oEvent.latLng.L
+            });
         };
 
         return Map;
