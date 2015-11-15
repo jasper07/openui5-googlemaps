@@ -99,7 +99,7 @@ gulp.task('bump', function() {
 
 gulp.task('ui5preload', function() {
     return gulp.src(filePath.src)
-        .pipe(streamify(uglify())) 
+        .pipe(streamify(uglify()))
         .pipe(ui5preload({
             base: 'src',
             namespace: 'openui5.googlemaps',
@@ -108,7 +108,7 @@ gulp.task('ui5preload', function() {
         .pipe(gulp.dest('openui5/googlemaps'));
 });
 
-gulp.task('release', ['bump', 'build', 'ui5preload'], function() {
+gulp.task('release', ['bump', 'build'], function() {
     return gulp.src('*.js', {
             read: false
         })
@@ -129,5 +129,5 @@ gulp.task('release', ['bump', 'build', 'ui5preload'], function() {
 });
 
 gulp.task('default', ['watch', 'build']);
-gulp.task('build', ['scripts-dbg', 'scripts-min']);
+gulp.task('build', ['lint', 'clean', 'scripts-dbg', 'scripts-min', 'ui5preload']);
 gulp.task('cleanbuild', ['clean']);

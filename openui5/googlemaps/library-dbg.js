@@ -41,7 +41,7 @@
                     "openui5.googlemaps.MarkerCluster"
                 ],
                 elements: [],
-                version: "0.0.17"
+                version: "0.0.18"
 
             });
         })();
