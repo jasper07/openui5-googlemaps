@@ -95,9 +95,13 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './Ani
             this.map = map;
         };
 
+        Marker.prototype.createMarker = function() {
+            return new Gmaps.Marker(this.getOptions());
+        };
+
         Marker.prototype.setMarker = function() {
             if (!this.marker) {
-                this.marker = new Gmaps.Marker(this.getOptions());
+                this.marker = this.createMarker();
                 this.marker.setMap(this.map);
                 this.addListener('click', jQuery.proxy(this.onClick, this));
 

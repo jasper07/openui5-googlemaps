@@ -1,6 +1,6 @@
 /**
  * openui5-googlemaps - OpenUI5 Google Maps library
- * @version v0.0.17
+ * @version v0.0.18
  * @link http://jasper07.github.io/openui5-googlemaps/
  * @license MIT
  *//**
@@ -1616,7 +1616,7 @@ MarkerClusterer.BATCH_SIZE_IE = 500;
  * @type {string}
  * @constant
  */
-MarkerClusterer.IMAGE_PATH = "http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclustererplus/images/m";
+MarkerClusterer.IMAGE_PATH =  location.protocol.replace('file', 'https')+"//google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclustererplus/images/m";
 
 
 /**
