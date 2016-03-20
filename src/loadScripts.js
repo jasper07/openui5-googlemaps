@@ -14,6 +14,10 @@ sap.ui.define(['jquery.sap.global', 'openui5/googlemaps/ScriptsUtil'],
                 sap.ui.getCore().getEventBus().publish(this.notifyEvent);
             };
 
+            Loader.isLoaded = function() {
+                return this.Loaded;
+            };
+
             Loader.load = function(Util) {
                 var params = {};
                 var utilParams = Util.getParams();

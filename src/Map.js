@@ -1,8 +1,3 @@
-/*
-Notes: Must not use 'on' as a prefix to event handlers as they
-are reserved. See:
-https://openui5.hana.ondemand.com/#docs/guide/91f0a8dc6f4d1014b6dd926db0e91070.html
-*/
 sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'sap/ui/core/ResizeHandler', 'google.maps', './MapUtils', './MapTypeId'],
 	function(jQuery, Control, ResizeHandler, Gmaps, MapUtils, MapTypeId) {
 		"use strict";
@@ -235,7 +230,7 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'sap/ui/core/ResizeHa
 
 		Map.prototype.onAfterRendering = function() {
 			//if map not loaded yet subscribe to its event
-			if (Gmaps.loaded === undefined) {
+			 if (Gmaps.loaded === undefined) {
 				if (this.subscribed === undefined) {
 					sap.ui.getCore().getEventBus().subscribe(Gmaps.notifyEvent, this.createMap, this);
 					this.subscribed = true;
@@ -286,8 +281,8 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'sap/ui/core/ResizeHa
 			this.aListeners = [];
 		};
 
-		Map.prototype.trigger = function(event) {
-			Gmaps.event.trigger(this.map, event);
+		Map.prototype.trigger = function(sEvent, oArguments) {
+			Gmaps.event.trigger(this.map, sEvent, oArguments);
 		};
 
 		Map.prototype.isDragging = function() {
