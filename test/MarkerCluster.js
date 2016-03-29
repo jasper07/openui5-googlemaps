@@ -11,6 +11,7 @@ sap.ui.define(
         var oModel = new JSONModel('data/ClusterData.json');
 
         var oMap;
+        var oMarkerCluster;
 
         sap.ui.getCore().setModel(oModel);
 
@@ -78,7 +79,7 @@ sap.ui.define(
             oMap.placeAt("qunit-fixture");
             sap.ui.getCore().applyChanges();
 
-            var oMarkerCluster = oMap.getMarkerCluster();
+            oMarkerCluster = oMap.getMarkerCluster();
             var aMarkers = oMarkerCluster.getMarkers();
 
             QUnit.ok(oMarkerCluster, "Marker Cluster Rendered");
