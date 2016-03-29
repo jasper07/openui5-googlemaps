@@ -1,40 +1,40 @@
-sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './MapUtils'],
+sap.ui.define(["jquery.sap.global", "sap/ui/core/Control", "google.maps", "./MapUtils"],
     function(jQuery, Control, gmaps, utils) {
         "use strict";
 
-        var Polygon = Control.extend('openui5.googlemaps.Polygon', {
+        var Polygon = Control.extend("openui5.googlemaps.Polygon", {
             metadata: {
                 properties: {
-                    'strokeColor': {
+                    "strokeColor": {
                         type: "sap.ui.core.CSSColor",
                         group: "Appearance",
                         defaultValue: null
                     },
-                    'strokeOpacity': {
-                        type: 'float',
-                        bindable: 'bindable',
+                    "strokeOpacity": {
+                        type: "float",
+                        bindable: "bindable",
                     },
-                    'strokeWeight': {
-                        type: 'float',
-                        bindable: 'bindable',
+                    "strokeWeight": {
+                        type: "float",
+                        bindable: "bindable",
                     },
-                    'fillColor': {
-                        type: 'string',
-                        bindable: 'bindable'
+                    "fillColor": {
+                        type: "string",
+                        bindable: "bindable"
                     },
-                    'fillOpacity': {
-                        type: 'float',
-                        bindable: 'bindable',
+                    "fillOpacity": {
+                        type: "float",
+                        bindable: "bindable",
                     },
-                    'paths': {
+                    "paths": {
                         type: "object"
                     },
-                    'visible': {
-                        type: 'boolean',
-                        bindable: 'bindable',
+                    "visible": {
+                        type: "boolean",
+                        bindable: "bindable",
                         defaultValue: true
                     },
-                    'draggable': {
+                    "draggable": {
                         type: "boolean"
                     }
                 },
@@ -43,7 +43,7 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './Map
         });
 
         Polygon.prototype.setVisible = function(bValue) {
-            this.setProperty('visible', bValue, true);
+            this.setProperty("visible", bValue, true);
             if (this.polygon) {
                 this.polygon.setVisible(this.getVisible());
             }
@@ -61,12 +61,13 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './Map
 
         Polygon.prototype.createPolygon = function() {
             if (!this.polygon) {
-                this.polygon = new gmaps.Polygon(this.getOptions());
-                this.polygon.setMap(this.map);
-            } else {
-                this.polygon.setMap(this.map);
-                this.polygon.setOptions(this.getOptions());
+                this.polygon = new gmaps.Polygon();
             }
+            // this.polygon.setMap(this.map);
+            // } else {
+            this.polygon.setMap(this.map);
+            this.polygon.setOptions(this.getOptions());
+            // }
         };
 
         Polygon.prototype.getOptions = function() {
@@ -82,16 +83,13 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './Map
             return options;
         };
 
-        Polygon.prototype.onMapRendered = function(map) {
+        Polygon.prototype._mapRendered = function(map) {
             this.map = map;
             this.createPolygon();
         };
 
-        Polygon.prototype.onReset = function() {
-            this.reset();
-        };
-
         Polygon.prototype.reset = function() {
+            this.map = undefined;
             if (this.polygon) {
                 this.polygon.setMap(null);
             }

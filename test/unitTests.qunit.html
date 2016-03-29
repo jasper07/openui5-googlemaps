@@ -33,7 +33,7 @@
                 oRetValue;
 
             for (var sFile in oResults) {
-                if (sFile.substr(0, 8) === "openui5/") {
+                if (sFile.substr(0, 8) === "openui5/" && sFile.indexOf("markerclusterer") < 0) {
                     oFiltered[sFile] = oResults[sFile];
                 }
             }
@@ -60,6 +60,7 @@
 <body>
     <div id="qunit"></div>
     <div id="qunit-fixture"></div>
+    <div id="zqunit-fixture"></div>
 </body>
 
 </html>

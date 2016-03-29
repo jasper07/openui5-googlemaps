@@ -1,51 +1,51 @@
 /**
  * openui5-googlemaps - OpenUI5 Google Maps library
- * @version v0.0.18
+ * @version v0.0.19
  * @link http://jasper07.github.io/openui5-googlemaps/
  * @license MIT
- */sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'google.maps', './Animation'],
-    function(jQuery, Control, Gmaps, Animation) {
+ */sap.ui.define(["jquery.sap.global", "sap/ui/core/Control", "google.maps", "openui5/googlemaps/MapUtils", "./Animation"],
+    function(jQuery, Control, Gmaps, MapUtils, Animation) {
         "use strict";
 
-        var Marker = Control.extend('openui5.googlemaps.Marker', {
+        var Marker = Control.extend("openui5.googlemaps.Marker", {
             metadata: {
                 properties: {
-                    'lat': {
-                        type: 'float',
-                        bindable: 'bindable',
+                    "lat": {
+                        type: "float",
+                        bindable: "bindable",
                     },
-                    'lng': {
-                        type: 'float',
-                        bindable: 'bindable',
+                    "lng": {
+                        type: "float",
+                        bindable: "bindable",
                     },
-                    'draggable': {
-                        type: 'boolean',
-                        bindable: 'bindable',
+                    "draggable": {
+                        type: "boolean",
+                        bindable: "bindable",
                         defaultValue: false
                     },
-                    'info': {
-                        type: 'string',
-                        bindable: 'bindable'
+                    "info": {
+                        type: "string",
+                        bindable: "bindable"
                     },
-                    'icon': {
-                        type: 'any',
-                        bindable: 'bindable'
+                    "icon": {
+                        type: "any",
+                        bindable: "bindable"
                     },
-                    'visible': {
-                        type: 'boolean',
-                        bindable: 'bindable',
+                    "visible": {
+                        type: "boolean",
+                        bindable: "bindable",
                         defaultValue: true
                     },
-                    'animation': {
-                        type: 'int',
-                        bindable: 'bindable',
+                    "animation": {
+                        type: "int",
+                        bindable: "bindable",
                         defaultValue: Animation.DROP
                     }
                 },
                 events: {
-                    'click': {},
-                    'dragEnd': {},
-                    'infoWindowClose': {}
+                    "click": {},
+                    "dragEnd": {},
+                    "infoWindowClose": {}
                 },
                 renderer: {}
             }
@@ -69,24 +69,24 @@
         };
 
         Marker.prototype.setLat = function(oValue) {
-            this.setProperty('lat', parseFloat(oValue), true);
+            this.setProperty("lat", parseFloat(oValue), true);
             this.updatePosition();
         };
 
         Marker.prototype.setLng = function(oValue) {
-            this.setProperty('lng', parseFloat(oValue), true);
+            this.setProperty("lng", parseFloat(oValue), true);
             this.updatePosition();
         };
 
         Marker.prototype.setVisible = function(bValue) {
-            this.setProperty('visible', bValue, true);
+            this.setProperty("visible", bValue, true);
             if (this.marker) {
                 this.marker.setVisible(this.getVisible());
             }
         };
 
         Marker.prototype.setIcon = function(oValue) {
-            this.setProperty('icon', oValue, true);
+            this.setProperty("icon", oValue, true);
             if (this.marker) {
                 this.marker.setIcon(this.getIcon());
             }
@@ -107,30 +107,25 @@
         Marker.prototype.setMarker = function() {
             if (!this.marker) {
                 this.marker = this.createMarker();
-                this.marker.setMap(this.map);
-                this.addListener('click', jQuery.proxy(this.onClick, this));
-
-                if (this.getDraggable()) {
-                    this.addListener('dragend', jQuery.proxy(this.onDragEnd, this));
-                }
-            } else {
-                this.marker.setMap(this.map);
-                this.marker.setOptions(this.getOptions());
+                this.addListener(this.marker, "click", this.onClick.bind(this));
+            }
+            if (this.getDraggable()) {
+                this.addListener(this.marker, "dragend", this.onDragEnd.bind(this));
             }
 
-            if (this.getInfo() && !this.infoWindow) {
+            this.marker.setMap(this.map);
+            this.marker.setOptions(this.getOptions());
+
+
+            if (!this.infoWindow) {
                 //http://stackoverflow.com/questions/1554893/google-maps-api-v3-infowindow-not-sizing-correctly
                 this.infoWindow = new Gmaps.InfoWindow({
-                    content: this.getInfo(),
                     maxWidth: this.iwMaxWidth
                 });
-                this.aListeners.push(Gmaps.event.addListener(this.infoWindow, 'closeclick',
-                    jQuery.proxy(this.onInfoWindowClose, this)));
-            } else {
-                if (this.infoWindow) {
-                    this.infoWindow.setContent(this.getInfo());
-                }
+                this.addListener(this.infoWindow, "closeclick", this.onInfoWindowClose.bind(this));
             }
+            this.infoWindow.setContent(this.getInfo());
+
         };
 
         Marker.prototype.getOptions = function() {
@@ -143,13 +138,13 @@
             return options;
         };
 
-        Marker.prototype.onMapRendered = function(map) {
+        Marker.prototype._mapRendered = function(map) {
             this.setMap(map);
             this.setMarker();
         };
 
-        Marker.prototype.addListener = function(event, callback, object) {
-            this.aListeners.push(Gmaps.event.addListener(this.marker, event, callback));
+        Marker.prototype.addListener = function(oElement, sEvent, fnCallback) {
+            this.aListeners.push(MapUtils.addListener(oElement, sEvent, fnCallback));
         };
 
         Marker.prototype.removeListeners = function() {
@@ -160,14 +155,8 @@
             this.aListeners = [];
         };
 
-        Marker.prototype.infoWindowOpen = function(bClose) {
+        Marker.prototype.infoWindowOpen = function() {
             this.infoWindow.open(this.map, this.marker);
-
-            if (bClose) {
-                jQuery.sap.delayedCall(2000, this, function() {
-                    this.infoWindowclose();
-                });
-            }
         };
 
         Marker.prototype.infoWindowClose = function() {
@@ -203,17 +192,15 @@
 
         Marker.prototype.onInfoWindowClose = function() {
             this.fireInfoWindowClose({});
+            this.infoWindowClose();
         };
 
         Marker.prototype.reset = function() {
+            this.map = undefined;
             if (this.marker) {
                 this.removeListeners();
                 this.marker.setMap(null);
             }
-        };
-
-        Marker.prototype.onReset = function() {
-            this.reset();
         };
 
         Marker.prototype.exit = function() {

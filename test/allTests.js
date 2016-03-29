@@ -4,5 +4,6 @@ sap.ui.define([
     "test/unit/Marker",
     "test/unit/Polygon",
     "test/unit/Polyline",
-    "test/unit/Waypoint"
+    "test/unit/Directions",
+    "test/unit/MarkerCluster"
 ], function() {});

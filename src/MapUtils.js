@@ -1,4 +1,4 @@
-sap.ui.define(['jquery.sap.global', 'google.maps'],
+sap.ui.define(["jquery.sap.global", "google.maps"],
     function(jQuery, gmaps) {
         "use strict";
 
@@ -77,7 +77,7 @@ sap.ui.define(['jquery.sap.global', 'google.maps'],
             };
 
             var error = function(err) {
-                jQuery.sap.log.info('ERROR(' + err.code + '): ' + err.message);
+                jQuery.sap.log.info("ERROR(" + err.code + "): " + err.message);
                 deferred.reject(err);
             };
 
@@ -86,6 +86,27 @@ sap.ui.define(['jquery.sap.global', 'google.maps'],
             }
             return deferred.promise();
         };
+
+        /**
+         * trigger map event
+         * @param  {Element} oElement   element to bind event to 
+         * @param  {String} sEvent     event name
+         * @param  {Object} oArguments arguments to pass to event
+         */
+        MapUtils.trigger = function(oElement, sEvent, oArguments) {
+            gmaps.event.trigger(oElement, sEvent, oArguments);
+        };
+
+        /**
+         * add listener to map event
+         * @param  {Element} oElement   element to bind event to 
+         * @param  {String} sEvent     event name
+         * @param {Function} fnCallBack callback
+         */
+        MapUtils.addListener = function(oElement, sEvent, fnCallBack) {
+           return gmaps.event.addListener(oElement, sEvent, fnCallBack);
+        };
+
 
         /**
          * Get Current Position
@@ -99,7 +120,7 @@ sap.ui.define(['jquery.sap.global', 'google.maps'],
                 if (results && results.length > 0) {
                     deferred.resolve(results[0].formatted_address);
                 } else {
-                    deferred.reject('Cannot determine address at this location.');
+                    deferred.reject("Cannot determine address at this location.");
                 }
             };
 
