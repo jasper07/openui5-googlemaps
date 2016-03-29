@@ -1,50 +1,51 @@
 {
-    "name": "openui5-googlemaps",
-    "version": "0.0.20",
-    "description": "OpenUI5 Google Maps library",
-    "keywords": [
-        "openui5",
-        "sapui5",
-        "google.maps"
-    ],
-    "homepage": "http://jasper07.github.io/openui5-googlemaps/",
-    "author": {
-        "name": "John Patterson",
-        "url": "http://secondphase.com.au"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/jasper07/openui5-googlemaps"
-    },
-    "main": "",
-    "directories": {
-        "test": "test"
-    },
-    "devDependencies": {
-        "bluebird": "^2.0.0",
-        "gulp": "^3.8.0",
-        "gulp-bump": "^0.3.0",
-        "gulp-clean": "~0.3.0",
-        "gulp-concat": "^2.2.0",
-        "gulp-git": "~0.4.3",
-        "gulp-header": "~1.0.2",
-        "gulp-jshint": "~1.6.3",
-        "gulp-rename": "^1.2.0",
-        "gulp-replace": "~0.3.0",
-        "gulp-shell": "~0.2.7",
-        "gulp-streamify": "0.0.5",
-        "gulp-uglify": "^0.3.0",
-        "gulp-ui5-preload": "~1.2.0",
-        "jshint-stylish": "~0.2.0",
-        "node-qunit-phantomjs": "~1.2.1",
-        "qunitjs": "^1.18.0",
-        "semver": "*"
-    },
-    "bugs": {
-        "url": "http://stackoverflow.com/questions/tagged/sapui5"
-    },
-    "scripts": {
-        "test": "qunit test/*"
-    },
-    "license": "MIT"
+  "name": "openui5-googlemaps",
+  "version": "0.0.20",
+  "description": "OpenUI5 Google Maps library",
+  "keywords": [
+    "openui5",
+    "sapui5",
+    "google.maps"
+  ],
+  "homepage": "http://jasper07.github.io/openui5-googlemaps/",
+  "author": {
+    "name": "John Patterson",
+    "url": "http://secondphase.com.au"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jasper07/openui5-googlemaps"
+  },
+  "main": "",
+  "directories": {
+    "test": "test"
+  },
+  "devDependencies": {
+    "bluebird": "^2.0.0",
+    "gulp": "^3.8.0",
+    "gulp-bump": "^0.3.0",
+    "gulp-clean": "~0.3.0",
+    "gulp-concat": "^2.2.0",
+    "gulp-coveralls": "^0.1.4",
+    "gulp-git": "~0.4.3",
+    "gulp-header": "~1.0.2",
+    "gulp-jshint": "~1.6.3",
+    "gulp-rename": "^1.2.0",
+    "gulp-replace": "~0.3.0",
+    "gulp-shell": "~0.2.7",
+    "gulp-streamify": "0.0.5",
+    "gulp-uglify": "^0.3.0",
+    "gulp-ui5-preload": "~1.2.0",
+    "jshint-stylish": "~0.2.0",
+    "node-qunit-phantomjs": "~1.2.1",
+    "qunitjs": "^1.18.0",
+    "semver": "*"
+  },
+  "bugs": {
+    "url": "http://stackoverflow.com/questions/tagged/sapui5"
+  },
+  "scripts": {
+    "test": "qunit test/*"
+  },
+  "license": "MIT"
 }
