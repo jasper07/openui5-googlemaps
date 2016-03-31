@@ -6,6 +6,9 @@
         "john.patterson@secondphase.com.au"
     ],
     "license": "MIT",
+    "main": [
+        "openui5/googlemaps/library-all.js"
+    ],
     "ignore": [
         "**/.*",
         "images",
