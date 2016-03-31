@@ -1,7 +1,10 @@
 {
     "name": "openui5-googlemaps",
-    "description": "OpenUI5 UI Library sap.m",
     "version": "0.0.20",
+    "description": "OpenUI5 Google Maps library",
+    "authors": [
+        "john.patterson@secondphase.com.au"
+    ],
     "license": "MIT",
     "ignore": [
         "**/.*",
@@ -14,14 +17,6 @@
         "bower_components",
         "test",
         "package.json"
-    ],
-    "keywords": [
-        "openui5",
-        "sapui5",
-        "google.maps"
-    ],
-    "authors": [
-        "john.patterson@secondphase.com.au"
     ],
     "homepage": "http://jasper07.github.io/openui5-googlemaps/",
     "repository": {
