@@ -75,7 +75,8 @@ gulp.task('watch', function() {
 gulp.task('test', ['lint'], function() {
     qunit('./test/unitTests.qunit.html', {
         'verbose': true,
-        'timeout': 2
+        'timeout': 2,
+        'phantomjs-options': ['--web-security=false']
     });
     // return gulp.src('./test/unitTests.qunit.html')
     //     .pipe(qunit());
