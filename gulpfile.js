@@ -16,6 +16,7 @@ var semver = require('semver');
 var pkg = require('./package.json');
 var ui5preload = require('gulp-ui5-preload');
 var uglify = require('gulp-uglify');
+var imagemin = require('gulp-imagemin');
 // var prettydata = require('gulp-pretty-data');
 // var gulpif = require('gulp-if');
 
@@ -108,6 +109,12 @@ gulp.task('ui5preload', function() {
         }))
         .pipe(gulp.dest('openui5/googlemaps'));
 });
+
+gulp.task("theme", function() {
+    gulp.src('src/themes/base/img/*')
+        .pipe(imagemin())
+        .pipe(gulp.dest('openui5/googlemaps/themes/base/img/'));
+})
 
 gulp.task('release', ['bump', 'build'], function() {
     return gulp.src('*.js', {
