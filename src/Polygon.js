@@ -27,7 +27,8 @@ sap.ui.define(["jquery.sap.global", "sap/ui/core/Control", "google.maps", "./Map
                         bindable: "bindable",
                     },
                     "paths": {
-                        type: "object"
+                        type: "object",
+                        bindable: "bindable"
                     },
                     "visible": {
                         type: "boolean",
@@ -52,10 +53,11 @@ sap.ui.define(["jquery.sap.global", "sap/ui/core/Control", "google.maps", "./Map
         Polygon.prototype.parsePaths = function() {
             var aPaths = [];
 
-            this.getPaths().forEach(function(obj) {
-                aPaths.push(utils.objToLatLng(obj));
-            });
-
+            if (this.getPathS()) {
+                this.getPaths().forEach(function(obj) {
+                    aPaths.push(utils.objToLatLng(obj));
+                });
+            }
             return aPaths;
         };
 

@@ -20,7 +20,8 @@ sap.ui.define(["jquery.sap.global", "sap/ui/core/Control", "google.maps", "./Map
                         type: "object"
                     },
                     "path": {
-                        type: "object"
+                        type: "object",
+                        bindable: "bindable"
                     },
                     "visible": {
                         type: "boolean",
@@ -45,10 +46,11 @@ sap.ui.define(["jquery.sap.global", "sap/ui/core/Control", "google.maps", "./Map
         Polyline.prototype.parsePath = function() {
             var aPath = [];
 
-            this.getPath().forEach(function(obj) {
-                aPath.push(utils.objToLatLng(obj));
-            });
-
+            if (this.getPath()) {
+                this.getPath().forEach(function(obj) {
+                    aPath.push(utils.objToLatLng(obj));
+                });
+            }
             return aPath;
         };
 

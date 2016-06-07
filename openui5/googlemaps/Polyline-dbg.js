@@ -1,6 +1,6 @@
 /**
  * openui5-googlemaps - OpenUI5 Google Maps library
- * @version v0.0.20
+ * @version v0.0.21
  * @link http://jasper07.github.io/openui5-googlemaps/
  * @license MIT
  */sap.ui.define(["jquery.sap.global", "sap/ui/core/Control", "google.maps", "./MapUtils"],
@@ -25,7 +25,8 @@
                         type: "object"
                     },
                     "path": {
-                        type: "object"
+                        type: "object",
+                        bindable: "bindable"
                     },
                     "visible": {
                         type: "boolean",
@@ -50,10 +51,11 @@
         Polyline.prototype.parsePath = function() {
             var aPath = [];
 
-            this.getPath().forEach(function(obj) {
-                aPath.push(utils.objToLatLng(obj));
-            });
-
+            if (this.getPath()) {
+                this.getPath().forEach(function(obj) {
+                    aPath.push(utils.objToLatLng(obj));
+                });
+            }
             return aPath;
         };
 
