@@ -1,6 +1,6 @@
 /**
  * openui5-googlemaps - OpenUI5 Google Maps library
- * @version v0.0.19
+ * @version v0.0.20
  * @link http://jasper07.github.io/openui5-googlemaps/
  * @license MIT
  */sap.ui.define(["jquery.sap.global", "sap/ui/core/Control", "google.maps", "openui5/googlemaps/MapUtils", "./markerclusterer"],
@@ -82,7 +82,32 @@
         };
 
         MarkerCluster.prototype.getOptions = function() {
-            var options = {};
+            var sModulePath = jQuery.sap.getModulePath("openui5.googlemaps.themes." + "base" /**sap.ui.getCore().getConfiguration().getTheme()*/); 
+            var sImagesPath = sModulePath + "/img";
+            var options = {
+                styles: [{
+                    height: 53,
+                    url: sImagesPath  + "/m1.png",
+                    width: 53
+                }, {
+                    height: 56,
+                    url: sImagesPath  + "/m2.png",
+                    width: 56
+                }, {
+                    height: 66,
+                    url: sImagesPath  + "/m3.png",
+                    width: 66
+                }, {
+                    height: 78,
+                    url: sImagesPath  + "/m4.png",
+                    width: 78
+                }, {
+                    height: 90,
+                    url: sImagesPath  + "/m5.png",
+                    width: 90
+                }]
+
+            };
             options.averageCenter = this.getAverageCenter();
             return options;
         };
