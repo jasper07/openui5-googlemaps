@@ -137,5 +137,5 @@ gulp.task('release', ['bump', 'build'], function() {
 });
 
 gulp.task('default', ['watch', 'build']);
-gulp.task('build', ['lint', 'clean', 'scripts-dbg', 'scripts-min', 'ui5preload']);
+gulp.task('build', ['lint', 'clean', 'scripts-dbg', 'scripts-min', 'ui5preload', 'theme']);
 gulp.task('cleanbuild', ['clean']);
