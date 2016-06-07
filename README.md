@@ -1,5 +1,5 @@
 OpenUI5 Google Maps  
-[![Build Status](https://api.shippable.com/projects/55ade0f2edd7f2c0527bfbaa/badge/master)](https://app.shippable.com/projects/55ade0f2edd7f2c0527bfbaa/builds/latest)
+[![Build Status]https://travis-ci.org/jasper07/openui5-googlemaps.svg?branch=master](https://travis-ci.org/jasper07/openui5-googlemaps)
 
 ===================
 A set of modules for [OpenUI5](http://openui5.org) that adds support for
