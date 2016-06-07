@@ -4,17 +4,20 @@
 <head>
     <meta http-equiv='X-UA-Compatible' content='IE=edge' />
     <meta charset="UTF-8">
-    <script id="sap-ui-bootstrap" src="http://localhost:8080/testsuite/resources/sap-ui-core.js" data-sap-ui-theme="sap_bluecrystal" data-sap-ui-libs="sap.m, openui5.googlemaps" data-sap-ui-resourceroots='{
+    <script id="sap-ui-bootstrap" src="https://openui5.hana.ondemand.com/resources/sap-ui-core.js" data-sap-ui-theme="sap_bluecrystal" data-sap-ui-libs="sap.m, openui5.googlemaps" data-sap-ui-resourceroots='{
             "openui5.googlemaps": "../src/",
             "test.unit": "./"
         }' data-sap-ui-frameOptions='allow'>
     </script>
     <script>
-    jQuery.sap.require("sap.ui.thirdparty.qunit");
+
+    jQuery.sap.require("sap.ui.qunit.qunit-css");
     jQuery.sap.require("sap.ui.thirdparty.qunit");
     jQuery.sap.require("sap.ui.qunit.qunit-junit");
     jQuery.sap.require("sap.ui.qunit.qunit-coverage");
     jQuery.sap.require("sap.ui.qunit.QUnitUtils");
+    jQuery.sap.require("sap.ui.thirdparty.sinon");
+    jQuery.sap.require("sap.ui.thirdparty.sinon-qunit");
 
     // Phantom js does not have a function.bind implementation so we are using a polyfill
     if (!Function.prototype.bind) {

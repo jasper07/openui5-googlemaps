@@ -53,7 +53,7 @@ sap.ui.define(["jquery.sap.global", "sap/ui/core/Control", "google.maps", "./Map
         Polygon.prototype.parsePaths = function() {
             var aPaths = [];
 
-            if (this.getPathS()) {
+            if (this.getPaths()) {
                 this.getPaths().forEach(function(obj) {
                     aPaths.push(utils.objToLatLng(obj));
                 });
