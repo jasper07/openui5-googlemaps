@@ -53,7 +53,9 @@ sap.ui.define(["jquery.sap.global", "google.maps"],
          */
         MapUtils.search = function(oRequest) {
             var deferred = jQuery.Deferred();
-            new gmaps.Geocoder().geocode(oRequest, deferred.resolve);
+            gmaps.isLoaded.then(function(){
+                new gmaps.Geocoder().geocode(oRequest, deferred.resolve);
+            }); 
             return deferred.promise();
         };
 
