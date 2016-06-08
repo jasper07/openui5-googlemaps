@@ -1,6 +1,6 @@
 /**
  * openui5-googlemaps - OpenUI5 Google Maps library
- * @version v0.0.26
+ * @version v0.0.27
  * @link http://jasper07.github.io/openui5-googlemaps/
  * @license MIT
  */sap.ui.define(["jquery.sap.global", "sap/ui/core/Control", "sap/ui/core/ResizeHandler", "google.maps", "./MapUtils", "./MapTypeId"],
@@ -206,9 +206,9 @@
         };
 
         Map.prototype.onResize = function() {
-            var center = this.map.getCenter();
+            var oCenter = this.map.getCenter();
             this.trigger("resize");
-            this.map.setCenter(center);
+            this.map.setCenter(oCenter);
         };
 
         Map.prototype._getMapOptions = function() {
@@ -264,7 +264,7 @@
             this.addListener("drag", this.isDragging.bind(this));
             this.addListener("dragstart", this.isDragging.bind(this));
             this.addListener("zoom_changed", this.zoomChanged.bind(this));
-            this.addListener("center_changed", this.updateValues.bind(this));
+            // this.addListener("center_changed", this.updateValues.bind(this));
             this.addListener("idle", this.mapChanged.bind(this));
             this.addListener("maptypeid_changed", this.mapTypeIdChanged.bind(this));
             this.addListener("click", this.clicked.bind(this));
@@ -302,7 +302,7 @@
                 this.isNotDragging();
             }
 
-            this.updateValues();
+            // this.updateValues();
             this.fireReady({
                 map: this.map,
                 context: this.getBindingContext(),
