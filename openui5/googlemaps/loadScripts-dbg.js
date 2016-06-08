@@ -14,10 +14,13 @@
             Loader.notifyEvent = "google.maps.loaded";
             Loader.callbackName = 'google.maps.callBack';
 
-            Loader.callBack = function() {
-                this.loaded = true;
-                sap.ui.getCore().getEventBus().publish(this.notifyEvent);
-            };
+            Loader.isLoaded = new Promise(function(fnResolve) {
+                Loader.callBack = function() {
+                    this.loaded = true;
+                    sap.ui.getCore().getEventBus().publish(this.notifyEvent);
+                    fnResolve();
+                };
+            });
 
             Loader.load = function(Util) {
                 var params = {};
