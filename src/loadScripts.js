@@ -1,3 +1,5 @@
+/*global Promise*/
+
 sap.ui.define(['jquery.sap.global', 'openui5/googlemaps/ScriptsUtil'],
     function(jQuery, ScriptsUtil) {
         "use strict";
