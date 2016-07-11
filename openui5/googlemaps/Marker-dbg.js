@@ -40,7 +40,11 @@
                         type: "int",
                         bindable: "bindable",
                         defaultValue: Animation.DROP
-                    }
+                    },
+                     "ZIndex": {
+                        type: "int",
+                        defaultValue: 8
+                    },
                 },
                 events: {
                     "click": {},
@@ -115,6 +119,9 @@
 
             this.marker.setMap(this.map);
             this.marker.setOptions(this.getOptions());
+            if(typeof this.marker.setZIndex === "function") { //Maker.prorotype.setZIndex only exists in api v3 and above
+                this.marker.setZIndex(this.getZIndex());
+            }
 
 
             if (!this.infoWindow) {
