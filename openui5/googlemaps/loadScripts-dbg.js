@@ -3,7 +3,9 @@
  * @version v0.0.27
  * @link http://jasper07.github.io/openui5-googlemaps/
  * @license MIT
- */sap.ui.define(['jquery.sap.global', 'openui5/googlemaps/ScriptsUtil'],
+ *//*global Promise*/
+
+sap.ui.define(['jquery.sap.global', 'openui5/googlemaps/ScriptsUtil'],
     function(jQuery, ScriptsUtil) {
         "use strict";
 
