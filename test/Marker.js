@@ -8,6 +8,7 @@ sap.ui.define(
 
         var MAP_ID = 'MAP_TEST';
         var oModel = new JSONModel('data/Data.json');
+        var oModel2 = new JSONModel("data/FitToMarkers.json");
 
         sap.ui.getCore().setModel(oModel);
 
@@ -20,6 +21,10 @@ sap.ui.define(
         });
 
         var oMap;
+
+        var fnMarkerInBounds = function(oMarker) {
+            return oMarker.getMap().getBounds().contains(oMarker.marker.getPosition());
+        };
 
         QUnit.module("Marker - defaults test", {
             beforeEach: function() {
@@ -49,10 +54,10 @@ sap.ui.define(
             var aMarkers = oMap.getMarkers();
             var oMarker = aMarkers[0];
             var oContext = oMarker.getBindingContext();
-            QUnit.assert.equal(aMarkers.length, 5, "markers where rendered");
-            QUnit.ok(oMarker.getMap(), "map set on marker");
-            QUnit.ok(oMarker.getVisible(), "marker is visible");
-            QUnit.ok(oMarker.getIcon(), "makrer has icon");
+            assert.equal(aMarkers.length, 5, "markers were rendered");
+            assert.ok(oMarker.getMap(), "map set on marker");
+            assert.ok(oMarker.getVisible(), "marker is visible");
+            assert.ok(oMarker.getIcon(), "makrer has icon");
 
             // Act
             // set new values via model
@@ -63,12 +68,13 @@ sap.ui.define(
 
             setTimeout(function() {
                 // Assert
-                QUnit.assert.ok(!oMarker.getVisible(), "marker is not visible");
-                QUnit.assert.ok(!oMarker.getIcon(), "marker has no icon");
+                assert.ok(!oMarker.getVisible(), "marker is not visible");
+                assert.ok(!oMarker.getIcon(), "marker has no icon");
 
                 done();
             }, delay);
         });
+
 
         QUnit.test("info window", function(assert) {
             // Arrange
@@ -83,13 +89,78 @@ sap.ui.define(
             MapUtils.trigger(oMarker.marker, "click");
 
             // Assert
-            QUnit.ok(oMarker.infoWindow.getMap(), "info window is open");
+            assert.ok(oMarker.infoWindow.getMap(), "info window is open");
             MapUtils.trigger(oMarker.infoWindow, "closeclick");
             setTimeout(function() {
-                QUnit.assert.equal(oMarker.infoWindow.getMap(), null, "info window is closed");
+                assert.equal(oMarker.infoWindow.getMap(), null, "info window is closed");
                 done();
             }, delay);
         });
+
+        QUnit.module("Marker - fit to markers");
+
+        QUnit.test("markers not all on bounds of page", function(assert) {
+            //Arange 
+            var done = assert.async();
+            var delay = 1000;
+
+            oMap = new Map({
+                lat: "{/Pyrmont/lat}",
+                lng: "{/Pyrmont/lng}",
+                markers: {
+                    path: "/Beaches",
+                    template: oMarkersTemp
+                }
+            });
+            oMap.setModel(oModel2);
+            oMap.placeAt("qunit-fixture");
+            sap.ui.getCore().applyChanges();
+
+            // Act
+            var aMarkers = oMap.getMarkers();
+
+            // Assert
+            setTimeout(function() {
+                assert.equal(aMarkers.length, 6, "6 markers created");
+                assert.equal(aMarkers.filter(fnMarkerInBounds).length, 5, "5 markers visible on screen");
+                oMap.setFitToMarkers(true);
+                assert.equal(aMarkers.filter(fnMarkerInBounds).length, 6, "6 markers visible on screen");
+                done();
+                oMap.destroy(); //Cleanup
+            }, delay);
+        });
+
+
+        QUnit.test("markers all fit on page", function(assert) {
+            //Arange 
+            var done = assert.async();
+            var delay = 1000;
+
+            oMap = new Map({
+                lat: "{/Pyrmont/lat}",
+                lng: "{/Pyrmont/lng}",
+                fitToMarkers: true,
+                markers: {
+                    path: "/Beaches",
+                    template: oMarkersTemp
+                }
+            });
+            oMap.setModel(oModel2);
+            oMap.placeAt("qunit-fixture");
+            sap.ui.getCore().applyChanges();
+
+            // Act
+            var aMarkers = oMap.getMarkers();
+
+            // Assert
+            setTimeout(function() {
+                assert.equal(aMarkers.length, 6, "6 markers created");
+                assert.equal(aMarkers.filter(fnMarkerInBounds).length, 6, "6 markers visible on screen");
+                done();
+                oMap.destroy(); //Cleanup
+            }, delay);
+        });
+
 
         QUnit.module("Marker - draggable");
         QUnit.test("dragEnd event handling", function(assert) {
@@ -128,9 +199,11 @@ sap.ui.define(
 
             // Assert
             setTimeout(function() {
-                QUnit.strictEqual(dragEndSpy.callCount, 1, "DragEnd event called");
+                assert.strictEqual(dragEndSpy.callCount, 1, "DragEnd event called");
                 done();
                 oMap.destroy(); //Cleanup
             }, delay);
         });
+
+
     });

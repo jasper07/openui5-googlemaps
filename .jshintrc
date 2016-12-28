@@ -33,7 +33,8 @@
         "deepEqual": true,
         "notDeepEqual": true,
         "strictEqual": true,
-        "notStrictEqual": true
+        "notStrictEqual": true,
+        "Promise": true
     },
     "immed": true,
     "latedef": true,

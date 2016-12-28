@@ -1,6 +1,7 @@
 sap.ui.define(["jquery.sap.global", "sap/ui/core/Control", "sap/ui/core/ResizeHandler", "google.maps", "./MapUtils", "./MapTypeId"],
     function(jQuery, Control, ResizeHandler, Gmaps, MapUtils, MapTypeId) {
         "use strict";
+        /* eslint no-extend-native:0 */
         var Map = Control.extend("openui5.googlemaps.Map", {
             metadata: {
                 properties: {
@@ -50,6 +51,13 @@ sap.ui.define(["jquery.sap.global", "sap/ui/core/Control", "sap/ui/core/ResizeHa
                         defaultValue: false
                     },
                     "streetViewControl": {
+                        type: "boolean",
+                        defaultValue: false
+                    },
+                    /**
+                     * If set, the zoom level is set such that all markers are brought into view.
+                     */
+                    "fitToMarkers": {
                         type: "boolean",
                         defaultValue: false
                     }
@@ -112,11 +120,15 @@ sap.ui.define(["jquery.sap.global", "sap/ui/core/Control", "sap/ui/core/ResizeHa
         Map.prototype.setHeight = function(sValue) {
             this.setProperty("height", sValue, true);
             this.setSize();
+
+            return this;
         };
 
         Map.prototype.setWidth = function(sValue) {
             this.setProperty("width", sValue, true);
             this.setSize();
+
+            return this;
         };
 
         Map.prototype.setSize = function() {
@@ -127,6 +139,8 @@ sap.ui.define(["jquery.sap.global", "sap/ui/core/Control", "sap/ui/core/ResizeHa
             } else {
                 jQuery.sap.byId(this.mapId).css("height", this.getHeight()).css("width", this.getWidth());
             }
+
+            return this;
         };
 
         Map.prototype.setZoom = function(iValue) {
@@ -134,6 +148,8 @@ sap.ui.define(["jquery.sap.global", "sap/ui/core/Control", "sap/ui/core/ResizeHa
             if (this.map && iValue !== this.map.getZoom()) {
                 this.map.setZoom(iValue);
             }
+
+            return this;
         };
 
         Map.prototype.setLat = function(oValue) {
@@ -142,6 +158,8 @@ sap.ui.define(["jquery.sap.global", "sap/ui/core/Control", "sap/ui/core/ResizeHa
                 this.setProperty("lat", val, true);
                 this._updateCenter();
             }
+
+            return this;
         };
 
         Map.prototype.setLng = function(oValue) {
@@ -150,10 +168,20 @@ sap.ui.define(["jquery.sap.global", "sap/ui/core/Control", "sap/ui/core/ResizeHa
                 this.setProperty("lng", val, true);
                 this._updateCenter();
             }
+
+            return this;
+        };
+
+
+        Map.prototype.setFitToMarkers = function(bValue) {
+            this.setProperty("fitToMarkers", bValue, true);
+            this._fitToMarkers();
+
+            return this;
         };
 
         Map.prototype._updateCenter = function() {
-            if (!this.map || this.getLat() == null || this.getLng() == null) {
+            if (!this.map || this.getLat() === null || this.getLng() === null) {
                 return;
             }
 
@@ -235,7 +263,7 @@ sap.ui.define(["jquery.sap.global", "sap/ui/core/Control", "sap/ui/core/ResizeHa
                     sap.ui.getCore().getEventBus().subscribe(Gmaps.notifyEvent, this.createMap, this);
                     this.subscribed = true;
                 }
-                return false;
+                return;
             }
 
             if (!this.initialized) {
@@ -259,12 +287,13 @@ sap.ui.define(["jquery.sap.global", "sap/ui/core/Control", "sap/ui/core/ResizeHa
             this.addListener("drag", this.isDragging.bind(this));
             this.addListener("dragstart", this.isDragging.bind(this));
             this.addListener("zoom_changed", this.zoomChanged.bind(this));
-            // this.addListener("center_changed", this.updateValues.bind(this));
             this.addListener("idle", this.mapChanged.bind(this));
             this.addListener("maptypeid_changed", this.mapTypeIdChanged.bind(this));
             this.addListener("click", this.clicked.bind(this));
 
             this.resizeID = ResizeHandler.register(jQuery.sap.domById(this.mapId), this.onResize.bind(this));
+
+            this._fitToMarkers();
 
             this.initialized = true;
         };
@@ -297,25 +326,12 @@ sap.ui.define(["jquery.sap.global", "sap/ui/core/Control", "sap/ui/core/ResizeHa
                 this.isNotDragging();
             }
 
-            // this.updateValues();
             this.fireReady({
                 map: this.map,
                 context: this.getBindingContext(),
                 lat: this.getLat(),
                 lng: this.getLng()
             });
-        };
-
-        Map.prototype.updateValues = function(oEvent) {
-            var center = MapUtils.latLngToObj(this.map.getCenter());
-
-            if (!MapUtils.floatEqual(center.lat, this.getLat())) {
-                this.setProperty("lat", center.lat, true);
-            }
-
-            if (!MapUtils.floatEqual(center.lng, this.getLng())) {
-                this.setProperty("lng", center.lng, true);
-            }
         };
 
         Map.prototype._notifyMarkers = function(action, param) {
@@ -348,6 +364,20 @@ sap.ui.define(["jquery.sap.global", "sap/ui/core/Control", "sap/ui/core/ResizeHa
             }
         };
 
+        Map.prototype._fitToMarkers = function() {
+            if (this.map && this.getFitToMarkers() && this.getMarkers().length > 0) {
+                var oLatLngBounds = new Gmaps.LatLngBounds();
+
+                this.getMarkers().forEach(function(oMarker) {
+                    oLatLngBounds.extend(oMarker.marker.getPosition());
+                });
+
+                // For one marker, don't alter zoom, just center it.
+                if (this.getMarkers().length > 1) {
+                    this.map.fitBounds(oLatLngBounds);
+                }
+            }
+        };
 
         Map.prototype.resetMap = function() {
             this.removeListeners();

@@ -50,7 +50,7 @@ sap.ui.define(
         }
 
         QUnit.module("MapUtils - Lat Long tests");
-        QUnit.test("latLngEqual", function() {
+        QUnit.test("latLngEqual", function(assert) {
             // Arrange    
             var oVal = {
                 lat: parseFloat("-33.895"),
@@ -58,11 +58,11 @@ sap.ui.define(
             };
 
             // Assert
-            QUnit.ok(MapUtils.latLngEqual(oVal, oVal), "lat lng equals");
+            assert.ok(MapUtils.latLngEqual(oVal, oVal), "lat lng equals");
 
         });
 
-        QUnit.test("objToLatLng", function() {
+        QUnit.test("objToLatLng", function(assert) {
             // Arrange
             var latLngSpy = this.spy();
             this.stub(google.maps, "LatLng", latLngSpy);
@@ -71,11 +71,11 @@ sap.ui.define(
             MapUtils.objToLatLng({});
 
             // Assert
-            QUnit.strictEqual(latLngSpy.callCount, 1, "lalng was called");
+            assert.strictEqual(latLngSpy.callCount, 1, "lalng was called");
 
         });
 
-        QUnit.test("latLngToObj", function() {
+        QUnit.test("latLngToObj", function(assert) {
             // Arrange
             var latSpy = this.spy();
             var lngSpy = this.spy();
@@ -84,13 +84,13 @@ sap.ui.define(
             MapUtils.latLngToObj({ lat: latSpy, lng: lngSpy });
 
             // Assert
-            QUnit.strictEqual(latSpy.callCount, 1, "lat was called");
-            QUnit.strictEqual(lngSpy.callCount, 1, "lng was called");
+            assert.strictEqual(latSpy.callCount, 1, "lat was called");
+            assert.strictEqual(lngSpy.callCount, 1, "lng was called");
 
         });
 
         QUnit.module("MapUtils - geocode tests");
-        QUnit.test("currentPosition success", function() {
+        QUnit.test("currentPosition success", function(assert) {
             // arrange
             var currentLocationSpy = this.spy();
 
@@ -99,11 +99,11 @@ sap.ui.define(
             MapUtils.currentPosition().then(currentLocationSpy);
 
             // assert
-            QUnit.strictEqual(currentLocationSpy.callCount, 1, "the current location got hit");
+            assert.strictEqual(currentLocationSpy.callCount, 1, "the current location got hit");
         });
 
 
-        QUnit.test("currentPosition error", function() {
+        QUnit.test("currentPosition error", function(assert) {
             // arrange
             var currentLocationSpy = this.spy();
 
@@ -112,10 +112,10 @@ sap.ui.define(
             MapUtils.currentPosition().then(currentLocationSpy);
 
             // assert
-            QUnit.strictEqual(currentLocationSpy.callCount, 0, "the current location not found");
+            assert.strictEqual(currentLocationSpy.callCount, 0, "the current location not found");
         });
 
-        QUnit.test("geocode Position success", function() {
+        QUnit.test("geocode Position success", function(assert) {
             // Arrange
             var geocodeSpy = this.spy();
 
@@ -124,11 +124,11 @@ sap.ui.define(
             MapUtils.geocodePosition().done(geocodeSpy);
 
             // Assert
-            QUnit.strictEqual(geocodeSpy.callCount, 1, "the geocode position found");
+            assert.strictEqual(geocodeSpy.callCount, 1, "the geocode position found");
         });
 
 
-        QUnit.test("geocode Position error", function() {
+        QUnit.test("geocode Position error", function(assert) {
             // Arrange
             var geocodeSpy = this.spy();
 
@@ -137,18 +137,27 @@ sap.ui.define(
             MapUtils.geocodePosition().done(geocodeSpy);
 
             // Assert
-            QUnit.strictEqual(geocodeSpy.callCount, 0, "the geocode wasnt position found");
+            assert.strictEqual(geocodeSpy.callCount, 0, "the geocode wasnt position found");
         });
 
-        QUnit.test("geocode Search", function() {
+        QUnit.test("geocode Search", function(assert) {
             // Arrange
+            assert.expect(1);
             var geocodeSpy = this.spy();
+            var done = assert.async();
+            var delay = 100;
 
-            // Action
-            stubGeoCodePositionSuccess(this);
+            // Action            
+            var oSandbox = sinon.sandbox;
+            stubGeoCodePositionSuccess(oSandbox);
             MapUtils.search().done(geocodeSpy);
 
             // Assert
-            QUnit.strictEqual(geocodeSpy.callCount, 1, "the geocode position found");
+            setTimeout(function() {
+                assert.strictEqual(geocodeSpy.callCount, 1, "the geocode position found");
+                oSandbox.restore();
+                done();
+            }, delay);
+
         });
     });

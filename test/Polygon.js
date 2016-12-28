@@ -29,12 +29,12 @@ sap.ui.define(
 
             // Assert
             var oPoly = sap.ui.getCore().byId("POLY1");
-            QUnit.ok(oPoly, "Polygon rendered");
-            QUnit.ok(oPoly.map, "Map attached");
-            QUnit.strictEqual(oPoly.getVisible(), false, "Polygon not visible");
+            assert.ok(oPoly, "Polygon rendered");
+            assert.ok(oPoly.map, "Map attached");
+            assert.strictEqual(oPoly.getVisible(), false, "Polygon not visible");
 
             oPoly.setVisible(true);
-            QUnit.strictEqual(oPoly.getVisible(), true, "Polygon is visible");
+            assert.strictEqual(oPoly.getVisible(), true, "Polygon is visible");
 
             oPoly.destroy(); //cleanup
             oMap.destroy();

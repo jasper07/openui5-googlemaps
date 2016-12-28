@@ -33,7 +33,7 @@ sap.ui.define(
                 }
                 var aClusters = oMarkerCluster.markerClusterer.getClusters();
                 var oCluster = aClusters[0];
-                QUnit.strictEqual(aClusters.length, 1, "Clusters created");
+                assert.strictEqual(aClusters.length, 1, "Clusters created");
                 // Act
                 // trigger events
                 MapUtils.trigger(oCluster.getMarkerClusterer(), "mouseover");
@@ -42,9 +42,9 @@ sap.ui.define(
 
                 setTimeout(function() {
                     // Assert
-                    QUnit.strictEqual(mouseoverSpy.callCount, 1, "mouseover event called");
-                    QUnit.strictEqual(mouseoutSpy.callCount, 1, "mouseout event called");
-                    QUnit.strictEqual(clickSpy.callCount, 1, "click event called");
+                    assert.strictEqual(mouseoverSpy.callCount, 1, "mouseover event called");
+                    assert.strictEqual(mouseoutSpy.callCount, 1, "mouseout event called");
+                    assert.strictEqual(clickSpy.callCount, 1, "click event called");
 
                     done();
                     oMap.destroy(); //Cleanup
@@ -82,8 +82,8 @@ sap.ui.define(
             oMarkerCluster = oMap.getMarkerCluster();
             var aMarkers = oMarkerCluster.getMarkers();
 
-            QUnit.ok(oMarkerCluster, "Marker Cluster Rendered");
-            QUnit.strictEqual(aMarkers.length, 15, "Markers created");
+            assert.ok(oMarkerCluster, "Marker Cluster Rendered");
+            assert.strictEqual(aMarkers.length, 15, "Markers created");
 
         });
     });

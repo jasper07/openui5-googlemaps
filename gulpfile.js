@@ -74,9 +74,9 @@ gulp.task('watch', function() {
 });
 
 gulp.task('test', ['lint'], function() {
-    qunit('./test/unitTests.qunit.html', {
+    qunit('http://127.0.0.1:8887/openui5-googlemaps/test/unitTests.qunit.html?coverage&coverage-report=true', {
         'verbose': true,
-        'timeout': 2,
+        'timeout': 20,
         'phantomjs-options': ['--web-security=false']
     });
     // return gulp.src('./test/unitTests.qunit.html')

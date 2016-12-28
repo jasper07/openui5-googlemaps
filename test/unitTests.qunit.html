@@ -1,4 +1,4 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -10,14 +10,11 @@
         }' data-sap-ui-frameOptions='allow'>
     </script>
     <script>
-
     jQuery.sap.require("sap.ui.qunit.qunit-css");
     jQuery.sap.require("sap.ui.thirdparty.qunit");
     jQuery.sap.require("sap.ui.qunit.qunit-junit");
     jQuery.sap.require("sap.ui.qunit.qunit-coverage");
-    jQuery.sap.require("sap.ui.qunit.QUnitUtils");
-    jQuery.sap.require("sap.ui.thirdparty.sinon");
-    jQuery.sap.require("sap.ui.thirdparty.sinon-qunit");
+
 
     // Phantom js does not have a function.bind implementation so we are using a polyfill
     if (!Function.prototype.bind) {
@@ -26,29 +23,15 @@
         };
     }
 
-
-    /* filter only openui5 results */
     if (window.blanket) {
-        var fnOriginalReport = window.blanket.report;
-        window.blanket.report = function() {
-            var oResults = window._$blanket,
-                oFiltered = {},
-                oRetValue;
-
-            for (var sFile in oResults) {
-                if (sFile.substr(0, 8) === "openui5/" && sFile.indexOf("markerclusterer") < 0) {
-                    oFiltered[sFile] = oResults[sFile];
-                }
-            }
-
-            window._$blanket = oFiltered;
-            oRetValue = fnOriginalReport.apply(this, arguments);
-            window._$blanket = oResults;
-
-            return oRetValue;
-        };
+        window.blanket.options("sap-ui-cover-only", "[openui5/]");
+        window.blanket.options("sap-ui-cover-never", "//markerclusterer.js$/i");
     }
 
+
+    jQuery.sap.require("sap.ui.qunit.QUnitUtils");
+    jQuery.sap.require("sap.ui.thirdparty.sinon");
+    jQuery.sap.require("sap.ui.thirdparty.sinon-qunit");
     QUnit.config.autostart = false;
 
     sap.ui.require(

@@ -58,10 +58,10 @@ sap.ui.define(
 
             setTimeout(function() {
                 var oDirections = oMap.getDirections();
-                QUnit.ok(oDirections, "Directions on Map");
+                assert.ok(oDirections, "Directions on Map");
 
                 var aWaypoints = oDirections.getWaypoints();
-                QUnit.strictEqual(aWaypoints.length, 3, "Waypoints renedered");
+                assert.strictEqual(aWaypoints.length, 3, "Waypoints renedered");
                 done();
                 oMap.destroy(); // Clean up
             }, delay);
