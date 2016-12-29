@@ -6,7 +6,7 @@ sap.ui.define(
         "use strict";
 
         var oConfig = {
-            url: "http://maps.google.cn/maps/api/js?",
+            url: "http://maps.google.cn/maps/api/js",
             key: "AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM",
             params: {
                 v: "3.20",
