@@ -33,7 +33,7 @@ sap.ui.define(
             oSinonSandbox.stub(google.maps, "Geocoder", function() {
                 return {
                     geocode: function(object, callback) {
-                        callback([{ formatted_address: "yadda" }]);
+                        callback([{ formatted_address: object.address }]);
                     }
                 };
             });
@@ -67,7 +67,7 @@ sap.ui.define(
             var latLngSpy = this.spy();
             this.stub(google.maps, "LatLng", latLngSpy);
 
-            // Action
+            // act
             MapUtils.objToLatLng({});
 
             // Assert
@@ -80,7 +80,7 @@ sap.ui.define(
             var latSpy = this.spy();
             var lngSpy = this.spy();
 
-            // Action
+            // act
             MapUtils.latLngToObj({ lat: latSpy, lng: lngSpy });
 
             // Assert
@@ -94,7 +94,7 @@ sap.ui.define(
             // arrange
             var currentLocationSpy = this.spy();
 
-            // action
+            // act
             stubCurrentLocationSuccess(this);
             MapUtils.currentPosition().then(currentLocationSpy);
 
@@ -107,7 +107,7 @@ sap.ui.define(
             // arrange
             var currentLocationSpy = this.spy();
 
-            // action
+            // act
             stubCurrentLocationError(this);
             MapUtils.currentPosition().then(currentLocationSpy);
 
@@ -119,7 +119,7 @@ sap.ui.define(
             // Arrange
             var geocodeSpy = this.spy();
 
-            // Action
+            // act
             stubGeoCodePositionSuccess(this);
             MapUtils.geocodePosition().done(geocodeSpy);
 
@@ -132,7 +132,7 @@ sap.ui.define(
             // Arrange
             var geocodeSpy = this.spy();
 
-            // Action
+            // act
             stubGeoCodePositionError(this);
             MapUtils.geocodePosition().done(geocodeSpy);
 
@@ -142,22 +142,13 @@ sap.ui.define(
 
         QUnit.test("geocode Search", function(assert) {
             // Arrange
-            assert.expect(1);
-            var geocodeSpy = this.spy();
-            var done = assert.async();
-            var delay = 100;
+            var sAddress = "Bondi Beach";
+            stubGeoCodePositionSuccess(this);
 
-            // Action            
-            var oSandbox = sinon.sandbox;
-            stubGeoCodePositionSuccess(oSandbox);
-            MapUtils.search().done(geocodeSpy);
-
-            // Assert
-            setTimeout(function() {
-                assert.strictEqual(geocodeSpy.callCount, 1, "the geocode position found");
-                oSandbox.restore();
-                done();
-            }, delay);
-
+            // Act
+            return MapUtils.search({ "address": sAddress }).then(function(res) {
+                // Assert
+                assert.strictEqual(sAddress, res[0].formatted_address, "correct address returned");
+            });
         });
     });

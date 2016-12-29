@@ -8,7 +8,7 @@ sap.ui.define(
         "use strict";
 
         var MAP_ID = 'MAP_TEST';
-        var oModel = new JSONModel('data/ClusterData.json');
+        var oModel = new JSONModel(jQuery.sap.getModulePath("test.unit.data", "/ClusterData.json"));
 
         var oMap;
         var oMarkerCluster;
@@ -57,7 +57,7 @@ sap.ui.define(
                 lat: '{lat}',
                 lng: '{lng}',
                 info: '{location}',
-                icon: "http://www.w3schools.com/googleapi/pinkball.png"
+                icon: jQuery.sap.getModulePath("openui5.googlemaps.themes." + "base") + "/img/pinkball.png"
             });
 
             oMap = new Map({

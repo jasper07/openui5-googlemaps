@@ -23,6 +23,13 @@
         };
     }
 
+    // Phantom js doesnt have a geolocation function so mock it
+    if (navigator.geolocation === undefined) {
+        navigator.geolocation = {
+            getCurrentPosition: function() {}
+        };
+    }
+
     if (window.blanket) {
         window.blanket.options("sap-ui-cover-only", "[openui5/]");
         window.blanket.options("sap-ui-cover-never", "//markerclusterer.js$/i");

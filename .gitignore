@@ -2,4 +2,5 @@
 /projects/
 *.log
 resources
+/reports/
  

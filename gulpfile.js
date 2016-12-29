@@ -1,6 +1,7 @@
 var gulp = require('gulp');
 
 var jshint = require('gulp-jshint');
+var jscs = require('gulp-jscs');
 var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
 var concat = require('gulp-concat');
@@ -37,6 +38,72 @@ var filePath = {
 var oldVer;
 var newVer;
 
+
+/**
+ * Start the tests using karma.
+ * @param  {boolean} singleRun - True means run once and end (CI), or keep running (dev)
+ * @param  {Function} done - Callback to fire when karma is done
+ * @return {undefined}
+ */
+function startTests(singleRun, done) {
+    var Server = require('karma').Server;
+
+    new Server({
+        configFile: __dirname + '/karma.conf.js',
+        singleRun: !!singleRun
+    }, karmaCompleted).start();
+
+    ////////////////
+
+    function karmaCompleted(karmaResult) {
+        console.log('Karma completed');
+
+        if (karmaResult === 1) {
+            done('karma: tests failed with code ' + karmaResult);
+        } else {
+            done();
+        }
+    }
+}
+
+
+/**
+ * Create a visualizer report
+ */
+gulp.task('plato', function(done) {
+    console.log('Analyzing source with Plato');
+    console.log('Browse to /report/plato/index.html to see Plato results');
+
+    startPlatoVisualizer(done);
+});
+
+/**
+ * Start Plato inspector and visualizer
+ */
+function startPlatoVisualizer(done) {
+    console.log('Running Plato');
+
+    var excludeFiles = /.*markerclusterer.js/;
+    var plato = require('plato');
+
+    var options = {
+        title: 'Plato Inspections Report',
+        exclude: excludeFiles
+    };
+
+    plato.inspect(filePath.src, 'reports/plato', options, platoCompleted);
+
+    function platoCompleted(report) {
+        var overview = plato.getOverviewReport(report);
+
+        console.log(overview.summary);
+
+        if (done) { done(); }
+    }
+}
+
+
+
 gulp.task('clean', function() {
     return gulp.src(filePath.dest, {
         read: false
@@ -66,21 +133,13 @@ gulp.task('scripts-min', ['lint', 'clean'], function() {
 gulp.task('lint', function() {
     gulp.src([filePath.src, filePath.test])
         .pipe(jshint())
-        .pipe(jshint.reporter('jshint-stylish'));
+        .pipe(jshint.reporter('jshint-stylish'), { verbose: true })
+        .pipe(jshint.reporter('fail'))
+        .pipe(jscs());;
 });
 
 gulp.task('watch', function() {
     gulp.watch(filePath.src, ['lint', 'build']);
-});
-
-gulp.task('test', ['lint'], function() {
-    qunit('http://127.0.0.1:8887/openui5-googlemaps/test/unitTests.qunit.html?coverage&coverage-report=true', {
-        'verbose': true,
-        'timeout': 20,
-        'phantomjs-options': ['--web-security=false']
-    });
-    // return gulp.src('./test/unitTests.qunit.html')
-    //     .pipe(qunit());
 });
 
 gulp.task('bump', function() {
@@ -128,14 +187,32 @@ gulp.task('release', ['bump', 'build'], function() {
             'git push --tags',
             'git branch -f gh-pages master',
             'git push origin gh-pages' //update branch from master
-            // 'git checkout gh-pages',
-            // 'git merge master',
-            // 'git push',
-            // 'git checkout master
+            'git checkout gh-pages',
+            'git merge master',
+            'git push',
+            'git checkout master'
         ]));
 
 });
 
+/**
+ * Run specs once and exit
+ * To start servers and run midway specs as well:
+ * @return {Stream}
+ */
+gulp.task('test', ['lint'], function(done) {
+    startTests(true /*singleRun*/ , done);
+});
+
+/**
+ * Run specs and wait.
+ * Watch for file changes and re-run tests on each change
+ */
+gulp.task('tdd', function(done) {
+    startTests(false /*singleRun*/ , done);
+});
+
+
 gulp.task('default', ['watch', 'build']);
-gulp.task('build', ['lint', 'clean', 'scripts-dbg', 'scripts-min', 'ui5preload', 'theme']);
+gulp.task('build', ['lint', 'test', 'clean', 'scripts-dbg', 'scripts-min', 'ui5preload', 'theme']);
 gulp.task('cleanbuild', ['clean']);

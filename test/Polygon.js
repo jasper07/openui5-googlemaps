@@ -6,7 +6,8 @@ sap.ui.define(
         "use strict";
         var MAP_ID = 'MAP_TEST';
 
-        var oModel = new JSONModel('data/Data.json');
+        var oModel = new JSONModel(jQuery.sap.getModulePath("test.unit.data", "/Data.json"));
+
         sap.ui.getCore().setModel(oModel);
 
 
