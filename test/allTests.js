@@ -5,7 +5,8 @@ sap.ui.define([
     "test/unit/Polygon",
     "test/unit/Polyline",
     "test/unit/Directions",
-    "test/unit/MarkerCluster"
+    "test/unit/MarkerCluster",
+    "test/unit/ScriptsUtil"
 ], function() {
 
     // Phantom js does not have a function.bind implementation so we are using a polyfill
@@ -49,7 +50,7 @@ sap.ui.define([
         // }
 
         google.maps.isLoaded.then(function() {
-            QUnit.load();
+            // QUnit.load();
             QUnit.start();
         });
     }

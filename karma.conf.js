@@ -15,8 +15,8 @@ module.exports = function(config) {
         // list of files / patterns to load in the browser
         files: [
             { pattern: 'src/**', included: false, served: true, watched: false, nocache: false },
-            { pattern: 'test/**/*.*', included: false, served: true, watched: false, nocache: false },
-            { pattern: 'test/allTests.js', included: true, served: true, watched: false, nocache: false }
+            { pattern: 'test/**/*.*', included: false, served: true, watched: false, nocache: true },
+            { pattern: 'test/allTests.js', included: true, served: true, watched: false, nocache: true}
         ],
 
         // In case an absolute URL is used at some point of the code, a proxy configuration is required.
@@ -57,7 +57,7 @@ module.exports = function(config) {
 
         // start these browsers
         // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-        browsers: ['PhantomJS_custom'],
+        browsers: ['Chrome','PhantomJS_custom'],
 
         // Have phantomjs exit if a ResourceError is encountered (useful if karma exits without killing phantom)
         phantomjsLauncher: {
@@ -136,6 +136,10 @@ module.exports = function(config) {
 
         // Concurrency level
         // how many browser should be started simultaneous
-        concurrency: Infinity
+        concurrency: Infinity,
+
+        hostname: '127.0.0.1',
+
+        port: 9876
     });
 };

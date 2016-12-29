@@ -37,7 +37,7 @@ sap.ui.define(['jquery.sap.global', 'openui5/googlemaps/ScriptsUtil'],
                     params.v = utilParams.v;
                 }
 
-                params.sensor = utilParams.sensor || true;
+                // params.sensor = utilParams.sensor || true;
 
                 if (utilParams.libraries) {
                     params.libraries = utilParams.libraries;
