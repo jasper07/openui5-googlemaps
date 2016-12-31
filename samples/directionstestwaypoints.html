@@ -5,7 +5,7 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge' />
     <title>Directions Test With Waypoints</title>
     <link rel="icon" type="image/ico" href="../images/favicon.ico">
-    <script id="sap-ui-bootstrap" type="text/javascript" src="https://openui5.hana.ondemand.com/resources/sap-ui-core.js" data-sap-ui-theme="sap_bluecrystal" data-sap-ui-libs="sap.m"></script>
+    <script id="sap-ui-bootstrap" type="text/javascript" src="https://openui5.hana.ondemand.com/resources/sap-ui-core.js" data-sap-ui-theme="sap_bluecrystal" data-sap-ui-libs="sap.m, openui5.googlemaps" data-sap-ui-resourceroots='{"openui5.googlemaps": "../openui5/googlemaps/"}'></script>
     <style type="text/css">
     #buttons {
         position: absolute;
@@ -13,21 +13,11 @@
         left: 25px;
         z-index: 100;
     }
+    
     .inputField {
         display: block;
     }
-
-/*    @media only screen and (min-width: 719px) and (max-width: 720px) {
-        #map1-map {
-            width: 50% !important;
-            height: calc(100% - 1px) !important;
-            position: absolute;
-            right: 1px;
-            top: 1px !important;
-            bottom: 1px !important;
-            overflow: hidden;
-        }
-    }*/
+    
     #map1-map {
         width: 100% !important;
         height: 100% !important;
@@ -45,7 +35,6 @@
 </head>
 
 <body class="sapUiBody" role="application" style="height: 100%;">
-
     <div id="content" data-sap-ui-area="content">
         <div id='map'></div>
         <div id='buttons'></div>
@@ -54,21 +43,20 @@
 </body>
 
 </html>
-
 <script>
-sap.ui.getCore().loadLibrary("openui5.googlemaps", "../openui5/googlemaps/");
-
 var places = [{
     name: "Bondi Beach",
     lat: -33.890542,
     lng: 151.274856,
     start: 'Manly',
     end: 'Cronulla',
-    stops: [
-        {'name': 'Homebush'},
-        {'name': 'Bankstown'},
-        {'name': 'Menai'}
-    ]
+    stops: [{
+        'name': 'Homebush'
+    }, {
+        'name': 'Bankstown'
+    }, {
+        'name': 'Menai'
+    }]
 }];
 
 var oModel = new sap.ui.model.json.JSONModel();
@@ -81,14 +69,14 @@ sap.ui.getCore().setModel(oModel);
 
 var oContext = oModel.getContext('/places/0/');
 
-var params = {
-    url: 'https://maps.googleapis.com/maps/api/js',
-    sensor: false,
-    v: '3.exp'
-        // libraries : 'places'
-};
 
-openui5.googlemaps.ScriptsUtil.setParams(params);
+// an example of calling the chinese API before map renders
+var oMapsApi = new openui5.googlemaps.MapsApi({
+    mapsUrl: "http://maps.google.cn/maps/api/js",
+    apiKey: "AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM",
+    version: "3.20",
+    language: "zh-CN"
+}).load();
 
 var oWaypoint = new openui5.googlemaps.Waypoint({
     location: '{name}'
@@ -102,7 +90,8 @@ var directions = new openui5.googlemaps.Directions({
         template: oWaypoint
     },
     travelMode: openui5.googlemaps.TravelMode.driving,
-    unitSystem: openui5.googlemaps.UnitSystem.IMPERIAL});
+    unitSystem: openui5.googlemaps.UnitSystem.IMPERIAL
+});
 
 var myMap = new openui5.googlemaps.Map("map1", {
     lat: -33.89,
@@ -139,10 +128,18 @@ var oSegmentedBtn = new sap.m.SegmentedButton({
     }
 });
 
-oSegmentedBtn.addButton(new sap.m.Button("drivingBtn", {text: "Driving" , width: "60px"}));
-oSegmentedBtn.addButton(new sap.m.Button("walkingBtn", {text: "Walking", width: "60px"}));
-oSegmentedBtn.addButton(new sap.m.Button("bicyclingBtn", {text: "Bicycling", width: "60px"}));
-oSegmentedBtn.addButton(new sap.m.Button("transitBtn", { text: "Transit", width: "60px"}));
+oSegmentedBtn.addButton(new sap.m.Button("drivingBtn", {
+    text: "Driving",
+    width: "110px"
+}));
+oSegmentedBtn.addButton(new sap.m.Button("walkingBtn", {
+    text: "Walking",
+    width: "110px"
+}));
+oSegmentedBtn.addButton(new sap.m.Button("bicyclingBtn", {
+    text: "Bicycling",
+    width: "110px"
+}));
 
 var oSegmentedButtonBar = new sap.m.Bar({
     contentMiddle: [oSegmentedBtn]

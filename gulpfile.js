@@ -8,7 +8,6 @@ var concat = require('gulp-concat');
 var clean = require('gulp-clean');
 var header = require('gulp-header');
 var streamify = require('gulp-streamify');
-var qunit = require('node-qunit-phantomjs');
 var shell = require('gulp-shell');
 var git = require('gulp-git');
 var bump = require('gulp-bump');
@@ -18,8 +17,7 @@ var pkg = require('./package.json');
 var ui5preload = require('gulp-ui5-preload');
 var uglify = require('gulp-uglify');
 var imagemin = require('gulp-imagemin');
-// var prettydata = require('gulp-pretty-data');
-// var gulpif = require('gulp-if');
+
 
 var banner = ['/**',
     ' * <%= pkg.name %> - <%= pkg.description %>',

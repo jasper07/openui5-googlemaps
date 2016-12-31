@@ -1,4 +1,5 @@
 sap.ui.define([
+    "openui5/googlemaps/MapsApi",
     "test/unit/Map",
     "test/unit/MapUtils",
     "test/unit/Marker",
@@ -6,8 +7,11 @@ sap.ui.define([
     "test/unit/Polyline",
     "test/unit/Directions",
     "test/unit/MarkerCluster",
-    "test/unit/ScriptsUtil"
-], function() {
+    "test/unit/MapsApi",
+    "test/unit/LoadScripts"
+], function(MapsApi) {
+
+
 
     // Phantom js does not have a function.bind implementation so we are using a polyfill
     if (!Function.prototype.bind) {
@@ -29,28 +33,20 @@ sap.ui.define([
      * @returns {void}
     //  */
     function checkStart() {
-       'use strict';
-        var aModules, i, iLength;
+        "use strict";
 
-        if (!window['sap-ui-config'] || !window['sap-ui-config'].libs || !sap) {
+        if (!window["sap-ui-config"] || !window["sap-ui-config"].libs || !sap) {
             setTimeout(checkStart, 500);
             return;
         }
 
-        // aModules = window['sap-ui-config'].libs.replace(/sap./g, '').replace(/\s/g, '').split(',');
+        var oMapsApi = new MapsApi({
+            apiKey: "AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM"
+        });
 
-        // for (i = 0, iLength = aModules.length; i < iLength; i++) {
-
-        //     if ((aModules[i].indexOf('.') !== -1 && !sap[aModules[i].split('.')[0]]) || (aModules[i].indexOf('.') === -1 && !sap[aModules[i]])) {
-
-        //         setTimeout(checkStart, 500);
-
-        //         return;
-        //     }
-        // }
+        oMapsApi.load();
 
         google.maps.isLoaded.then(function() {
-            // QUnit.load();
             QUnit.start();
         });
     }

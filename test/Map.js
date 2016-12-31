@@ -1,6 +1,7 @@
 sap.ui.define(
     [
         "openui5/googlemaps/Map",
+        "openui5/googlemaps/MapsApi",
         "openui5/googlemaps/MapUtils",
         "openui5/googlemaps/MapTypeId",
         "openui5/googlemaps/Marker",
@@ -11,7 +12,7 @@ sap.ui.define(
         "sap/ui/thirdparty/sinon",
         "sap/ui/thirdparty/sinon-qunit"
     ],
-    function(Map, MapUtils, MapTypeId, Marker, Polyline, Polygon, Directions, MarkerCluster) {
+    function(Map, MapsApi, MapUtils, MapTypeId, Marker, Polyline, Polygon, Directions, MarkerCluster) {
         "use strict";
 
         sinon.config.useFakeTimers = false;
@@ -20,10 +21,6 @@ sap.ui.define(
         var MAP_POSITION = {};
         MAP_POSITION.lat = parseFloat("-33.895");
         MAP_POSITION.lng = parseFloat("151.275");
-
-        function stubGoogleMapsLoaded(oSinonSandbox) {
-            oSinonSandbox.stub(google.maps, "loaded", undefined);
-        }
 
         QUnit.module("Map - defaults test");
 
@@ -66,14 +63,18 @@ sap.ui.define(
 
         QUnit.test("simulate latency on load", function(assert) {
             var oMap = new Map();
+            var loadScriptsSpy = this.spy();
+            this.stub(google.maps, "loaded", undefined);
+            this.stub(jQuery.sap, "includeScript", loadScriptsSpy);
 
             // Act
-            stubGoogleMapsLoaded(this);
             oMap.placeAt("qunit-fixture");
             sap.ui.getCore().applyChanges();
 
             //Assert
             assert.strictEqual(oMap.subscribed, true, "subscribed to GMAPS load");
+            assert.strictEqual(loadScriptsSpy.callCount, 1, "include script called");
+            oMap.destroy();
         });
 
         QUnit.module("Map Test Options");
@@ -97,6 +98,7 @@ sap.ui.define(
             assert.strictEqual(oMap.getMapTypeControl(), false, "default mapTypeControl found");
             assert.strictEqual(oMap.getStreetViewControl(), false, "default streetViewControl found");
             assert.strictEqual(oMap.getFitToMarkers(), false, "default fit to markers false");
+            oMap.destroy();
         });
 
         QUnit.test("Set goolemap options on creation", function(assert) {
@@ -294,4 +296,34 @@ sap.ui.define(
                 oMap.destroy();
             }, delay);
         });
+
+
+
+
+        QUnit.module("Map - test map Api");
+
+
+        QUnit.test("test loading google maps library from map control", function(assert) {
+            // arrange
+            var done = assert.async();
+            var delay = 100;
+            this.stub(google.maps, "loaded", undefined);
+
+            var oLoadSpy = this.spy();
+            this.stub(MapsApi.prototype, "load", oLoadSpy);
+
+            // act
+            var oMap = new Map({});
+
+            oMap.placeAt("qunit-fixture");
+            sap.ui.getCore().applyChanges();
+
+            // Assert
+            setTimeout(function() {
+                assert.strictEqual(oLoadSpy.callCount, 1, "maps api load was called");
+                done();
+                oMap.destroy();
+            }, delay);
+        });
+
     });

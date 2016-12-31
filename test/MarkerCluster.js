@@ -15,7 +15,7 @@ sap.ui.define(
 
         sap.ui.getCore().setModel(oModel);
 
-        QUnit.module("Marker Cluser ");
+        QUnit.module("Marker ClusTer ");
         QUnit.test("default rendering and event handling", function(assert) {
             // Arrange
             var done = assert.async();

@@ -16,7 +16,7 @@ module.exports = function(config) {
         files: [
             { pattern: 'src/**', included: false, served: true, watched: false, nocache: false },
             { pattern: 'test/**/*.*', included: false, served: true, watched: false, nocache: true },
-            { pattern: 'test/allTests.js', included: true, served: true, watched: false, nocache: true}
+            { pattern: 'test/allTests.js', included: true, served: true, watched: false, nocache: true }
         ],
 
         // In case an absolute URL is used at some point of the code, a proxy configuration is required.
@@ -37,15 +37,25 @@ module.exports = function(config) {
         },
 
         // Configuration of coverage reporter
+        // check coverage thresholds
+        // output summary to the CLI
+        // output lcov for coveralls
         coverageReporter: {
+            check: {
+                global: {
+                    statements: 60,
+                    branches: 60,
+                    functions: 60,
+                    lines: 60,
+                    excludes: []
+                }
+            },
             dir: 'reports/coverage',
             subdir: function() {
                 return '';
             },
             reporters: [{
-                type: 'cobertura',
-                subdir: 'cobertura',
-                file: 'coverage.xml'
+                type: 'text-summary'
             }, {
                 type: 'html',
                 subdir: 'html'
@@ -57,7 +67,7 @@ module.exports = function(config) {
 
         // start these browsers
         // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-        browsers: ['PhantomJS_custom'], //'Chrome',
+        browsers: ['Chrome'],
 
         // Have phantomjs exit if a ResourceError is encountered (useful if karma exits without killing phantom)
         phantomjsLauncher: {
