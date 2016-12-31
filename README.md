@@ -1,4 +1,5 @@
-OpenUI5 Google Maps
+# OpenUI5 Google Maps
+
 [![travis build](https://img.shields.io/travis/jasper07/openui5-googlemaps.svg?style=flat-square)](https://travis-ci.org/jasper07/openui5-googlemaps)
 [![coverage](https://img.shields.io/coveralls/jasper07/openui5-googlemaps.svg?style=flat-square)](https://coveralls.io/github/jasper07/openui5-googlemaps?branch=master)
 [![MIT Licence](https://img.shields.io/github/license/jasper07/openui5-googlemaps.svg?style=flat-square)](https://opensource.org/licenses/MIT)
