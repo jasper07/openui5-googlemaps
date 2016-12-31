@@ -1,7 +1,8 @@
-OpenUI5 Google Maps  
-[![Build Status](https://travis-ci.org/jasper07/openui5-googlemaps.svg?branch=master)](https://travis-ci.org/jasper07/openui5-googlemaps)
-[![Coverage Status](https://coveralls.io/repos/github/jasper07/openui5-googlemaps/badge.svg?branch=master)](https://coveralls.io/github/jasper07/openui5-googlemaps?branch=master)
-[prs-badge]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square
+OpenUI5 Google Maps
+[![travis build](https://img.shields.io/travis/jasper07/openui5-googlemaps.svg?style=flat-square)](https://travis-ci.org/jasper07/openui5-googlemaps)
+[![coverage](https://img.shields.io/coveralls/jasper07/openui5-googlemaps.svg?style=flat-square)](https://coveralls.io/github/jasper07/openui5-googlemaps?branch=master)
+[![MIT Licence](https://img.shields.io/github/license/jasper07/openui5-googlemaps.svg?style=flat-square)](https://opensource.org/licenses/MIT)
+[![PRs Welcome](https://img.shields.io/badge/prs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
 ===================
 A set of modules for [OpenUI5](http://openui5.org) that adds support for
