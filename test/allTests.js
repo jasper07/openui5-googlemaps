@@ -46,9 +46,19 @@ sap.ui.define([
 
         oMapsApi.load();
 
-        google.maps.isLoaded.then(function() {
-            QUnit.start();
-        });
+        /**
+         * monkey patch, Karma-QUnit starts testing before libraries are loaded
+         * known issue, this is easy than recommended fix
+         * https://github.com/karma-runner/karma-qunit/issues/27
+         **/
+        if (window.__karma__) {
+            var myStart = window.__karma__.start;
+            window.__karma__.start = function() {
+                return google.maps.isLoaded.then(function() {
+                    myStart.apply(this, arguments);
+                });
+            };
+        }
     }
 
     checkStart();

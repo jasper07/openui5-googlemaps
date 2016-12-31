@@ -128,12 +128,12 @@ sap.ui.define(
             assert.strictEqual(oMap.getMapTypeControl(), false, "default mapTypeControl found");
             assert.strictEqual(oMap.getStreetViewControl(), false, "default streetViewControl found");
             assert.strictEqual(oMap.getFitToMarkers(), true, "fit to markers set");
-
             oMap.destroy();
         });
 
         QUnit.test("Set goolemap options after creation", function(assert) {
             // Arrange
+            assert.expect( 11 );
             var delay = 1000;
             var done = assert.async();
             var oMap = new Map();
@@ -153,6 +153,7 @@ sap.ui.define(
             oMap.setMapTypeControl(true);
             oMap.setStreetViewControl(true);
             oMap.setZoomControl(true);
+            sap.ui.getCore().applyChanges();
 
             // Assert
             setTimeout(function() {
