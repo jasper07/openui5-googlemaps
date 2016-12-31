@@ -1,6 +1,6 @@
 /**
  * openui5-googlemaps - OpenUI5 Google Maps library
- * @version v0.0.28
+ * @version v1.0.0
  * @link http://jasper07.github.io/openui5-googlemaps/
  * @license MIT
  *//*global Promise*/

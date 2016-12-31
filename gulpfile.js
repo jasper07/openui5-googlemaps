@@ -183,12 +183,12 @@ gulp.task('release', ['bump', 'build'], function() {
             'git tag ' + newVer,
             'git push',
             'git push --tags',
-            'git branch -f gh-pages master',
-            'git push origin gh-pages', //update branch from master
-            'git checkout gh-pages',
-            'git merge master',
-            'git push',
-            'git checkout master'
+            'git branch -f gh-pages master'
+            // 'git push origin gh-pages', //update branch from master
+            // 'git checkout gh-pages',
+            // 'git merge master',
+            // 'git push',
+            // 'git checkout master'
         ]));
 
 });
