@@ -61,6 +61,7 @@ sap.ui.define(
 
         });
 
+
         QUnit.test("simulate latency on load", function(assert) {
             var oMap = new Map();
             var loadScriptsSpy = this.spy();
