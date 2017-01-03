@@ -14,7 +14,6 @@ sap.ui.define(
     ],
     function(Map, MapsApi, MapUtils, MapTypeId, Marker, Polyline, Polygon, Directions, MarkerCluster) {
         "use strict";
-
         sinon.config.useFakeTimers = false;
 
         var MAP_ID = 'MAP_TEST';
