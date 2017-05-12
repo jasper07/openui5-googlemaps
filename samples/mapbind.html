@@ -21,6 +21,12 @@
 
 sap.ui.getCore().loadLibrary("openui5.googlemaps", "../openui5/googlemaps/");
 
+// set the api key
+var oMapsApi = new openui5.googlemaps.MapsApi({
+    apiKey: "AIzaSyD6EmAk92gaGzjYVYU-ebd_BK-rgejSoZ0",
+}).load();
+
+
 jQuery.sap.require("sap.ui.model.json.JSONModel");
 var oModel = new sap.ui.model.json.JSONModel({
     longitude: 8,
@@ -39,14 +45,17 @@ var myMap = new openui5.googlemaps.Map({
 
 
 // PART 3: interact with the map
+
+var fnSetLocation = function(position) {
+    myMap.setLat(position.lat);
+    myMap.setLng(position.lng);
+    myMap.setZoom(13);
+};
+
 new sap.ui.commons.Button({
     text: "Get Location",
     press: function() {
-        openui5.googlemaps.MapUtils.currentPosition(function(position) {
-            myMap.setLat(position.lat);
-            myMap.setLng(position.lng);
-            myMap.setZoom(13);
-        });
+        openui5.googlemaps.MapUtils.currentPosition().then(fnSetLocation);
     }
 }).placeAt("content");
 

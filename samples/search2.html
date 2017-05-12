@@ -84,6 +84,7 @@
 											zoom="12"
 											lat="{lat}"
 											lng="{lng}"
+											apiKey="AIzaSyD6EmAk92gaGzjYVYU-ebd_BK-rgejSoZ0"
 											markers="{/places}" 
 											click="onClick">
 
@@ -92,7 +93,7 @@
 													lat="{markerLat}"
 													lng="{markerLng}"
 													info="{name}"
-													icon="http://www.w3schools.com/googleapi/pinkball.png"
+													icon="{path:'name', formatter:'.getMarkerIcon'}"
 													animation="0"
 													draggable="true"
 													dragEnd="onMarkerDragEnd" />
@@ -250,6 +251,13 @@
 					*/
 					onClick: function(oEvent) {
 						alert("Clicked. Lat: " + oEvent.getParameters().lat + ", Lng: " + oEvent.getParameters().lng);
+					},
+
+					/*
+					Get the pinkball icon for the marker 
+					*/ 
+					getMarkerIcon: function(){
+						return jQuery.sap.getModulePath("openui5.googlemaps.themes." + "base") + "/img/pinkball.png"
 					}
 
 				});

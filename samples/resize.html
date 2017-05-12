@@ -24,6 +24,10 @@
 <script>
 sap.ui.getCore().loadLibrary("openui5.googlemaps", "../openui5/googlemaps/");
 
+var oMapsApi = new openui5.googlemaps.MapsApi({
+    apiKey: "AIzaSyD6EmAk92gaGzjYVYU-ebd_BK-rgejSoZ0",
+}).load();
+
 var myMap = new openui5.googlemaps.Map({
     lat: -33.89,
     lng: 151.27,

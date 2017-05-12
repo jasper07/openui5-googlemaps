@@ -5,6 +5,12 @@
     <title>OpenUI5 Googlemaps Library</title>
     <meta name="description" content="openui5 googlemaps library">
     <script id="sap-ui-bootstrap" type="text/javascript" src="https://openui5.hana.ondemand.com/resources/sap-ui-core.js"></script>
+    <script language="JavaScript">
+        if (location.protocol !== 'https:')
+        {
+        location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
+        }
+    </script>
     <link rel="icon" type="image/ico" href="images/favicon.ico">
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css">
     <link rel="stylesheet" type="text/css" href="stylesheets/prism.css">
@@ -65,7 +71,8 @@
 &lt;mvc:View xmlns:mvc=&quot;sap.ui.core.mvc&quot;
     xmlns:gmaps=&quot;openui5.googlemaps&quot;
     controllerName=&quot;sampleController&quot;&gt;
-    &lt;gmaps:Map height=&quot;250px&quot; zoom=&quot;12&quot; lat=&quot;-33.895&quot; lng=&quot;151.275&quot;&gt;
+    &lt;gmaps:Map height=&quot;250px&quot; zoom=&quot;12&quot; lat=&quot;-33.895&quot; lng=&quot;151.275&quot; 
+     apiKey="AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM"&gt;
         &lt;gmaps:markers&gt;
             &lt;gmaps:Marker lat=&quot;-33.895&quot; lng=&quot;151.275&quot; info=&quot;Bondi Beach&quot; /&gt;
         &lt;/gmaps:markers&gt;
@@ -108,7 +115,7 @@
 <script src="js/prism.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
 sap.ui.getCore().loadLibrary("openui5.googlemaps", "openui5/googlemaps/");
-var sXmlView = '<?xml version="1.0" encoding="UTF-8" ?>' + '<mvc:View xmlns:mvc="sap.ui.core.mvc"' + '    xmlns:gmaps="openui5.googlemaps"' + '    controllerName="sampleController">' + '    <gmaps:Map height="250px" zoom="12" lat="-33.895" lng="151.275">' + '        <gmaps:markers>' + '            <gmaps:Marker lat="-33.895" lng="151.275" info="Bondi Beach" />' + '        </gmaps:markers>' + '    </gmaps:Map>' + '</mvc:View>';
+var sXmlView = '<?xml version="1.0" encoding="UTF-8" ?>' + '<mvc:View xmlns:mvc="sap.ui.core.mvc"' + '    xmlns:gmaps="openui5.googlemaps"' + '    controllerName="sampleController">' + '    <gmaps:Map height="250px" zoom="12" lat="-33.895" lng="151.275" apiKey="AIzaSyD6EmAk92gaGzjYVYU-ebd_BK-rgejSoZ0">' + '        <gmaps:markers>' + '            <gmaps:Marker lat="-33.895" lng="151.275" info="Bondi Beach" />' + '        </gmaps:markers>' + '    </gmaps:Map>' + '</mvc:View>';
 
 var oController = sap.ui.controller("sampleController", {});
 

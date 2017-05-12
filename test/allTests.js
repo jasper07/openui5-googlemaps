@@ -41,7 +41,7 @@ sap.ui.define([
         }
 
         var oMapsApi = new MapsApi({
-            apiKey: "AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM"
+            apiKey: "AIzaSyD6EmAk92gaGzjYVYU-ebd_BK-rgejSoZ0"
         });
 
         oMapsApi.load();
