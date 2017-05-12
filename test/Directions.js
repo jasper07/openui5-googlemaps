@@ -14,7 +14,7 @@ sap.ui.define(
             stops: [
                 { 'name': 'Homebush' },
                 { 'name': 'Bankstown' },
-                { 'name': 'Menai' }
+                { 'name': 'Menai, NSW' }
             ]
         };
 

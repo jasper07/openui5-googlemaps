@@ -6,16 +6,16 @@ sap.ui.define(
         "use strict";
 
         var oConfig = {
-            url: "http://maps.google.cn/maps/api/js",
+            url: location.protocol + "//maps.google.cn/maps/api/js",
             key: "AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM",
             version: "3.20",
             language: "zh-CN",
             clientId: "123ABC",
             signedIn: true,
-            expectedUrl: "http://maps.google.cn/maps/api/js?&v=3.20&libraries=drawing,geometry,places,visualization&callback=google.maps.callBack&client=123ABC&language=zh-CN&signed_in=true"
+            expectedUrl: location.protocol + "//maps.google.cn/maps/api/js?&v=3.20&libraries=drawing,geometry,places,visualization&callback=google.maps.callBack&client=123ABC&language=zh-CN&signed_in=true"
         };
 
-        var sDefaultUrl = "http://maps.google.com/maps/api/js?&v=3.exp&libraries=drawing,geometry,places,visualization&callback=google.maps.callBack";
+        var sDefaultUrl = location.protocol + "//maps.google.com/maps/api/js?&v=3.exp&libraries=drawing,geometry,places,visualization&callback=google.maps.callBack";
 
 
         QUnit.module("MapsApi");

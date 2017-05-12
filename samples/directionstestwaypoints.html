@@ -72,7 +72,7 @@ var oContext = oModel.getContext('/places/0/');
 
 // an example of calling the chinese API before map renders
 var oMapsApi = new openui5.googlemaps.MapsApi({
-    mapsUrl: "http://maps.google.cn/maps/api/js",
+    mapsUrl: location.protocol  + "//maps.google.cn/maps/api/js",
     apiKey: "AIzaSyD6EmAk92gaGzjYVYU-ebd_BK-rgejSoZ0",
     version: "3.20",
     language: "zh-CN"

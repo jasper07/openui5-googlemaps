@@ -46,14 +46,7 @@ var newVer;
 function startTests(singleRun, done) {
     var Server = require('karma').Server;
 
-    new Server({
-        configFile: __dirname + '/karma.conf.js',
-        singleRun: !!singleRun
-    }, karmaCompleted).start();
-
-    ////////////////
-
-    function karmaCompleted(karmaResult) {
+   function karmaCompleted(karmaResult) {
         console.log('Karma completed');
 
         if (karmaResult === 1) {
@@ -62,6 +55,11 @@ function startTests(singleRun, done) {
             done();
         }
     }
+
+    new Server({
+        configFile: __dirname + '/karma.conf.js',
+        singleRun: !!singleRun
+    }, karmaCompleted).start();
 }
 
 
@@ -133,7 +131,7 @@ gulp.task('lint', function() {
         .pipe(jshint())
         .pipe(jshint.reporter('jshint-stylish'), { verbose: true })
         .pipe(jshint.reporter('fail'))
-        .pipe(jscs());;
+        .pipe(jscs());
 });
 
 gulp.task('watch', function() {
@@ -171,7 +169,7 @@ gulp.task("theme", function() {
     gulp.src('src/themes/base/img/*')
         .pipe(imagemin())
         .pipe(gulp.dest('openui5/googlemaps/themes/base/img/'));
-})
+});
 
 gulp.task('release', ['bump', 'build'], function() {
     return gulp.src('*.js', {
@@ -182,13 +180,13 @@ gulp.task('release', ['bump', 'build'], function() {
             'git commit -m "release ' + newVer + '"',
             'git tag ' + newVer,
             'git push',
-            'git push --tags'
-            // 'git branch -f gh-pages master'
-            // 'git push origin gh-pages', //update branch from master
-            // 'git checkout gh-pages',
-            // 'git merge master',
-            // 'git push',
-            // 'git checkout master'
+            'git push --tags',
+            'git branch -f gh-pages master',
+            'git push origin gh-pages', //update branch from master
+            'git checkout gh-pages',
+            'git merge master',
+            'git push',
+            'git checkout master'
         ]));
 
 });
