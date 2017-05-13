@@ -6,6 +6,7 @@
 [![PRs Welcome](https://img.shields.io/badge/prs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
 ===================
+
 A set of modules for [OpenUI5](http://openui5.org) that adds support for
 using Google Maps.
 
@@ -30,7 +31,7 @@ Demos
 ----
 Examples are in the `samples` directory and cover all of the core functionality.
 
-See http://jasper07.github.io/openui5-googlemaps/ for online demos.
+See https://jasper07.github.io/openui5-googlemaps/ for online demos.
 
 Contributing
 ------------
