@@ -15,8 +15,11 @@ module.exports = function(config) {
         // list of files / patterns to load in the browser
         files: [
             { pattern: 'src/**', included: false, served: true, watched: false, nocache: false },
-            { pattern: 'test/**/*.*', included: false, served: true, watched: false, nocache: true },
-            { pattern: 'test/allTests.js', included: true, served: true, watched: false, nocache: true }
+            'test/allTests.js',
+            { pattern: 'test/**/*.*', included: false, served: true },
+
+            
+            // { pattern: 'test/allTests.js', included: true, served: true }
         ],
 
         // In case an absolute URL is used at some point of the code, a proxy configuration is required.
@@ -67,7 +70,7 @@ module.exports = function(config) {
 
         // start these browsers
         // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-        browsers: ['PhantomJS_custom'],//'Chrome'],
+        browsers: ['PhantomJS_custom'],//,'Chrome'],
 
         // Have phantomjs exit if a ResourceError is encountered (useful if karma exits without killing phantom)
         phantomjsLauncher: {
@@ -93,7 +96,7 @@ module.exports = function(config) {
                     },
                 },
                 flags: ['--load-images=true', '--debug=false', '--disk-cache=false'],
-                debug: false
+                debug: true
             }
         },
 
@@ -115,10 +118,10 @@ module.exports = function(config) {
             },
             openui5: {
                 config: {
-                    theme: 'sap_belize',
+                    // theme: 'sap_belize',
                     libs: 'sap.m, openui5.googlemaps',
-                    compatVersion: 'edge',
-                    frameOptions: 'allow',
+                    // compatVersion: 'edge',
+                    // frameOptions: 'allow',
                     // preload: 'async',
                     // animation: 'false',
                     debug: 'false',

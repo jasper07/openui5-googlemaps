@@ -47,7 +47,7 @@
     "karma-qunit": "^1.2.1",
     "karma-safari-launcher": "^1.0.0",
     "plato": "^1.4.0",
-    "qunitjs": "^1.23.1",
+    "qunitjs": "^1.18.0",
     "semver": "*"
   },
   "bugs": {

@@ -1,5 +1,7 @@
 /node_modules/
+/bower_components/
 /projects/
+.vscode/
 *.log
 resources
 /reports/
