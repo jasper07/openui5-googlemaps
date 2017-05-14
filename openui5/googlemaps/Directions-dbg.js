@@ -1,6 +1,6 @@
 /**
  * openui5-googlemaps - OpenUI5 Google Maps library
- * @version v1.0.2
+ * @version v1.0.3
  * @link http://jasper07.github.io/openui5-googlemaps/
  * @license MIT
  */sap.ui.define(["jquery.sap.global", "sap/ui/core/Control", "google.maps", "./TravelMode", "./UnitSystem"],
@@ -126,6 +126,7 @@
 
         Directions.prototype.routeResponse = function(response, status) {
             if (status === gmaps.DirectionsStatus.OK) {
+                jQuery.sap.log.debug("Directions :: route response -" + response.toString(), this);
                 this.response = response;
                 this.responseChanged();
 

@@ -1,6 +1,6 @@
 /**
  * openui5-googlemaps - OpenUI5 Google Maps library
- * @version v1.0.2
+ * @version v1.0.3
  * @link http://jasper07.github.io/openui5-googlemaps/
  * @license MIT
  */sap.ui.define(["jquery.sap.global", "sap/ui/core/Control", "sap/ui/core/ResizeHandler", "google.maps", "./MapsApi", "./MapUtils", "./MapTypeId"],
@@ -383,11 +383,24 @@
 
         Map.prototype.notifyAggregations = function(sEvent) {
             // notify markers, polylines and poloygons
-            this._notifyMarkers(sEvent, this.map);
-            this._notifyPolylines(sEvent, this.map);
-            this._notifyPolygons(sEvent, this.map);
-            this._notifyDirections(sEvent, this.map);
-            this._notifyMarkerCluster(sEvent, this.map);
+            var oAggregations = this.getMetadata().getAggregations();
+            var aAggregations =  Object.keys(oAggregations).map(function(sKey){ return oAggregations[sKey];});
+            var oControl = this;
+            var fnNotify = function(oElement){
+                // eg marker._mapRendered(map)
+                oElement["_" + sEvent](oControl.map);
+            };
+
+            aAggregations.forEach(function(oAggregation){
+                 var oValue = oControl[oAggregation._sGetter]();
+                 if (oValue){
+                    if (oAggregation.multiple === true){
+                        oValue.forEach(fnNotify); 
+                    }else{
+                        fnNotify(oValue);
+                    }  
+                } 
+            });
         };
 
         Map.prototype.onAfterRendering = function() {
@@ -466,36 +479,6 @@
                 lat: this.getLat(),
                 lng: this.getLng()
             });
-        };
-
-        Map.prototype._notifyMarkers = function(action, param) {
-            this.getMarkers().forEach(function(oMarker) {
-                oMarker["_" + action](param);
-            });
-        };
-
-        Map.prototype._notifyPolylines = function(action, param) {
-            this.getPolylines().forEach(function(oPolyline) {
-                oPolyline["_" + action](param);
-            });
-        };
-
-        Map.prototype._notifyPolygons = function(action, param) {
-            this.getPolygons().forEach(function(oPolygons) {
-                oPolygons["_" + action](param);
-            });
-        };
-
-        Map.prototype._notifyDirections = function(action, param) {
-            if (this.getDirections()) {
-                this.getDirections()["_" + action](param);
-            }
-        };
-
-        Map.prototype._notifyMarkerCluster = function(action, param) {
-            if (this.getMarkerCluster()) {
-                this.getMarkerCluster()["_" + action](param);
-            }
         };
 
         Map.prototype._fitToMarkers = function() {
