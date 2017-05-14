@@ -121,6 +121,7 @@ sap.ui.define(["jquery.sap.global", "sap/ui/core/Control", "google.maps", "./Tra
 
         Directions.prototype.routeResponse = function(response, status) {
             if (status === gmaps.DirectionsStatus.OK) {
+                jQuery.sap.log.debug("Directions :: route response -" + response.toString(), this);
                 this.response = response;
                 this.responseChanged();
 
