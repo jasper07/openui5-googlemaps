@@ -34,8 +34,8 @@ const filePath = {
 };
 const libNS = "openui5.googlemaps";
 
-let oldVer;
-let newVer;
+var oldVer;
+var newVer;
 
 
 /**
@@ -176,16 +176,16 @@ gulp.task("theme", () => {
         .pipe(gulp.dest("openui5/googlemaps/themes/base/img/"));
 });
 
-gulp.task("release", ["bump", "build"], () => {
+gulp.task("release", [], () => {
     return gulp.src("*.js", {
             read: false
         })
         .pipe(shell([
-            "git add -u",
-            "git commit -m 'release' + newVer + ''",
-            "git tag " + newVer,
-            "git push",
-            "git push --tags",
+            // "git add -u",
+            // "git commit -m 'release' + newVer + ''",
+            // "git tag " + newVer,
+            // "git push",
+            // "git push --tags",l
             "git branch -f gh-pages master",
             "git push origin gh-pages", //update branch from master
             "git checkout gh-pages",
@@ -193,7 +193,6 @@ gulp.task("release", ["bump", "build"], () => {
             "git push",
             "git checkout master"
         ]));
-
 });
 
 /**
