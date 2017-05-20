@@ -7,11 +7,11 @@ sap.ui.define(["jquery.sap.global", "sap/ui/core/Control", "google.maps", "./Tra
                 properties: {
                     "startAddress": {
                         type: "string",
-                        bindable: "bindable",
+                        bindable: "bindable"
                     },
                     "endAddress": {
                         type: "string",
-                        bindable: "bindable",
+                        bindable: "bindable"
                     },
                     "travelMode": {
                         type: "string",

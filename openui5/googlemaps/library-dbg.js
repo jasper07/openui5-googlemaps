@@ -1,9 +1,10 @@
 /**
  * openui5-googlemaps - OpenUI5 Google Maps library
- * @version v1.0.3
+ * @version v1.0.4
  * @link http://jasper07.github.io/openui5-googlemaps/
  * @license MIT
- */sap.ui.define(["jquery.sap.global", "sap/ui/core/Core", "sap/ui/core/library"],
+ */
+sap.ui.define(["jquery.sap.global", "sap/ui/core/Core", "sap/ui/core/library"],
     function(jQuery) {
 
         "use strict";
@@ -11,7 +12,6 @@
 
             var sPath = jQuery.sap.getResourcePath("openui5/googlemaps/loadScripts");
             jQuery.sap.registerResourcePath("google.maps", sPath);
-            jQuery.sap.require("openui5/googlemaps/loadScripts");
 
             //preload types
             jQuery.sap.require("openui5.googlemaps.MapTypeId");
@@ -32,6 +32,7 @@
                 ],
                 interfaces: [],
                 controls: [
+                    "openui5.googlemaps.loadScripts",
                     "openui5.googlemaps.Map", 
                     "openui5.googlemaps.Marker",
                     "openui5.googlemaps.Polyline",

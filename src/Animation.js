@@ -1,4 +1,4 @@
-sap.ui.define("openui5/googlemaps/Animation", ['jquery.sap.global'],
+sap.ui.define("openui5/googlemaps/Animation", ["jquery.sap.global"],
     function(jQuery) {
         "use strict";
         var Animation = {

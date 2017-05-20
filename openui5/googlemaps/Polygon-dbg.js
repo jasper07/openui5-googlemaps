@@ -1,9 +1,10 @@
 /**
  * openui5-googlemaps - OpenUI5 Google Maps library
- * @version v1.0.3
+ * @version v1.0.4
  * @link http://jasper07.github.io/openui5-googlemaps/
  * @license MIT
- */sap.ui.define(["jquery.sap.global", "sap/ui/core/Control", "google.maps", "./MapUtils"],
+ */
+sap.ui.define(["jquery.sap.global", "sap/ui/core/Control", "google.maps", "./MapUtils"],
     function(jQuery, Control, gmaps, utils) {
         "use strict";
 
@@ -17,11 +18,11 @@
                     },
                     "strokeOpacity": {
                         type: "float",
-                        bindable: "bindable",
+                        bindable: "bindable"
                     },
                     "strokeWeight": {
                         type: "float",
-                        bindable: "bindable",
+                        bindable: "bindable"
                     },
                     "fillColor": {
                         type: "string",
@@ -29,7 +30,7 @@
                     },
                     "fillOpacity": {
                         type: "float",
-                        bindable: "bindable",
+                        bindable: "bindable"
                     },
                     "paths": {
                         type: "object",

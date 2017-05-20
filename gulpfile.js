@@ -1,40 +1,41 @@
-var gulp = require('gulp');
+/* eslint-env es6, eslint-disable no-var, prefer-arrow-callback */
+/*eslint strict: [2, "never"]*/
 
-var jshint = require('gulp-jshint');
-var jscs = require('gulp-jscs');
-var uglify = require('gulp-uglify');
-var rename = require('gulp-rename');
-var concat = require('gulp-concat');
-var clean = require('gulp-clean');
-var header = require('gulp-header');
-var streamify = require('gulp-streamify');
-var shell = require('gulp-shell');
-var git = require('gulp-git');
-var bump = require('gulp-bump');
-var replace = require('gulp-replace');
-var semver = require('semver');
-var pkg = require('./package.json');
-var ui5preload = require('gulp-ui5-preload');
-var uglify = require('gulp-uglify');
-var imagemin = require('gulp-imagemin');
+const gulp = require("gulp");
+const eslint = require("gulp-eslint");
+const ui5preload = require("gulp-ui5-preload");
+const uglify = require("gulp-uglify");
+const concat = require("gulp-concat");
+const clean = require("gulp-clean");
+const rename = require("gulp-rename");
+const header = require("gulp-header");
+const streamify = require("gulp-streamify");
+const sequence = require("run-sequence");
+const pkg = require("./package.json");
+const shell = require("gulp-shell");
+const bump = require("gulp-bump");
+const replace = require("gulp-replace");
+const semver = require("semver");
+const imagemin = require("gulp-imagemin");
 
+const banner = ["/**",
+    " * <%= pkg.name %> - <%= pkg.description %>",
+    " * @version v<%= pkg.version %>",
+    " * @link <%= pkg.homepage %>",
+    " * @license <%= pkg.license %>",
+    " */",
+    ""
+].join("\n");
 
-var banner = ['/**',
-    ' * <%= pkg.name %> - <%= pkg.description %>',
-    ' * @version v<%= pkg.version %>',
-    ' * @link <%= pkg.homepage %>',
-    ' * @license <%= pkg.license %>',
-    ' */',
-].join('\n');
-
-var filePath = {
-    src: './src/*.js',
-    test: './test/*.js',
-    dest: './openui5/googlemaps'
+const filePath = {
+    src: "./src/*.js",
+    test: "./test/*.js",
+    dest: "./openui5/googlemaps"
 };
+const libNS = "openui5.googlemaps";
 
-var oldVer;
-var newVer;
+let oldVer;
+let newVer;
 
 
 /**
@@ -44,20 +45,20 @@ var newVer;
  * @return {undefined}
  */
 function startTests(singleRun, done) {
-    var Server = require('karma').Server;
+    var Server = require("karma").Server;
 
    function karmaCompleted(karmaResult) {
-        console.log('Karma completed');
+        console.log("Karma completed");
 
         if (karmaResult === 1) {
-            done('karma: tests failed with code ' + karmaResult);
+            done("karma: tests failed with code " + karmaResult);
         } else {
             done();
         }
     }
 
     new Server({
-        configFile: __dirname + '/karma.conf.js',
+        configFile: __dirname + "/karma.conf.js",
         singleRun: !!singleRun
     }, karmaCompleted).start();
 }
@@ -66,28 +67,29 @@ function startTests(singleRun, done) {
 /**
  * Create a visualizer report
  */
-gulp.task('plato', function(done) {
-    console.log('Analyzing source with Plato');
-    console.log('Browse to /report/plato/index.html to see Plato results');
+gulp.task("plato", function(done) {
+    console.log("Analyzing source with Plato");
+    console.log("Browse to /report/plato/index.html to see Plato results");
 
     startPlatoVisualizer(done);
 });
 
 /**
  * Start Plato inspector and visualizer
+ * @param {any} done this is done
  */
 function startPlatoVisualizer(done) {
-    console.log('Running Plato');
+    console.log("Running Plato");
 
     var excludeFiles = /.*markerclusterer.js/;
-    var plato = require('plato');
+    var plato = require("plato");
 
     var options = {
-        title: 'Plato Inspections Report',
+        title: "Plato Inspections Report",
         exclude: excludeFiles
     };
 
-    plato.inspect(filePath.src, 'reports/plato', options, platoCompleted);
+    plato.inspect(filePath.src, "reports/plato", options, platoCompleted);
 
     function platoCompleted(report) {
         var overview = plato.getOverviewReport(report);
@@ -100,93 +102,96 @@ function startPlatoVisualizer(done) {
 
 
 
-gulp.task('clean', function() {
+gulp.task("clean", function() {
     return gulp.src(filePath.dest, {
         read: false
     }).pipe(clean());
 });
 
-//TODO - all scripts tasks with one stream via lazypipes
-gulp.task('scripts-dbg', ['lint', 'clean'], function() {
+/**
+ * create script dbg files
+ */
+gulp.task("scripts-dbg", ["lint", "clean"], () => {
     return gulp.src(filePath.src)
-        .pipe(header(banner, {
-            pkg: pkg
-        }))
-        .pipe(rename({
-            suffix: '-dbg'
-        }))
-        .pipe(gulp.dest(filePath.dest));
-});
-
-gulp.task('scripts-min', ['lint', 'clean'], function() {
-    return gulp.src(filePath.src)
-        .pipe(streamify(uglify()))
+        .pipe(header(banner, { pkg: pkg }))
+        .pipe(rename({ suffix: "-dbg" }))
         .pipe(gulp.dest(filePath.dest))
-        .pipe(concat('library-all.js'))
+        .on("error", (err) => {
+            console.error("Error in scripts-dbg task", err.toString());
+        });
+});
+
+/**
+ * create minified scripts
+ */
+gulp.task("scripts-min", ["lint", "clean"], () => {
+    const options = {
+        preserveComments: "license"
+    };
+    return gulp.src(filePath.src)
+        .pipe(header(banner, { pkg: pkg }))
+        .pipe(streamify(uglify(options)))
+        .pipe(gulp.dest(filePath.dest))
+        .pipe(concat("library-all.js"))
         .pipe(gulp.dest(filePath.dest));
 });
 
-gulp.task('lint', function() {
-    gulp.src([filePath.src, filePath.test])
-        .pipe(jshint())
-        .pipe(jshint.reporter('jshint-stylish'), { verbose: true })
-        .pipe(jshint.reporter('fail'))
-        .pipe(jscs());
+/**
+ * lint code
+ * @return {Stream}
+ */
+gulp.task("lint", () => {
+    gulp.src([filePath.src, "!./src/markerclusterer.js"])
+        .pipe(eslint())
+        .pipe(eslint.format())
+        .pipe(eslint.failAfterError());
 });
 
-gulp.task('watch', function() {
-    gulp.watch(filePath.src, ['lint', 'build']);
+gulp.task("watch", () => {
+    gulp.watch(filePath.src, ["lint", "build"]);
 });
 
-gulp.task('bump', function() {
-    var type = 'patch';
+gulp.task("bump", () => {
+    var type = "patch";
     oldVer = pkg.version;
     newVer = semver.inc(pkg.version, type);
 
-    gulp.src('./package.json')
+    gulp.src("./package.json")
         .pipe(bump({
-            version: newVer,
+            version: newVer
         }))
-        .pipe(gulp.dest('./'));
+        .pipe(gulp.dest("./"));
 
-    gulp.src(['src/library.js'])
+    gulp.src(["src/library.js"])
         .pipe(replace(oldVer, newVer))
-        .pipe(gulp.dest('src'));
+        .pipe(gulp.dest("src"));
 });
 
-gulp.task('ui5preload', function() {
-    return gulp.src(filePath.src)
-        .pipe(streamify(uglify()))
-        .pipe(ui5preload({
-            base: 'src',
-            namespace: 'openui5.googlemaps',
-            isLibrary: true
-        }))
-        .pipe(gulp.dest('openui5/googlemaps'));
-});
-
-gulp.task("theme", function() {
-    gulp.src('src/themes/base/img/*')
+/**
+ * add needed images to theme
+ */
+gulp.task("theme", () => {
+    gulp.src("src/themes/base/img/*")
         .pipe(imagemin())
-        .pipe(gulp.dest('openui5/googlemaps/themes/base/img/'));
+        .pipe(gulp.dest("openui5/googlemaps/themes/base/img/"));
 });
 
-gulp.task('release', ['bump', 'build'], function() {
-    return gulp.src('*.js', {
+gulp.task("release", ["bump", "build"], () => {
+    return gulp.src("*.js", {
             read: false
         })
         .pipe(shell([
-            'git add -u',
-            'git commit -m "release ' + newVer + '"',
-            'git tag ' + newVer,
-            'git push',
-            'git push --tags',
-            'git branch -f gh-pages master',
-            'git push origin gh-pages', //update branch from master
-            'git checkout gh-pages',
-            'git merge master',
-            'git push',
-            'git checkout master'
+            "git add -u",
+            "git commit -m 'release' + newVer + ''",
+            "git tag " + newVer,
+            "git push",
+            "git push --tags",
+            "git branch -f gh-pages master",
+            "git push origin gh-pages", //update branch from master
+            "git checkout gh-pages",
+            "git merge master",
+            "git push",
+            "git checkout master"
         ]));
 
 });
@@ -196,7 +201,7 @@ gulp.task('release', ['bump', 'build'], function() {
  * To start servers and run midway specs as well:
  * @return {Stream}
  */
-gulp.task('test', ['lint'], function(done) {
+gulp.task("test", ["lint"], (done) => {
     startTests(true /*singleRun*/ , done);
 });
 
@@ -204,11 +209,28 @@ gulp.task('test', ['lint'], function(done) {
  * Run specs and wait.
  * Watch for file changes and re-run tests on each change
  */
-gulp.task('tdd', function(done) {
+gulp.task("tdd", (done) => {
     startTests(false /*singleRun*/ , done);
 });
 
+/**
+gulp.task("default", ["watch", "build"]);
+// gulp.task("build", ["lint", "test", "clean", "scripts-dbg", "scripts-min", "ui5preload", "theme"]);
 
-gulp.task('default', ['watch', 'build']);
-gulp.task('build', ['lint', 'test', 'clean', 'scripts-dbg', 'scripts-min', 'ui5preload', 'theme']);
-gulp.task('cleanbuild', ['clean']);
+/**
+ * create ui5 library preload json file
+ */
+gulp.task("buildlibrary", ["lint", "clean", "scripts-min", "scripts-dbg"], () => {
+    return gulp.src([filePath.dest + "/**/!(*-dbg.js|*-all.js)"])
+        .pipe(ui5preload({ base: "openui5/googlemaps", namespace: libNS, isLibrary: true }))
+        .pipe(gulp.dest(filePath.dest));
+});
+
+/** 
+ * build task
+ */
+gulp.task("build", (cb) => {
+    sequence(["lint", "test"], "buildlibrary", "theme", cb);
+});
+
+gulp.task("cleanbuild", ["clean"]);

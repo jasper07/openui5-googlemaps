@@ -1,9 +1,10 @@
 /**
  * openui5-googlemaps - OpenUI5 Google Maps library
- * @version v1.0.3
+ * @version v1.0.4
  * @link http://jasper07.github.io/openui5-googlemaps/
  * @license MIT
- */sap.ui.define(["jquery.sap.global", "sap/ui/core/Control", "google.maps", "openui5/googlemaps/MapUtils", "./Animation"],
+ */
+sap.ui.define(["jquery.sap.global", "sap/ui/core/Control", "google.maps", "openui5/googlemaps/MapUtils", "./Animation"],
     function(jQuery, Control, Gmaps, MapUtils, Animation) {
         "use strict";
 
@@ -12,11 +13,11 @@
                 properties: {
                     "lat": {
                         type: "float",
-                        bindable: "bindable",
+                        bindable: "bindable"
                     },
                     "lng": {
                         type: "float",
-                        bindable: "bindable",
+                        bindable: "bindable"
                     },
                     "draggable": {
                         type: "boolean",
@@ -44,7 +45,7 @@
                      "zIndex": {
                         type: "int",
                         defaultValue: 1
-                    },
+                    }
                 },
                 events: {
                     "click": {},
@@ -120,7 +121,7 @@
             this.marker.setMap(this.map);
             this.marker.setOptions(this.getOptions());
             
-            if(typeof this.marker.setZIndex === "function") { //Maker.prorotype.setZIndex only exists in api v3 and above
+            if (typeof this.marker.setZIndex === "function") { //Maker.prorotype.setZIndex only exists in api v3 and above
                 this.marker.setZIndex(this.getZIndex());
             }
 

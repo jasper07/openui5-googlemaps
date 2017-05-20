@@ -4,11 +4,12 @@ sap.ui.define(["jquery.sap.global", "google.maps"],
 
         var MapUtils = {};
 
+        
         /**
-         * Get google maps LatLng object
-         * @param {Object} oValue
-         * @returns {google.maps.LatLng}
-         */
+        * Get google maps LatLng object
+        * @param {Object}  oValue value
+        * @returns {google.maps.LatLng} return
+        */
         MapUtils.objToLatLng = function(oValue) {
             return new gmaps.LatLng(oValue.lat, oValue.lng);
         };
@@ -16,8 +17,8 @@ sap.ui.define(["jquery.sap.global", "google.maps"],
 
         /**
          * Get object with lng lat from google maps LatLng object
-         * @param {google.maps.LatLng} oValue
-         * @returns {object}
+         * @param {google.maps.LatLng} oValue value
+         * @returns {object} return
          */
         MapUtils.latLngToObj = function(oValue) {
             return {
@@ -28,19 +29,19 @@ sap.ui.define(["jquery.sap.global", "google.maps"],
 
         /**
          * Comapre 2 floats for near equality
-         * @param {Float} nVa1
-         * @param {Float} nVal2
-         * @returns {boolean}
+         * @param {Float} nVal1  value 1
+         * @param {Float} nVal2 value 2
+         * @returns {boolean} return 
          */
         MapUtils.floatEqual = function(nVal1, nVal2) {
-            return (Math.abs(nVal1 - nVal2) < 0.000001);
+            return Math.abs(nVal1 - nVal2) < 0.000001;
         };
 
         /**
          * Comapre 2 objects for equality based on lat lng
-         * @param {object} oValue1
-         * @param {object} oValue2
-         * @returns {boolean}
+         * @param {object} oValue1 value 1
+         * @param {object} oValue2 value 2
+         * @returns {boolean} return
          */
         MapUtils.latLngEqual = function(oValue1, oValue2) {
             return this.floatEqual(oValue1.lat, oValue2.lat) && this.floatEqual(oValue1.lng, oValue2.lng);
@@ -48,8 +49,8 @@ sap.ui.define(["jquery.sap.global", "google.maps"],
 
         /**
          * Get search results for geocode request
-         * @param {Object} oRequest
-         * @returns {jQuery.Promise}
+         * @param {Object} oRequest request
+         * @returns {jQuery.Promise} promise
          */
         MapUtils.search = function(oRequest) {
             var deferred = jQuery.Deferred();
@@ -61,7 +62,7 @@ sap.ui.define(["jquery.sap.global", "google.maps"],
 
         /**
          * Get Current Position
-         * @returns {jQuery.Promise}
+         * @returns {jQuery.Promise} promise
          */
         MapUtils.currentPosition = function() {
             var deferred = jQuery.Deferred();
@@ -104,6 +105,7 @@ sap.ui.define(["jquery.sap.global", "google.maps"],
          * @param  {Element} oElement   element to bind event to 
          * @param  {String} sEvent     event name
          * @param {Function} fnCallBack callback
+         * @returns {type} description
          */
         MapUtils.addListener = function(oElement, sEvent, fnCallBack) {
            return gmaps.event.addListener(oElement, sEvent, fnCallBack);
@@ -112,10 +114,10 @@ sap.ui.define(["jquery.sap.global", "google.maps"],
 
         /**
          * Get Current Position
-         * @param {Object} oPosition
-         * @returns {jQuery.Promise}
+         * @param {Object} oPosition position
+         * @returns {jQuery.Promise} promise
          */
-        MapUtils.geocodePosition = function(oPostion) {
+        MapUtils.geocodePosition = function(oPosition) {
             var deferred = jQuery.Deferred();
 
             var responses = function(results) {
@@ -127,7 +129,7 @@ sap.ui.define(["jquery.sap.global", "google.maps"],
             };
 
             new gmaps.Geocoder().geocode({
-                latLng: oPostion
+                latLng: oPosition
             }, responses);
 
             return deferred.promise();

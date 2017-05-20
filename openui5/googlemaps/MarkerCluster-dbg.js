@@ -1,9 +1,10 @@
 /**
  * openui5-googlemaps - OpenUI5 Google Maps library
- * @version v1.0.3
+ * @version v1.0.4
  * @link http://jasper07.github.io/openui5-googlemaps/
  * @license MIT
- */sap.ui.define(["jquery.sap.global", "sap/ui/core/Control", "google.maps", "openui5/googlemaps/MapUtils", "./markerclusterer"],
+ */
+sap.ui.define(["jquery.sap.global", "sap/ui/core/Control", "google.maps", "openui5/googlemaps/MapUtils", "./markerclusterer"],
     function(jQuery, Control, Gmaps, MapUtils, MarkerClusterer) {
         "use strict";
 
@@ -87,30 +88,30 @@
             var options = {
                 styles: [{
                     height: 53,
-                    url: sImagesPath  + "/m1.png",
+                    url: sImagesPath + "/m1.png",
                     width: 53
                 }, {
                     height: 56,
-                    url: sImagesPath  + "/m2.png",
+                    url: sImagesPath + "/m2.png",
                     width: 56
                 }, {
                     height: 66,
-                    url: sImagesPath  + "/m3.png",
+                    url: sImagesPath + "/m3.png",
                     width: 66
                 }, {
                     height: 78,
-                    url: sImagesPath  + "/m4.png",
+                    url: sImagesPath + "/m4.png",
                     width: 78
                 }, {
                     height: 90,
-                    url: sImagesPath  + "/m5.png",
+                    url: sImagesPath + "/m5.png",
                     width: 90
                 }]
 
             };
             options.averageCenter = this.getAverageCenter();
             return options;
-        };
+        }
 
         MarkerCluster.prototype.setClusterer = function() {
             this.markerClusterer = new MarkerClusterer(this.map, this._getMarkers(), this.getOptions());

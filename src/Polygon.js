@@ -12,11 +12,11 @@ sap.ui.define(["jquery.sap.global", "sap/ui/core/Control", "google.maps", "./Map
                     },
                     "strokeOpacity": {
                         type: "float",
-                        bindable: "bindable",
+                        bindable: "bindable"
                     },
                     "strokeWeight": {
                         type: "float",
-                        bindable: "bindable",
+                        bindable: "bindable"
                     },
                     "fillColor": {
                         type: "string",
@@ -24,7 +24,7 @@ sap.ui.define(["jquery.sap.global", "sap/ui/core/Control", "google.maps", "./Map
                     },
                     "fillOpacity": {
                         type: "float",
-                        bindable: "bindable",
+                        bindable: "bindable"
                     },
                     "paths": {
                         type: "object",

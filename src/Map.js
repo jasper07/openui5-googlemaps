@@ -149,7 +149,7 @@ sap.ui.define(["jquery.sap.global", "sap/ui/core/Control", "sap/ui/core/ResizeHa
                     signedIn: {
                         type: "boolean",
                         defaultValue: false
-                    },
+                    }
                 },
                 defaultAggregation: "markers",
                 aggregations: {
@@ -379,23 +379,23 @@ sap.ui.define(["jquery.sap.global", "sap/ui/core/Control", "sap/ui/core/ResizeHa
         Map.prototype.notifyAggregations = function(sEvent) {
             // notify markers, polylines and poloygons
             var oAggregations = this.getMetadata().getAggregations();
-            var aAggregations =  Object.keys(oAggregations).map(function(sKey){ return oAggregations[sKey];});
-            var oControl = this;
+            var aAggregations = Object.keys(oAggregations).map(function(sKey){ return oAggregations[sKey];});
+            var oMap = this.map;
             var fnNotify = function(oElement){
                 // eg marker._mapRendered(map)
-                oElement["_" + sEvent](oControl.map);
+                oElement["_" + sEvent](oMap);
             };
 
             aAggregations.forEach(function(oAggregation){
-                 var oValue = oControl[oAggregation._sGetter]();
+                 var oValue = this[oAggregation._sGetter]();
                  if (oValue){
                     if (oAggregation.multiple === true){
                         oValue.forEach(fnNotify); 
-                    }else{
+                    } else {
                         fnNotify(oValue);
                     }  
                 } 
-            });
+            }.bind(this));
         };
 
         Map.prototype.onAfterRendering = function() {
