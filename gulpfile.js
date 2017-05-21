@@ -1,6 +1,7 @@
 /* eslint-env es6, eslint-disable no-var, prefer-arrow-callback */
 /*eslint strict: [2, "never"]*/
 
+const fs = require("fs");
 const gulp = require("gulp");
 const eslint = require("gulp-eslint");
 const ui5preload = require("gulp-ui5-preload");
@@ -11,12 +12,12 @@ const rename = require("gulp-rename");
 const header = require("gulp-header");
 const streamify = require("gulp-streamify");
 const sequence = require("run-sequence");
-const pkg = require("./package.json");
 const shell = require("gulp-shell");
 const bump = require("gulp-bump");
 const replace = require("gulp-replace");
-const semver = require("semver");
 const imagemin = require("gulp-imagemin");
+const semver = require("semver");
+const pkg = require("./package.json");
 
 const banner = ["/**",
     " * <%= pkg.name %> - <%= pkg.description %>",
@@ -34,8 +35,9 @@ const filePath = {
 };
 const libNS = "openui5.googlemaps";
 
-var oldVer;
-var newVer;
+const getPackageJson = ()=> {
+  return JSON.parse(fs.readFileSync("./package.json", "utf8"));
+};
 
 
 /**
@@ -62,7 +64,6 @@ function startTests(singleRun, done) {
         singleRun: !!singleRun
     }, karmaCompleted).start();
 }
-
 
 /**
  * Create a visualizer report
@@ -95,14 +96,15 @@ function startPlatoVisualizer(done) {
         var overview = plato.getOverviewReport(report);
 
         console.log(overview.summary);
-
+        
         if (done) { done(); }
     }
 }
 
-
-
-gulp.task("clean", function() {
+/**
+ * clean destination folder
+ */
+gulp.task("clean", () => {
     return gulp.src(filePath.dest, {
         read: false
     }).pipe(clean());
@@ -147,14 +149,9 @@ gulp.task("lint", () => {
         .pipe(eslint.failAfterError());
 });
 
-gulp.task("watch", () => {
-    gulp.watch(filePath.src, ["lint", "build"]);
-});
-
 gulp.task("bump", () => {
-    var type = "patch";
-    oldVer = pkg.version;
-    newVer = semver.inc(pkg.version, type);
+    const oldVer = getPackageJson().version;
+    const newVer = semver.inc(oldVer, "patch");
 
     gulp.src("./package.json")
         .pipe(bump({
@@ -176,16 +173,20 @@ gulp.task("theme", () => {
         .pipe(gulp.dest("openui5/googlemaps/themes/base/img/"));
 });
 
+/**
+ * tag and release to new version to github, merging changes to gh-pages
+ */
 gulp.task("release", [], () => {
+    const tag = getPackageJson().version;
     return gulp.src("*.js", {
             read: false
         })
         .pipe(shell([
-            // "git add -u",
-            // "git commit -m 'release' + newVer + ''",
-            // "git tag " + newVer,
-            // "git push",
-            // "git push --tags",l
+            "git add -u",
+            "git commit m 'release' " + newVer + "",
+            "git tag " + tag,
+            "git push",
+            "git push --tags",
             "git branch -f gh-pages master",
             "git push origin gh-pages", //update branch from master
             "git checkout gh-pages",
@@ -212,9 +213,6 @@ gulp.task("tdd", (done) => {
     startTests(false /*singleRun*/ , done);
 });
 
-/**
-gulp.task("default", ["watch", "build"]);
-// gulp.task("build", ["lint", "test", "clean", "scripts-dbg", "scripts-min", "ui5preload", "theme"]);
 
 /**
  * create ui5 library preload json file
