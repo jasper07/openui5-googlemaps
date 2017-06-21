@@ -181,7 +181,7 @@ gulp.task("theme", () =>
     gulp
     .src("src/themes/base/img/*")
     .pipe(imagemin())
-    .pipe(gulp.dest("openui5/googlemaps/themes/base/img/"))
+    .pipe(gulp.dest("dist/openui5/googlemaps/themes/base/img/"))
 );
 
 /**
