@@ -5,14 +5,13 @@ sap.ui.define(
     ],
     function(Polyline, Map, MapUtils, JSONModel) {
         "use strict";
-        var MAP_ID = 'MAP_TEST';
+        var MAP_ID = "MAP_TEST";
 
         var oModel = new JSONModel(jQuery.sap.getModulePath("test.unit.data", "/Data.json"));
         sap.ui.getCore().setModel(oModel);
 
-
-        QUnit.module("Polyline - defaults test");
-        QUnit.test("create Polyline on map", function(assert) {
+        module("Polyline - defaults test");
+        test("Should create a Polyline on map", function(assert) {
             // Arrange
             var oPoly1 = new Polyline("POLY1", {
                 path: "{/Beaches}",
@@ -31,12 +30,12 @@ sap.ui.define(
 
             // Assert
             var oPoly = sap.ui.getCore().byId("POLY1");
-            assert.ok(oPoly, "Polyline rendered");
-            assert.ok(oPoly.map, "Map attached");
-            assert.strictEqual(oPoly.getVisible(), false, "Polyline not visible");
+            ok(oPoly, "Polyline rendered");
+            ok(oPoly.map, "Map attached");
+            equal(oPoly.getVisible(), false, "Polyline not visible");
 
             oPoly.setVisible(true);
-            assert.strictEqual(oPoly.getVisible(), true, "Polyline is visible");
+            equal(oPoly.getVisible(), true, "Polyline is visible");
 
             oPoly.destroy(); //cleanup
             oMap.destroy();

@@ -4,15 +4,14 @@ sap.ui.define(
     ],
     function(Polygon, Map, MapUtils, JSONModel) {
         "use strict";
-        var MAP_ID = 'MAP_TEST';
+        var MAP_ID = "MAP_TEST";
 
         var oModel = new JSONModel(jQuery.sap.getModulePath("test.unit.data", "/Data.json"));
 
         sap.ui.getCore().setModel(oModel);
 
-
-        QUnit.module("Polygon - defaults test");
-        QUnit.test("create Polygon on Map", function(assert) {
+        module("Polygon - defaults test");
+        test("Should create a Polygon on Map", function(assert) {
             // Arrange
             var oPoly1 = new Polygon("POLY1", {
                 paths: "{/Beaches}",
@@ -30,12 +29,12 @@ sap.ui.define(
 
             // Assert
             var oPoly = sap.ui.getCore().byId("POLY1");
-            assert.ok(oPoly, "Polygon rendered");
-            assert.ok(oPoly.map, "Map attached");
-            assert.strictEqual(oPoly.getVisible(), false, "Polygon not visible");
+            ok(oPoly, "Polygon rendered");
+            ok(oPoly.map, "Map attached");
+            equal(oPoly.getVisible(), false, "Polygon not visible");
 
             oPoly.setVisible(true);
-            assert.strictEqual(oPoly.getVisible(), true, "Polygon is visible");
+            equal(oPoly.getVisible(), true, "Polygon is visible");
 
             oPoly.destroy(); //cleanup
             oMap.destroy();

@@ -4,25 +4,22 @@ sap.ui.define(
     ],
     function(LoadScripts, MapsApi) {
         "use strict";
-        QUnit.module("LoadScripts");
+        module("LoadScripts");
 
-        QUnit.test("fake loading", function(assert) {
+        test("Should fake loading the google Api scripts", function(assert) {
             // arrange
             this.stub(google.maps, "loaded", undefined);
-
             var loadScriptsSpy = this.spy();
-
             this.stub(jQuery.sap, "includeScript", loadScriptsSpy);
-
 
             // act
             LoadScripts.loadFromMapsApi(new MapsApi());
 
             // assert
-            assert.strictEqual(loadScriptsSpy.callCount, 1, "include script called");
+            equal(loadScriptsSpy.callCount, 1, "include script called");
         });
 
-        QUnit.test("test cannot load twice ", function(assert) {
+        test("Should ensure the google Api cannot be loaded twice", function(assert) {
             // arrange
             LoadScripts.loaded = true;
             // this.stub(LoadScripts, "loaded", true);
@@ -40,11 +37,11 @@ sap.ui.define(
             LoadScripts.loadFromMapsApi(new MapsApi());
 
             // assert
-            assert.strictEqual(iWarningCount, 1, "warning hit once");
-            assert.strictEqual(sMessage, "Can't load the Google Api scripts twice", "correct warning");
+            equal(iWarningCount, 1, "warning hit once");
+            equal(sMessage, "Can't load the Google Api scripts twice", "correct warning");
         });
 
-        QUnit.test("fake loading callback", function(assert) {
+        test("Should trigger notify callback after API loaded", function(assert) {
             // arrange
 
             // stub out the event name in case others controls still listening
@@ -57,6 +54,6 @@ sap.ui.define(
             LoadScripts.callBack();
 
             // assert
-            assert.strictEqual(loadedEventSpy.callCount, 1, "loaded event called");
+            equal(loadedEventSpy.callCount, 1, "loaded event called");
         });
     });

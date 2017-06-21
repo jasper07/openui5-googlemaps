@@ -327,6 +327,8 @@ sap.ui.define(["jquery.sap.global", "sap/ui/core/Control", "sap/ui/core/ResizeHa
             if (this.map && sValue !== this.map.getMapTypeId()) {
                 this.map.setMapTypeId(sValue);
             }
+
+            return this;
         };
 
         Map.prototype.setZoomControl = function(bValue) {
@@ -334,6 +336,8 @@ sap.ui.define(["jquery.sap.global", "sap/ui/core/Control", "sap/ui/core/ResizeHa
             if (this.map && bValue !== this.map.zoomControl) {
                 this.map.zoomControl = bValue;
             }
+
+            return this;
         };
 
         Map.prototype.setDisableDefaultUI = function(bValue) {
@@ -343,6 +347,7 @@ sap.ui.define(["jquery.sap.global", "sap/ui/core/Control", "sap/ui/core/ResizeHa
                     disableDefaultUI: this.getDisableDefaultUI()
                 });
             }
+            return this;
         };
 
         Map.prototype.zoomChanged = function() {

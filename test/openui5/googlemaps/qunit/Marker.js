@@ -6,18 +6,17 @@ sap.ui.define(
     function(Marker, Map, MapUtils, JSONModel) {
         "use strict";
 
-        var MAP_ID = 'MAP_TEST';
         var oModel = new JSONModel(jQuery.sap.getModulePath("test.unit.data", "/Data.json"));
         var oModel2 = new JSONModel(jQuery.sap.getModulePath("test.unit.data","/FitToMarkers.json"));
 
         sap.ui.getCore().setModel(oModel);
 
         var oMarkersTemp = new Marker({
-            lat: '{lat}',
-            lng: '{lng}',
-            info: '{name}',
-            icon: '{icon}',
-            visible: '{visible}'
+            lat: "{lat}",
+            lng: "{lng}",
+            info: "{name}",
+            icon: "{icon}",
+            visible: "{visible}"
         });
 
         var oMap;
@@ -26,7 +25,7 @@ sap.ui.define(
             return oMarker.getMap().getBounds().contains(oMarker.marker.getPosition());
         };
 
-        QUnit.module("Marker - defaults test", {
+        module("Marker - defaults test", {
             beforeEach: function() {
                 oMap = new Map({
                     lat: "{/Pyrmont/lat}",
@@ -45,7 +44,7 @@ sap.ui.define(
             }
         });
 
-        QUnit.test("a basic test example", function(assert) {
+        test("Should render a marker without an icon", function(assert) {
 
             // Arrange
             var done = assert.async();
@@ -55,9 +54,9 @@ sap.ui.define(
             var oMarker = aMarkers[0];
             var oContext = oMarker.getBindingContext();
             assert.equal(aMarkers.length, 5, "markers were rendered");
-            assert.ok(oMarker.getMap(), "map set on marker");
-            assert.ok(oMarker.getVisible(), "marker is visible");
-            assert.ok(oMarker.getIcon(), "makrer has icon");
+            ok(oMarker.getMap(), "map set on marker");
+            ok(oMarker.getVisible(), "marker is visible");
+            ok(oMarker.getIcon(), "makrer has icon");
 
             // Act
             // set new values via model
@@ -68,15 +67,15 @@ sap.ui.define(
 
             setTimeout(function() {
                 // Assert
-                assert.ok(!oMarker.getVisible(), "marker is not visible");
-                assert.ok(!oMarker.getIcon(), "marker has no icon");
+                ok(!oMarker.getVisible(), "marker is not visible");
+                ok(!oMarker.getIcon(), "marker has no icon");
 
                 done();
             }, delay);
         });
 
 
-        QUnit.test("info window", function(assert) {
+        test("Should open and close an info window", function(assert) {
             // Arrange
             var done = assert.async();
             var delay = 1000;
@@ -89,7 +88,7 @@ sap.ui.define(
             MapUtils.trigger(oMarker.marker, "click");
 
             // Assert
-            assert.ok(oMarker.infoWindow.getMap(), "info window is open");
+            ok(oMarker.infoWindow.getMap(), "info window is open");
             MapUtils.trigger(oMarker.infoWindow, "closeclick");
             setTimeout(function() {
                 assert.equal(oMarker.infoWindow.getMap(), null, "info window is closed");
@@ -97,9 +96,9 @@ sap.ui.define(
             }, delay);
         });
 
-        QUnit.module("Marker - fit to markers");
+        module("Marker - fit to markers");
 
-        QUnit.test("markers not all on bounds of page", function(assert) {
+        test("Should update map to fit all markers on the page", function(assert) {
             //Arange 
             var done = assert.async();
             var delay = 1000;
@@ -131,7 +130,7 @@ sap.ui.define(
         });
 
 
-        QUnit.test("markers all fit on page", function(assert) {
+        test("Should fit all markers on the page", function(assert) {
             //Arange 
             var done = assert.async();
             var delay = 1000;
@@ -162,18 +161,18 @@ sap.ui.define(
         });
 
 
-        QUnit.module("Marker - draggable");
-        QUnit.test("dragEnd event handling", function(assert) {
+        module("Marker - draggable");
+        test("Should trigger an event after dragging marker", function(assert) {
             // Arrange
             var done = assert.async();
             var delay = 1000;
             var dragEndSpy = this.spy();
-            var oMarkersTemp = new Marker({
-                lat: '{lat}',
-                lng: '{lng}',
-                info: '{name}',
-                icon: '{icon}',
-                visible: '{visible}',
+            var oMarkersTemp1 = new Marker({
+                lat: "{lat}",
+                lng: "{lng}",
+                info: "{name}",
+                icon: "{icon}",
+                visible: "{visible}",
                 draggable: true,
                 dragEnd: dragEndSpy
             });
@@ -183,7 +182,7 @@ sap.ui.define(
                 lng: "{/Pyrmont/lng}",
                 markers: {
                     path: "/Beaches",
-                    template: oMarkersTemp
+                    template: oMarkersTemp1
                 }
             });
             oMap.setModel(oModel);
@@ -199,7 +198,7 @@ sap.ui.define(
 
             // Assert
             setTimeout(function() {
-                assert.strictEqual(dragEndSpy.callCount, 1, "DragEnd event called");
+                equal(dragEndSpy.callCount, 1, "DragEnd event called");
                 done();
                 oMap.destroy(); //Cleanup
             }, delay);

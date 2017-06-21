@@ -18,8 +18,8 @@ sap.ui.define(
         var sDefaultUrl = location.protocol + "//maps.google.com/maps/api/js?&v=3.exp&libraries=drawing,geometry,places,visualization&callback=google.maps.callBack";
 
 
-        QUnit.module("MapsApi");
-        QUnit.test("Defaults test ", function(assert) {
+        module("MapsApi");
+        test("Should return the default API url ", function(assert) {
             // arrange
             var oMapsApi = new MapsApi({});
 
@@ -27,12 +27,12 @@ sap.ui.define(
             var sUrl = oMapsApi.getLibraryURL();
 
             // assert
-            assert.strictEqual(sUrl, sDefaultUrl, "the default api url");
+            equal(sUrl, sDefaultUrl, "the default api url");
 
             oMapsApi.destroy();
         });
 
-        QUnit.test("user modified properties ", function(assert) {
+        test("Should include properties in API url", function(assert) {
             // arrange
             var oMapsApi = new MapsApi({
                 mapsUrl: oConfig.url,
@@ -47,7 +47,7 @@ sap.ui.define(
             var sUrl = oMapsApi.getLibraryURL();
 
             // assert
-            assert.strictEqual(sUrl, oConfig.expectedUrl, "the change api url matches");
+            equal(sUrl, oConfig.expectedUrl, "the change api url matches");
 
             oMapsApi.destroy();
         });
