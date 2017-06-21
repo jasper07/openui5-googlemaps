@@ -16,81 +16,81 @@
 
 </html>
 <script>
-// test binding
-// PART 1: load googlemaps library
+    // test binding
+    // PART 1: load googlemaps library
 
-sap.ui.getCore().loadLibrary("openui5.googlemaps", "../openui5/googlemaps/");
+    sap.ui.getCore().loadLibrary("openui5.googlemaps", "../dist/openui5/googlemaps/");
 
-// set the api key
-var oMapsApi = new openui5.googlemaps.MapsApi({
-    apiKey: "AIzaSyD6EmAk92gaGzjYVYU-ebd_BK-rgejSoZ0",
-}).load();
-
-
-jQuery.sap.require("sap.ui.model.json.JSONModel");
-var oModel = new sap.ui.model.json.JSONModel({
-    longitude: 8,
-    latitude: 49,
-    zoom: 6
-});
-sap.ui.getCore().setModel(oModel);
-
-// PART 2: instantiate Control and place it onto the page
-
-var myMap = new openui5.googlemaps.Map({
-    lng: "{/longitude}",
-    lat: "{/latitude}",
-    zoom: "{/zoom}"
-}).placeAt("content");
+    // set the api key
+    var oMapsApi = new openui5.googlemaps.MapsApi({
+        apiKey: "AIzaSyD6EmAk92gaGzjYVYU-ebd_BK-rgejSoZ0",
+    }).load();
 
 
-// PART 3: interact with the map
+    jQuery.sap.require("sap.ui.model.json.JSONModel");
+    var oModel = new sap.ui.model.json.JSONModel({
+        longitude: 8,
+        latitude: 49,
+        zoom: 6
+    });
+    sap.ui.getCore().setModel(oModel);
 
-var fnSetLocation = function(position) {
-    myMap.setLat(position.lat);
-    myMap.setLng(position.lng);
-    myMap.setZoom(13);
-};
+    // PART 2: instantiate Control and place it onto the page
 
-new sap.ui.commons.Button({
-    text: "Get Location",
-    press: function() {
-        openui5.googlemaps.MapUtils.currentPosition().then(fnSetLocation);
-    }
-}).placeAt("content");
+    var myMap = new openui5.googlemaps.Map({
+        lng: "{/longitude}",
+        lat: "{/latitude}",
+        zoom: "{/zoom}"
+    }).placeAt("content");
 
-// PART 4: interact with the map using data binding
 
-new sap.ui.commons.Label({
-    text: "Longitude:"
-}).placeAt("sliders");
-new sap.ui.commons.Slider({
-    min: -180,
-    max: 180,
-    value: "{/longitude}",
-    width: "100%"
-}).placeAt("sliders");
+    // PART 3: interact with the map
 
-new sap.ui.commons.Label({
-    text: "Latitude:"
-}).placeAt("sliders");
-new sap.ui.commons.Slider({
-    min: -90,
-    max: 90,
-    value: "{/latitude}",
-    width: "100%"
-}).placeAt("sliders");
+    var fnSetLocation = function(position) {
+        myMap.setLat(position.lat);
+        myMap.setLng(position.lng);
+        myMap.setZoom(13);
+    };
 
-new sap.ui.commons.Label({
-    text: "Zoom:"
-}).placeAt("sliders");
-new sap.ui.commons.Slider({
-    min: 1,
-    max: 15,
-    value: "{/zoom}",
-    smallStepWidth: 1,
-    stepLabels: true,
-    totalUnits: 14,
-    width: "100%"
-}).placeAt("sliders");
+    new sap.ui.commons.Button({
+        text: "Get Location",
+        press: function() {
+            openui5.googlemaps.MapUtils.currentPosition().then(fnSetLocation);
+        }
+    }).placeAt("content");
+
+    // PART 4: interact with the map using data binding
+
+    new sap.ui.commons.Label({
+        text: "Longitude:"
+    }).placeAt("sliders");
+    new sap.ui.commons.Slider({
+        min: -180,
+        max: 180,
+        value: "{/longitude}",
+        width: "100%"
+    }).placeAt("sliders");
+
+    new sap.ui.commons.Label({
+        text: "Latitude:"
+    }).placeAt("sliders");
+    new sap.ui.commons.Slider({
+        min: -90,
+        max: 90,
+        value: "{/latitude}",
+        width: "100%"
+    }).placeAt("sliders");
+
+    new sap.ui.commons.Label({
+        text: "Zoom:"
+    }).placeAt("sliders");
+    new sap.ui.commons.Slider({
+        min: 1,
+        max: 15,
+        value: "{/zoom}",
+        smallStepWidth: 1,
+        stepLabels: true,
+        totalUnits: 14,
+        width: "100%"
+    }).placeAt("sliders");
 </script>

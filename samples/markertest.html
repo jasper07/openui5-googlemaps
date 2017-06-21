@@ -17,83 +17,84 @@
 
 <body class='sapUiBody'>
     <div id='content'>
-        <a href="https://github.com/jasper07/openui5-googlemaps"><img style="position: absolute; top: 0; right: 0; border: 0; z-index: 100;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+        <a href="https://github.com/jasper07/openui5-googlemaps"><img style="position: absolute; top: 0; right: 0; border: 0; z-index: 100;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+                alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
     </div>
 </body>
 
 </html>
 <script>
-//https://developers.google.com/maps/documentation/javascript/examples/place-search
+    //https://developers.google.com/maps/documentation/javascript/examples/place-search
 
-// load googlemaps library
-sap.ui.getCore().loadLibrary("openui5.googlemaps", "../openui5/googlemaps/");
+    // load googlemaps library
+    sap.ui.getCore().loadLibrary("openui5.googlemaps", "../dist/openui5/googlemaps/");
 
-var oMapsApi = new openui5.googlemaps.MapsApi({
-    apiKey: "AIzaSyD6EmAk92gaGzjYVYU-ebd_BK-rgejSoZ0",
-}).load();
+    var oMapsApi = new openui5.googlemaps.MapsApi({
+        apiKey: "AIzaSyD6EmAk92gaGzjYVYU-ebd_BK-rgejSoZ0",
+    }).load();
 
-jQuery.sap.require("sap.ui.model.json.JSONModel");
+    jQuery.sap.require("sap.ui.model.json.JSONModel");
 
-var pyrmont = {}; //Google HQ sydney
-pyrmont.lat = -33.8665433;
-pyrmont.lng = 151.1956316;
-pyrmont.places = [];
+    var pyrmont = {}; //Google HQ sydney
+    pyrmont.lat = -33.8665433;
+    pyrmont.lng = 151.1956316;
+    pyrmont.places = [];
 
-var oModel = new sap.ui.model.json.JSONModel(pyrmont);
-sap.ui.getCore().setModel(oModel);
+    var oModel = new sap.ui.model.json.JSONModel(pyrmont);
+    sap.ui.getCore().setModel(oModel);
 
-var getPlaces = function() {
-    var places = new google.maps.places.PlacesService(oMap.map);
+    var getPlaces = function() {
+        var places = new google.maps.places.PlacesService(oMap.map);
 
-    var request = {
-        location: pyrmont,
-        radius: 500,
-    };
+        var request = {
+            location: pyrmont,
+            radius: 500,
+        };
 
-    var getIWContent = function(place) {
-        var content = "";
-        content += '<table><tr><td>';
-        content += '<img class="placeIcon" src="' + place.icon + '"/></td>';
-        content += '<td><b><a href="' + place.url + '">' + place.name + '</a></b>';
-        content += '</td></tr></table>';
-        return content;
-    };
+        var getIWContent = function(place) {
+            var content = "";
+            content += '<table><tr><td>';
+            content += '<img class="placeIcon" src="' + place.icon + '"/></td>';
+            content += '<td><b><a href="' + place.url + '">' + place.name + '</a></b>';
+            content += '</td></tr></table>';
+            return content;
+        };
 
-    var callback = function(results, status) {
-        if (status === google.maps.places.PlacesServiceStatus.OK) {
-            var aPlaces = [];
-            results.forEach(function(obj) {
-                aPlaces.push({
-                    name: getIWContent(obj),
-                    lat: obj.geometry.location.lat(),
-                    lng: obj.geometry.location.lng(),
+        var callback = function(results, status) {
+            if (status === google.maps.places.PlacesServiceStatus.OK) {
+                var aPlaces = [];
+                results.forEach(function(obj) {
+                    aPlaces.push({
+                        name: getIWContent(obj),
+                        lat: obj.geometry.location.lat(),
+                        lng: obj.geometry.location.lng(),
+                    });
+                    oModel.setProperty('/places', aPlaces);
                 });
-                oModel.setProperty('/places', aPlaces);
-            });
+            }
         }
-    }
-    places.search(request, callback);
-};
+        places.search(request, callback);
+    };
 
-// markers template
-var oMarkers = new openui5.googlemaps.Marker({
-    lat: '{lat}',
-    lng: '{lng}',
-    info: '{name}',
-    icon: '{icon}', //'{http://www.w3schools.com/googleapi/pinkball.png}',
-});
+    // markers template
+    var oMarkers = new openui5.googlemaps.Marker({
+        lat: '{lat}',
+        lng: '{lng}',
+        info: '{name}',
+        icon: '{icon}', //'{http://www.w3schools.com/googleapi/pinkball.png}',
+    });
 
-// map
-var oMap = new openui5.googlemaps.Map({
-    lng: "{/lng}",
-    lat: "{/lat}",
-    height: '400px',
-    width: '800px',
-    zoom: 15,
-    markers: {
-        path: "/places",
-        template: oMarkers
-    },
-    ready: getPlaces
-}).placeAt("content");
+    // map
+    var oMap = new openui5.googlemaps.Map({
+        lng: "{/lng}",
+        lat: "{/lat}",
+        height: '400px',
+        width: '800px',
+        zoom: 15,
+        markers: {
+            path: "/places",
+            template: oMarkers
+        },
+        ready: getPlaces
+    }).placeAt("content");
 </script>
