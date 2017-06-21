@@ -32,7 +32,7 @@ const banner = [
 const filePath = {
     src: "./src/*.js",
     test: "./test/*.js",
-    dest: "./openui5/googlemaps"
+    dest: "./dist/openui5/googlemaps"
 };
 const libNS = "openui5.googlemaps";
 
@@ -231,7 +231,7 @@ gulp.task("buildlibrary", ["lint", "clean", "scripts-min", "scripts-dbg"], () =>
     .src([filePath.dest + "/**/!(*-dbg.js|*-all.js)"])
     .pipe(
         ui5preload({
-            base: "dist/openui5/googlemaps",
+            base: "openui5/googlemaps",
             namespace: libNS,
             isLibrary: true
         })
