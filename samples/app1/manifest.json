@@ -24,7 +24,7 @@
     "sap.ui5": {
         "_version": "1.1.0",
         "resourceRoots": {
-            "openui5": "../../openui5",
+            "openui5": "../../dist/openui5",
             "testapp": "./"
         },
         "dependencies": {
