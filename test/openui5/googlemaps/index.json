@@ -5,7 +5,7 @@
         "description": "A library of controls to integrate Google Maps in a UI5 application",
         "source": "https://github.com/jasper07/openui5-googlemaps.git",
         "documentation": "http://jasper07.github.io/openui5-googlemaps/",
-        "demo": "http://jasper07.github.io/openui5-googlemaps/",
+        "demo": "https://jasper07.github.io/openui5-googlemaps/",
         "version": "1.0.0",
         "content": {
             "Map": {
@@ -17,13 +17,13 @@
                         "id": "app1",
                         "name": "Map 1",
                         "description": "List Binding Demo (declares library in app manifest file)",
-                        "url": "http://jasper07.secondphase.com.au/openui5-googlemaps/samples/app1/"
+                        "url": "https://jasper07.secondphase.com.au/openui5-googlemaps/samples/app1/"
                     },
                     {
                         "id": "app2",
                         "name": "Map 2",
                         "description": "Mash up Demo",
-                        "url": "http://jasper07.secondphase.com.au/openui5-googlemaps/samples/app2/"
+                        "url": "https://jasper07.secondphase.com.au/openui5-googlemaps/samples/app2/"
                     }
                 ]
             },
@@ -36,13 +36,13 @@
                         "id": "directionstest",
                         "name": "Directions",
                         "description": "Directions test",
-                        "url": "http://jasper07.secondphase.com.au/openui5-googlemaps/samples/directionstest.html"
+                        "url": "https://jasper07.secondphase.com.au/openui5-googlemaps/samples/directionstest.html"
                     },
                     {
                         "id": "directionstestwaypoints",
                         "name": "Directions with waypoints",
                         "description": "Directions Demo (with waypoints - uses Chinese API)",
-                        "url": "http://jasper07.secondphase.com.au/openui5-googlemaps/samples/directionstestwaypoints.html"
+                        "url": "https://jasper07.secondphase.com.au/openui5-googlemaps/samples/directionstestwaypoints.html"
                     }
                 ]
             },
@@ -55,7 +55,7 @@
                     "id": "markertest",
                     "name": "Marker",
                     "description": "Marker test",
-                    "url": "http://jasper07.secondphase.com.au/openui5-googlemaps/samples/markertest.html"
+                    "url": "https://jasper07.secondphase.com.au/openui5-googlemaps/samples/markertest.html"
                 }]
             },
             "MarkerCluster": {
@@ -67,7 +67,7 @@
                     "id": "markerclustertest",
                     "name": "Marker Cluster",
                     "description": "Marker Cluster with geojson data",
-                    "url": "http://jasper07.secondphase.com.au/openui5-googlemaps/samples/markerclustertest.html"
+                    "url": "https://jasper07.secondphase.com.au/openui5-googlemaps/samples/markerclustertest.html"
                 }]
             },
             "Polyline": {
@@ -79,7 +79,7 @@
                     "id": "PolylineSample",
                     "name": "Polyline Sample",
                     "description": "Sample showing a Polyline",
-                    "url": "http://jasper07.secondphase.com.au/openui5-googlemaps/samples/PolylineSample.html"
+                    "url": "https://jasper07.secondphase.com.au/openui5-googlemaps/samples/PolylineSample.html"
                 }]
             },
             "MapUtils": {
@@ -91,7 +91,7 @@
                     "id": "search",
                     "name": "Search",
                     "description": "Search Demo (using japanese language)",
-                    "url": "http://jasper07.secondphase.com.au/openui5-googlemaps/samples/search.html"
+                    "url": "https://jasper07.secondphase.com.au/openui5-googlemaps/samples/search.html"
                 }]
             }
         }
