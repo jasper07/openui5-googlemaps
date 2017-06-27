@@ -160,8 +160,54 @@ sap.ui.define(
             }, delay);
         });
 
+        module("Marker - event");
+        test("Should trigger hover events", function(assert) {
+            // Arrange
+            var done = assert.async();
+            var delay = 1000;
+            var mouseoverSpy = this.spy();
+            var mouseoutSpy = this.spy();
 
-        module("Marker - draggable");
+            var oMarkersTemp1 = new Marker({
+                lat: "{lat}",
+                lng: "{lng}",
+                info: "{name}",
+                icon: "{icon}",
+                visible: "{visible}",
+                mouseover: mouseoverSpy,
+                mouseout: mouseoutSpy
+            });
+
+            oMap = new Map({
+                lat: "{/Pyrmont/lat}",
+                lng: "{/Pyrmont/lng}",
+                markers: {
+                    path: "/Beaches",
+                    template: oMarkersTemp1
+                }
+            });
+
+            oMap.setModel(oModel);
+            oMap.placeAt("qunit-fixture");
+            sap.ui.getCore().applyChanges();
+
+            var aMarkers = oMap.getMarkers();
+            var oMarker = aMarkers[0];
+
+            // Act
+            MapUtils.trigger(oMarker.marker, "mouseover");
+            MapUtils.trigger(oMarker.marker, "mouseout");
+
+            // Assert
+            setTimeout(function() {
+                equal(mouseoverSpy.callCount, 1, "mouseover event called");
+                equal(mouseoutSpy.callCount, 1, "mouseout event called");
+                oMap.destroy(); //Cleanup
+                done();
+            }, delay);
+        });
+
+
         test("Should trigger an event after dragging marker", function(assert) {
             // Arrange
             var done = assert.async();

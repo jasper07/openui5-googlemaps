@@ -45,12 +45,19 @@ sap.ui.define(["jquery.sap.global", "sap/ui/core/Control", "google.maps", "openu
                      "zIndex": {
                         type: "int",
                         defaultValue: 1
+                    },
+                    "optimized": {
+                        type: "boolean",
+                        bindable: "bindable",
+                        defaultValue: false  
                     }
                 },
                 events: {
                     "click": {},
                     "dragEnd": {},
-                    "infoWindowClose": {}
+                    "infoWindowClose": {},
+                    "mouseover": {},
+                    "mouseout": {}
                 },
                 renderer: {}
             }
@@ -113,6 +120,8 @@ sap.ui.define(["jquery.sap.global", "sap/ui/core/Control", "google.maps", "openu
             if (!this.marker) {
                 this.marker = this.createMarker();
                 this.addListener(this.marker, "click", this.onClick.bind(this));
+                this.addListener(this.marker, "mouseover", this.onMouseover.bind(this));
+                this.addListener(this.marker, "mouseout", this.onMouseout.bind(this));
             }
             if (this.getDraggable()) {
                 this.addListener(this.marker, "dragend", this.onDragEnd.bind(this));
@@ -124,7 +133,6 @@ sap.ui.define(["jquery.sap.global", "sap/ui/core/Control", "google.maps", "openu
             if (typeof this.marker.setZIndex === "function") { //Maker.prorotype.setZIndex only exists in api v3 and above
                 this.marker.setZIndex(this.getZIndex());
             }
-
 
             if (!this.infoWindow) {
                 //http://stackoverflow.com/questions/1554893/google-maps-api-v3-infowindow-not-sizing-correctly
@@ -144,6 +152,7 @@ sap.ui.define(["jquery.sap.global", "sap/ui/core/Control", "google.maps", "openu
             options.animation = this.getAnimation();
             options.visible = this.getVisible();
             options.icon = this.getIcon();
+            options.optimized = this.getOptimized()
             return options;
         };
 
@@ -178,6 +187,30 @@ sap.ui.define(["jquery.sap.global", "sap/ui/core/Control", "google.maps", "openu
             }
 
             this.fireClick({
+                map: this.map,
+                marker: this.marker,
+                context: this.getBindingContext(),
+                location: {
+                    lat: this.getLat(),
+                    lng: this.getLng()
+                }
+            });
+        };
+
+        Marker.prototype.onMouseover = function() { 
+            this.fireMouseover({
+                map: this.map,
+                marker: this.marker,
+                context: this.getBindingContext(),
+                location: {
+                    lat: this.getLat(),
+                    lng: this.getLng()
+                }
+            });
+        };
+
+        Marker.prototype.onMouseout = function() {
+            this.fireMouseout({
                 map: this.map,
                 marker: this.marker,
                 context: this.getBindingContext(),
