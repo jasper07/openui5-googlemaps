@@ -10,8 +10,18 @@ sap.ui.controller("testapp.view.Detail", {
 
     onMapReady: function(oEvent) {
         if (this.selectedLocation === undefined) {
-            var beaches = this.getView().getModel().getData().beaches;
-            this.selectedLocation = beaches[beaches.length - 1]; //Cronulla
+            var aBeaches = this.getView().getModel().getData().beaches;
+
+            // set flag image
+            var nBeaches = aBeaches.map(function(oBeach){
+                oBeach.icon = this._getImage();
+                return oBeach;
+            }.bind(this));
+
+            this._styleMap();
+
+            this.selectedLocation = aBeaches[aBeaches.length - 1]; //Cronulla
+            this.getView().getModel().setData({beaches: nBeaches});
             this.setupPolylines();
             this.setupPolygons();
         }
@@ -106,7 +116,7 @@ sap.ui.controller("testapp.view.Detail", {
             strokeWeight: 2,
             fillColor: '#FF0000',
             fillOpacity: 0.35,
-            visible: this.showPolygon,
+            visible: this.showPolygon
         }));
     },
 
@@ -128,5 +138,95 @@ sap.ui.controller("testapp.view.Detail", {
                 oControl.setVisible(that.showPolygon);
             });
         }
-    }
+    },
+
+    _getImage: function() {
+        return {
+            url: "./images/beachflag.png",
+            size: new google.maps.Size(20, 32),
+            // The origin for this image is (0, 0).
+            origin: new google.maps.Point(0, 0),
+            // The anchor for this image is the base of the flagpole at (0, 32).
+            anchor: new google.maps.Point(0, 32)
+        };
+    },
+
+    _styleMap: function(){
+        //style the map
+        var styledMapType = new google.maps.StyledMapType(this._aMapStyle);
+        this.oMap.map.mapTypes.set('styled_map', styledMapType);
+        this.oMap.map.setMapTypeId('styled_map');
+    },
+
+    _aMapStyle:[
+  {
+    "featureType": "administrative",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "administrative.land_parcel",
+    "elementType": "labels",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "poi",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "poi",
+    "elementType": "labels.text",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "road",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "road",
+    "elementType": "labels.icon",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "road.local",
+    "elementType": "labels",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "transit",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  }
+]
 });
