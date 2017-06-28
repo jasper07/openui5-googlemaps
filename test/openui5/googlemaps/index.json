@@ -7,6 +7,7 @@
         "documentation": "http://jasper07.github.io/openui5-googlemaps/",
         "demo": "https://jasper07.github.io/openui5-googlemaps/",
         "version": "1.0.0",
+        "license": "MIT",
         "content": {
             "Map": {
                 "id": "Map",
