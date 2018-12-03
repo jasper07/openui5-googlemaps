@@ -68,12 +68,13 @@ module.exports = config => {
 
         // start these browsers
         // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-        browsers: ["PhantomJS_custom"], //"Chrome"],
+        browsers: [//"PhantomJS_custom"], //"Chrome"],
+        "ChromeDebugging"],
 
         // Have phantomjs exit if a ResourceError is encountered (useful if karma exits without killing phantom)
         phantomjsLauncher: {
             exitOnResourceError: false
-        },
+        },  
 
         // you can define custom flags
         customLaunchers: {
@@ -95,6 +96,10 @@ module.exports = config => {
                 },
                 flags: ["--load-images=true", "--debug=false", "--disk-cache=false"],
                 debug: true
+            },
+            "ChromeDebugging": {
+                base: "Chrome",
+                flags: ["--remote-debugging-port=9333"]
             }
         },
 
