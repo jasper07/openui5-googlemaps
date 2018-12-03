@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge' />
+    <title>PolyLine Test</title>
+    <link rel="icon" type="image/ico" href="../images/favicon.ico">
+    <script id="sap-ui-bootstrap" type="text/javascript" src="https://openui5.hana.ondemand.com/resources/sap-ui-core.js" data-sap-ui-theme="sap_belize" data-sap-ui-libs="sap.m"></script>
+
+    <script id="view1" type="sapui5/xmlview">
+        <sap.ui.core.mvc:View controllerName="local.controller" xmlns:openui5.googlemaps="openui5.googlemaps" xmlns:sap.ui.core.mvc="sap.ui.core.mvc">
+            <openui5.googlemaps:Map id="map1" lat="{/beaches/1/lat}" lng="{/beaches/1/lng}" zoom="11" height="40em" zoomControl="true" apiKey="AIzaSyD6EmAk92gaGzjYVYU-ebd_BK-rgejSoZ0">
+                <openui5.googlemaps:polylines>
+                    <openui5.googlemaps:Polyline path="{/beaches}">
+                    </openui5.googlemaps:Polyline>
+                </openui5.googlemaps:polylines>
+            </openui5.googlemaps:Map>
+        </sap.ui.core.mvc:View>
+    </script>
+</head>
+
+<body class="sapUiBody">
+    <div id="content" role="application" style="height: 100%;">
+        <div id='map'></div>
+    </div>
+</body>
+
+</html>
+<script>
+    sap.ui.getCore().loadLibrary("openui5.googlemaps", "../dist/openui5/googlemaps/");
+
+    sap.ui.controller("local.controller", {
+
+        onInit: function(oEvent) {
+            var oModel = new sap.ui.model.json.JSONModel("models/mock.json");
+            this.getView().setModel(oModel);
+        }
+
+    });
+
+    var oView = sap.ui.xmlview({
+        viewContent: jQuery('#view1').html()
+    });
+
+    oView.placeAt('map');
+</script>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>OpenUI5 Googlemaps Library</title>
+    <meta name="description" content="openui5 googlemaps library">
+    <script id="sap-ui-bootstrap" type="text/javascript" src="https://openui5.hana.ondemand.com/resources/sap-ui-core.js"></script>
+    <script language="JavaScript">
+        if (location.protocol !== 'https:')
+        {
+        // location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
+        }
+    </script>
+    <link rel="icon" type="image/ico" href="images/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/prism.css">
+    <style type="text/css">
+    body {
+        font-size: 1em;
+        line-height: 1.4em;
+    }
+    pre[class*="language-"] {
+        width: inherit;
+    }
+    pre[class*=language-] code {
+        font-size: 14px;
+        padding: 0;
+    }
+    pre, code {
+        margin-top: 0px;
+        background-color: #272822;
+    }
+
+    [id^="sample"] {
+        margin: 10px auto 10px;
+        padding: 10px 0px 10px 0px;
+    }
+
+    [id$="-map"] {
+        border-radius: 0.3em;
+    }
+    </style>
+</head>
+
+<body>
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+            <a id="forkme_banner" href="https://github.com/jasper07/openui5-googlemaps">View on GitHub</a>
+
+            <h1 id="project_title">openui5-googlemaps</h1>
+            <h2 id="project_tagline">Google Maps library for OpenUI5</h2>
+
+            <section id="downloads">
+                <a class="zip_download_link" href="https://github.com/jasper07/openui5-googlemaps/zipball/master">Download this project as a .zip file</a>
+                <a class="tar_download_link" href="https://github.com/jasper07/openui5-googlemaps/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+        <section id="main_content" class="inner">
+            <h1>Getting Started</h1>
+
+        <p>Include the openui5.googlemaps library</p>
+            <pre class="language-javascript"><code>sap.ui.getCore().loadLibrary("openui5.googlemaps", "../openui5/googlemaps/");</code></pre>
+
+ <p>Example - render a map with a marker</p>
+            <pre class="language-javascript"><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+&lt;mvc:View xmlns:mvc=&quot;sap.ui.core.mvc&quot;
+    xmlns:gmaps=&quot;openui5.googlemaps&quot;
+    controllerName=&quot;sampleController&quot;&gt;
+    &lt;gmaps:Map height=&quot;250px&quot; zoom=&quot;12&quot; lat=&quot;-33.895&quot; lng=&quot;151.275&quot; 
+     apiKey="AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM"&gt;
+        &lt;gmaps:markers&gt;
+            &lt;gmaps:Marker lat=&quot;-33.895&quot; lng=&quot;151.275&quot; info=&quot;Bondi Beach&quot; /&gt;
+        &lt;/gmaps:markers&gt;
+    &lt;/gmaps:Map&gt;
+&lt;/mvc:View&gt;</code></pre>
+
+
+
+            <div id="sample1" class="sampleButtonBox" style="min-width: 150px"></div>
+            <div id="demos">
+            <a href="samples/search.html" target="_blank">Search Demo (using japanese language)</a>
+            <br>
+            <a href="samples/app1/" target="_blank">List Binding Demo (declares library in app manifest file)</a>
+            <br>
+            <a href="samples/app2/" target="_blank">Mash up Demo</a>
+            <br>
+            <a href="samples/directionstest.html" target="_blank">Directions Demo</a>
+            <br>
+            <a href="samples/directionstestwaypoints.html" target="_blank">Directions Demo (with waypoints - uses Chinese API)</a>
+            <br>
+            <a href="samples/markerclustertest.html" target="_blank">Marker Cluster with geojson data</a>
+            </div>
+
+
+        </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+        <footer class="inner">
+            <p class="copyright">openui5-googlemaps maintained by <a href="https://github.com/jasper07">jasper07</a>
+                <a href="http://secondphase.com.au">Second Phase Solutions</a>
+            </p>
+            <p><a href="https://github.com/jasoncostello/slate">Slate</a> theme for GitHub Pages</p>
+        </footer>
+    </div>
+</body>
+
+</html>
+<script src="js/prism.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+sap.ui.getCore().loadLibrary("openui5.googlemaps", "openui5/googlemaps/");
+var sXmlView = '<?xml version="1.0" encoding="UTF-8" ?>' + '<mvc:View xmlns:mvc="sap.ui.core.mvc"' + '    xmlns:gmaps="openui5.googlemaps"' + '    controllerName="sampleController">' + '    <gmaps:Map height="250px" zoom="12" lat="-33.895" lng="151.275" apiKey="AIzaSyD6EmAk92gaGzjYVYU-ebd_BK-rgejSoZ0">' + '        <gmaps:markers>' + '            <gmaps:Marker lat="-33.895" lng="151.275" info="Bondi Beach" />' + '        </gmaps:markers>' + '    </gmaps:Map>' + '</mvc:View>';
+
+var oController = sap.ui.controller("sampleController", {});
+
+var oXMLView = new sap.ui.xmlview({
+    viewContent: sXmlView,
+    controller: oController
+}).placeAt("sample1");
+</script>

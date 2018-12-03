@@ -1,0 +1,64 @@
+    h1.heading {
+        padding:0px;
+        margin: 0px 0px 10px 0px;
+        text-align:center;
+        font: 18px Georgia, "Times New Roman", Times, serif;
+    }
+    /* width and height of google map */
+    .googleMap {
+        position: relative;
+        background-color: rgba(255, 255, 255, 0.8);
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        overflow: hidden;
+        position: relative;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        margin-top: -35px;
+        /*height: 100%;*/
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        padding-bottom: 1rem;
+        padding-top: 47px;
+    }
+    .c3Chart {
+        position: relative;
+        background-color: rgba(255, 255, 255, 0.8);
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        overflow: hidden;
+        position: relative;
+        /*padding-left: 1rem;*/
+        padding-right: 1rem;
+        margin-top: -15px;
+        /*margin-top: 1em;*/
+        height: 100%;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        padding-bottom: 1rem;
+        padding-top: 1em;
+    }
+    /* Marker Info Window */
+    h1.marker-heading {
+        color: #585858;
+        margin: 0px;
+        padding: 0px;
+        font: 18px"Trebuchet MS", Arial;
+        border-bottom: 1px dotted #D8D8D8;
+    }
+    div.marker-info-win p {
+        padding: 0px;
+        margin: 10px 0px 10px 0;
+    }
+    div.marker-inner-win {
+        padding: 5px;
+    }
+    button.save-marker, button.remove-marker {
+        border: none;
+        background: rgba(0, 0, 0, 0);
+        color: #00F;
+        padding: 0px;
+        text-decoration: underline;
+        margin-right: 10px;
+        cursor: pointer;
+    }

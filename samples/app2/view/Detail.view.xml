@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<mvc:View controllerName="testapp.view.Detail" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:maps="openui5.googlemaps" xmlns:l="controls">
+    <Page id="page1" enableScrolling="false">
+        <content>
+            <VBox class="marginBoxContent" >
+                <items>
+                    <maps:Map id="map1" class="googleMap" height="380px" zoom="10" lat="-33.920" lng="151.2" markers="{/beaches}" ready="onMapReady" fitToMarkers="true" apiKey="AIzaSyD6EmAk92gaGzjYVYU-ebd_BK-rgejSoZ0">
+                        <maps:Marker lat="{lat}" lng="{lng}" info="{name}" animation="0" click="onMarkerClick" icon="{icon}"></maps:Marker>
+                    </maps:Map>
+                    <l:C3Chart id="chart1" class="c3Chart" height="300px" width="100%" columns="{cols}"></l:C3Chart>
+                </items>
+            </VBox>
+        </content>
+        <footer>
+            <Bar>
+                <contentRight>
+                    <Label text="Show Polylines: " />
+                    <Switch change="onShowPolyline" state="false" />
+                    <Label text="Show Polygon: " />
+                    <Switch change="onShowPolygon" state="false" />
+                </contentRight>
+            </Bar>
+        </footer>
+    </Page>
+</mvc:View>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge' />
+    <title>Directions Test With Waypoints</title>
+    <link rel="icon" type="image/ico" href="../images/favicon.ico">
+    <script id="sap-ui-bootstrap" type="text/javascript" src="https://openui5.hana.ondemand.com/resources/sap-ui-core.js" data-sap-ui-theme="sap_belize" data-sap-ui-libs="sap.m"></script>
+    <style type="text/css">
+        #buttons {
+            position: absolute;
+            bottom: 30px;
+            left: 25px;
+            z-index: 100;
+        }
+        
+        .inputField {
+            display: block;
+        }
+        
+        #map1-map {
+            width: 100% !important;
+            height: 100% !important;
+            height: -webkit-calc(100% - 1px) !important;
+            height: -moz-calc(100% - 1px) !important;
+            height: calc(100% - 1px) !important;
+            position: absolute;
+            left: 1px;
+            right: 1px;
+            top: 1px !important;
+            bottom: 1px !important;
+            overflow: hidden;
+        }
+    </style>
+    <script id="view1" type="sapui5/xmlview">
+        <sap.ui.core.mvc:View controllerName="local.controller" xmlns:openui5.googlemaps="openui5.googlemaps" xmlns:sap.ui.core.mvc="sap.ui.core.mvc">
+            <openui5.googlemaps:Map id="map1" lat="{lat}" lng="{lng}" zoom="11" zoomControl="true" apiKey="AIzaSyD6EmAk92gaGzjYVYU-ebd_BK-rgejSoZ0">
+                <openui5.googlemaps:directions>
+                    <openui5.googlemaps:Directions startAddress="{start}" endAddress="{end}" unitSystem="1" waypoints="{stops}">
+                        <openui5.googlemaps:waypoints>
+                            <openui5.googlemaps:Waypoint location="{name}"></openui5.googlemaps:Waypoint>
+                        </openui5.googlemaps:waypoints>
+                    </openui5.googlemaps:Directions>
+                </openui5.googlemaps:directions>
+            </openui5.googlemaps:Map>
+        </sap.ui.core.mvc:View>
+    </script>
+</head>
+
+<body class="sapUiBody">
+    <div id="content" role="application" style="height: 100%;">
+        <div id='map'></div>
+    </div>
+</body>
+
+</html>
+<script>
+    sap.ui.getCore().loadLibrary("openui5.googlemaps", "../dist/openui5/googlemaps/");
+
+    sap.ui.controller("local.controller", {
+
+        onInit: function(oEvent) {
+            var places = [{
+                name: "Bondi Beach",
+                lat: -33.890542,
+                lng: 151.274856,
+                start: 'Manly',
+                end: 'Cronulla',
+                stops: [{
+                    'name': 'Homebush'
+                }, {
+                    'name': 'Bankstown'
+                }, {
+                    'name': 'Menai'
+                }]
+            }];
+
+            var oModel = new sap.ui.model.json.JSONModel({
+                places: places
+            });
+
+            this.getView().setModel(oModel);
+            var oContext = oModel.getContext('/places/0/');
+            this.byId("map1").setBindingContext(oContext);
+        }
+
+    });
+
+    var oView = sap.ui.xmlview({
+        viewContent: jQuery('#view1').html()
+    });
+
+    oView.placeAt('map');
+</script>

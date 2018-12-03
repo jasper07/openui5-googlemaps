@@ -1,0 +1,21 @@
+{
+    "name": "openui5-googlemaps",
+    "version": "0.0.20",
+    "description": "OpenUI5 Google Maps library",
+    "authors": [
+        "john.patterson@secondphase.com.au"
+    ],
+    "license": "MIT",
+    "main": [
+        "openui5/googlemaps/library-all.js"
+    ],
+    "ignore": [
+        "/*",
+        "!/openui5"
+    ],
+    "homepage": "http://jasper07.github.io/openui5-googlemaps/",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/jasper07/openui5-googlemaps.git"
+    }
+}

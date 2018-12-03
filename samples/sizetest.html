@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge' />
+    <title>Test different sizes</title>
+    <link rel="icon" type="image/ico" href="../images/favicon.ico">
+
+    <script id="sap-ui-bootstrap" type="text/javascript" src="https://openui5.hana.ondemand.com/resources/sap-ui-core.js" data-sap-ui-theme='sap_goldreflection' data-sap-ui-libs='sap.ui.commons'></script>
+    <style type="text/css">
+        #content {
+            width: 100%;
+            height: 100%;
+        }
+        
+        @media only screen and (max-width: 240px) {
+            #map1-map {
+                width: 230px !important;
+                height: 300px !important;
+            }
+        }
+        
+        @media only screen and (min-width: 241px) and (max-width: 320px) {
+            #map1-map {
+                width: 310px !important;
+                height: 460px !important;
+            }
+        }
+        
+        @media only screen and (min-width: 321px) and (max-width: 480px) {
+            #map1-map {
+                width: 460px !important;
+                height: 620px !important;
+            }
+        }
+        
+        @media only screen and (min-width: 481px) and (max-width: 768px) {
+            #map1-map {
+                width: 754px !important;
+                height: 1000px !important;
+            }
+        }
+        
+        @media only screen and (min-width: 769px) and (max-width: 1024px) {
+            #map1-map {
+                width: 1010px !important;
+                height: 752px !important;
+            }
+        }
+    </style>
+</head>
+
+<body class='sapUiBody'>
+    <div id='content'></div>
+</body>
+
+</html>
+
+<script>
+    sap.ui.getCore().loadLibrary("openui5.googlemaps", "../dist/openui5/googlemaps/");
+
+    var myMap = new openui5.googlemaps.Map("map1", {
+        lat: -33.89,
+        lng: 151.27,
+        zoom: 8,
+        apiKey = "AIzaSyD6EmAk92gaGzjYVYU-ebd_BK-rgejSoZ0",
+        markers: [new openui5.googlemaps.Marker({
+            lat: -33.89,
+            lng: 151.27
+        })]
+    }).placeAt("content");
+</script>

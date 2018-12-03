@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge' />
+    <title>Test Data Binding</title>
+    <link rel="icon" type="image/ico" href="../images/favicon.ico">
+    <script id="sap-ui-bootstrap" type="text/javascript" src="https://openui5.hana.ondemand.com/resources/sap-ui-core.js" data-sap-ui-theme='sap_goldreflection' data-sap-ui-libs='sap.ui.commons'></script>
+</head>
+
+<body class='sapUiBody'>
+    <div id='content'></div>
+    <hr/>
+    <div id='sliders'></div>
+</body>
+
+</html>
+<script>
+    // test binding
+    // PART 1: load googlemaps library
+
+    sap.ui.getCore().loadLibrary("openui5.googlemaps", "../dist/openui5/googlemaps/");
+
+    // set the api key
+    var oMapsApi = new openui5.googlemaps.MapsApi({
+        apiKey: "AIzaSyD6EmAk92gaGzjYVYU-ebd_BK-rgejSoZ0",
+    }).load();
+
+
+    jQuery.sap.require("sap.ui.model.json.JSONModel");
+    var oModel = new sap.ui.model.json.JSONModel({
+        longitude: 8,
+        latitude: 49,
+        zoom: 6
+    });
+    sap.ui.getCore().setModel(oModel);
+
+    // PART 2: instantiate Control and place it onto the page
+
+    var myMap = new openui5.googlemaps.Map({
+        lng: "{/longitude}",
+        lat: "{/latitude}",
+        zoom: "{/zoom}"
+    }).placeAt("content");
+
+
+    // PART 3: interact with the map
+
+    var fnSetLocation = function(position) {
+        myMap.setLat(position.lat);
+        myMap.setLng(position.lng);
+        myMap.setZoom(13);
+    };
+
+    new sap.ui.commons.Button({
+        text: "Get Location",
+        press: function() {
+            openui5.googlemaps.MapUtils.currentPosition().then(fnSetLocation);
+        }
+    }).placeAt("content");
+
+    // PART 4: interact with the map using data binding
+
+    new sap.ui.commons.Label({
+        text: "Longitude:"
+    }).placeAt("sliders");
+    new sap.ui.commons.Slider({
+        min: -180,
+        max: 180,
+        value: "{/longitude}",
+        width: "100%"
+    }).placeAt("sliders");
+
+    new sap.ui.commons.Label({
+        text: "Latitude:"
+    }).placeAt("sliders");
+    new sap.ui.commons.Slider({
+        min: -90,
+        max: 90,
+        value: "{/latitude}",
+        width: "100%"
+    }).placeAt("sliders");
+
+    new sap.ui.commons.Label({
+        text: "Zoom:"
+    }).placeAt("sliders");
+    new sap.ui.commons.Slider({
+        min: 1,
+        max: 15,
+        value: "{/zoom}",
+        smallStepWidth: 1,
+        stepLabels: true,
+        totalUnits: 14,
+        width: "100%"
+    }).placeAt("sliders");
+</script>

@@ -1,0 +1,55 @@
+{
+    "name": "testapp1",
+    "_version": "1.1.0",
+    "sap.app": {
+        "_version": "1.1.0",
+        "id": "test",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "applicationVersion": {
+            "version": "1.0.0"
+        }
+    },
+    "sap.ui": {
+        "_version": "1.1.0",
+        "technology": "UI5",
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        },
+        "supportedThemes": [
+            "sap_belize"
+        ]
+    },
+    "sap.ui5": {
+        "_version": "1.1.0",
+        "resourceRoots": {
+            "openui5": "../../dist/openui5"
+        },
+        "dependencies": {
+            "minUI5Version": "1.30",
+            "libs": {
+                "sap.m": {},
+                "openui5.googlemaps": {}
+            }
+        },
+        "models": {
+            "": {
+                "type": "sap.ui.model.json.JSONModel",
+                "uri": "model/mock.json"
+            },
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "settings": {
+                    "bundleName": "testapp.i18n.i18n"
+                }
+            }
+        },
+        "resources": {
+            "css": [{
+                "uri": "css/app.css"
+            }]
+        }
+    }
+}

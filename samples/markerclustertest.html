@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge' />
+    <title>McDonalds Stores in US</title>
+    <link rel="icon" type="image/ico" href="../images/favicon.ico">
+    <script id="sap-ui-bootstrap" type="text/javascript" src="https://openui5.hana.ondemand.com/resources/sap-ui-core.js" data-sap-ui-libs='sap.ui.commons'></script>
+    <script id="sampleView" type="application/xml"><?xml version="1.0" encoding="UTF-8" ?>
+        <mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns:gmaps="openui5.googlemaps" controllerName="sampleController">
+            <gmaps:Map lat="33.408495" lng="-104.521889" width="950px" height="475px" zoom="4" zoomControl="true" apiKey="AIzaSyD6EmAk92gaGzjYVYU-ebd_BK-rgejSoZ0">
+                <gmaps:markerCluster>
+                    <gmaps:MarkerCluster markers="{/features}">
+                        <gmaps:markers>
+                            <gmaps:Marker lat="{geometry/coordinates/1}" lng="{geometry/coordinates/0}" info="{properties/city}" icon="http://www.w3schools.com/googleapi/pinkball.png"></gmaps:Marker>
+                        </gmaps:markers>
+                    </gmaps:MarkerCluster>
+                </gmaps:markerCluster>
+            </gmaps:Map>
+        </mvc:View>
+    </script>
+</head>
+
+<body class='sapUiBody'>
+    <div id='content'>
+        <a href="https://github.com/jasper07/openui5-googlemaps">
+            <img style="position: absolute; top: 0; right: 0; border: 0; z-index: 100;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+                alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png">
+        </a>
+    </div>
+</body>
+
+</html>
+
+<script>
+    // load googlemaps library
+    sap.ui.getCore().loadLibrary("openui5.googlemaps", "../dist/openui5/googlemaps/");
+
+    sap.ui.define(["sap/ui/model/json/JSONModel"], function(JSONModel) { 
+        var oController = sap.ui.controller("sampleController", {
+        onInit: function(oEvent) {
+            //load geojson data
+            var oModel = new JSONModel('models/mcdonalds.geojson');
+            oModel.setSizeLimit(100000);
+            this.getView().setModel(oModel);
+            }
+        });
+
+        var oXMLView = new sap.ui.xmlview({
+            viewContent: jQuery.sap.domById("sampleView").textContent,
+            controller: oController
+        }).placeAt("content");
+    });
+    
+
+
+</script>

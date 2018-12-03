@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge' />
+    <title>Directions Test</title>
+    <link rel="icon" type="image/ico" href="../images/favicon.ico">
+    <script id="sap-ui-bootstrap" type="text/javascript" src="https://openui5.hana.ondemand.com/resources/sap-ui-core.js" data-sap-ui-theme="sap_belize" data-sap-ui-libs="sap.m, openui5.googlemaps" data-sap-ui-resourceroots='{"openui5.googlemaps": "../dist/openui5/googlemaps/"}'></script>
+    <style type="text/css">
+        #buttons {
+            position: absolute;
+            bottom: 30px;
+            left: 25px;
+            z-index: 100;
+        }
+        
+        .inputField {
+            display: block;
+        }
+        
+        #map1-map {
+            width: 100% !important;
+            height: 100% !important;
+            height: -webkit-calc(100% - 1px) !important;
+            height: -moz-calc(100% - 1px) !important;
+            height: calc(100% - 1px) !important;
+            position: absolute;
+            left: 1px;
+            right: 1px;
+            top: 1px !important;
+            bottom: 1px !important;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body class="sapUiBody" role="application" style="height: 100%;">
+
+    <div id="content" data-sap-ui-area="content">
+        <div id='map'></div>
+        <div id='buttons'></div>
+        <a href="https://github.com/jasper07/openui5-googlemaps"><img style="position: absolute; top: 0; right: 0; border: 0; z-index: 100;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+                alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+    </div>
+</body>
+
+</html>
+
+<script>
+    sap.ui.getCore().loadLibrary("openui5.googlemaps", "../dist/openui5/googlemaps/");
+
+    var places = [{
+        name: "Bondi Beach",
+        lat: -33.890542,
+        lng: 151.274856,
+        start: 'Manly',
+        end: 'Cronulla'
+    }];
+
+    var oModel = new sap.ui.model.json.JSONModel();
+
+    oModel.setData({
+        places: places
+    });
+
+    sap.ui.getCore().setModel(oModel);
+
+    var oContext = oModel.getContext('/places/0/');
+
+    var directions = new openui5.googlemaps.Directions({
+        startAddress: '{start}',
+        endAddress: '{end}',
+        travelMode: openui5.googlemaps.TravelMode.transit
+    });
+
+    // an example of using the API properties in map
+    var myMap = new openui5.googlemaps.Map("map1", {
+        lat: -33.89,
+        lng: 151.27,
+        zoom: 7,
+        zoomControl: true,
+        apiKey: "AIzaSyD6EmAk92gaGzjYVYU-ebd_BK-rgejSoZ0",
+        directions: directions
+    }).placeAt("map").setBindingContext(oContext);
+
+
+    var oStartSearch = new sap.m.Input("start", {
+        value: '{start}',
+        enabled: true,
+        width: '180px',
+        placeholder: "Start Address",
+        layoutData: new sap.m.FlexItemData({
+            growFactor: 2
+        })
+    }).placeAt("buttons").setBindingContext(oContext).addStyleClass('inputField');
+
+    var oEndSearch = new sap.m.Input("end", {
+        value: '{end}',
+        enabled: true,
+        width: '180px',
+        placeholder: "End Address",
+        layoutData: new sap.m.FlexItemData({
+            growFactor: 2
+        })
+    }).placeAt("buttons").setBindingContext(oContext).addStyleClass('inputField');
+
+    var oSegmentedBtn = new sap.m.SegmentedButton({
+        selectedButton: "transitBtn",
+        select: function(oEvent) {
+            directions.setTravelMode(sap.ui.getCore().byId(oEvent.getParameters().id).getText().toUpperCase());
+        }
+    });
+
+    oSegmentedBtn.addButton(new sap.m.Button("drivingBtn", {
+        text: "Driving",
+        width: "110px"
+    }));
+    oSegmentedBtn.addButton(new sap.m.Button("walkingBtn", {
+        text: "Walking",
+        width: "110px"
+    }));
+    oSegmentedBtn.addButton(new sap.m.Button("bicyclingBtn", {
+        text: "Bicycling",
+        width: "110px"
+    }));
+    oSegmentedBtn.addButton(new sap.m.Button("transitBtn", {
+        text: "Transit",
+        width: "110px"
+    }));
+
+    var oSegmentedButtonBar = new sap.m.Bar({
+        contentMiddle: [oSegmentedBtn]
+    });
+
+    var oFlexBox = new sap.m.VBox('fb', {
+        items: [oStartSearch, oEndSearch, oSegmentedButtonBar]
+    }).placeAt("buttons");
+</script>

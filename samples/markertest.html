@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge' />
+    <title>Test Marker Binding</title>
+    <link rel="icon" type="image/ico" href="../images/favicon.ico">
+    <style type="text/css">
+        .placeIcon {
+            width: 16px;
+            height: 16px;
+            margin: 2px;
+        }
+    </style>
+    <script id="sap-ui-bootstrap" type="text/javascript" src="https://openui5.hana.ondemand.com/resources/sap-ui-core.js" data-sap-ui-theme='sap_goldreflection' data-sap-ui-libs='sap.ui.commons'></script>
+</head>
+
+<body class='sapUiBody'>
+    <div id='content'>
+        <a href="https://github.com/jasper07/openui5-googlemaps"><img style="position: absolute; top: 0; right: 0; border: 0; z-index: 100;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+                alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+    </div>
+</body>
+
+</html>
+<script>
+    //https://developers.google.com/maps/documentation/javascript/examples/place-search
+
+    // load googlemaps library
+    sap.ui.getCore().loadLibrary("openui5.googlemaps", "../dist/openui5/googlemaps/");
+
+    var oMapsApi = new openui5.googlemaps.MapsApi({
+        apiKey: "AIzaSyD6EmAk92gaGzjYVYU-ebd_BK-rgejSoZ0",
+    }).load();
+
+    jQuery.sap.require("sap.ui.model.json.JSONModel");
+
+    var aIcons = [
+        "clip_mask", "map_icon_flag_orange", "map_icon_std_orange", "map_icon_std", "map_icon_text_bordered", "map_icon_text_indigo",
+        "map_icon_text_red", "map_icon_violet","map_icon_orange"
+    ]
+
+    var pyrmont = {}; //Google HQ sydney
+    pyrmont.lat = -33.8665433;
+    pyrmont.lng = 151.1956316;
+    pyrmont.places = [];
+
+    var oModel = new sap.ui.model.json.JSONModel(pyrmont);
+    sap.ui.getCore().setModel(oModel);
+
+    var getPlaces = function() {
+
+        //style map 
+        var styledMapType = new google.maps.StyledMapType(myStyle);
+        oMap.map.mapTypes.set('styled_map', styledMapType);
+        oMap.map.setMapTypeId('styled_map');
+        var places = new google.maps.places.PlacesService(oMap.map);
+
+        var request = {
+            location: pyrmont,
+            radius: 500,
+        };
+
+        var getIWContent = function(place) {
+            var content = "";
+            content += '<table><tr><td>';
+            content += '<img class="placeIcon" src="' + place.icon + '"/></td>';
+            content += '<td><b><a href="' + place.url + '">' + place.name + '</a></b>';
+            content += '</td></tr></table>';
+            return content;
+        };        
+
+        var callback = function(results, status) {
+            if (status === google.maps.places.PlacesServiceStatus.OK) {
+                var aPlaces = [];
+                results.forEach(function(obj) {
+                    aPlaces.push({
+                        name: getIWContent(obj),
+                        lat: obj.geometry.location.lat(),
+                        lng: obj.geometry.location.lng(),
+                        icon: getIcon()
+                    });
+                    oModel.setProperty('/places', aPlaces);
+                });
+            }
+        }
+        places.search(request, callback);
+    };
+
+    var getIcon = function() {
+        return  {
+            url: "map_icons/" + aIcons[Math.floor(Math.random() * 8)] + ".svg", // url
+            scaledSize: new google.maps.Size(30, 30), // scaled size
+            origin: new google.maps.Point(0,0), // origin
+            anchor: new google.maps.Point(0, 0) // anchor
+        };
+    }
+ 
+
+    var fnMouseover = function(oEvent){
+        var oMarker = oEvent.getParameter("marker");
+        var oIcon = oMarker.getIcon(); 
+
+        this.infoWindowOpen();
+        
+        oIcon.scaledSize =  new google.maps.Size(25, 25);
+        oEvent.getParameter("marker").setIcon(oIcon);
+    };
+
+    var fnMouseout = function(oEvent){
+        var oMarker = oEvent.getParameter("marker");
+        var oIcon = oMarker.getIcon(); 
+        this.infoWindowClose();
+        oIcon.scaledSize =  new google.maps.Size(30, 30);
+        oEvent.getParameter("marker").setIcon(oIcon);
+    };
+
+    // markers template
+    var oMarkers = new openui5.googlemaps.Marker({
+        lat: '{lat}',
+        lng: '{lng}',
+        info: '{name}',
+        icon: '{icon}',
+        optimized: false,
+        zIndex: 100,
+        mouseover: fnMouseover,
+        mouseout: fnMouseout
+    });
+
+    // map
+    var oMap = new openui5.googlemaps.Map({
+        lng: "{/lng}",
+        lat: "{/lat}",
+        height: '400px',
+        width: '800px',
+        zoom: 15,
+        markers: {
+            path: "/places",
+            template: oMarkers
+        },
+        ready: getPlaces
+    }).placeAt("content");
+
+
+var myStyle = [
+  {
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#1d2c4d"
+      }
+    ]
+  },
+  {
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#8ec3b9"
+      }
+    ]
+  },
+  {
+    "elementType": "labels.text.stroke",
+    "stylers": [
+      {
+        "color": "#1a3646"
+      }
+    ]
+  },
+  {
+    "featureType": "administrative.country",
+    "elementType": "geometry.stroke",
+    "stylers": [
+      {
+        "color": "#4b6878"
+      }
+    ]
+  },
+  {
+    "featureType": "administrative.land_parcel",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "administrative.land_parcel",
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#64779e"
+      }
+    ]
+  },
+  {
+    "featureType": "administrative.neighborhood",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "administrative.province",
+    "elementType": "geometry.stroke",
+    "stylers": [
+      {
+        "color": "#4b6878"
+      }
+    ]
+  },
+  {
+    "featureType": "landscape.man_made",
+    "elementType": "geometry.stroke",
+    "stylers": [
+      {
+        "color": "#334e87"
+      }
+    ]
+  },
+  {
+    "featureType": "landscape.natural",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#023e58"
+      }
+    ]
+  },
+  {
+    "featureType": "poi",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#283d6a"
+      }
+    ]
+  },
+  {
+    "featureType": "poi",
+    "elementType": "labels.text",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "poi",
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#6f9ba5"
+      }
+    ]
+  },
+  {
+    "featureType": "poi",
+    "elementType": "labels.text.stroke",
+    "stylers": [
+      {
+        "color": "#1d2c4d"
+      }
+    ]
+  },
+  {
+    "featureType": "poi.business",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "poi.park",
+    "elementType": "geometry.fill",
+    "stylers": [
+      {
+        "color": "#023e58"
+      }
+    ]
+  },
+  {
+    "featureType": "poi.park",
+    "elementType": "labels.text",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "poi.park",
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#3C7680"
+      }
+    ]
+  },
+  {
+    "featureType": "road",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "road",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#304a7d"
+      }
+    ]
+  },
+  {
+    "featureType": "road",
+    "elementType": "labels",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "road",
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#98a5be"
+      }
+    ]
+  },
+  {
+    "featureType": "road",
+    "elementType": "labels.text.stroke",
+    "stylers": [
+      {
+        "color": "#1d2c4d"
+      }
+    ]
+  },
+  {
+    "featureType": "road.highway",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#2c6675"
+      }
+    ]
+  },
+  {
+    "featureType": "road.highway",
+    "elementType": "geometry.stroke",
+    "stylers": [
+      {
+        "color": "#255763"
+      }
+    ]
+  },
+  {
+    "featureType": "road.highway",
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#b0d5ce"
+      }
+    ]
+  },
+  {
+    "featureType": "road.highway",
+    "elementType": "labels.text.stroke",
+    "stylers": [
+      {
+        "color": "#023e58"
+      }
+    ]
+  },
+  {
+    "featureType": "transit",
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#98a5be"
+      }
+    ]
+  },
+  {
+    "featureType": "transit",
+    "elementType": "labels.text.stroke",
+    "stylers": [
+      {
+        "color": "#1d2c4d"
+      }
+    ]
+  },
+  {
+    "featureType": "transit.line",
+    "elementType": "geometry.fill",
+    "stylers": [
+      {
+        "color": "#283d6a"
+      }
+    ]
+  },
+  {
+    "featureType": "transit.station",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#3a4762"
+      }
+    ]
+  },
+  {
+    "featureType": "water",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#0e1626"
+      }
+    ]
+  },
+  {
+    "featureType": "water",
+    "elementType": "labels.text",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "water",
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#4e6d70"
+      }
+    ]
+  }
+]
+
+</script>

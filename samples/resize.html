@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge' />
+    <title>Test different sizes!</title>
+    <link rel="icon" type="image/ico" href="../images/favicon.ico">
+    <script id="sap-ui-bootstrap" type="text/javascript" src="https://openui5.hana.ondemand.com/resources/sap-ui-core.js" data-sap-ui-theme='sap_goldreflection' data-sap-ui-libs='sap.ui.commons'></script>
+    <style type="text/css">
+        .sapUiBtnS {
+            margin-right: 4px;
+        }
+    </style>
+</head>
+
+<body class='sapUiBody'>
+    <div id='content'></div>
+    <hr/>
+    <div id='sliders'></div>
+</body>
+
+</html>
+
+<script>
+    sap.ui.getCore().loadLibrary("openui5.googlemaps", "../dist/openui5/googlemaps/");
+
+    var oMapsApi = new openui5.googlemaps.MapsApi({
+        apiKey: "AIzaSyD6EmAk92gaGzjYVYU-ebd_BK-rgejSoZ0",
+    }).load();
+
+    var myMap = new openui5.googlemaps.Map({
+        lat: -33.89,
+        lng: 151.27,
+        height: "400px",
+        width: "600px",
+        zoom: 8,
+        markers: [new openui5.googlemaps.Marker({
+            lat: -33.89,
+            lng: 151.27
+        })]
+    }).placeAt("content");
+
+    new sap.ui.commons.Button({
+        text: "300X300",
+        press: function() {
+            myMap.setHeight('300px');
+            myMap.setWidth('300px');
+        }
+    }).placeAt("content");
+
+    new sap.ui.commons.Button({
+        text: "400X400",
+        press: function() {
+            myMap.setHeight('400px');
+            myMap.setWidth('400px');
+        }
+    }).placeAt("content");
+
+    new sap.ui.commons.Button({
+        text: "800X100%",
+        press: function() {
+            myMap.setHeight('400px');
+            myMap.setWidth('100%');
+        }
+    }).placeAt("content");
+
+    new sap.ui.commons.Button({
+        text: "400X600",
+        press: function() {
+            myMap.setHeight('400px');
+            myMap.setWidth('600px');
+        }
+    }).placeAt("content");
+</script>

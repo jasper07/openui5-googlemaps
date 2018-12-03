@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<mvc:View controllerName="testapp1.view.Detail" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:gmaps="openui5.googlemaps">
+    <Page title="{brewName}" enableScrolling="false">
+        <content>
+            <gmaps:Map height="400px" zoom="12" lat="{lat}" lng="{lng}" apiKey="AIzaSyD6EmAk92gaGzjYVYU-ebd_BK-rgejSoZ0">
+                <gmaps:markers>
+                    <gmaps:Marker lat="{lat}" lng="{lng}" info="{parts:[{path:'brewName'},{path:'brewerName'},{path:'brewType'}], formatter:'.formatter.info'}" icon="http://maps.google.com/mapfiles/kml/pal2/icon21.png"></gmaps:Marker>
+                </gmaps:markers>
+            </gmaps:Map>
+        </content>
+    </Page>
+</mvc:View>

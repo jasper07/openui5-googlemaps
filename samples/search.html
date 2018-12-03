@@ -1,0 +1,207 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/ico" href="../images/favicon.ico">
+
+    <title>Search Demo</title>
+    <style>
+        #map1-map {
+            margin: auto;
+        }
+    </style>
+    <script id="sap-ui-bootstrap" type="text/javascript" src="https://openui5.hana.ondemand.com/resources/sap-ui-core.js" data-sap-ui-theme="sap_belize" data-sap-ui-libs="sap.ui.commons,sap.ui.layout,openui5.googlemaps" data-sap-ui-resourceroots='{
+            "openui5.googlemaps": "../dist/openui5/googlemaps/"}'>
+    </script>
+</head>
+
+<body class="sapUiBody" role="application">
+    <div id="content">
+        <a href="https://github.com/jasper07/openui5-googlemaps">
+            <img style="position: absolute; top: 0; right: 0; border: 0; z-index: 100;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+                alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png">
+        </a>
+    </div>
+</body>
+
+</html>
+
+<script>
+    jQuery.sap.require('openui5.googlemaps.MapUtils');
+
+    var util = openui5.googlemaps.MapUtils;
+
+    /* update mode with location adn return a lat lng object */
+    var getLocationCallback = function(oPos) {
+        oModel.setProperty('lat', oPos.lat, oContext);
+        oModel.setProperty('lng', oPos.lng, oContext);
+        oModel.setProperty('name', 'My Location', oContext);
+        return util.objToLatLng(oPos);
+    };
+
+    /* get my location*/
+    var onMyLocation = function() {
+        util.currentPosition()
+            .then(getLocationCallback)
+            .then(util.geocodePosition)
+            .done(updateLocation);
+    };
+
+    /* on suggest callback */
+    var onSuggest = function(oEvent) {
+        var sValue = oEvent.getParameter("suggestValue");
+        if (sValue.length > 3) {
+            util.search({
+                'address': sValue
+            }).done(jQuery.proxy(searchResults, this));
+        }
+    };
+
+    /* on change of auto complete*/
+    var onChange = function(oEvent) {
+        if (oEvent) {
+            var val = oEvent.getParameters('newValue').newValue;
+            var oCtxt = oEvent.getSource().getBindingContext();
+            this.locations.forEach(function(oLocation) {
+                if (oLocation.value === val) {
+                    oCtxt.getModel().setProperty('lat', oLocation.lat, oCtxt);
+                    oCtxt.getModel().setProperty('lng', oLocation.lng, oCtxt);
+                    oCtxt.getModel().setProperty('name', oLocation.value, oCtxt);
+                }
+            });
+        }
+    };
+
+    /* update location */
+    var updateLocation = function(sLocation) {
+        oModel.setProperty(oContext.getPath() + 'name', sLocation);
+        sap.ui.getCore().byId('auto').setValue(sLocation);
+    }
+
+    /* on marker drag end */
+    var onMarkerDragEnd = function(oEvent) {
+        util.geocodePosition(oEvent.getParameters().position).done(updateLocation);
+    };
+
+    /* search results */
+    var searchResults = function(results, status) {
+        var that = this;
+        this.destroyItems();
+        this.locations = [];
+
+        this.locations = jQuery.map(results, function(item) {
+            var location = {};
+            location.value = item.formatted_address;
+            location.lat = item.geometry.location.lat();
+            location.lng = item.geometry.location.lng();
+            return location;
+        });
+
+        this.locations.forEach(function(item) {
+            that.addItem(new sap.ui.core.ListItem({
+                text: item.value,
+            }));
+        });
+    };
+
+    var places = [{
+        name: "Bondi Beach",
+        lat: -33.890542,
+        lng: 151.274856,
+    }];
+
+    var oModel = new sap.ui.model.json.JSONModel();
+
+    oModel.setData({
+        places: places
+    });
+
+    sap.ui.getCore().setModel(oModel);
+
+    var oContext = oModel.getContext('/places/0/');
+
+    var oMarkers = new openui5.googlemaps.Marker({
+        lat: '{lat}',
+        lng: '{lng}',
+        info: '{name}',
+        icon: jQuery.sap.getModulePath("openui5.googlemaps.themes." + "base") + "/img/pinkball.png",
+        animation: 0,
+        draggable: true,
+        dragEnd: onMarkerDragEnd
+    });
+
+    var oMap = new openui5.googlemaps.Map("map1", {
+        lat: '{lat}',
+        lng: '{lng}',
+        zoom: 12,
+        width: '600px',
+        height: '400px',
+        apiKey: "AIzaSyD6EmAk92gaGzjYVYU-ebd_BK-rgejSoZ0",
+        language: "ja", //japanese
+        layoutData: new sap.ui.layout.GridData({
+            span: "L8 M12 S12"
+        }),
+        markers: {
+            path: "/places",
+            template: oMarkers,
+        }
+    });
+
+    var oLayout1 = new sap.ui.layout.form.ResponsiveGridLayout();
+    var oForm1 = new sap.ui.layout.form.Form({
+        title: new sap.ui.core.Title({
+            text: "Sample Map Search - language and api key set on Map Control",
+        }),
+        layout: oLayout1,
+        formContainers: [new sap.ui.layout.form.FormContainer({
+            formElements: [
+                new sap.ui.layout.form.FormElement({
+                    label: new sap.ui.commons.Label({
+                        text: "Query Address"
+                    }),
+                    fields: [new sap.ui.commons.AutoComplete('auto', {
+                            change: onChange,
+                            layoutData: new sap.ui.layout.GridData({
+                                span: "L3 M6 S12"
+                            }),
+                            suggest: onSuggest
+                        }),
+                        new sap.ui.commons.Button({
+                            text: 'My Location',
+                            press: onMyLocation,
+                            layoutData: new sap.ui.layout.GridData({
+                                span: "L1 M6 S12"
+                            })
+                        })
+                    ]
+                }),
+                new sap.ui.layout.form.FormElement({
+                    label: new sap.ui.commons.Label({
+                        text: "Longitude / Latitude",
+                    }),
+                    fields: [new sap.ui.commons.TextField({
+                            value: "{lat}",
+                            layoutData: new sap.ui.layout.GridData({
+                                span: "L2 M4 S8"
+                            }),
+                        }),
+                        new sap.ui.commons.TextField({
+                            value: "{lng}",
+                            layoutData: new sap.ui.layout.GridData({
+                                span: "L2 M4 S8"
+                            }),
+                        }),
+                    ]
+                }),
+                new sap.ui.layout.form.FormElement({
+                    fields: [oMap]
+                }),
+            ]
+        }), ]
+    });
+
+    oForm1.placeAt('content');
+    oForm1.setBindingContext(oContext);
+</script>

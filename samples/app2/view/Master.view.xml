@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<mvc:View controllerName="testapp.view.Master" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
+    <Page title="{i18n>FirstPageTitle}">
+        <List id="places" items="{/beaches}" mode="SingleSelectMaster" select="handleListSelect">
+            <StandardListItem title="{name}" icon="./images/beachflag.png"/>
+        </List>
+        <footer>
+            <Bar>
+            </Bar>
+        </footer>
+    </Page>
+
+</mvc:View>
