@@ -1,4 +1,4 @@
-    sap.ui.controller("testapp.view.Root", {
+    sap.ui.controller("testapp1.view.Root", {
 
         onInit: function(oEvent) {
 

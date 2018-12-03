@@ -2,19 +2,19 @@ sap.ui.define([
     "sap/ui/core/UIComponent"
 ], function(UIComponent) {
     "use strict";
-    return UIComponent.extend("testapp.Component", {
+    return UIComponent.extend("testapp1.Component", {
         metadata: {
             manifest: "json"
         },
         init: function() {
-            sap.ui.core.UIComponent.prototype.init.apply(this, arguments);
+            UIComponent.prototype.init.apply(this, arguments);
         },
 
         createContent: function() {
             //create root view
             var oView = sap.ui.view({
                 id: "idViewRoot",
-                viewName: "testapp.view.Root",
+                viewName: "testapp1.view.Root",
                 type: "XML",
                 viewData: {
                     component: this

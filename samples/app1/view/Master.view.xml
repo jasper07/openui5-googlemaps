@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <mvc:View
-    controllerName="testapp.view.Master"
+    controllerName="testapp1.view.Master"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m">
 
